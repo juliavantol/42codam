@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/04 15:55:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/11 17:10:53 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/11 18:22:35 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 int	main(void)
 {
 
-	char s[50] = "GeeksForGeeks is for programming geeks.";
-	ft_bzero(s + 10, 3);
-	printf("My function: %s\n", s);
+	const char src[50] = "Hello this is a sentence";
+   	char dest[50];
+	memcpy(dest, src, strlen(src)+1);
+	printf("memcpy: %s\n", dest);
 
-	char ss[50] = "GeeksForGeeks is for programming geeks.";
-	bzero(ss + 10, 3);
-	printf("Actual function: %s\n", ss);
+	const char src2[50] = "Hello this is a sentence";
+   	char dest2[50];
+	ft_memcpy(dest2, src2, strlen(src2)+1);
+	printf("ft_memcpy: %s\n", dest2);
 	// unsigned char c = '$';
 	// printf("Real function: %c\n", tolower(c));
 	// printf("My function: %c\n", ft_tolower(c))
 	
-
-
 }
