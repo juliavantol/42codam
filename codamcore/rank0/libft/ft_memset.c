@@ -6,28 +6,36 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/05 14:39:25 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/05 14:48:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/11 16:55:03 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <stdio.h>
+#include <string.h>
 
-void	*memset(void *s, int c, size_t n)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	// *s = memory area/string
-	// constant byte
-	// n = first n bytes of memory
-	// fill first n bytes of memory pointed to by *s with constant byte c
-	int	index;
-	void	*new;
-
-	new = s;
+	unsigned char	*new;
+	size_t	index;
 
 	index = 0;
+	new = s;
 	while (index < n)
 	{
-		// s[index] = c;
+		new[index] = c;
 		index++;
 	}
-	return (0);
+	return (new);
+}
+
+int main()
+{
+	char str[50] = "GeeksForGeeks is for programming geeks.";
+    printf("Before: %s\n", str);
+  
+    // Fill 8 characters starting from str[13] with '.'
+    ft_memset(str, '.', 8*sizeof(char));
+  
+    printf("After: %s\n", str);
+  
 }

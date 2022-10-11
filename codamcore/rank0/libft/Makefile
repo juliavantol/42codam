@@ -1,7 +1,8 @@
-CC=gcc
+CFLAGS = -Wall -Wextra -Werror
+SRC = $(wildcard *.c)
 
-hellomake: main.o ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o ft_strlen.o ft_toupper.o ft_tolower.o ft_memset.o
-	$(CC) -o run *.o
+run: $(SRC)
+	gcc -o $@ $^ $(CFLAGS)
 
 clean:
-	rm *.o
+	rm -f *.o
