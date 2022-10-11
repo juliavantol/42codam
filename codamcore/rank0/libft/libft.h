@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/04 14:31:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/05 14:39:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/11 17:03:43 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int ft_isprint(int c);
 size_t ft_strlen(const char *s);
 int	ft_toupper(int c);
 int	ft_tolower(int c);
-void	*memset(void *s, int c, size_t n);
+void	*ft_memset(void *s, int c, size_t n);
+void    ft_bzero(void *s, size_t n);
 
 #endif /* FOO_DOT_H */

@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_memset.c                                        :+:    :+:            */
+/*   ft_bzero.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
+/*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/05 14:39:25 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/11 17:05:13 by Julia         ########   odam.nl         */
+/*   Created: 2022/10/11 17:02:18 by Julia         #+#    #+#                 */
+/*   Updated: 2022/10/11 17:09:51 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <strings.h>
 #include <stdio.h>
-#include <string.h>
 
-void	*ft_memset(void *s, int c, size_t n)
+void    ft_bzero(void *s, size_t n)
 {
-	unsigned char	*new;
-	size_t	index;
+    unsigned char   *p;
+    size_t  index;
 
-	index = 0;
-	new = s;
-	while (index < n)
-	{
-		new[index] = c;
-		index++;
-	}
-	return (new);
+    p = s;
+    index = 0;
+    while (index < n)
+    {
+        p[index] = '\0';
+        index++;
+    }
 }

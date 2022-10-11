@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/04 15:55:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/11 14:50:01 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/11 17:10:53 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,20 @@
 #include "libft.h"
 #include <string.h>
 
-// int	main(void)
-// {
+int	main(void)
+{
 
-// 	const char *s = "hello there";
+	char s[50] = "GeeksForGeeks is for programming geeks.";
+	ft_bzero(s + 10, 3);
+	printf("My function: %s\n", s);
 
-// 	// unsigned char c = '$';
-// 	// printf("Real function: %c\n", tolower(c));
-// 	// printf("My function: %c\n", ft_tolower(c));
-
-// 	// printf("My function: %c\n", ft_memset(s, 'a', 3));
-
-// 	int n = 10;
-//     int arr[n];
-  
-//     // Fill whole array with 100.
-//     memset(arr, 10, n*sizeof(arr[0]));
-//     printf("Array after memset()\n");
-//     printArray(arr, n);
-  
-//     return 0;
+	char ss[50] = "GeeksForGeeks is for programming geeks.";
+	bzero(ss + 10, 3);
+	printf("Actual function: %s\n", ss);
+	// unsigned char c = '$';
+	// printf("Real function: %c\n", tolower(c));
+	// printf("My function: %c\n", ft_tolower(c))
+	
 
 
-// }
+}
