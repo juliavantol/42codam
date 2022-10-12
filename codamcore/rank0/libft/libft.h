@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/04 14:31:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/11 17:19:27 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/11 18:51:51 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	ft_tolower(int c);
 void	*ft_memset(void *s, int c, size_t n);
 void    ft_bzero(void *s, size_t n);
 void    *ft_memcpy(void *dest, const void * src, size_t n);
+void    *ft_memmove(void *dest, const void *src, size_t n);
 
 #endif /* FOO_DOT_H */
