@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 10:21:36 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/13 10:30:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/13 18:51:58 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 char	*ft_strrchr(const char *s, int c)
 {
 	char	*copy_string;
-	int		index;
 	int		str_len;
 
 	copy_string = (char *) s;
-	index = 0;
 	str_len = 0;
 	while (s[str_len] != '\0')
 		str_len++;
