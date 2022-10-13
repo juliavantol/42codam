@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_bzero.c                                         :+:    :+:            */
+/*   ft_strlcpy.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/11 17:02:18 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:28 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 08:52:20 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/13 09:48:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
 #include <stdio.h>
+#include <string.h>
 
-void	ft_bzero(void *s, size_t n)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	unsigned char	*p;
-	size_t			index;
+	size_t	index;
 
-	p = s;
 	index = 0;
-	while (index < n)
+	while (src[index] != '\0' && index < (size - 1))
 	{
-		p[index] = '\0';
+		dest[index] = src[index];
 		index++;
 	}
+	dest[index] = '\0';
+	return (index);
 }

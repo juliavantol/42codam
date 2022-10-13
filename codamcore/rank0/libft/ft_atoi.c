@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_bzero.c                                         :+:    :+:            */
+/*   ft_atoi.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/11 17:02:18 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:28 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 13:03:01 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/13 13:31:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
 #include <stdio.h>
+#include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+int	ft_atoi(const char *str)
 {
-	unsigned char	*p;
-	size_t			index;
+	int	index;
+	int	multiplier;
+	int	sum;
 
-	p = s;
+	multiplier = 1;
 	index = 0;
-	while (index < n)
-	{
-		p[index] = '\0';
+	sum = 0;
+	while (ft_isdigit(str[index]))
 		index++;
+	index--;
+	while (index > -1)
+	{
+		sum += (str[index] - 48) * multiplier;
+		multiplier *= 10;
+		index--;
 	}
+	return (sum);
 }

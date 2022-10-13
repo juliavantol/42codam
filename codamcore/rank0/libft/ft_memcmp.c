@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_bzero.c                                         :+:    :+:            */
+/*   ft_memcmp.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/11 17:02:18 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:28 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 11:41:59 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/13 12:08:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
 #include <stdio.h>
 
-void	ft_bzero(void *s, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned char	*p;
+	unsigned char	*a;
+	unsigned char	*b;
 	size_t			index;
+	int				sum;
 
-	p = s;
+	a = (unsigned char *) s1;
+	b = (unsigned char *) s2;
 	index = 0;
+	sum = 0;
 	while (index < n)
 	{
-		p[index] = '\0';
+		if (a[index] != b[index])
+		{
+			sum = a[index] - b[index];
+			return (sum);
+		}
 		index++;
 	}
+	return (sum);
 }

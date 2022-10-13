@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_bzero.c                                         :+:    :+:            */
+/*   ft_strrchr.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/11 17:02:18 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:28 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 10:21:36 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/13 10:30:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
 #include <stdio.h>
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strrchr(const char *s, int c)
 {
-	unsigned char	*p;
-	size_t			index;
+	char	*copy_string;
+	int		index;
+	int		str_len;
 
-	p = s;
+	copy_string = (char *) s;
 	index = 0;
-	while (index < n)
+	str_len = 0;
+	while (s[str_len] != '\0')
+		str_len++;
+
+	while (str_len > 0)
 	{
-		p[index] = '\0';
-		index++;
+		if (s[str_len] == c)
+			return (&copy_string[str_len]);
+		str_len--;
 	}
+	return (NULL);
 }

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_bzero.c                                         :+:    :+:            */
+/*   ft_strlcat.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/11 17:02:18 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:28 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 09:26:15 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/13 09:49:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
 #include <stdio.h>
+#include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	unsigned char	*p;
-	size_t			index;
+	size_t	index;
+	size_t	dest_len;
 
-	p = s;
+	dest_len = ft_strlen(dest);
 	index = 0;
-	while (index < n)
+	while (src[index] != '\0' && index < size)
 	{
-		p[index] = '\0';
+		dest[dest_len] = src[index];
+		dest_len++;
 		index++;
 	}
+	return (dest_len);
 }

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_bzero.c                                         :+:    :+:            */
+/*   ft_memchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/11 17:02:18 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:28 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 11:27:31 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/13 11:40:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
 #include <stdio.h>
 
-void	ft_bzero(void *s, size_t n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	*p;
+	unsigned char	*str;
 	size_t			index;
 
-	p = s;
+	str = (unsigned char *) s;
 	index = 0;
 	while (index < n)
 	{
-		p[index] = '\0';
+		if (str[index] == c)
+			return (&str[index]);
 		index++;
 	}
+	return (NULL);
 }
