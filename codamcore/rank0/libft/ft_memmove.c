@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 18:50:58 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/14 13:25:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/14 16:33:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,29 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char	*csrc;
-	char	*cdest;
-	char	*temp[100];
-	size_t	index;
+	unsigned char	*csrc;
+	unsigned char	*cdest;
+	size_t			index;
 
-	csrc = (char *) src;
-	cdest = (char *) dest;
+	csrc = (unsigned char *) src;
+	cdest = (unsigned char *) dest;
 	index = 0;
-	while (index < n)
+	if (cdest < csrc)
 	{
-		temp[index] = &csrc[index];
-		index++;
+		while (index < n)
+		{
+			cdest[index] = csrc[index];
+			index++;
+		}
 	}
-	index = 0;
-	while (index < n)
+	else
 	{
-		cdest[index] = *temp[index];
-		index++;
+		index = n - 1;
+		while ((int)index >= 0)
+		{
+			cdest[index] = csrc[index];
+			index--;
+		}
 	}
-	return (cdest);
+	return ((void *)cdest);
 }

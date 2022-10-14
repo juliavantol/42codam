@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 08:52:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/13 09:48:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/14 17:09:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,24 @@
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	index;
+	size_t	s_len;
 
 	index = 0;
-	while (src[index] != '\0' && index < (size - 1))
+	s_len = 0;
+	while (src[index] != '\0')
 	{
-		dest[index] = src[index];
+		s_len++;
 		index++;
 	}
-	dest[index] = '\0';
-	return (index);
+	index = 0;
+	if (size != '\0')
+	{
+		while (src[index] != '\0' && index < (size - 1))
+		{
+			dest[index] = src[index];
+			index++;
+		}
+		dest[index] = '\0';
+	}
+	return (s_len);
 }

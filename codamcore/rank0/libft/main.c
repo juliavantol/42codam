@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/14 13:35:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/14 17:55:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 int	main(void)
 {
-	return (0);
+	char dst[100] = "1234";	
+	char src[100] = "ABCDEFG";
+	strlcat(dst, src, 10);
+	printf("%s\n", dst);
 }
+
