@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 18:50:58 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/13 08:51:08 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/14 13:25:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	index = 0;
 	while (index < n)
 	{
-        temp[index] = &csrc[index];
-        index++;
+		temp[index] = &csrc[index];
+		index++;
 	}
 	index = 0;
 	while (index < n)

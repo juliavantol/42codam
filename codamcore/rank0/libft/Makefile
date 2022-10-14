@@ -1,8 +1,18 @@
+NAME = libft.a
 CFLAGS = -Wall -Wextra -Werror
-SRC = $(wildcard *.c)
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
+CC = gcc
 
-run: $(SRC)
-	gcc -o $@ $^ $(CFLAGS)
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean $(NAME)
