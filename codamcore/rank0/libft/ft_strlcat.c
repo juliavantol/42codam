@@ -6,21 +6,33 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 09:26:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/15 18:38:55 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/16 19:18:22 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size )
+size_t	ft_strlcat(char * restrict dst, const char * restrict src, size_t size )
 {
 	int		dst_len;
 	int		t_len;
 	int		index;
 	int		total_to_append;
+	int		check;
+	int 	found;
 
+	check = size - 1;
 	dst_len = ft_strlen(dst);
-	if (size > 0)
+	index = 0;
+	found = 0;
+	while (index <= check)
+	{
+		if (dst[index] == '\0')
+			found = 1;
+		index++;
+	}
+
+	if (size > 0 && found == 1)
 	{
 		t_len = ft_strlen(src) + dst_len;
 		total_to_append = size - dst_len;
@@ -34,10 +46,9 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size )
 				index++;
 			}
 		}
+		dst[dst_len] = '\0';
 	}
 	else
-		t_len = ft_strlen(src);
-
-	dst[dst_len] = '\0';
+		t_len = ft_strlen(src) + size;
 	return (t_len);
 }
