@@ -6,49 +6,43 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 09:26:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/16 19:18:22 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/16 20:22:53 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char * restrict dst, const char * restrict src, size_t size )
+/* lala */
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size )
 {
-	int		dst_len;
-	int		t_len;
-	int		index;
-	int		total_to_append;
-	int		check;
-	int 	found;
+	int	dst_len;
+	int	t_len;
+	int	index;
+	int	total_to_append;
+	int	null_found;
 
-	check = size - 1;
-	dst_len = ft_strlen(dst);
+	null_found = 0;
 	index = 0;
-	found = 0;
-	while (index <= check)
+	while (index <= ((int)size - 1))
 	{
-		if (dst[index] == '\0')
-			found = 1;
-		index++;
+		if (dst[index++] == '\0')
+			null_found = 1;
 	}
-
-	if (size > 0 && found == 1)
+	if (size > 0 && null_found == 1)
 	{
+		dst_len = ft_strlen(dst);
 		t_len = ft_strlen(src) + dst_len;
 		total_to_append = size - dst_len;
 		index = 0;
-		if (total_to_append > 0)
+		if ((size - dst_len) > 0)
 		{
 			while (index < (total_to_append - 1))
-			{
-				dst[dst_len] = src[index];
-				dst_len++;
-				index++;
-			}
+				dst[dst_len++] = src[index++];
 		}
 		dst[dst_len] = '\0';
+		return (t_len);
 	}
 	else
-		t_len = ft_strlen(src) + size;
-	return (t_len);
+		return (ft_strlen(src) + size);
 }
