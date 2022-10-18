@@ -6,13 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 09:26:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/16 20:22:53 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/17 11:42:19 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* lala */
+/* This function concatenates dst and src into dst */
+/* It returns the length of the string it tried to create */
+/* Dst will be not me modified if dst is already fully occupied */
+/* meaning that that there's a null character in the first size-1 bytes */
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size )
 {
@@ -20,16 +23,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size )
 	int	t_len;
 	int	index;
 	int	total_to_append;
-	int	null_found;
 
-	null_found = 0;
-	index = 0;
-	while (index <= ((int)size - 1))
-	{
-		if (dst[index++] == '\0')
-			null_found = 1;
-	}
-	if (size > 0 && null_found == 1)
+	if (dst[ft_strlen(dst)] == '\0' && ft_strlen(dst) <= (size - 1) && size > 0)
 	{
 		dst_len = ft_strlen(dst);
 		t_len = ft_strlen(src) + dst_len;
