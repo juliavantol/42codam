@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 09:26:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/17 11:42:19 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/19 15:52:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size )
 {
-	int	dst_len;
-	int	t_len;
-	int	index;
-	int	total_to_append;
+	size_t	dst_len;
+	size_t	t_len;
+	size_t	index;
+	size_t	total_to_append;
 
+	if (size <= ft_strlen(dst))
+		return (ft_strlen(src) + size);
 	if (dst[ft_strlen(dst)] == '\0' && ft_strlen(dst) <= (size - 1) && size > 0)
 	{
 		dst_len = ft_strlen(dst);

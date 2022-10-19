@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 18:50:58 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/14 16:33:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/19 14:27:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	unsigned char	*cdest;
 	size_t			index;
 
+	if (!dest && !src)
+		return (NULL);
 	csrc = (unsigned char *) src;
 	cdest = (unsigned char *) dest;
 	index = 0;
