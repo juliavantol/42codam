@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 07:59:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/19 12:46:31 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/20 18:51:34 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*new_str;
 	size_t	last;
 	size_t	first;
-	size_t	len;
 
 	if (check_empty(s1))
 		return (ft_strdup(""));
@@ -37,7 +36,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	first = find_first(s1, set);
 	last = find_last(s1, set);
-	len = (ft_strlen(s1) - ((ft_strlen(s1) - last)) - 1);
 	new_str = ft_substr(s1, first, last - first + 1);
 	return (new_str);
 }
