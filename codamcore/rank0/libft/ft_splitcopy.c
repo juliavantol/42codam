@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_split.c                                         :+:    :+:            */
+/*   ft_splitcopy.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/20 14:49:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/20 14:46:11 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 NULL if the allocation fails. */
 /* Allocates (with malloc(3)) and returns an array of strings 
 obtained by splitting ’s’ using the character ’c’ as a delimiter. 
-The array must last with a NULL pointer.*/
+The array must end with a NULL pointer.*/
 
 void	fill_arr(char	**split, char	*word, size_t count);
-size_t	last(char const *s, size_t i, char c);
+size_t	get_word(char const *s, size_t i, char c);
 size_t	count_words(char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
-	char	*word;
+	char	*temp_word;
 	size_t	i;
 	size_t	count;
 
@@ -37,15 +37,15 @@ char	**ft_split(char const *s, char c)
 	count = 0;
 	while (i < ft_strlen(s))
 	{
-		if (last(s, i, c) == 0)
+		if (get_word(s, i, c) == 0)
 			i++;
 		else
 		{
-			word = ft_substr(s, i, (last(s, i, c) - i));
-			split[count] = malloc((strlen(word) + 1) * sizeof(char *));
-			fill_arr(split, word, count);
+			temp_word = ft_substr(s, i, (get_word(s, i, c) - i));
+			split[count] = malloc((get_word(s, i, c) - i + 1) * sizeof(char *));
+			fill_arr(split, temp_word, count);
 			count++;
-			i = last(s, i, c) ;
+			i = get_word(s, i, c) ;
 		}
 	}
 	split[count] = 0;
@@ -65,7 +65,7 @@ void	fill_arr(char	**split, char	*word, size_t count)
 	split[count][j] = '\0';
 }
 
-size_t	last(char const *s, size_t i, char c)
+size_t	get_word(char const *s, size_t i, char c)
 {
 	if (s[i] == c)
 		return (0);
@@ -83,13 +83,23 @@ size_t	count_words(char const *s, char c)
 	count = 0;
 	while (i < ft_strlen(s))
 	{
-		if (last(s, i, c) == 0)
+		if (get_word(s, i, c) == 0)
 			i++;
 		else
 		{
-			i = last(s, i, c);
+			i = get_word(s, i, c);
 			count++;
 		}
 	}
 	return (count);
 }
+
+// void	empty_arr(char const *s)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	j = 0;
+// 	while
+// }

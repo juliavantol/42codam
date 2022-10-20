@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/19 16:57:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/20 13:19:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@ void	ft_print_result(char const *s)
 int	main(void)
 {
 	char	**tabstr;
-	int		i;
+	size_t i = 0;
 
-	i = 0;
+	tabstr = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse", ' ');
 
-	tabstr = ft_split("lorem ipsum dolor sit amet, consectetur", ' ');
+	while (tabstr[i])
+	{
+		printf("%s\n", tabstr[i]);
+		i++;
+	}
 }
