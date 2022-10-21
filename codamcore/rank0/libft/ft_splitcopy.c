@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/20 14:46:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/21 08:55:48 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@
 NULL if the allocation fails. */
 /* Allocates (with malloc(3)) and returns an array of strings 
 obtained by splitting ’s’ using the character ’c’ as a delimiter. 
-The array must end with a NULL pointer.*/
+The array must get_word with a NULL pointer.*/
 
-void	fill_arr(char	**split, char	*word, size_t count);
-size_t	get_word(char const *s, size_t i, char c);
+char	**fill_arr(char	**split, char	*word, size_t count);
+char	*get_word(char const *s, size_t i, char c);
 size_t	count_words(char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
-	char	*temp_word;
 	size_t	i;
 	size_t	count;
 
@@ -41,37 +40,45 @@ char	**ft_split(char const *s, char c)
 			i++;
 		else
 		{
-			temp_word = ft_substr(s, i, (get_word(s, i, c) - i));
-			split[count] = malloc((get_word(s, i, c) - i + 1) * sizeof(char *));
-			fill_arr(split, temp_word, count);
+			fill_arr(split, get_word(s, i, c), count);
+			i += strlen(get_word(s, i, c));
 			count++;
-			i = get_word(s, i, c) ;
 		}
 	}
 	split[count] = 0;
 	return (split);
 }
 
-void	fill_arr(char	**split, char	*word, size_t count)
+char	**fill_arr(char	**split, char	*word, size_t count)
 {
-	int	j;
+	int	i;
 
-	j = 0;
-	while (word[j] != '\0')
+	i = 0;
+	split[count] = malloc((strlen(word) + 1) * sizeof(char *));
+	if (split[count] == NULL)
+		return (NULL);
+	while (word[i] != '\0')
 	{
-		split[count][j] = word[j];
-		j++;
+		split[count][i] = word[i];
+		i++;
 	}
-	split[count][j] = '\0';
+	split[count][i] = '\0';
+	return (split);
 }
 
-size_t	get_word(char const *s, size_t i, char c)
+char	*get_word(char const *s, size_t i, char c)
 {
+	char	*word;
+	size_t	index;
+
+	index = i;
 	if (s[i] == c)
 		return (0);
 	while (s[i] != c)
 		i++;
-	return (i);
+
+	word = ft_substr(s, index, (i - index));
+	return (word);
 }
 
 size_t	count_words(char const *s, char c)
@@ -87,19 +94,9 @@ size_t	count_words(char const *s, char c)
 			i++;
 		else
 		{
-			i = get_word(s, i, c);
+			i += strlen((get_word(s, i, c)));
 			count++;
 		}
 	}
 	return (count);
 }
-
-// void	empty_arr(char const *s)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while
-// }

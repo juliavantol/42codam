@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/21 08:49:30 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/21 09:19:19 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 NULL if the allocation fails. */
 /* Allocates (with malloc(3)) and returns an array of strings 
 obtained by splitting ’s’ using the character ’c’ as a delimiter. 
-The array must get_word with a NULL pointer.*/
+The array must end with a NULL pointer.*/
 
 char	**fill_arr(char	**split, char	*word, size_t count);
 char	*get_word(char const *s, size_t i, char c);
@@ -100,3 +100,8 @@ size_t	count_words(char const *s, char c)
 	}
 	return (count);
 }
+
+// void	free_array(char	**split_arr)
+// {
+
+// }
