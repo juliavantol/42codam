@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/13 09:26:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/19 15:52:44 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/21 18:09:46 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/21 18:09:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,19 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size )
 {
-	size_t	dst_len;
-	size_t	t_len;
-	size_t	index;
-	size_t	total_to_append;
+	size_t	dst_index;
+	size_t	src_index;
 
-	if (size <= ft_strlen(dst))
-		return (ft_strlen(src) + size);
-	if (dst[ft_strlen(dst)] == '\0' && ft_strlen(dst) <= (size - 1) && size > 0)
+	dst_index = 0;
+	src_index = 0;
+	while (dst[dst_index] != '\0' && dst_index < size)
+		dst_index++;
+	while (src[src_index] != '\0' && (dst_index + src_index + 1) < size)
 	{
-		dst_len = ft_strlen(dst);
-		t_len = ft_strlen(src) + dst_len;
-		total_to_append = size - dst_len;
-		index = 0;
-		if ((size - dst_len) > 0)
-		{
-			while (index < (total_to_append - 1))
-				dst[dst_len++] = src[index++];
-		}
-		dst[dst_len] = '\0';
-		return (t_len);
+		dst[dst_index + src_index] = src[src_index];
+		src_index++;
 	}
-	else
-		return (ft_strlen(src) + size);
+	if (dst_index < size)
+		dst[dst_index + src_index] = '\0';
+	return (ft_strlen(src) + dst_index);
 }

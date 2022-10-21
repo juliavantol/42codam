@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/21 09:19:19 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/21 13:08:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,3 +105,18 @@ size_t	count_words(char const *s, char c)
 // {
 
 // }
+
+	// char	**tabstr;
+	// size_t	i = 0;
+
+	// if (!(tabstr = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse", ' ')))
+	// 	printf("NULL\n");
+	// else
+	// {
+	// 	while (tabstr[i] != NULL)
+	// 	{
+	// 		printf("%s\n", tabstr[i]);
+	// 		i++;
+	// 	}
+	// 	printf("%s\n", tabstr[i]);
+	// }
