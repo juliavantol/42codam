@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/20 18:50:14 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/21 08:49:30 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ NULL if the allocation fails. */
 obtained by splitting ’s’ using the character ’c’ as a delimiter. 
 The array must get_word with a NULL pointer.*/
 
-void	fill_arr(char	**split, char	*word, size_t count);
+char	**fill_arr(char	**split, char	*word, size_t count);
 char	*get_word(char const *s, size_t i, char c);
 size_t	count_words(char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
-	char	*word;
 	size_t	i;
 	size_t	count;
 
@@ -41,28 +40,30 @@ char	**ft_split(char const *s, char c)
 			i++;
 		else
 		{
-			word = get_word(s, i, c);
-			split[count] = malloc((strlen(word) + 1) * sizeof(char *));
-			fill_arr(split, word, count);
+			fill_arr(split, get_word(s, i, c), count);
+			i += strlen(get_word(s, i, c));
 			count++;
-			i += strlen(word);
 		}
 	}
 	split[count] = 0;
 	return (split);
 }
 
-void	fill_arr(char	**split, char	*word, size_t count)
+char	**fill_arr(char	**split, char	*word, size_t count)
 {
 	int	i;
 
 	i = 0;
+	split[count] = malloc((strlen(word) + 1) * sizeof(char *));
+	if (split[count] == NULL)
+		return (NULL);
 	while (word[i] != '\0')
 	{
 		split[count][i] = word[i];
 		i++;
 	}
 	split[count][i] = '\0';
+	return (split);
 }
 
 char	*get_word(char const *s, size_t i, char c)
