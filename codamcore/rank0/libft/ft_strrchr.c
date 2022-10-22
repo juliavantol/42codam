@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 10:21:36 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/17 12:11:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/22 20:39:48 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strrchr(const char *s, int c)
 		str_len++;
 	while (str_len >= 0)
 	{
-		if (s[str_len] == c)
+		if (s[str_len] == (char)c)
 			return (&((char *) s)[str_len]);
 		str_len--;
 	}

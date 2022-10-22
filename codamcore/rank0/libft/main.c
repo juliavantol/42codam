@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/21 18:22:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/22 20:34:32 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main(void)
 {
-	printf("%s\n", strrchr("teste", 'e'));
-	// ft_strrchr(0x1078dc9c0: "teste", 1024: '\0')
+	printf("%s\n", strchr("teste", 1024));
+	printf("%s\n", ft_strchr("teste", 1024));
 }

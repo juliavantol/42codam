@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 09:54:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/21 18:30:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/22 20:38:51 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char	*ft_strchr(const char *str, int c)
 	size_t	index;
 
 	index = 0;
-	if (str[index] == c)
+	if (str[index] == (char)c)
 		return (&((char *) str)[index]);
 	while (index < ft_strlen(str))
 	{
-		if (str[index] == c)
+		if (str[index] == (char)c)
 			return (&((char *) str)[index]);
-		if (str[index + 1] == c)
+		if (str[index + 1] == (char)c)
 			return (&((char *) str)[index + 1]);
 		index++;
 	}
