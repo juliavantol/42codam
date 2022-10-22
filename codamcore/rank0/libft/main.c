@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/23 00:11:47 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/23 00:33:36 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(void)
 	// printf("answer: %s\n", strnstr(((void *)0), "fake", 3));
 	printf("answer: %s\n", strnstr("", "", 0));
 	printf("mine: %s\n", ft_strnstr("", "", 0));
-	// printf("mine: %s\n", ft_substr("tripouille", 0, 42000));
+	printf("mine: %s\n", ft_substr("hola", 2, 30));
 }
 
 // char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
