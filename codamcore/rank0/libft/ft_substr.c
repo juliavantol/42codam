@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 13:36:07 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/23 00:21:41 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/23 00:32:01 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	index = 0;
 	if (start >= ft_strlen(s) || ft_strlen(s) == 0)
 		return (ft_strdup(""));
-	sub = (char *)malloc((len + 1) * sizeof(char));
+	if (len > ft_strlen(s) || len < 0)
+		return (ft_strdup(s));
+	else
+		sub = (char *)malloc((len + 1) * sizeof(char));
 	if (sub == NULL)
 		return (NULL);
 	while (index < len && s[start] != '\0')
