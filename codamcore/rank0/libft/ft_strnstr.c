@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 12:08:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/22 22:59:02 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/22 23:41:47 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,27 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	index;
-	size_t	needle_len;
+	size_t	i;
+	size_t	n_len;
 	char	*sub;
 
-	index = 0;
-	// hou deze boven
+	i = 0;
+	sub = "a";
 	if ((haystack == NULL || haystack[0] == '\0') && ft_strncmp(haystack, needle, ft_strlen(needle)) != 0)
-	{
-		// printf("1\n");
 		return (NULL);
-	}
 	if (needle[0] == '\0' || ft_strlen(needle) <= 0 || ft_strlen(haystack) == 0)
-	{
-		// printf("2\n");
 		return ((char *)haystack);
-	}
-	needle_len = ft_strlen(needle);
-	while (index < ft_strlen(haystack) && index < len && (index + needle_len - 1) < len)
+	n_len = ft_strlen(needle);
+	while (i < ft_strlen(haystack) && i < len && (i + n_len - 1) < len)
 	{
-		sub = ft_substr(haystack, index, needle_len);
-		if (ft_strncmp(sub, needle, needle_len) == 0)
-			return ((char *)&haystack[index]);
-		index++;
+		sub = ft_substr(haystack, i, n_len);
+		if (ft_strncmp(sub, needle, n_len) == 0)
+		{
+			free(sub);
+			return ((char *)&haystack[i]);
+		}
+		free(sub);
+		i++;
 	}
 	return (NULL);
 }
