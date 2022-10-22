@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 12:08:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/19 14:35:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/22 22:59:02 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,27 @@
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	index;
-	size_t	temp_index;
-	int		needle_index;
-	int		needle_len;
+	size_t	needle_len;
+	char	*sub;
 
-	needle_len = ft_strlen(needle);
 	index = 0;
-	needle_index = 0;
-	if (needle[0] == '\0' || (ft_strncmp(haystack, needle, needle_len)) == 0)
-		return ((char *)&haystack[index]);
-	while (haystack[index] != '\0' && index < len)
+	// hou deze boven
+	if ((haystack == NULL || haystack[0] == '\0') && ft_strncmp(haystack, needle, ft_strlen(needle)) != 0)
 	{
-		needle_index = 0;
-		temp_index = index;
-		while (haystack[temp_index] == needle[needle_index])
-		{
-			temp_index++;
-			needle_index++;
-			if (needle_index == needle_len && (index + needle_index) < len)
-				return ((char *)&haystack[index]);
-		}
+		// printf("1\n");
+		return (NULL);
+	}
+	if (needle[0] == '\0' || ft_strlen(needle) <= 0 || ft_strlen(haystack) == 0)
+	{
+		// printf("2\n");
+		return ((char *)haystack);
+	}
+	needle_len = ft_strlen(needle);
+	while (index < ft_strlen(haystack) && index < len && (index + needle_len - 1) < len)
+	{
+		sub = ft_substr(haystack, index, needle_len);
+		if (ft_strncmp(sub, needle, needle_len) == 0)
+			return ((char *)&haystack[index]);
 		index++;
 	}
 	return (NULL);
