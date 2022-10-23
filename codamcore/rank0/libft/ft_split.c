@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/23 23:35:30 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/23 23:52:21 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**fill_arr(char	**split, char	*word, size_t count)
 	int	i;
 
 	i = 0;
-	split[count] = malloc((strlen(word) + 1) * sizeof(char *));
+	split[count] = (char *)malloc(ft_strlen(word) * sizeof(char *));
 	if (split[count] == NULL)
 		return (NULL);
 	while (word[i] != '\0')
