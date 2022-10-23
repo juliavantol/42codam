@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/21 13:08:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/23 23:35:30 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ size_t	count_words(char const *s, char c);
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
+	char	*word;
 	size_t	i;
 	size_t	count;
 
@@ -36,14 +37,16 @@ char	**ft_split(char const *s, char c)
 	count = 0;
 	while (i < ft_strlen(s))
 	{
-		if (get_word(s, i, c) == 0)
+		word = get_word(s, i, c);
+		if (word == 0)
 			i++;
 		else
 		{
-			fill_arr(split, get_word(s, i, c), count);
-			i += strlen(get_word(s, i, c));
+			fill_arr(split, word, count);
+			i += strlen(word);
 			count++;
 		}
+		free(word);
 	}
 	split[count] = 0;
 	return (split);
@@ -74,7 +77,7 @@ char	*get_word(char const *s, size_t i, char c)
 	index = i;
 	if (s[i] == c)
 		return (0);
-	while (s[i] != c)
+	while (s[i] != c && s[i])
 		i++;
 
 	word = ft_substr(s, index, (i - index));
@@ -85,18 +88,21 @@ size_t	count_words(char const *s, char c)
 {
 	size_t	count;
 	size_t	i;
+	char	*word;
 
 	i = 0;
 	count = 0;
 	while (i < ft_strlen(s))
 	{
-		if (get_word(s, i, c) == 0)
+		word = get_word(s, i, c);
+		if (word == 0)
 			i++;
 		else
 		{
-			i += strlen((get_word(s, i, c)));
+			i += strlen(word);
 			count++;
 		}
+		free(word);
 	}
 	return (count);
 }
