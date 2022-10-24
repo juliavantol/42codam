@@ -1,40 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_putchar_fd.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:30:59 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/24 14:52:00 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/24 15:00:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	main(void)
+/* Outputs the character ’c’ to the given file descriptor. */
+
+void	ft_putchar_fd(char c, int fd)
 {
-	printf("%d\n", ft_atoi("120ahdh9"));
+	write(fd, &c, 1);
 }
-
-// char	*ft_itoa(int n)
-// {
-// 	char	*str;
-// 	int		reverse;
-// 	int		multi;
-
-// 	str = "a";
-// 	if (!str)
-// 		return (NULL);
-// 	reverse = 0;
-// 	multi = 1;
-// 	while (n >= 10)
-// 	{
-// 		reverse += ((n % 10) * multi);
-// 		multi *= 10;
-// 		n = n / 10;
-// 	}
-// 	reverse += ((n % 10) * multi);
-// 	printf("%d\n", reverse);
-// 	return (str);
-// }

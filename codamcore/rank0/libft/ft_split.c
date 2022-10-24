@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/23 23:54:12 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/24 11:15:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	**ft_split(char const *s, char c)
 	size_t	count;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	split = malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (split == NULL)
 		return (NULL);
@@ -54,13 +56,13 @@ char	**ft_split(char const *s, char c)
 
 char	**fill_arr(char	**split, char	*word, size_t count)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	split[count] = (char *)malloc(ft_strlen(word) * sizeof(char *));
 	if (split[count] == NULL)
 		return (NULL);
-	while (word[i] != '\0')
+	while (i < ft_strlen(word))
 	{
 		split[count][i] = word[i];
 		i++;
@@ -107,22 +109,16 @@ size_t	count_words(char const *s, char c)
 	return (count);
 }
 
-// void	free_array(char	**split_arr)
+// int	main(void)
 // {
+// 	char	**results;
+// 	size_t	index;
 
+// 	results = ft_split("   lorem   ipsum dolor     sit amet, consectetur   adipiscing elit. Sed non risus. Suspendisse   ", ' ');
+// 	index = 0;
+// 	while (results[index] != NULL)
+// 	{
+// 		printf("%s\n", results[index]);
+// 		index++;
+// 	}
 // }
-
-	// char	**tabstr;
-	// size_t	i = 0;
-
-	// if (!(tabstr = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse", ' ')))
-	// 	printf("NULL\n");
-	// else
-	// {
-	// 	while (tabstr[i] != NULL)
-	// 	{
-	// 		printf("%s\n", tabstr[i]);
-	// 		i++;
-	// 	}
-	// 	printf("%s\n", tabstr[i]);
-	// }
