@@ -6,12 +6,14 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 18:50:58 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/19 14:27:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/25 15:08:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
+
+/* Copies n bytes from memory area src to memory area dest.*/
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
@@ -31,15 +33,13 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 			cdest[index] = csrc[index];
 			index++;
 		}
+		return ((void *)cdest);
 	}
-	else
+	index = n - 1;
+	while ((int)index >= 0)
 	{
-		index = n - 1;
-		while ((int)index >= 0)
-		{
-			cdest[index] = csrc[index];
-			index--;
-		}
+		cdest[index] = csrc[index];
+		index--;
 	}
 	return ((void *)cdest);
 }

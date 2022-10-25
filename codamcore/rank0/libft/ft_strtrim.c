@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 07:59:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/20 18:51:34 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/25 14:55:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 int		find_first(char const *s1, char const *set);
 int		find_last(char const *s1, char const *set);
 char	*make_str(char const *s1, size_t len, size_t start, size_t end);
-int	check_empty(char const *s);
+int		check_empty(char const *s);
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
@@ -33,7 +33,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(""));
 	if (ft_strlen(s1) == 0 || !(s1))
 		return (ft_strdup(""));
-
 	first = find_first(s1, set);
 	last = find_last(s1, set);
 	new_str = ft_substr(s1, first, last - first + 1);

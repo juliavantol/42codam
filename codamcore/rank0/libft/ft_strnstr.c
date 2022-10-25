@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 12:08:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/22 23:41:47 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/25 14:54:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 
 	i = 0;
 	sub = "a";
-	if ((haystack == NULL || haystack[0] == '\0') && ft_strncmp(haystack, needle, ft_strlen(needle)) != 0)
+	if ((haystack == NULL || haystack[0] == '\0')
+		&& ft_strncmp(haystack, needle, ft_strlen(needle)) != 0)
 		return (NULL);
 	if (needle[0] == '\0' || ft_strlen(needle) <= 0 || ft_strlen(haystack) == 0)
 		return ((char *)haystack);

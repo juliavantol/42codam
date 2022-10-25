@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 11:15:13 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/24 14:18:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/25 14:59:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_itoa(int n)
 		if (!str)
 			return (NULL);
 		min = "-2147483648\0";
-		strlcpy(str, min, 12);
+		ft_strlcpy(str, min, 12);
 		return (str);
 	}
 	else if (n == 0)
@@ -41,9 +41,7 @@ char	*ft_itoa(int n)
 		str = (char *)malloc((digits + 1));
 	if (!str)
 		return (NULL);
-
-	str = fill_str(digits, str, n, index);
-	return (str);
+	return (str = fill_str(digits, str, n, index));
 }
 
 int	count_digits(int n)
