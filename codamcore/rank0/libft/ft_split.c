@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:22:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:40:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,32 @@ NULL if the allocation fails. */
 obtained by splitting ’s’ using the character ’c’ as a delimiter. 
 The array must end with a NULL pointer.*/
 
-char	*s_word(char const *s, unsigned int start, size_t len);
+char	**fill_array(char const *s, char	**split, size_t count, char c);
+char	*word(char const *s, unsigned int start, size_t len);
 void	*free_array(char	**split, size_t count);
 size_t	count_words(char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
-	size_t	i;
-	size_t	count;
-	size_t	found;
-	char 	*w;
 
-	i = 0;
 	if (!s)
 		return (NULL);
 	split = malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (split == NULL)
 		return (NULL);
-	count = 0;
+	split = fill_array(s, split, 0, c);
+	return (split);
+}
+
+char	**fill_array(char const *s, char	**split, size_t count, char c)
+{
+	size_t	found;
+	size_t	i;
+	char	*w;
+
 	found = 0;
+	i = 0;
 	while (i < ft_strlen(s))
 	{
 		while (s[found] != c && s[found])
@@ -47,15 +53,11 @@ char	**ft_split(char const *s, char c)
 			i++;
 		else
 		{
-			w = s_word(s, i, found - i);
+			w = word(s, i, found - i);
 			if (w == NULL)
-			{
-				free_array(split, count);
-				return (NULL);
-			}
-			split[count] = w;
+				return (free_array(split, count));
+			split[count++] = w;
 			i = found;
-			count++;
 		}
 		found = i;
 	}
@@ -63,19 +65,19 @@ char	**ft_split(char const *s, char c)
 	return (split);
 }
 
-char	*s_word(char const *s, unsigned int start, size_t len)
+char	*word(char const *s, unsigned int start, size_t len)
 {
 	size_t	index;
-	char	*sub;
+	char	*word;
 
 	index = 0;
-	sub = (char *)malloc((len + 1) * sizeof(char));
-	if (sub == NULL)
+	word = (char *)malloc((len + 1) * sizeof(char));
+	if (word == NULL)
 		return (NULL);
 	while (index < len && s[start] != '\0')
-		sub[index++] = s[start++];
-	sub[index] = '\0';
-	return (sub);
+		word[index++] = s[start++];
+	word[index] = '\0';
+	return (word);
 }
 
 size_t	count_words(char const *s, char c)
