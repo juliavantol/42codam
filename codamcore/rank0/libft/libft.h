@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/04 14:31:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/24 15:09:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/26 10:29:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+int		test(void *content);
 
 #endif /* FOO_DOT_H */

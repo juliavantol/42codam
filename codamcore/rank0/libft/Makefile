@@ -23,3 +23,6 @@ re: fclean $(NAME)
 
 run: main.c all
 	@$(CC) $(CFLAGS) -o run main.c libft.a && ./run
+
+.PHONY:
+	all clean fclean bonus

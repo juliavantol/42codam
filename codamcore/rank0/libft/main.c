@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/25 15:24:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:24:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@
 void	test_split(void)
 {
 	char	**split;
-	split = ft_split("lorem ipsum   dolor sit amet,  consectetur adipiscing elit. Sed non risus. Suspendisse", ' ');
-	
-	// int		index;
-	// index = 0;
-	// while (split[index] != 0)
-	// {
-	// 	printf("%s\n", split[index]);
-	// 	index++;
-	// }
+
+	split = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse", ' ');
+	int		index;
+	index = 0;
+	while (split[index] != 0)
+	{
+		printf("%s\n", split[index]);
+		index++;
+	}
 }
 
 // void test_itoa(void)
@@ -43,20 +43,3 @@ int	main(void)
 {
 	test_split();
 }
-
-// size_t	count_words(char const *s, char c)
-// {
-//     size_t count     = 0;
-//     char* tmp        = (char *)s;
-// 	char* last_comma = 0;
-// 	while (*tmp)
-//     {
-//         if (c == *tmp)
-//         {
-//             count++;
-//             last_comma = tmp;
-//         }
-//         tmp++;
-//     }
-// 	return (count);
-// }
