@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstadd_front.c                                  :+:    :+:            */
+/*   ft_lstsize.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/26 13:04:58 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/27 12:03:18 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/27 12:10:32 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/27 12:26:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* Adds the node ’new’ at the beginning of the list. */
-/* lst: The address of a pointer to the first link of a list. */
-/* new: The address of a pointer to the node to be added to the list. */
+/* Counts the number of nodes in a list. */
+/* Returns the count. lst: The beginning of the list. */
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+int	ft_lstsize(t_list *lst)
 {
-	new -> next = *lst;
-	*lst = new;
+	t_list	*temp;
+	int		count;
+
+	temp = lst;
+	count = 0;
+	while (temp != NULL)
+	{
+		temp = temp -> next;
+		count++;
+	}
+	return (count);
 }

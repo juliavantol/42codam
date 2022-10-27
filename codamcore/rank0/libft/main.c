@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/26 13:35:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/27 13:02:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,60 @@
 // 	ft_lstnew("hallo?");
 // }
 
-void	test_lstadd_front(void)
-{
-	t_list	*begin;
-	t_list	*elem;
-	t_list	*elem2;
-	char	*str = strdup("lorem");
-	char	*str2 = strdup("ipsum");
+// void	test_lstadd_front(void)
+// {
+// 	//
+// }
 
-	begin = NULL;
-	elem = malloc(sizeof(t_list));
-	elem2 = malloc(sizeof(t_list));
-	elem -> content = str;
-	elem2 -> content = str2;
-	ft_lstadd_front(&begin, elem);
-	ft_lstadd_front(&begin, elem2);
+// void	test_lsize(void)
+// {
+// 	t_list	*l;
+
+// 	l = ft_lstnew(ft_strdup("1"));
+// 	l->next = ft_lstnew(ft_strdup("2"));
+// 	l->next->next = ft_lstnew(ft_strdup("3"));
+// 	printf("%d\n", ft_lstsize(l));
+
+// }
+
+// void	test_llast(void)
+// {
+// 	t_list	*l;
+// 	t_list *expected;
+// 	t_list *actual;
+
+// 	l = ft_lstnew(ft_strdup("1"));
+// 	l->next = ft_lstnew(ft_strdup("2"));
+// 	l->next->next = ft_lstnew(ft_strdup("3"));
+// 	expected = l->next->next;
+//     actual = ft_lstlast(l);
+// 	if (actual == expected)
+// 		printf("Correct!\n");
+// 	else
+// 		printf("Incorrect\n");
+// }
+
+void	test_lstback(void)
+{
+	t_list	*l;
+	t_list	*new;
+	// t_list	*expected;
+	// t_list	*actual;
+
+	l = ft_lstnew(ft_strdup("1"));
+	l->next = ft_lstnew(ft_strdup("2"));
+	l->next->next = ft_lstnew(ft_strdup("3"));
+	new = ft_lstnew(ft_strdup("4"));
+	new -> next = ft_lstnew(ft_strdup("5"));
+	// expected = l->next->next;
+    ft_lstadd_back(&l, new);
+// 	if (actual == expected)
+// 		printf("Correct!\n");
+// 	else
+// 		printf("Incorrect\n");
 }
 
 int	main(void)
 {
-	test_lstadd_front();
+	test_lstback();
 }
