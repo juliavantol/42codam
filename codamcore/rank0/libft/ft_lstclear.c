@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstadd_back.c                                   :+:    :+:            */
+/*   ft_lstclear.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/27 12:50:03 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/28 11:24:22 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/28 11:49:14 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/28 12:06:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* Adds the node ’new’ at the end of the list. */
+/* Deletes and frees the given node and every successor of that node, 
+using the function ’del’ and free(3). Finally, the pointer to the list 
+must be set to NULL. */
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	t_list	*last;
+	t_list	*temp;
+	t_list	*next;
 
-	if (*lst != 0 && new != NULL)
+	if (*lst != 0 && del != 0)
 	{
-		last = ft_lstlast(*lst);
-		last -> next = new;
+		temp = *lst;
+		while (temp)
+		{
+			next = temp -> next;
+			ft_lstdelone(temp, del);
+			temp = next;
+		}
+		*lst = 0;
 	}
-	else
-		*lst = new;
 }

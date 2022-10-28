@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/27 13:02:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/28 13:45:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,27 +84,103 @@
 // 		printf("Incorrect\n");
 // }
 
-void	test_lstback(void)
+void	ft_print_result(t_list *elem)
+{
+	int		len;
+
+	len = 0;
+	while (((char *)elem->content)[len])
+		len++;
+	write(1, elem->content, len);
+	write(1, "\n", 1);
+}
+
+// void	test_lstback(void)
+// {
+// 	t_list	*begin;
+// 	t_list	*new;
+
+// 	begin = ft_lstnew(ft_strdup("1"));
+// 	begin->next = ft_lstnew(ft_strdup("2"));
+// 	begin->next->next = ft_lstnew(ft_strdup("3"));
+// 	new = ft_lstnew(ft_strdup("4"));
+// 	ft_lstadd_back(&begin, new);
+// 	while (begin)
+// 	{
+// 		ft_print_result(begin);
+// 		begin = begin->next;
+// 	}
+// }
+
+// void	test_lstdelone(void)
+// {
+// 	t_list	*l;
+
+// 	l = ft_lstnew(ft_strdup("1"));
+// 	l->next = ft_lstnew(ft_strdup("2"));
+// 	ft_lstdelone(l, &free);
+// }
+
+// void	test_lstclear(void)
+// {
+// 	t_list	*l;
+
+// 	l = ft_lstnew(ft_strdup("1"));
+// 	l->next = ft_lstnew(ft_strdup("2"));
+// 	l->next->next = ft_lstnew(ft_strdup("3"));
+// 	ft_lstclear(&l, &free);
+// }
+
+void	ft_modify_list_with_d(void *elem)
+{
+	int		len;
+	char	*content;
+
+	len = 0;
+	content = (char *)elem;
+	while (content[len])
+	{
+		content[len++] = 'd';
+	}
+}
+
+void	*ft_map(void *ct)
+{
+	int		i;
+	void	*c;
+	char	*pouet;
+
+	c = ct;
+	i = -1;
+	pouet = (char *)c;
+	while (pouet[++i])
+		if (pouet[i] == 'o')
+			pouet[i] = 'a';
+	return (c);
+}
+// void	test_lstiter(void)
+// {
+// 	t_list	*l;
+
+// 	l = ft_lstnew(ft_strdup("1"));
+// 	l->next = ft_lstnew(ft_strdup("2"));
+// 	l->next->next = ft_lstnew(ft_strdup("3"));
+// 	ft_lstiter(l, &ft_modify_list_with_d);
+// }
+
+void	test_lstmap(void)
 {
 	t_list	*l;
-	t_list	*new;
-	// t_list	*expected;
-	// t_list	*actual;
+	t_list	*list;
 
-	l = ft_lstnew(ft_strdup("1"));
-	l->next = ft_lstnew(ft_strdup("2"));
-	l->next->next = ft_lstnew(ft_strdup("3"));
-	new = ft_lstnew(ft_strdup("4"));
-	new -> next = ft_lstnew(ft_strdup("5"));
-	// expected = l->next->next;
-    ft_lstadd_back(&l, new);
-// 	if (actual == expected)
-// 		printf("Correct!\n");
-// 	else
-// 		printf("Incorrect\n");
+	l = ft_lstnew(ft_strdup("lorem"));
+	l->next = ft_lstnew(ft_strdup("ipsum"));
+	l->next->next = ft_lstnew(ft_strdup("dolor"));
+	list = ft_lstmap(l, &ft_map, &free);
+	ft_print_result(list);
 }
 
 int	main(void)
 {
-	test_lstback();
+	test_lstmap();
 }
