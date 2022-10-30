@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 12:39:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/30 21:45:02 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/30 22:19:43 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*new;
 	t_list	*output;
 
-	if (lst == NULL || f == NULL || del == NULL)
+	if (!lst || !f || !del)
 		return (NULL);
+
 	output = 0;
 	while (lst)
 	{
@@ -31,7 +32,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		new = ft_lstnew(new);
 		if (new == NULL)
 		{
-			del(new -> content);
+			del(output -> content);
+			ft_lstclear(&output, del);
 			return (NULL);
 		}
 		ft_lstadd_back(&output, new);
