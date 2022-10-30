@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 12:39:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/30 21:34:57 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/30 21:45:02 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		new = ft_lstnew(new);
 		if (new == NULL)
 		{
-			ft_lstclear(new -> content, del);
+			del(new -> content);
 			return (NULL);
 		}
 		ft_lstadd_back(&output, new);
