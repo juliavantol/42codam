@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 12:28:03 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/27 12:47:19 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/30 21:08:08 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ t_list	*ft_lstlast(t_list *lst)
 	if (lst != NULL)
 	{
 		while (temp -> next != NULL)
-		{
 			temp = temp -> next;
-		}
 	}
 	return (temp);
 }
