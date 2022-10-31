@@ -6,34 +6,32 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 11:15:13 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/25 14:59:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 13:15:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*fill_str(int digits, char *str, int n, int index);
-int		count_digits(int n);
+/* Converts int into a string */
+
+static char	*fill_str(int digits, char *str, int n, int index);
+static int	count_digits(int n);
 
 char	*ft_itoa(int n)
 {
 	char	*str;
-	char	*min;
 	int		digits;
-	int		index;
 
-	index = 0;
-	digits = count_digits(n);
 	if (n == (int)-2147483648)
 	{
 		str = (char *)malloc(12);
 		if (!str)
 			return (NULL);
-		min = "-2147483648\0";
-		ft_strlcpy(str, min, 12);
+		ft_strlcpy(str, "-2147483648\0", 12);
 		return (str);
 	}
-	else if (n == 0)
+	digits = count_digits(n);
+	if (n == 0)
 		str = malloc(2);
 	else if (n < 0)
 		str = (char *)malloc((digits + 2));
@@ -41,7 +39,7 @@ char	*ft_itoa(int n)
 		str = (char *)malloc((digits + 1));
 	if (!str)
 		return (NULL);
-	return (str = fill_str(digits, str, n, index));
+	return (str = fill_str(digits, str, n, 0));
 }
 
 int	count_digits(int n)

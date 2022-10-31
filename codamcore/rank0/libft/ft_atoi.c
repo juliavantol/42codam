@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 13:03:01 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/25 12:57:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 11:20:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* This function converts the initial portion of str to int */
+/* This function converts a str to int */
 
 static int	convert(const char *str, int index, int n)
 {
@@ -24,7 +24,7 @@ static int	convert(const char *str, int index, int n)
 	return (sum * n);
 }
 
-static int	check_start(const char *str)
+static int	find_start(const char *str)
 {
 	int	start;
 	int	n;
@@ -44,13 +44,9 @@ static int	check_start(const char *str)
 
 int	ft_atoi(const char *str)
 {
-	int	sum;
-
-	sum = 0;
 	if (ft_strlen(str) == 0)
 		return (0);
 	if (str == NULL)
 		return (ft_atoi(str));
-	sum = check_start(str);
-	return (sum);
+	return (find_start(str));
 }

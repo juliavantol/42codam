@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/30 20:16:47 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/31 13:09:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@
 // 	}
 // }
 
-// void	test_itoa(void)
-// {
-// 	printf("%s\n", ft_itoa(123));
-// }
+void	test_itoa(void)
+{
+	printf("%s\n", ft_itoa(123));
+	printf("%s\n", ft_itoa(0));
+}
 
 // void	test_substr(void)
 // {
@@ -84,16 +85,16 @@
 // 		printf("Incorrect\n");
 // }
 
-void	ft_print_result(t_list *elem)
-{
-	int		len;
+// void	ft_print_result(t_list *elem)
+// {
+// 	int		len;
 
-	len = 0;
-	while (((char *)elem->content)[len])
-		len++;
-	write(1, elem->content, len);
-	write(1, "\n", 1);
-}
+// 	len = 0;
+// 	while (((char *)elem->content)[len])
+// 		len++;
+// 	write(1, elem->content, len);
+// 	write(1, "\n", 1);
+// }
 
 // void	test_lstback(void)
 // {
@@ -131,33 +132,33 @@ void	ft_print_result(t_list *elem)
 // 	ft_lstclear(&l, &free);
 // }
 
-void	ft_modify_list_with_d(void *elem)
-{
-	int		len;
-	char	*content;
+// void	ft_modify_list_with_d(void *elem)
+// {
+// 	int		len;
+// 	char	*content;
 
-	len = 0;
-	content = (char *)elem;
-	while (content[len])
-	{
-		content[len++] = 'd';
-	}
-}
+// 	len = 0;
+// 	content = (char *)elem;
+// 	while (content[len])
+// 	{
+// 		content[len++] = 'd';
+// 	}
+// }
 
-void	*ft_map(void *ct)
-{
-	int		i;
-	void	*c;
-	char	*pouet;
+// void	*ft_map(void *ct)
+// {
+// 	int		i;
+// 	void	*c;
+// 	char	*pouet;
 
-	c = ct;
-	i = -1;
-	pouet = (char *)c;
-	while (pouet[++i])
-		if (pouet[i] == 'o')
-			pouet[i] = 'a';
-	return (c);
-}
+// 	c = ct;
+// 	i = -1;
+// 	pouet = (char *)c;
+// 	while (pouet[++i])
+// 		if (pouet[i] == 'o')
+// 			pouet[i] = 'a';
+// 	return (c);
+// }
 // void	test_lstiter(void)
 // {
 // 	t_list	*l;
@@ -168,19 +169,19 @@ void	*ft_map(void *ct)
 // 	ft_lstiter(l, &ft_modify_list_with_d);
 // }
 
-void	test_lstmap(void)
-{
-	t_list	*l;
-	t_list	*list;
+// void	test_lstmap(void)
+// {
+// 	t_list	*l;
+// 	t_list	*list;
 
-	l = ft_lstnew(ft_strdup("lorem"));
-	l->next = ft_lstnew(ft_strdup("ipsum"));
-	l->next->next = ft_lstnew(ft_strdup("dolor"));
-	list = ft_lstmap(l, &ft_map, &free);
-	ft_print_result(list);
-}
+// 	l = ft_lstnew(ft_strdup("lorem"));
+// 	l->next = ft_lstnew(ft_strdup("ipsum"));
+// 	l->next->next = ft_lstnew(ft_strdup("dolor"));
+// 	list = ft_lstmap(l, &ft_map, &free);
+// 	ft_print_result(list);
+// }
 
 int	main(void)
 {
-	test_lstmap();
+	test_itoa();
 }
