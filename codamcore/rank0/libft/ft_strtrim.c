@@ -6,23 +6,19 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 07:59:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/31 22:58:52 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/31 23:11:31 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* Allocates with malloc and returns a copy of ’s1’ with the characters 
-specified in ’set’ removed from the beginning and the end of the string. */
+/* Returns a copy of ’s1’ with the characters specified in ’set’ removed 
+from the beginning and the end of the string. */
 
-// static int	find_first(char const *s1, char const *set);
-// static int	find_last(char const *s1, char const *set);
 static int	check_set(char const *set, char c);
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*new_str;
-	size_t	index;
 	size_t	last;
 	size_t	first;
 
@@ -30,24 +26,21 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	if (ft_strlen(s1) == 0)
 		return (ft_strdup(""));
-	index = 0;
-	while (index < ft_strlen(s1))
+	first = 0;
+	last = ft_strlen(s1) - 1;
+	while (first < ft_strlen(s1))
 	{
-		if (!check_set(set, s1[index]))
+		if (!check_set(set, s1[first]))
 			break ;
-		index++;
+		first++;
 	}
-	first = index;
-	index = ft_strlen(s1) - 1;
-	while (index > 0)
+	while (last > 0)
 	{
-		if (!check_set(set, s1[index]))
+		if (!check_set(set, s1[last]))
 			break ;
-		index--;
+		last--;
 	}
-	last = index;
-	new_str = ft_substr(s1, first, last - first + 1);
-	return (new_str);
+	return (ft_substr(s1, first, last - first + 1));
 }
 
 static int	check_set(char const *set, char c)
@@ -63,34 +56,3 @@ static int	check_set(char const *set, char c)
 	}
 	return (0);
 }
-
-// static int	find_first(char const *s1, char const *set)
-// {
-// 	size_t	index;
-// 	size_t	start;
-
-// 	index = 0;
-// 	start = 0;
-// 	while (start == index)
-// 	{
-// 		if ((ft_strchr(set, s1[index])))
-// 			start++;
-// 		index++;
-// 	}
-// 	return (start);
-// }
-
-// static int	find_last(char const *s1, char const *set)
-// {
-// 	size_t	index;
-// 	size_t	last;
-
-// 	index = ft_strlen(s1);
-// 	last = ft_strlen(s1);
-// 	while (last == index)
-// 	{
-// 		if (ft_strchr(set, s1[index--]))
-// 			last--;
-// 	}
-// 	return (last);
-// }
