@@ -6,11 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 15:02:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/24 15:04:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 14:46:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* Outputs the string ’s’ to the given file descriptor */
 
 void	ft_putstr_fd(char *s, int fd)
 {

@@ -6,11 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 11:41:59 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/13 12:08:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 14:06:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
+
+/* Compares up to n bytes between s1 and s2. Returns 0 if equal. */
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
@@ -28,7 +30,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 		if (a[index] != b[index])
 		{
 			sum = a[index] - b[index];
-			return (sum);
+			return (a[index] - b[index]);
 		}
 		index++;
 	}

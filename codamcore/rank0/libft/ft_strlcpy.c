@@ -6,12 +6,15 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 08:52:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/14 17:09:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 15:44:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
+#include "libft.h"
+
+/* Copies up to size - 1 characters from the NUL-terminated string 
+src to dst, NUL-terminating the result.
+Returns the total length of the string they tried to create. */
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {

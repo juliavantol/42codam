@@ -6,14 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 18:50:58 by Julia         #+#    #+#                 */
-/*   Updated: 2022/10/26 09:37:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 14:38:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
+#include "libft.h"
 
-/* Copies n bytes from memory area src to memory area dest.*/
+/* Copies n block of memory from src into dest */
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {

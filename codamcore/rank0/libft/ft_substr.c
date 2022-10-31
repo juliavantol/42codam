@@ -6,18 +6,15 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 13:36:07 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/26 12:19:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 17:09:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* s: The string from which to create the substring. */
-/* start: The start index of the substring in the string ’s’. */
-/* len: The maximum length of the substring. */
-/* Return value is the substring. NULL if the allocation fails. */
-/* Allocates (with malloc(3)) and returns a substring from the string ’s’. */
-/* The substring begins at index ’start’ and is of maximum size ’len’.*/
+/* Return value is the substring. NULL if the allocation fails. 
+Allocates (with malloc(3)) and returns a substring from the string ’s’.
+The substring begins at index ’start’ and is of maximum size ’len’. */
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -36,11 +33,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (sub == NULL)
 		return (NULL);
 	while (index < len && s[start] != '\0')
-	{
-		sub[index] = s[start];
-		index++;
-		start++;
-	}
+		sub[index++] = s[start++];
 	sub[index] = '\0';
 	return (sub);
 }

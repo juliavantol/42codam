@@ -6,12 +6,14 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/05 14:39:25 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/14 11:28:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 14:43:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
+#include "libft.h"
+
+/* Sets the first n bytes of dest to the value c. 
+The value of c is converted to an unsigned character. */
 
 void	*ft_memset(void *s, int c, size_t n)
 {
@@ -22,7 +24,7 @@ void	*ft_memset(void *s, int c, size_t n)
 	new = s;
 	while (index < n)
 	{
-		new[index] = c;
+		new[index] = (unsigned char)c;
 		index++;
 	}
 	return (new);

@@ -6,15 +6,14 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 10:21:36 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/22 20:39:48 by Julia         ########   odam.nl         */
+/*   Updated: 2022/10/31 16:18:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-/* This function finds the last occurence of character c */
-/* It returns a pointer to the last occurence of c */
-/* It casts the const char str to a char pointer */
+/* This function finds the last occurence of character c.
+It returns a pointer to the last occurence of c. */
 
 char	*ft_strrchr(const char *s, int c)
 {

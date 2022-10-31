@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 15:09:13 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/24 16:44:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 14:48:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* Outputs the integer ’n’ to the given file descriptor. */
+/* Outputs the integer ’n’ to the given file descriptor using recursion */
 
 void	ft_putnbr_fd(int n, int fd)
 {

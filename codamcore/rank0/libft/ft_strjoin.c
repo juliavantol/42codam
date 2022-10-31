@@ -6,16 +6,14 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 07:25:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/19 07:53:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 15:40:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* Parameters: s1: The prefix string. s2: The suffix string. */
-/* Return value: The new string. NULL if the allocation fails. */
-/* Allocates (with malloc(3)) and returns a new string, which is */
-/* the result of the concatenation of ’s1’ and ’s2’.*/
+/* Allocates with malloc and returns a new string, which is 
+the result of the concatenation of ’s1’ and ’s2’. */
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -37,11 +35,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	second = index;
 	index = 0;
 	while (s2[index] != '\0')
-	{
-		new_str[second] = s2[index];
-		index++;
-		second++;
-	}
+		new_str[second++] = s2[index++];
 	new_str[second] = '\0';
 	return (new_str);
 }

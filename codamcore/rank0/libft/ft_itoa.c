@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 11:15:13 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/31 13:15:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 13:56:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ char	*ft_itoa(int n)
 		return (str);
 	}
 	digits = count_digits(n);
-	if (n == 0)
-		str = malloc(2);
-	else if (n < 0)
+	if (n < 0)
 		str = (char *)malloc((digits + 2));
 	else
 		str = (char *)malloc((digits + 1));
@@ -42,7 +40,7 @@ char	*ft_itoa(int n)
 	return (str = fill_str(digits, str, n, 0));
 }
 
-int	count_digits(int n)
+static int	count_digits(int n)
 {
 	int		count;
 
@@ -57,24 +55,23 @@ int	count_digits(int n)
 	return (count);
 }
 
-char	*fill_str(int digits, char *str, int n, int index)
+static char	*fill_str(int digits, char *str, int n, int index)
 {
-	char	c;
-	int		d;
-
-	d = digits - 1;
+	digits--;
+	if (n == 0)
+	{
+		ft_strlcpy(str, "0\0", 2);
+		return (str);
+	}
 	if (n < 0)
 	{
-		str[index] = '-';
+		str[index++] = '-';
 		n *= -1;
-		index++;
 		digits++;
-		d++;
 	}
-	while (index < digits)
+	while (n)
 	{
-		c = (n % 10) + 48;
-		str[d--] = c;
+		str[digits--] = (n % 10) + 48;
 		n = n / 10;
 		index++;
 	}

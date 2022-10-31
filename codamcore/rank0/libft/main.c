@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/14 13:35:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/31 13:09:46 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/31 13:40:24 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 17:11:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,17 @@
 // 	}
 // }
 
-void	test_itoa(void)
+// void	test_itoa(void)
+// {
+// 	printf("%s\n", ft_itoa(123));
+// 	printf("%s\n", ft_itoa(0));
+// }
+
+void	test_trim(void)
 {
-	printf("%s\n", ft_itoa(123));
-	printf("%s\n", ft_itoa(0));
+	char	*s = "this is a string with words";
+
+	printf("%s\n", ft_strtrim(s, "ts"));
 }
 
 // void	test_substr(void)
@@ -183,5 +190,5 @@ void	test_itoa(void)
 
 int	main(void)
 {
-	test_itoa();
+	test_trim();
 }

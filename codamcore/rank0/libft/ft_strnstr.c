@@ -6,17 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 12:08:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/25 14:54:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 16:11:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* This functions locates the first occurrence of the null-terminated */
-/* needle in the haystack, no more than len characters are searched. */
-/* If needle is an empty string, haystack is returned; if needle occurs */
-/* nowhere in haystack, NULL is returned. Otherwise a pointer to the first */
-/* character of the first occurrence of needle is returned */
+/* Locates the first occurrence of the needle in the haystack. No more than 
+len characters are searched. If needle is an empty, haystack is returned; 
+if needle is not in haystack, NULL is returned.  Otherwise a pointer to the 
+first character of the first occurrence of needle is returned */
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

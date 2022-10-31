@@ -6,15 +6,14 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 14:04:33 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/18 14:03:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 15:08:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* This function returns a pointer to a null-terminated byte string */
-/* which is a duplicate of the string pointed to by s*/
-/* Memory for the new string is obtained with malloc */
+/* Returns a pointer to a null-terminated byte string 
+which is a duplicate of string s */
 
 char	*ft_strdup(const char *s)
 {

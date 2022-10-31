@@ -6,22 +6,18 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 07:59:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/25 14:55:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/10/31 17:58:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* s1: The string to be trimmed. set: Reference set of characters to trim. */
-/* Return : The trimmed string. NULL if the allocation fails. */
-/* Allocates with malloc and returns a copy of ’s1’ with the */
-/* characters specified in ’set’ removed from the beginning */
-/* and the end of the string.*/
+/* Allocates with malloc and returns a copy of ’s1’ with the characters 
+specified in ’set’ removed from the beginning and the end of the string. */
 
-int		find_first(char const *s1, char const *set);
-int		find_last(char const *s1, char const *set);
-char	*make_str(char const *s1, size_t len, size_t start, size_t end);
-int		check_empty(char const *s);
+static int	find_first(char const *s1, char const *set);
+static int	find_last(char const *s1, char const *set);
+static int	check_set(char const *set, char c);
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
@@ -29,9 +25,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	last;
 	size_t	first;
 
-	if (check_empty(s1))
-		return (ft_strdup(""));
-	if (ft_strlen(s1) == 0 || !(s1))
+	if (!s1)
+		return (NULL);
+	if (ft_strlen(s1) == 0)
 		return (ft_strdup(""));
 	first = find_first(s1, set);
 	last = find_last(s1, set);
@@ -39,26 +35,21 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (new_str);
 }
 
-int	check_empty(char const *s)
+static int	check_set(char const *set, char c)
 {
-	size_t	count;
 	size_t	index;
 
-	count = 0;
 	index = 0;
-	while (s[index] != '\0')
+	while (set[index] != '\0')
 	{
-		if (s[index] == 32 || (s[index] >= 9 && s[index] <= 13))
-			count++;
+		if (set[index] == c)
+			return (1);
 		index++;
 	}
-	if (count == index)
-		return (1);
-	else
-		return (0);
+	return (0);
 }
 
-int	find_first(char const *s1, char const *set)
+static int	find_first(char const *s1, char const *set)
 {
 	size_t	index;
 	size_t	start;
@@ -74,7 +65,7 @@ int	find_first(char const *s1, char const *set)
 	return (start);
 }
 
-int	find_last(char const *s1, char const *set)
+static int	find_last(char const *s1, char const *set)
 {
 	size_t	index;
 	size_t	last;
@@ -83,9 +74,8 @@ int	find_last(char const *s1, char const *set)
 	last = ft_strlen(s1);
 	while (last == index)
 	{
-		if (ft_strchr(set, s1[index]))
+		if (ft_strchr(set, s1[index--]))
 			last--;
-		index--;
 	}
 	return (last);
 }
