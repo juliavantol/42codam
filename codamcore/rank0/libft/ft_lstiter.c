@@ -5,16 +5,15 @@
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/28 12:10:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/28 12:29:46 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/11/01 11:17:19 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:18:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /* Iterates the list ’lst’ and applies the function ’f’ on the content 
-of each node.  lst: The address of a pointer to a node. f: The address of 
-the function used to iterate on the list.*/
+of each node. */
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {

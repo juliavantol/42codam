@@ -6,14 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 12:10:32 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/27 12:26:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/01 11:21:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /* Counts the number of nodes in a list. */
-/* Returns the count. lst: The beginning of the list. */
 
 int	ft_lstsize(t_list *lst)
 {

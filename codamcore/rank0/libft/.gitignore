@@ -1,2 +1,5 @@
 .DS_Store
 *.o
+paco
+run
+main.c

@@ -6,14 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 11:45:25 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/30 21:21:04 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/01 12:26:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Allocates (with malloc(3)) and returns a new node. The member variable 
+/* Allocates with malloc  and returns a new node. The member variable 
 ’content’ is initialized with the value of the parameter ’content’. 
-The variable ’next’ is initialized to NULL.*/
-/* Returns the new node */
+The variable ’next’ is initialized to NULL. Returns the new node */
 
 #include "libft.h"
 

@@ -6,11 +6,10 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 12:28:03 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/30 21:08:08 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/01 11:18:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* lst: The beginning of the list. */
 /* Returns the last node of the list. */
 
 #include "libft.h"
