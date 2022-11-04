@@ -5,6 +5,7 @@ OBJ = $(SRC:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ) libft
+	@cd libft && make bonus
 	@cp libft/libft.a ./$(NAME)
 	@ar r $(NAME) $(OBJ)
 

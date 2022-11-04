@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/04 13:54:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/05 00:04:23 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,31 @@
 
 static int	print_output(char	*p, va_list	args);
 
+int	ft_putstr(char *s, int fd)
+{
+	size_t	index;
+
+	index = 0;
+	if (!s)
+	{
+		write(fd, "(null)", 6);
+		index = 6;
+	}
+	else
+	{
+		while (index < ft_strlen(s))
+		{
+			write(fd, &s[index], 1);
+			index++;
+		}
+	}
+	return (index);
+}
+
 int	check_placeholder(const char *s, va_list args, int count)
 {
 	if (*s == 's')
-		ft_putstr_fd(va_arg(args, char *), 1);
+		count += ft_putstr(va_arg(args, char *), 1);
 	else if (*s == 'c')
 	{
 		count++;
