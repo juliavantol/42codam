@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/06 18:42:51 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/06 21:44:00 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/06 22:14:22 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 
 /* Convert the number with base value 10 to base value 16 */
 /* keep diving by 16 and for each turn store the remainder */
-
-static int	reverse_num(unsigned int n)
-{
-	int	reverse;
-
-	reverse = 0;
-	while (n != 0)
-	{
-		reverse = reverse * 10;
-		reverse	= reverse + n % 10;
-		n = n / 10;
-	}
-	return (reverse);
-}
 
 void	to_hex(unsigned int num)
 {
