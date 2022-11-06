@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/06 21:29:46 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/06 21:58:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,26 @@ int	check_placeholder(const char *s, va_list args, int count)
 	}
 	else if (*s == 'd' || *s == 'i')
 		count += new_itoa(va_arg(args, int));
+	else if (*s == '%')
+	{
+		ft_putstr("%", 1);
+		count++;
+	}
 	else if (*s == 'X')
 	{
 		temp = va_arg(args, unsigned int);
-		count += count_hex(temp);
-		if (count_hex(temp) == 0)
-			return (0);
-		to_hex(temp);
+		if (temp == 0)
+		{
+			ft_putchar_fd('0', 1);
+			count++;
+		}
+		else
+		{
+			count += count_hex(temp);
+			if (count_hex(temp) == 0)
+				return (0);
+			to_hex(temp);	
+		}
 	}
 	return (count);
 }
