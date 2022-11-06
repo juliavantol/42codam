@@ -6,38 +6,18 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/05 00:04:23 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/06 02:42:33 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
 static int	print_output(char	*p, va_list	args);
-
-int	ft_putstr(char *s, int fd)
-{
-	size_t	index;
-
-	index = 0;
-	if (!s)
-	{
-		write(fd, "(null)", 6);
-		index = 6;
-	}
-	else
-	{
-		while (index < ft_strlen(s))
-		{
-			write(fd, &s[index], 1);
-			index++;
-		}
-	}
-	return (index);
-}
 
 int	check_placeholder(const char *s, va_list args, int count)
 {
+	char	*temp;
+
 	if (*s == 's')
 		count += ft_putstr(va_arg(args, char *), 1);
 	else if (*s == 'c')
@@ -45,6 +25,8 @@ int	check_placeholder(const char *s, va_list args, int count)
 		count++;
 		ft_putchar_fd(va_arg(args, int), 1);
 	}
+	else if (*s == 'd')
+		count += new_itoa(va_arg(args, int));
 	else
 		ft_putchar_fd('x', 1);
 	return (count);

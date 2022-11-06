@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:04:47 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/03 13:37:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/06 02:41:22 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "libft/libft.h"
 # include <stdarg.h>
 
-int	ft_printf(const char	*c, ...);
+int	    ft_printf(const char	*c, ...);
+int	    ft_putstr(char *s, int fd);
+int     new_itoa(int n);
 
 #endif

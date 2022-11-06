@@ -1,5 +1,5 @@
 NAME = libftprintf.a
-SRC = main.c printf.c
+SRC = main.c printf.c helpers.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
