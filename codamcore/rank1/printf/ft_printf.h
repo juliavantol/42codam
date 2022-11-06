@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:04:47 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/06 20:56:53 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/06 21:06:09 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 int		ft_printf(const char	*c, ...);
 int		ft_putstr(char *s, int fd);
 int		new_itoa(int n);
-void	to_hex(unsigned int num, int count);
+void	to_hex(unsigned int num);
 int		test(unsigned int n);
 int		count_hex(unsigned int n);
 

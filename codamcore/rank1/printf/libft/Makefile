@@ -25,13 +25,13 @@ bonus:
 	@make BONUS=1 all
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) -o $@ $^ 
+	@$(CC) -c $(CFLAGS) -o $@ $^ 
 
 clean:
-	rm -f $(BONUS_OBJS) $(OBJS)
+	@rm -f $(BONUS_OBJS) $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

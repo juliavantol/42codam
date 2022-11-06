@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/06 21:02:05 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/06 21:29:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,16 @@ int	check_placeholder(const char *s, va_list args, int count)
 	else if (*s == 'X')
 	{
 		temp = va_arg(args, unsigned int);
-		to_hex(temp, 0);
 		count += count_hex(temp);
+		if (count_hex(temp) == 0)
+			return (0);
+		to_hex(temp);
 	}
 	return (count);
 }
 
-int	loop(const char *s, va_list args)
+static int	loop(const char *s, va_list args, int state, int count)
 {
-	int	state;
-	int	count;
-
-	state = 0;
-	count = 0;
 	while (*s)
 	{
 		if (state == 0)
@@ -72,7 +69,9 @@ int	ft_printf(const char	*s, ...)
 	va_list	args;
 
 	va_start(args, s);
-	output = loop(s, args);
+	output = loop(s, args,0 ,0);
+	if (output == 0)
+		return (0);
 	va_end(args);
 	return (output);
 }
