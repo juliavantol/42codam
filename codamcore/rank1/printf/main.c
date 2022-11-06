@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 17:46:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/06 02:42:00 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/06 13:17:41 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main(void)
 {
-	ft_printf("Hello this is a string number %d %d\n", 87, -456);
+	ft_printf("Hello this is a string number %d %d\n", -2147483648, 2147483648);
 	return (0);
 }

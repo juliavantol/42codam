@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/05 17:04:02 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/06 02:43:56 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/06 13:45:08 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,28 @@ static void	recursive_loop(int n)
 	ft_putchar_fd((n % 10 + '0'), 1);
 }
 
-int	new_itoa(int n)
+static int	min_int(int n)
 {
 	int	count;
 
 	count = 0;
+	if (n == -2147483648)
+		count = ft_putstr("-2147483648", 1);
+	return (count);
+}
+
+int	new_itoa(int n)
+{
+	int	count;
+
 	if (n == 0)
 	{
 		ft_putchar_fd('0', 1);
 		return (1);
 	}
+	count = min_int(n);
+	if (count != 0)
+		return (count);
 	if (n < 0)
 	{
 		n *= -1;
