@@ -6,31 +6,22 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/05 17:04:02 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/06 18:42:43 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/07 15:01:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putstr(char *s, int fd)
+int	ft_putstr(char *s)
 {
-	size_t	index;
-
-	index = 0;
 	if (!s)
 	{
-		write(fd, "(null)", 6);
-		index = 6;
+		write(1, "(null)", 6);
+		return (6);
 	}
 	else
-	{
-		while (index < ft_strlen(s))
-		{
-			write(fd, &s[index], 1);
-			index++;
-		}
-	}
-	return (index);
+		return (write(1, s, ft_strlen(s)));
+	return (ft_strlen(s));
 }
 
 static void	recursive_loop(int n)
@@ -46,7 +37,7 @@ static int	min_int(int n)
 
 	count = 0;
 	if (n == -2147483648)
-		count = ft_putstr("-2147483648", 1);
+		count = ft_putstr("-2147483648");
 	return (count);
 }
 

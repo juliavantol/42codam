@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/06 22:13:54 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/07 15:02:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ static int	print_output(char	*p, va_list	args);
 
 int	check_placeholder(const char *s, va_list args, int count)
 {
-	unsigned int	temp;
-
 	if (*s == 's')
-		count += ft_putstr(va_arg(args, char *), 1);
+		count += ft_putstr(va_arg(args, char *));
 	else if (*s == 'c')
 	{
 		count++;
@@ -29,25 +27,13 @@ int	check_placeholder(const char *s, va_list args, int count)
 		count += new_itoa(va_arg(args, int));
 	else if (*s == '%')
 	{
-		ft_putstr("%", 1);
+		ft_putstr("%");
 		count++;
 	}
-	else if (*s == 'X')
-	{
-		temp = va_arg(args, unsigned int);
-		if (temp == 0)
-		{
-			ft_putchar_fd('0', 1);
-			count++;
-		}
-		else
-		{
-			count += count_hex(temp);
-			if (count_hex(temp) == 0)
-				return (0);
-			to_hex(temp);	
-		}
-	}
+	else if (*s == 'X' || *s == 'x' || *s == 'u')
+		count = count_unsigned_int(s, args, count);
+	else if (*s == 'p')
+		count = pointer(args, count);
 	return (count);
 }
 
@@ -82,7 +68,7 @@ int	ft_printf(const char	*s, ...)
 	va_list	args;
 
 	va_start(args, s);
-	output = loop(s, args,0 ,0);
+	output = loop(s, args, 0 ,0);
 	if (output == 0)
 		return (0);
 	va_end(args);
