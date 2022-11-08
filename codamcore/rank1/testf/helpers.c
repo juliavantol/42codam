@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/05 17:04:02 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/08 00:35:51 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/08 13:23:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	ft_putstr(char *s)
 {
 	if (!s)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		return (write(1, "(null)", 6));
 	}
 	else
 		return (write(1, s, ft_strlen(s)));

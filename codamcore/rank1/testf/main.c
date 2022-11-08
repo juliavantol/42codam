@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 17:46:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/08 00:25:35 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/08 13:24:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(void)
 	char	*a;
 
 	a = "hello!";
-	printf("\n%d\n", printf("word: %s", a));
-	printf("\n%d\n", ft_printf("word: %s word: %s", a, a));
+	printf("\n%d\n", printf("%s%s%s", "And ", "some", "joined"));
+	printf("\n%d\n", ft_printf("%s%s%s", "And ", "some", "joined"));
 	return (0);
 }

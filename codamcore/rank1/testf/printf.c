@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/08 00:35:43 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/08 13:27:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,24 @@ int	check_placeholder(const char *s, va_list args, int count)
 static int	loop(const char *s, va_list args, int state, int count)
 {
 	int	index;
-	int	index2;
+	int	res;
 
 	index = 0;
+	res = 0;
 	while (s[index])
 	{
 		if (s[index] == '%')
 		{
-			count += check_placeholder(&s[index + 1], args, count);
+			res = check_placeholder(&s[index + 1], args, count);
+			if (res == -1)
+				return (-1);
+			count += res;
 			index = index + 2;
 		}
 		else
 		{
-			ft_putchar(s[index]);
+			if (ft_putchar(s[index]) == -1)
+				return (-1);
 			count++;
 			index++;
 		}
@@ -67,7 +72,7 @@ int	ft_printf(const char	*s, ...)
 	va_list	args;
 
 	va_start(args, s);
-	output = loop(s, args, 0 ,0);
+	output = loop(s, args,0 ,0);
 	if (output == -1)
 		return (-1);
 	va_end(args);

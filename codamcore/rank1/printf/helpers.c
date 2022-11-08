@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/05 17:04:02 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/07 15:01:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/08 13:59:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,16 @@ int	ft_putstr(char *s)
 {
 	if (!s)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		return (write(1, "(null)", 6));
 	}
 	else
 		return (write(1, s, ft_strlen(s)));
 	return (ft_strlen(s));
 }
 
-static void	recursive_loop(int n)
+int	ft_putchar(char c)
 {
-	if (n > 9)
-		recursive_loop(n / 10);
-	ft_putchar_fd((n % 10 + '0'), 1);
+	return (write(1, &c, 1));
 }
 
 static int	min_int(int n)
@@ -41,15 +38,22 @@ static int	min_int(int n)
 	return (count);
 }
 
+static int	recursive_loop(int n)
+{
+	if (n > 9)
+		recursive_loop(n / 10);
+	if (ft_putchar(n % 10 + '0') == -1)
+		return (-1);
+	return (0);
+}
+
 int	new_itoa(int n)
 {
 	int	count;
+	int	check;
 
 	if (n == 0)
-	{
-		ft_putchar_fd('0', 1);
-		return (1);
-	}
+		return (ft_putchar('0'));
 	count = min_int(n);
 	if (count != 0)
 		return (count);
@@ -57,9 +61,25 @@ int	new_itoa(int n)
 	{
 		n *= -1;
 		count++;
-		ft_putchar_fd('-', 1);
+		check = ft_putchar('-');
+		if (check == -1)
+			return (-1);
 	}
-	recursive_loop(n);
+	return (recursive_loop(n));
+}
+
+int	count_digits(int n)
+{
+	int	count;
+
+	count = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+	{
+		n *= -1;
+		count++;
+	}
 	while (n)
 	{
 		count++;

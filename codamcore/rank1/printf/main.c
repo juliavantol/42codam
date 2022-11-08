@@ -6,12 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 17:46:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/07 14:49:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/08 13:52:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
 
 // 1. `Divide the original decimal number by 16`
 // 2. `Divide the quotient by 16`
@@ -27,10 +26,10 @@
 
 int	main(void)
 {
-	char	*a;
+	char	a;
 
-	a = "hello!";
-	printf("%d\n", printf("%s", a));
-	printf("%d\n", ft_printf("%s", a));
+	a = 'h';
+	printf("\n%d\n", printf("%d", 0));
+	printf("\n%d\n", ft_printf("%d", 10));
 	return (0);
 }

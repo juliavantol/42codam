@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/07 15:02:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/08 13:45:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,23 @@ static int	print_output(char	*p, va_list	args);
 
 int	check_placeholder(const char *s, va_list args, int count)
 {
+	int	temp;
+
 	if (*s == 's')
-		count += ft_putstr(va_arg(args, char *));
+		count = ft_putstr(va_arg(args, char *));
 	else if (*s == 'c')
 	{
-		count++;
-		ft_putchar_fd(va_arg(args, int), 1);
+		count = ft_putchar(va_arg(args, int));
 	}
 	else if (*s == 'd' || *s == 'i')
-		count += new_itoa(va_arg(args, int));
-	else if (*s == '%')
 	{
-		ft_putstr("%");
-		count++;
+		temp = va_arg(args, int);
+		count = new_itoa(temp);
+		if (count != -1)
+			count = count_digits(temp);
 	}
+	else if (*s == '%')
+		count = ft_putstr("%");
 	else if (*s == 'X' || *s == 'x' || *s == 'u')
 		count = count_unsigned_int(s, args, count);
 	else if (*s == 'p')
@@ -39,24 +42,28 @@ int	check_placeholder(const char *s, va_list args, int count)
 
 static int	loop(const char *s, va_list args, int state, int count)
 {
-	while (*s)
+	int	index;
+	int	res;
+
+	index = 0;
+	res = 0;
+	while (s[index])
 	{
-		if (state == 0)
+		if (s[index] == '%')
 		{
-			if (*s == '%')
-				state = 1;
-			else
-			{
-				ft_putchar_fd(*s, 1);
-				count++;
-			}
+			res = check_placeholder(&s[index + 1], args, count);
+			if (res == -1)
+				return (-1);
+			count += res;
+			index = index + 2;
 		}
 		else
 		{
-			count = check_placeholder(s, args, count);
-			state = 0;
+			if (ft_putchar(s[index]) == -1)
+				return (-1);
+			count++;
+			index++;
 		}
-		s++;
 	}
 	return (count);
 }
@@ -68,10 +75,9 @@ int	ft_printf(const char	*s, ...)
 	va_list	args;
 
 	va_start(args, s);
-	output = loop(s, args, 0 ,0);
-	if (output == 0)
-		return (0);
+	output = loop(s, args,0 ,0);
+	if (output == -1)
+		return (-1);
 	va_end(args);
 	return (output);
 }
-
