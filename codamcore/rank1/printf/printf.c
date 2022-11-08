@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/08 13:45:21 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/08 16:17:09 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,12 @@ static int	print_output(char	*p, va_list	args);
 
 int	check_placeholder(const char *s, va_list args, int count)
 {
-	int	temp;
-
 	if (*s == 's')
 		count = ft_putstr(va_arg(args, char *));
 	else if (*s == 'c')
-	{
 		count = ft_putchar(va_arg(args, int));
-	}
 	else if (*s == 'd' || *s == 'i')
-	{
-		temp = va_arg(args, int);
-		count = new_itoa(temp);
-		if (count != -1)
-			count = count_digits(temp);
-	}
+		count = convert_int(args);
 	else if (*s == '%')
 		count = ft_putstr("%");
 	else if (*s == 'X' || *s == 'x' || *s == 'u')
