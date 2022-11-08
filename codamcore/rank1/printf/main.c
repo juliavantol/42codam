@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 17:46:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/08 17:44:32 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/08 23:05:07 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	printf("\n%d\n", printf("dgs %x xx", 10));
-	printf("\n%d\n", ft_printf("dgs %x xx", 10));
+	printf("\n%d\n", printf(" %x ", 1346));
+	printf("\n%d\n", ft_printf(" %x ", 1346));
 	return (0);
 }
