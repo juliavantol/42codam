@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 11:14:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/08 23:08:13 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/08 23:18:56 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	count_unsigned_int(const char *s, va_list args, int count)
 	else
 	{
 		if (*s == 'X')
-			check = to_hex2(temp, 55);
+			check = to_hex(temp, 55);
 		else if (*s == 'x')
-			check = to_hex2(temp, 87);
+			check = to_hex(temp, 87);
 		if (check == -1)
 			return (-1);
 		count = count_hex(temp);
