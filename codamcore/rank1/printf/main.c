@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 17:46:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/08 13:52:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/08 14:45:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(void)
 	char	a;
 
 	a = 'h';
-	printf("\n%d\n", printf("%d", 0));
-	printf("\n%d\n", ft_printf("%d", 10));
+	printf("\n%d\n", printf("%d", 40));
+	printf("\n%d\n", ft_printf("%d", 40));
 	return (0);
 }

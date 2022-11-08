@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:04:47 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/08 13:44:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/08 14:41:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int		pointer(va_list args, int count);
 void	pointer_to_hex(unsigned long num, int format);
 int		count_hex_long(unsigned long n);
 int		count_digits(int n);
+char	*ft_itoa_new(int n);
+
 
 #endif
