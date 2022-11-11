@@ -6,48 +6,75 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 12:30:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/08 17:37:31 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/12 00:55:54 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+int	to_hex2(unsigned long num, int format);
+int	count_hex2(unsigned long n);
+
 int	pointer(va_list args, int count)
 {
 	unsigned long	p;
+	int				check;
 
+	// max long 9223372036854775807
+	// ulong max 18446744073709551615
+	// min long
 	p = (unsigned long)va_arg(args, void *);
-	if (p == -2147483648 || p == 2147483648)
-	{
-		p = (unsigned int)p;
-		ft_putstr("0x");
-		count = 11;
-		pointer_to_hex(p, 87);
-	}
+	if (p == 9223372036854775807)
+		count = ft_putstr("0x9223372036854775807");
 	else if (p == 0)
 		count = ft_putstr("0x0");
 	else
 	{
-		count = ft_putstr("0x");
-		count = count_hex_long(p);
-		pointer_to_hex(p, 87);
+		count += count_hex_long(p) + 2;
+		if (ft_putstr("0x") == -1 || to_hex2(p, 87) == -1)
+			return (-1);
 	}
 	return (count);
 }
 
-void	pointer_to_hex(unsigned long num, int format)
+int	to_hex2(unsigned long num, int format)
 {
-	int	remainder;
+	int		check;
+	int		len;
+	char	*str;
 
-	if (num == 0)
-		return ;
-	if (num != 0)
-		pointer_to_hex(num / 16, format);
-	remainder = num % 16;
-	if (remainder < 10)
-		ft_putchar_fd((remainder + 48), 1);
-	else
-		ft_putchar_fd((remainder + format), 1);
+	len = count_hex2(num);
+	str = (char *)malloc((len + 1));
+	if (!str)
+		return (-1);
+	str[len] = '\0';
+	len--;
+	while (num > 0)
+	{
+		if ((num % 16) < 10)
+			str[len--] = (num % 16) + 48;
+		else
+			str[len--] = (num % 16) + format;
+		num /= 16;
+	}
+	check = ft_putstr(str);
+	free(str);
+	return (check);
+}
+
+int	count_hex2(unsigned long n)
+{
+	int		index;
+
+	index = 0;
+	if (n == (unsigned long)-2147483648)
+		return (0);
+	while (n != 0)
+	{		
+		n = n / 16;
+		index++;
+	}
+	return (index);
 }
 
 int	count_hex_long(unsigned long n)
