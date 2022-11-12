@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 17:46:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/12 00:57:42 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/13 00:17:26 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 int	main(void)
 {
-	// long	a;
-	// void	*p;
+	int		a;
+	int		b;
+	void	*p;
+	void	*p2;
 
-	// a = 9223372036854775807;
-	// p = &a;
-	unsigned long a = 18446744073709551615;
+	a = -2147483647 - 1;
+	p = &a;
+	b = 2147483647;
+	p2 = &b;
 
-	printf("\n%d\n", printf("0x%lu-", a));
-	printf("\n%d\n", ft_printf("0x%p-", a));
+	printf("\n%d\n", printf(" %p %p ", p, p2));
+	printf("\n%d\n", ft_printf(" %p %p ", p, p2));
 	return (0);
 }
