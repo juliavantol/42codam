@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 16:11:56 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/13 19:20:54 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/13 19:26:00 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int	convert_unsigned_int(va_list args)
 
 	temp = va_arg(args, int);
 	new = 0;
+	if ((unsigned int)temp == (unsigned int)2147483648)
+		return (ft_putstr("2147483648"));
+	else if ((unsigned int)temp == (unsigned int)-2147483648)
+		return (ft_putstr("-2147483648"));
 	if (temp < 0)
 	{
 		new = 4294967296 - (temp * -1);
