@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 12:30:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/13 00:31:25 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/13 01:43:49 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	count_hex2(unsigned long n);
 int	pointer(va_list args, int count)
 {
 	unsigned long	p;
-	int				check;
 
-	// max long 9223372036854775807
-	// ulong max 18446744073709551615
-	// min long
 	p = (unsigned long)va_arg(args, void *);
+	if (p == (unsigned int)-2147483647 - 1)
+		return (ft_putstr("0x80000000"));
+	if (p == (unsigned int)2147483647)
+		return (ft_putstr("0x7fffffff"));
 	if (p == 0)
 		count = ft_putstr("0x0");
 	else

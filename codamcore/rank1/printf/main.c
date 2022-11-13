@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 17:46:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/13 00:17:26 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/13 01:25:41 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(void)
 	b = 2147483647;
 	p2 = &b;
 
-	printf("\n%d\n", printf(" %p %p ", p, p2));
-	printf("\n%d\n", ft_printf(" %p %p ", p, p2));
+	printf("\n%d\n", printf("%p %p ", p, p2));
+	b = 2147483647;
+	printf("\n%d\n", ft_printf("%p %p ", -2147483647 - 1, 2147483647));
 	return (0);
 }
