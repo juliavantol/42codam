@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:04:47 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/13 02:41:53 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/13 19:02:02 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		count_digits(long n);
 int		convert_int(va_list args);
 int		convert_unsigned_int(va_list args);
 int		new_itoa_un(long n);
-int		recursive_loop(long n);
+int		print_number(long n);
+long	reverse_num(long n);
+int		un_min_int(long n);
 
 #endif

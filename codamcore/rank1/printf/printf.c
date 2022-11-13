@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   printf.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
+/*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/13 01:52:30 by Julia         ########   odam.nl         */
+/*   Created: 2022/11/13 14:31:12 by Julia         #+#    #+#                 */
+/*   Updated: 2022/11/13 18:49:16 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	check_placeholder(const char *s, va_list args, int count)
 		count = ft_putchar(va_arg(args, int));
 	else if (*s == 'd' || *s == 'i')
 		count = convert_int(args);
+	else if (*s == 'u')
+		count = convert_unsigned_int(args);
 	else if (*s == '%')
 		count = ft_putstr("%");
 	else if (*s == 'X' || *s == 'x')
 		count = count_unsigned_int(s, args, count);
 	else if (*s == 'p')
 		count = pointer(args, count);
-	else if (*s == 'u')
-		count = convert_unsigned_int(args);
 	return (count);
 }
 

@@ -6,13 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/13 02:37:53 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/13 02:43:47 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/13 19:13:44 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	un_min_int(long n)
+int	un_min_int(long n)
 {
 	int	count;
 
@@ -43,5 +43,5 @@ int	new_itoa_un(long n)
 		if (check == -1)
 			return (-1);
 	}
-	return (recursive_loop(n));
+	return (print_number(n));
 }
