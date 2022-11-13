@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 16:11:56 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/13 19:26:00 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/13 23:25:01 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	convert_unsigned_int(va_list args)
 	int		count;
 
 	temp = va_arg(args, int);
-	new = 0;
+	new = temp;
 	if ((unsigned int)temp == (unsigned int)2147483648)
 		return (ft_putstr("2147483648"));
 	else if ((unsigned int)temp == (unsigned int)-2147483648)
@@ -29,17 +29,11 @@ int	convert_unsigned_int(va_list args)
 	if (temp < 0)
 	{
 		new = 4294967296 - (temp * -1);
-		count = new_itoa_un(new);
-		if (count != -1)
-			count = count_digits(new);
+		return (new_itoa(new));
 	}
 	else
-	{
-		count = new_itoa(temp);
-		if (count != -1)
-			count = count_digits(temp);
-	}
-	return (count);
+		return (new_itoa(temp));
+	return (0);
 }
 
 int	convert_int(va_list args)
@@ -52,24 +46,26 @@ int	convert_int(va_list args)
 		return (ft_putstr("2147483647"));
 	if (temp == -2147483648)
 		return (ft_putstr("-2147483648"));
-	count = new_itoa(temp);
-	if (count != -1)
-		count = count_digits(temp);
-	return (count);
+	return (new_itoa(temp));
 }
 
 int	new_itoa(long n)
 {
-	int	check;
+	int	str_len;
+	int	negative;
 
+	negative = 0;
 	if (n == 0)
 		return (ft_putchar('0'));
 	if (n < 0)
 	{
 		n *= -1;
-		check = ft_putchar('-');
-		if (check == -1)
+		negative++;
+		if (ft_putchar('-') == -1)
 			return (-1);
 	}
-	return (print_number(n));
+	str_len = print_number(n);
+	if (str_len == -1)
+		return (-1);
+	return (str_len + negative);
 }

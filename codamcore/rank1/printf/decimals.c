@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/13 17:43:11 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/13 18:51:28 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/13 23:18:14 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,11 @@ int	print_number(long n)
 		num = num / 10;
 		index++;
 	}
-	if (index < count_digits(n))
+	while (index < count_digits(n))
 	{
-		while (index < count_digits(n))
-		{
-			if (ft_putchar('0') == -1)
-				return (-1);
-			index++;
-		}
+		if (ft_putchar('0') == -1)
+			return (-1);
+		index++;
 	}
-	return (0);
+	return (index);
 }
