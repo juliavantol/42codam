@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 11:55:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/13 00:15:21 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/13 01:52:30 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ int	check_placeholder(const char *s, va_list args, int count)
 		count = convert_int(args);
 	else if (*s == '%')
 		count = ft_putstr("%");
-	else if (*s == 'X' || *s == 'x' || *s == 'u')
+	else if (*s == 'X' || *s == 'x')
 		count = count_unsigned_int(s, args, count);
 	else if (*s == 'p')
 		count = pointer(args, count);
+	else if (*s == 'u')
+		count = convert_unsigned_int(args);
 	return (count);
 }
 
