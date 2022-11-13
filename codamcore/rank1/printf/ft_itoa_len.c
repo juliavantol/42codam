@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   decimals.c                                         :+:    :+:            */
+/*   ft_itoa_len.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/13 17:43:11 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/13 23:18:14 by Julia         ########   odam.nl         */
+/*   Created: 2022/11/13 23:30:12 by Julia         #+#    #+#                 */
+/*   Updated: 2022/11/13 23:32:09 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@ int	count_digits(long n)
 	int	count;
 
 	count = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
-	{
-		n *= -1;
-		count++;
-	}
 	while (n)
 	{
 		count++;
@@ -66,4 +59,25 @@ int	print_number(long n)
 		index++;
 	}
 	return (index);
+}
+
+int	new_itoa(long n)
+{
+	int	str_len;
+	int	negative;
+
+	negative = 0;
+	if (n == 0)
+		return (ft_putchar('0'));
+	if (n < 0)
+	{
+		n *= -1;
+		negative++;
+		if (ft_putchar('-') == -1)
+			return (-1);
+	}
+	str_len = print_number(n);
+	if (str_len == -1)
+		return (-1);
+	return (str_len + negative);
 }
