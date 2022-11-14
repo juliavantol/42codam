@@ -6,26 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/13 23:30:12 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/14 11:55:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/14 15:55:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-long	reverse_num(long n)
-{
-	long	new_num;
-
-	new_num = 0;
-	while (n != 0)
-	{
-		new_num = (new_num * 10) + n % 10;
-		n = n / 10;
-	}
-	return (new_num);
-}
-
-int	count_digits(long n)
+static int	count_digits(long n)
 {
 	int	count;
 
@@ -38,7 +25,20 @@ int	count_digits(long n)
 	return (count);
 }
 
-int	print_number(long n)
+static long	reverse_num(long n)
+{
+	long	new_num;
+
+	new_num = 0;
+	while (n != 0)
+	{
+		new_num = (new_num * 10) + n % 10;
+		n = n / 10;
+	}
+	return (new_num);
+}
+
+static int	print_number(long n)
 {
 	long	num;
 	int		index;
@@ -47,14 +47,14 @@ int	print_number(long n)
 	index = 0;
 	while (num > 0)
 	{
-		if (ft_putchar(num % 10 + '0') == -1)
+		if (ft_putchar_len(num % 10 + '0') == -1)
 			return (-1);
 		num = num / 10;
 		index++;
 	}
 	while (index < count_digits(n))
 	{
-		if (ft_putchar('0') == -1)
+		if (ft_putchar_len('0') == -1)
 			return (-1);
 		index++;
 	}
@@ -68,12 +68,12 @@ int	ft_itoa_len(long n)
 
 	negative = 0;
 	if (n == 0)
-		return (ft_putchar('0'));
+		return (ft_putchar_len('0'));
 	if (n < 0)
 	{
 		n *= -1;
 		negative++;
-		if (ft_putchar('-') == -1)
+		if (ft_putchar_len('-') == -1)
 			return (-1);
 	}
 	str_len = print_number(n);

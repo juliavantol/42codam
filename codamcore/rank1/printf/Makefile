@@ -1,5 +1,5 @@
 NAME = libftprintf.a
-SRC = main.c printf.c helpers.c hex.c unsigned_ints.c void_pointer.c ints.c ft_itoa_len.c 
+SRC = main.c printf.c ft_hex_len.c parser.c ft_itoa_len.c 
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
@@ -14,6 +14,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	@cd libft && make fclean
 
 re: fclean all
 

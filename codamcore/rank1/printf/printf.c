@@ -6,34 +6,32 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/13 14:31:12 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/14 11:50:08 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/14 16:54:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	print_output(char	*p, va_list	args);
-
-int	check_placeholder(const char *s, va_list args, int count)
+static int	check_placeholder(const char *s, va_list args, int count)
 {
 	if (*s == 's')
-		return (ft_putstr(va_arg(args, char *)));
+		return (ft_putstr_len(va_arg(args, char *)));
 	else if (*s == 'c')
-		return (ft_putchar(va_arg(args, int)));
+		return (ft_putchar_len(va_arg(args, int)));
 	else if (*s == 'd' || *s == 'i')
-		return (convert_int(args));
+		return (ft_itoa_len(va_arg(args, int)));
 	else if (*s == 'u')
-		return (convert_unsigned_int(args));
+		return (parse_decimal(args, s));
 	else if (*s == '%')
-		return (ft_putstr("%"));
+		return (ft_putstr_len("%"));
 	else if (*s == 'X' || *s == 'x')
-		return (count_unsigned_int(s, args, count));
+		return (parse_hex(s, args));
 	else if (*s == 'p')
-		return (pointer(args, count));
-	return (-1);
+		return (parse_pointer(args, count));
+	return (0);
 }
 
-static int	loop(const char *s, va_list args, int state, int count)
+static int	print_input(const char *s, va_list args, int count)
 {
 	int	index;
 	int	res;
@@ -52,7 +50,7 @@ static int	loop(const char *s, va_list args, int state, int count)
 		}
 		else
 		{
-			if (ft_putchar(s[index]) == -1)
+			if (ft_putchar_len(s[index]) == -1)
 				return (-1);
 			count++;
 			index++;
@@ -68,7 +66,7 @@ int	ft_printf(const char	*s, ...)
 	va_list	args;
 
 	va_start(args, s);
-	output = loop(s, args, 0, 0);
+	output = print_input(s, args, 0);
 	if (output == -1)
 		return (-1);
 	va_end(args);

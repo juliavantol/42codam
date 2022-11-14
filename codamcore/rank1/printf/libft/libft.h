@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/04 14:31:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/28 12:39:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/14 12:54:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int		ft_putchar_len(char c);
+int		ft_putstr_len(char *s);
 
 #endif /* FOO_DOT_H */
