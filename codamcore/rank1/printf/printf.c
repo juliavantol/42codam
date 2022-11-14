@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/13 14:31:12 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/13 18:49:16 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/14 11:50:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ static int	print_output(char	*p, va_list	args);
 int	check_placeholder(const char *s, va_list args, int count)
 {
 	if (*s == 's')
-		count = ft_putstr(va_arg(args, char *));
+		return (ft_putstr(va_arg(args, char *)));
 	else if (*s == 'c')
-		count = ft_putchar(va_arg(args, int));
+		return (ft_putchar(va_arg(args, int)));
 	else if (*s == 'd' || *s == 'i')
-		count = convert_int(args);
+		return (convert_int(args));
 	else if (*s == 'u')
-		count = convert_unsigned_int(args);
+		return (convert_unsigned_int(args));
 	else if (*s == '%')
-		count = ft_putstr("%");
+		return (ft_putstr("%"));
 	else if (*s == 'X' || *s == 'x')
-		count = count_unsigned_int(s, args, count);
+		return (count_unsigned_int(s, args, count));
 	else if (*s == 'p')
-		count = pointer(args, count);
-	return (count);
+		return (pointer(args, count));
+	return (-1);
 }
 
 static int	loop(const char *s, va_list args, int state, int count)
@@ -68,7 +68,7 @@ int	ft_printf(const char	*s, ...)
 	va_list	args;
 
 	va_start(args, s);
-	output = loop(s, args,0 ,0);
+	output = loop(s, args, 0, 0);
 	if (output == -1)
 		return (-1);
 	va_end(args);

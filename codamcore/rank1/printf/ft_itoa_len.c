@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/13 23:30:12 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/13 23:32:09 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/14 11:55:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	print_number(long n)
 	return (index);
 }
 
-int	new_itoa(long n)
+int	ft_itoa_len(long n)
 {
 	int	str_len;
 	int	negative;

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 16:11:56 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/13 23:32:29 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/14 11:55:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	convert_unsigned_int(va_list args)
 	if (temp < 0)
 	{
 		new = 4294967296 - (temp * -1);
-		return (new_itoa(new));
+		return (ft_itoa_len(new));
 	}
 	else
-		return (new_itoa(temp));
+		return (ft_itoa_len(temp));
 	return (0);
 }
 
@@ -44,5 +44,5 @@ int	convert_int(va_list args)
 		return (ft_putstr("2147483647"));
 	if (temp == -2147483648)
 		return (ft_putstr("-2147483648"));
-	return (new_itoa(temp));
+	return (ft_itoa_len(temp));
 }
