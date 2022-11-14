@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/14 23:23:30 by Julia         ########   odam.nl         */
+/*   Updated: 2022/11/14 23:25:02 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ char	*get_next_line(int fd)
 	static int	buffer_size;
 	char		*s;
 
-	#ifdef BUFFER_SIZE
-		buffer_size = BUFFER_SIZE;
-		printf("%d\n", buffer_size);
-	#else
-		buffer_size = 10;
-		printf("no buffer given\n");
-		printf("%d\n", buffer_size);
-	#endif 
+#ifdef BUFFER_SIZE
+	buffer_size = BUFFER_SIZE;
+	printf("%d\n", buffer_size);
+
+#else
+
+	buffer_size = 10;
+	printf("no buffer given\n");
+	printf("%d\n", buffer_size);
+#endif
+
 	s = "a";
 	fd--;
 	return (s);
