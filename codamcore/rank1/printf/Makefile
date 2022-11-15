@@ -1,13 +1,14 @@
 NAME = libftprintf.a
-SRC = main.c printf.c ft_hex_len.c parser.c ft_itoa_len.c 
+SRC = printf.c ft_hex_len.c parser.c ft_itoa_len.c
+CFLAGS = -Wall -Wextra -Werror
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) libft
+$(NAME): $(OBJ)
 	@cd libft && make bonus
 	@cp libft/libft.a ./$(NAME)
-	@ar r $(NAME) $(OBJ)
+	ar r $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ)
@@ -18,7 +19,4 @@ fclean: clean
 
 re: fclean all
 
-run: main.c all
-	@$(CC) -Wall -Wextra -Werror -o run main.c libftprintf.a && ./run
-
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re libft bonus

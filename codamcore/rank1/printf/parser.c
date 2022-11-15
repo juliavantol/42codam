@@ -6,13 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 16:11:56 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/14 16:56:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/15 11:58:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	parse_decimal(va_list args, const char *s)
+int	parse_decimal(va_list args)
 {
 	long	num;
 
@@ -47,7 +47,7 @@ int	parse_hex(const char *s, va_list args)
 	return (check);
 }
 
-int	parse_pointer(va_list args, int count)
+int	parse_pointer(va_list args)
 {
 	unsigned long	p;
 

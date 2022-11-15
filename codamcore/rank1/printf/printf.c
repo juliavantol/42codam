@@ -6,13 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/13 14:31:12 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/14 16:54:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/15 11:59:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	check_placeholder(const char *s, va_list args, int count)
+static int	check_placeholder(const char *s, va_list args)
 {
 	if (*s == 's')
 		return (ft_putstr_len(va_arg(args, char *)));
@@ -21,13 +21,13 @@ static int	check_placeholder(const char *s, va_list args, int count)
 	else if (*s == 'd' || *s == 'i')
 		return (ft_itoa_len(va_arg(args, int)));
 	else if (*s == 'u')
-		return (parse_decimal(args, s));
+		return (parse_decimal(args));
 	else if (*s == '%')
 		return (ft_putstr_len("%"));
 	else if (*s == 'X' || *s == 'x')
 		return (parse_hex(s, args));
 	else if (*s == 'p')
-		return (parse_pointer(args, count));
+		return (parse_pointer(args));
 	return (0);
 }
 
@@ -42,7 +42,7 @@ static int	print_input(const char *s, va_list args, int count)
 	{
 		if (s[index] == '%')
 		{
-			res = check_placeholder(&s[index + 1], args, count);
+			res = check_placeholder(&s[index + 1], args);
 			if (res == -1)
 				return (-1);
 			count += res;
@@ -61,7 +61,6 @@ static int	print_input(const char *s, va_list args, int count)
 
 int	ft_printf(const char	*s, ...)
 {
-	char	*p;
 	int		output;
 	va_list	args;
 
