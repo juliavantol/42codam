@@ -15,7 +15,6 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	@cd libft && make fclean
 
 re: fclean all
 
