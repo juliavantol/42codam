@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_putstr_len.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/21 17:46:10 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/11/14 12:42:31 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/14 12:44:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 
-# endif
-
-# include <stdio.h>
-# include <ctype.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-
-char	*get_next_line(int fd);
-void	ft_str(char *s);
-
-#endif
+int	ft_putstr_len(char *s)
+{
+	if (!s)
+	{
+		return (write(1, "(null)", 6));
+	}
+	else
+		return (write(1, s, ft_strlen(s)));
+	return (ft_strlen(s));
+}

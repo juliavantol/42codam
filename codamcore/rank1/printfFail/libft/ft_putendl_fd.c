@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_putendl_fd.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/21 17:46:10 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/24 15:05:46 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/24 15:07:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 
-# endif
+/* Outputs the string ’s’ to the given file descriptor
+followed by a newline. */
 
-# include <stdio.h>
-# include <ctype.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+void	ft_putendl_fd(char *s, int fd)
+{
+	size_t	index;
 
-char	*get_next_line(int fd);
-void	ft_str(char *s);
-
-#endif
+	index = 0;
+	if (s && fd)
+	{
+		while (index < ft_strlen(s))
+		{
+			write(fd, &s[index], 1);
+			index++;
+		}
+		write(fd, "\n", 1);
+	}
+}

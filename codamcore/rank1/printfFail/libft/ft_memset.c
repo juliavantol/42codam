@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_memset.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/21 17:46:10 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/05 14:39:25 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 14:43:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 
-# endif
+/* Sets the first n bytes of dest to the value c. 
+The value of c is converted to an unsigned character. */
 
-# include <stdio.h>
-# include <ctype.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*new;
+	size_t			index;
 
-char	*get_next_line(int fd);
-void	ft_str(char *s);
-
-#endif
+	index = 0;
+	new = s;
+	while (index < n)
+	{
+		new[index] = (unsigned char)c;
+		index++;
+	}
+	return (new);
+}

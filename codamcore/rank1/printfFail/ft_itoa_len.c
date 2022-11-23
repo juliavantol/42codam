@@ -6,13 +6,12 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/13 23:30:12 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/15 13:26:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/14 15:55:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/* Count how many digits there are in the num */
 static int	count_digits(long n)
 {
 	int	count;
@@ -26,7 +25,6 @@ static int	count_digits(long n)
 	return (count);
 }
 
-/* Reverse the given number */
 static long	reverse_num(long n)
 {
 	long	new_num;
@@ -40,7 +38,6 @@ static long	reverse_num(long n)
 	return (new_num);
 }
 
-/* Print the number one char at the time */
 static int	print_number(long n)
 {
 	long	num;
@@ -64,7 +61,6 @@ static int	print_number(long n)
 	return (index);
 }
 
-/* Convert the num to a string and return the len of the string */
 int	ft_itoa_len(long n)
 {
 	int	str_len;

@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_lstiter.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/21 17:46:10 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/11/01 11:17:19 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:18:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 
-# endif
+/* Iterates the list ’lst’ and applies the function ’f’ on the content 
+of each node. */
 
-# include <stdio.h>
-# include <ctype.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	t_list	*temp;
 
-char	*get_next_line(int fd);
-void	ft_str(char *s);
-
-#endif
+	if (lst != 0 && f != 0)
+	{
+		temp = lst;
+		while (temp)
+		{
+			f(temp -> content);
+			temp = temp -> next;
+		}
+	}
+}

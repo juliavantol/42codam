@@ -12,7 +12,9 @@
 
 #include "ft_printf.h"
 
-/* Count how many digits there are in the hexadecimal */
+/* Convert the number with base value 10 to base value 16 */
+/* keep diving by 16 and for each turn store the remainder */
+
 int	count_hex(unsigned long n)
 {
 	int		index;
@@ -26,7 +28,6 @@ int	count_hex(unsigned long n)
 	return (index);
 }
 
-/* Convert the number to hexidecimal and return the length of the string */
 int	ft_hex(unsigned long num, int format)
 {
 	int				check;

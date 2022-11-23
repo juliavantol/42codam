@@ -6,13 +6,12 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/13 14:31:12 by Julia         #+#    #+#                 */
-/*   Updated: 2022/11/21 13:28:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/11/15 11:59:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/* Check which placeholder has been given and parse it accordingly */
 static int	check_placeholder(const char *s, va_list args)
 {
 	if (*s == 's')
@@ -32,33 +31,32 @@ static int	check_placeholder(const char *s, va_list args)
 	return (0);
 }
 
-/* Print the string char by char. If the char is a %, go to check_placeholder */
-static int	print_input(const char *s, va_list args, int output_len, int len)
+static int	print_input(const char *s, va_list args, int count)
 {
 	int	index;
+	int	res;
 
 	index = 0;
+	res = 0;
 	while (s[index])
 	{
-		if (s[index] == '%' && s[index + 1] != '\0')
+		if (s[index] == '%')
 		{
-			len = check_placeholder(&s[index + 1], args);
-			if (len == -1)
+			res = check_placeholder(&s[index + 1], args);
+			if (res == -1)
 				return (-1);
-			output_len += len;
-			index += 2;
+			count += res;
+			index = index + 2;
 		}
-		else if (s[index] != '%')
+		else
 		{
 			if (ft_putchar_len(s[index]) == -1)
 				return (-1);
-			output_len++;
+			count++;
 			index++;
 		}
-		else
-			break ;
 	}
-	return (output_len);
+	return (count);
 }
 
 int	ft_printf(const char	*s, ...)
@@ -67,7 +65,7 @@ int	ft_printf(const char	*s, ...)
 	va_list	args;
 
 	va_start(args, s);
-	output = print_input(s, args, 0, 0);
+	output = print_input(s, args, 0);
 	if (output == -1)
 		return (-1);
 	va_end(args);

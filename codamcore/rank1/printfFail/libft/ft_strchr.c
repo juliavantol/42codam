@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_strchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/21 17:46:10 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 09:54:08 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 15:00:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 
-# endif
+/* This function finds the first occurence of character c and returns 
+a pointer to the first occurence of c. */
 
-# include <stdio.h>
-# include <ctype.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+char	*ft_strchr(const char *str, int c)
+{
+	size_t	index;
 
-char	*get_next_line(int fd);
-void	ft_str(char *s);
-
-#endif
+	index = 0;
+	if (str[index] == (char)c)
+		return (&((char *) str)[index]);
+	while (index < (ft_strlen(str) + 1))
+	{
+		if (str[index] == (char)c)
+			return (&((char *) str)[index]);
+		index++;
+	}
+	return (NULL);
+}

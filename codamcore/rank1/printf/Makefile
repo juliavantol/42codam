@@ -1,3 +1,16 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: juvan-to <juvan-to@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/11/21 10:59:12 by juvan-to      #+#    #+#                  #
+#    Updated: 2022/11/21 15:47:38 by juvan-to      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+CC = gcc
 NAME = libftprintf.a
 SRC = printf.c ft_hex_len.c parser.c ft_itoa_len.c
 CFLAGS = -Wall -Wextra -Werror
@@ -8,14 +21,17 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@cd libft && make bonus
 	@cp libft/libft.a ./$(NAME)
-	ar r $(NAME) $(OBJ)
+	@ar r $(NAME) $(OBJ)
 
-clean:
-	rm -f $(OBJ)
+%.o: %.c
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+clean:	
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re libft bonus
+.PHONY: all clean fclean re

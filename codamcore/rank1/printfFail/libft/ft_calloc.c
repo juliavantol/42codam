@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_calloc.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/21 17:46:10 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 13:36:42 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 11:28:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 
-# endif
+/* Allocates specified amount of memory and initializes it to zero */
 
-# include <stdio.h>
-# include <ctype.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+void	*ft_calloc(size_t nelem, size_t elsize)
+{
+	void	*m;
 
-char	*get_next_line(int fd);
-void	ft_str(char *s);
-
-#endif
+	m = malloc(nelem * elsize);
+	if (m == NULL)
+		return (NULL);
+	ft_bzero(m, nelem * elsize);
+	return (m);
+}

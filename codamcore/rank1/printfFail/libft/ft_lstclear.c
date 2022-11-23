@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_lstclear.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/21 17:46:10 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/28 11:49:14 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:26:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 
-# endif
+/* Deletes and frees the given node and every successor of that node, 
+using the function lstdelone. The pointer to the list is set to NULL. */
 
-# include <stdio.h>
-# include <ctype.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+void	ft_lstclear(t_list **lst, void (*del)(void*))
+{
+	t_list	*temp;
+	t_list	*next;
 
-char	*get_next_line(int fd);
-void	ft_str(char *s);
-
-#endif
+	if (*lst != 0 && del != 0)
+	{
+		temp = *lst;
+		while (temp)
+		{
+			next = temp -> next;
+			ft_lstdelone(temp, del);
+			temp = next;
+		}
+		*lst = 0;
+	}
+}

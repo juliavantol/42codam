@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_strrchr.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/21 17:46:10 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 10:21:36 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 16:18:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 
-# endif
+/* This function finds the last occurence of character c.
+It returns a pointer to the last occurence of c. */
 
-# include <stdio.h>
-# include <ctype.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+char	*ft_strrchr(const char *s, int c)
+{
+	int		str_len;
 
-char	*get_next_line(int fd);
-void	ft_str(char *s);
-
-#endif
+	str_len = 0;
+	while (s[str_len] != '\0')
+		str_len++;
+	while (str_len >= 0)
+	{
+		if (s[str_len] == (char)c)
+			return (&((char *) s)[str_len]);
+		str_len--;
+	}
+	return (NULL);
+}
