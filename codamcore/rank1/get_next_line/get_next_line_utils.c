@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/30 14:29:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/01 18:24:57 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,27 @@ static size_t	ft_strlen(const char *s)
 	return (index);
 }
 
-char	*add_to_stash(char *s1, char *s2)
+char	*add_to_stash(char *stash, char *str)
 {
 	char	*new_str;
 	size_t	str_len;
 	int		index;
 	int		second;
 
-	str_len = ft_strlen(s1) + ft_strlen(s2);
+	str_len = ft_strlen(stash) + ft_strlen(str);
 	new_str = (char *)malloc((str_len + 1) * sizeof(char));
 	index = 0;
 	if (new_str == NULL)
 		return (NULL);
-	while (s1[index] != '\0')
+	while (stash[index] != '\0')
 	{
-		new_str[index] = s1[index];
+		new_str[index] = stash[index];
 		index++;
 	}
 	second = index;
 	index = 0;
-	while (s2[index] != '\0')
-		new_str[second++] = s2[index++];
+	while (str[index] != '\0')
+		new_str[second++] = str[index++];
 	new_str[second] = '\0';
 	return (new_str);
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/30 14:29:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/01 18:25:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (search_newline(stash) != 1)
 	{
+		printf("stash: %s\n", stash);
 		if (read(fd, buffer, BUFFER_SIZE) == 0)
 			return (0);
 		stash = add_to_stash(stash, buffer);
 		if (search_newline(stash) == 1)
 		{
 			line = extract_line(stash);
-			stash = empty_stash(stash);
+			stash = add_to_stash(stash, buffer);
 			return (line);
 		}
 	}
@@ -58,7 +59,7 @@ int	main(void)
 		s = get_next_line(file);
 		if (s == 0)
 			break ;
-		printf("%s", s);
+		// printf("%s", s);
 		rounds++;
 	}
 	close(file);
