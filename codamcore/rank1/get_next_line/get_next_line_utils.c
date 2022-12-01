@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/01 18:24:57 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/02 00:34:08 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,27 @@ char	*empty_stash(char *stash)
 	// }
 	// printf("stash: %s\n", stash);
 	return (stash);
+}
+
+char	*ft_strjoin(char **stash, char *str)
+{
+	char	*new_str;
+	size_t	str_len;
+	size_t	index;
+
+	if (!*stash)
+		*stash = "hello";
+	str_len = ft_strlen(*stash) + ft_strlen(str);
+	new_str = (char *)malloc((str_len + 4) * sizeof(char));
+	if (new_str == NULL)
+		return (NULL);
+	index = 0;
+	while (index < ft_strlen(*stash))
+	{
+		new_str[index] = 'a';
+		index++;
+	}
+	new_str[index] = **stash;
+	new_str[index] = **stash;
+	return (new_str);
 }
