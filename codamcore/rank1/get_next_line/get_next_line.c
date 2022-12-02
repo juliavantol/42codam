@@ -6,27 +6,25 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/01 23:58:09 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/02 13:35:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 // cc -Wall -Wextra -Werror -D BUFFER_SIZE=5 get_next_line.c get_next_line_utils.c &&./a.out
-// cc -Wall -Wextra -Werror get_next_line.c &&./a.out
 
 char	*get_next_line(int fd)
 {
 	static char	*stash;
-	char		*line;
 
 	if (!fd || BUFFER_SIZE < 1)
 		return (NULL);
-	line = ft_strjoin(&stash, "a");
+	stash = ft_strjoin(stash, "a", 0, 0);
 	printf("stash: %s\n", stash);
-	if (!line)
+	if (!stash)
 		return (NULL);
-	return (line);
+	return (stash);
 }
 
 // char	*get_next_line(int fd)

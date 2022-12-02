@@ -6,11 +6,36 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/02 00:34:08 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/02 13:36:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*p;
+	size_t			index;
+
+	p = s;
+	index = 0;
+	while (index < n)
+	{
+		p[index] = '\0';
+		index++;
+	}
+}
+
+static void	*ft_calloc(size_t nelem, size_t elsize)
+{
+	void	*m;
+
+	m = malloc(nelem * elsize);
+	if (m == NULL)
+		return (NULL);
+	ft_bzero(m, nelem * elsize);
+	return (m);
+}
 
 static size_t	ft_strlen(const char *s)
 {
@@ -20,31 +45,6 @@ static size_t	ft_strlen(const char *s)
 	while (s[index] != '\0')
 		index++;
 	return (index);
-}
-
-char	*add_to_stash(char *stash, char *str)
-{
-	char	*new_str;
-	size_t	str_len;
-	int		index;
-	int		second;
-
-	str_len = ft_strlen(stash) + ft_strlen(str);
-	new_str = (char *)malloc((str_len + 1) * sizeof(char));
-	index = 0;
-	if (new_str == NULL)
-		return (NULL);
-	while (stash[index] != '\0')
-	{
-		new_str[index] = stash[index];
-		index++;
-	}
-	second = index;
-	index = 0;
-	while (str[index] != '\0')
-		new_str[second++] = str[index++];
-	new_str[second] = '\0';
-	return (new_str);
 }
 
 int	search_newline(char *s)
@@ -59,6 +59,30 @@ int	search_newline(char *s)
 		index++;
 	}
 	return (0);
+}
+
+char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
+{
+	char	*new_str;
+
+	if (!stash)
+	{
+		stash = ft_calloc(1, 1);
+		if (stash == NULL)
+			return (NULL);
+	}
+	new_str = malloc(sizeof(char) * ft_strlen(stash) + ft_strlen(str) + 1);
+	if (!new_str)
+		return (NULL);
+	while (stash[index])
+	{
+		new_str[index] = stash[index];
+		index++;
+	}
+	while (str[start])
+		new_str[index++] = str[start++];
+	new_str[index] = '\0';
+	return (new_str);
 }
 
 char	*extract_line(char *stash)
@@ -76,43 +100,4 @@ char	*extract_line(char *stash)
 		index++;
 	}
 	return (line);
-}
-
-char	*empty_stash(char *stash)
-{
-	// size_t	index;
-
-	// index = 0;
-	// while (index < ft_strlen(stash))
-	// {
-	// 	stash[index] = '\0';
-	// 	if (stash[index] == '\n')
-	// 		break ;
-	// 	index++;
-	// }
-	// printf("stash: %s\n", stash);
-	return (stash);
-}
-
-char	*ft_strjoin(char **stash, char *str)
-{
-	char	*new_str;
-	size_t	str_len;
-	size_t	index;
-
-	if (!*stash)
-		*stash = "hello";
-	str_len = ft_strlen(*stash) + ft_strlen(str);
-	new_str = (char *)malloc((str_len + 4) * sizeof(char));
-	if (new_str == NULL)
-		return (NULL);
-	index = 0;
-	while (index < ft_strlen(*stash))
-	{
-		new_str[index] = 'a';
-		index++;
-	}
-	new_str[index] = **stash;
-	new_str[index] = **stash;
-	return (new_str);
 }
