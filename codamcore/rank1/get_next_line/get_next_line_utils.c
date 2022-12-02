@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/02 13:36:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/02 14:21:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	*extract_line(char *stash)
 	size_t	index;
 	char	*line;
 
+	printf("stash: %s\n\n", stash);
+	printf("end stash\n");
 	index = 0;
 	line = malloc(ft_strlen(stash) + 1);
 	while (index < ft_strlen(stash))

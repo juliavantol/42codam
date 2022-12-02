@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/02 13:35:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/02 14:20:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,27 @@
 char	*get_next_line(int fd)
 {
 	static char	*stash;
+	char		*buffer;
+	char		*line;
 
 	if (!fd || BUFFER_SIZE < 1)
 		return (NULL);
-	stash = ft_strjoin(stash, "a", 0, 0);
-	printf("stash: %s\n", stash);
-	if (!stash)
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
 		return (NULL);
+	while (search_newline(buffer) != 1)
+	{
+		if (read(fd, buffer, BUFFER_SIZE) == 0)
+			return (0);
+		stash = ft_strjoin(stash, buffer, 0, 0);
+		if (!stash)
+			return (NULL);
+		if (search_newline(stash) == 1)
+		{
+			line = extract_line(stash);
+			return (line);
+		}
+	}
 	return (stash);
 }
 
@@ -61,18 +75,15 @@ int	main(void)
 {
 	int		file;
 	char	*s;
-	int		rounds;
 
 	file = open("test.txt", O_RDONLY);
-	rounds = 0;
 	s = "a";
-	while (s && rounds < 10)
+	while (s)
 	{
 		s = get_next_line(file);
 		if (s == 0)
 			break ;
 		printf("%s\n", s);
-		rounds++;
 	}
 	close(file);
 	return (0);
