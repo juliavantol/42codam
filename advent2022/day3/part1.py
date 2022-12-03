@@ -10,11 +10,17 @@ def search(left, right):
 			if i == j:
 				return (i)
 
-with open("test.txt") as file:
+sum = 0
+with open("input.txt") as file:
 	while True:
 		line = file.readline()
 		if not line:
 			break
 		output = split_str(line)
 		duplicate = search(output[0], output[1])
-		print(duplicate)
+		if duplicate.islower() == True:
+			c = ord(duplicate) - 96
+		else:
+			c = ord(duplicate) - 38
+		sum += c
+print(sum)
