@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/03 14:57:03 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/04 02:11:13 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*buffer;
 	char		*line;
+	size_t		check;
 
 	if (!fd || BUFFER_SIZE < 1)
 		return (NULL);
@@ -27,8 +28,15 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (search_newline(buffer) == 0)
 	{
-		if (read(fd, buffer, BUFFER_SIZE) == 0)
+		check = read(fd, buffer, BUFFER_SIZE);
+		buffer[check] = '\0';
+		if (check == 0)
 			return (0);
+		else if (check < BUFFER_SIZE)
+		{
+			stash = ft_strjoin(stash, buffer, 0, 0);
+			return (extract_line(stash));
+		}
 		stash = ft_strjoin(stash, buffer, 0, 0);
 		if (!stash)
 			return (NULL);
@@ -41,36 +49,6 @@ char	*get_next_line(int fd)
 	}
 	return (0);
 }
-
-// char	*get_next_line(int fd)
-// {
-// 	static char	*stash;
-// 	char		*buffer;
-// 	char		*line;
-
-// 	if (!fd || BUFFER_SIZE < 1)
-// 		return (NULL);
-// 	stash = malloc(BUFFER_SIZE + 1);
-// 	if (!stash)
-// 		return (NULL);
-// 	buffer = malloc(BUFFER_SIZE + 1);
-// 	if (!buffer)
-// 		return (NULL);
-// 	while (search_newline(stash) != 1)
-// 	{
-// 		printf("stash: %s\n", stash);
-// 		if (read(fd, buffer, BUFFER_SIZE) == 0)
-// 			return (0);
-// 		stash = add_to_stash(stash, buffer);
-// 		if (search_newline(stash) == 1)
-// 		{
-// 			line = extract_line(stash);
-// 			stash = add_to_stash(stash, buffer);
-// 			return (line);
-// 		}
-// 	}
-// 	return (0);
-// }
 
 int	main(void)
 {
