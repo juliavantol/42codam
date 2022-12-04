@@ -6,13 +6,15 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/04 02:13:24 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/04 02:22:32 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 // cc -Wall -Wextra -Werror -D BUFFER_SIZE=5 get_next_line.c helpers.c get_next_line_utils.c &&./a.out
+// cc -Wall -Wextra -Werror -D BUFFER_SIZE=55 get_next_line.c helpers.c get_next_line_utils.c &&./a.out
+// cc -Wall -Wextra -Werror -D BUFFER_SIZE=5000 get_next_line.c helpers.c get_next_line_utils.c &&./a.out
 
 char	*get_next_line(int fd)
 {
