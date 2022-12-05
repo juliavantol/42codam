@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/05 14:13:46 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/05 14:24:22 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,39 @@ char	*extract_line(char *stash)
 		index++;
 	}
 	return (line);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*p;
+	size_t			index;
+
+	p = s;
+	index = 0;
+	while (index < n)
+	{
+		p[index] = '\0';
+		index++;
+	}
+}
+
+void	*ft_calloc(size_t nelem, size_t elsize)
+{
+	void	*m;
+
+	m = malloc(nelem * elsize);
+	if (m == NULL)
+		return (NULL);
+	ft_bzero(m, nelem * elsize);
+	return (m);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	index;
+
+	index = 0;
+	while (s[index] != '\0')
+		index++;
+	return (index);
 }

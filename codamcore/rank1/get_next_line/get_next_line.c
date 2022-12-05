@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/05 14:22:08 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/05 14:45:06 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*buffer;
 	char		*line;
-	size_t		check;
+	int			check;
 	size_t		check2;
 
-	if (!fd || BUFFER_SIZE < 1)
+	if (!fd || BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
@@ -52,6 +52,8 @@ char	*get_next_line(int fd)
 	while (check > 0 && check2 != 0)
 	{
 		check = read(fd, buffer, BUFFER_SIZE);
+		if (check == -1)
+			return (free(buffer), NULL);
 		if (check == 0)
 			break ;
 		buffer[check] = '\0';
@@ -65,7 +67,7 @@ char	*get_next_line(int fd)
 		stash = new_stash(stash);
 		return (line);
 	}
-	if (search_newline(stash) == 0 && ft_strlen(stash) > 0)
+	else if (search_newline(stash) == 0 && ft_strlen(stash) > 0)
 	{
 		line = extract_line(stash);
 		stash = empty_stash(stash);
@@ -74,23 +76,23 @@ char	*get_next_line(int fd)
 	return (0);
 }
 
-int	main(void)
-{
-	int		file;
-	char	*s;
-	int		index;
+// int	main(void)
+// {
+// 	int		file;
+// 	char	*s;
+// 	int		index;
 
-	file = open("test.txt", O_RDONLY);
-	s = "a";
-	index = 0;
-	while (s)
-	{
-		s = get_next_line(file);
-		if (s == 0)
-			break ;
-		index++;
-		printf("%s", s);
-	}
-	close(file);
-	return (0);
-}
+// 	file = open("test.txt", O_RDONLY);
+// 	s = "a";
+// 	index = 0;
+// 	while (s)
+// 	{
+// 		s = get_next_line(file);
+// 		printf("%s", s);
+// 		if (s == 0)
+// 			break ;
+// 		index++;
+// 	}
+// 	close(file);
+// 	return (0);
+// }
