@@ -11,9 +11,7 @@ def compare(first, second):
 	index = 0
 	for num in first:
 		if num in second:
-			index += 1
-	if index == len(first):
-		return 1
+			return 1
 	return 0
 
 count = 0
