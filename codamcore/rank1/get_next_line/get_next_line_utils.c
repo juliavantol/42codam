@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/04 15:32:18 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/05 14:13:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	search_newline(char *s)
 	size_t	index;
 
 	index = 0;
+	if (!s)
+		return (0);
 	while (index < ft_strlen(s))
 	{
 		if (s[index] == '\n')
