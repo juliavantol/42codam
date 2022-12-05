@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/05 14:20:34 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/05 14:22:08 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static char	*empty_stash(char	*stash)
 
 	index = 0;
 	while (stash[index])
-	{
-		stash[index] = '\0';
-		index++;
-	}
+		stash[index++] = '\0';
 	return (stash);
 }
 
