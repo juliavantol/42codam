@@ -6,11 +6,27 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/05 14:24:22 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/06 14:36:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_strchr(const char *str)
+{
+	size_t	index;
+
+	index = 0;
+	if (str[index] == '\n')
+		return (&((char *) str)[index]);
+	while (index < (ft_strlen(str) + 1))
+	{
+		if (str[index] == '\n')
+			return (&((char *) str)[index + 1]);
+		index++;
+	}
+	return (NULL);
+}
 
 int	search_newline(char *s)
 {
@@ -36,11 +52,11 @@ char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
 	{
 		stash = ft_calloc(1, 1);
 		if (stash == NULL)
-			return (NULL);
+			return (free(str), NULL);
 	}
 	new_str = malloc(sizeof(char) * ft_strlen(stash) + ft_strlen(str) + 1);
 	if (!new_str)
-		return (NULL);
+		return (free(str), free(stash), NULL);
 	while (stash[index])
 	{
 		new_str[index] = stash[index];
@@ -49,6 +65,7 @@ char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
 	while (str[start])
 		new_str[index++] = str[start++];
 	new_str[index] = '\0';
+	free(stash);
 	return (new_str);
 }
 
@@ -64,6 +81,7 @@ char	*new_stash(char *str)
 	while (str[index])
 		stash[i++] = str[index++];
 	stash[i] = '\0';
+	free(str);
 	return (stash);
 }
 
@@ -84,37 +102,21 @@ char	*extract_line(char *stash)
 	return (line);
 }
 
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*p;
-	size_t			index;
-
-	p = s;
-	index = 0;
-	while (index < n)
-	{
-		p[index] = '\0';
-		index++;
-	}
-}
-
 void	*ft_calloc(size_t nelem, size_t elsize)
 {
-	void	*m;
+	void			*m;
+	unsigned char	*p;
+	size_t			index;
 
 	m = malloc(nelem * elsize);
 	if (m == NULL)
 		return (NULL);
-	ft_bzero(m, nelem * elsize);
-	return (m);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	index;
-
+	p = m;
 	index = 0;
-	while (s[index] != '\0')
+	while (index < nelem * elsize)
+	{
+		p[index] = '\0';
 		index++;
-	return (index);
+	}
+	return (m);
 }
