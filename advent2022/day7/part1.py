@@ -32,6 +32,7 @@ while index < len(lines):
 				size = lines[i][4]
 			content.append(size)
 			i += 1
+		content = sorted([i for i in content if not str(i).isdigit()]) + sorted([i for i in content if str(i).isdigit()])
 		dirs[current] = content
 	index += 1
 
@@ -50,17 +51,25 @@ for key in dirs:
 	# print(key, "->", sum)
 	# print(key, "->", dirs[key])
 
-for key in dirs:
-	for i in dirs[key]:
-		if isinstance(i, str):
-			sum = folder_sizes[key]
-			# sum += calculate_size(i, sum)
-			folder_sizes[key] = sum + folder_sizes[i]
-			print(key, "->", i)
+def recursive_size(folder, i):
+	if isinstance(folder[i], int):
+		return 0
+	print(folder[i])
 
-sum = 0
-for size in folder_sizes:
-	if (folder_sizes[size] <= 100000)
-		sum += folder_sizes[size]
-		print(folder_sizes[size])
-print("sum", sum);
+print(recursive_size(dirs["/"], 1))
+
+
+# print(dirs)
+# for key in dirs:
+# 	for i in dirs[key]:
+# 		if isinstance(i, str):
+# 			sum = folder_sizes[key]
+# 			# sum += calculate_size(i, sum)
+# 			folder_sizes[key] = sum + folder_sizes[i]
+
+# sum = 0
+# for size in folder_sizes:
+# 	if folder_sizes[size] <= 100000:
+# 		sum += folder_sizes[size]
+# print(folder_sizes)
+# print("sum", sum)
