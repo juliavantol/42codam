@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/06 16:43:39 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/08 14:07:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/08 19:45:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int main(int argc, char **argv)
 			printf("%s", s);
 			free(s);
 		}
+		// leaks();
 		close(file);
 	}
 	return (0);

@@ -6,11 +6,21 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/06 14:36:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/08 17:50:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	index;
+
+	index = 0;
+	while (s[index] != '\0')
+		index++;
+	return (index);
+}
 
 char	*ft_strchr(const char *str)
 {
@@ -35,6 +45,8 @@ int	search_newline(char *s)
 	index = 0;
 	if (!s)
 		return (0);
+	if (s[0] == '\n')
+		return (1);
 	while (index < ft_strlen(s))
 	{
 		if (s[index] == '\n')
@@ -67,39 +79,6 @@ char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
 	new_str[index] = '\0';
 	free(stash);
 	return (new_str);
-}
-
-char	*new_stash(char *str)
-{
-	char	*stash;
-	size_t	i;
-	size_t	index;
-
-	stash = malloc(sizeof(char) * ft_strlen(str) + 1);
-	index = search_newline(str) + 1;
-	i = 0;
-	while (str[index])
-		stash[i++] = str[index++];
-	stash[i] = '\0';
-	free(str);
-	return (stash);
-}
-
-char	*extract_line(char *stash)
-{
-	size_t	index;
-	char	*line;
-
-	index = 0;
-	line = malloc(ft_strlen(stash) + 1);
-	while (index < ft_strlen(stash))
-	{
-		line[index] = stash[index];
-		if (stash[index] == '\n')
-			break ;
-		index++;
-	}
-	return (line);
 }
 
 void	*ft_calloc(size_t nelem, size_t elsize)
