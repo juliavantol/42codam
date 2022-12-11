@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/12 00:36:29 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/12 00:56:00 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ char	*new_stash(char *line)
 		return (NULL);
 	}
 	stash = ft_calloc((ft_strlen(line) - end + 1), sizeof(char));
+	if (!stash)
+	{
+		free(line);
+		return (NULL);
+	}
 	end++;
 	j = 0;
 	while (line[end])
@@ -43,6 +48,8 @@ char	*extract_line(char *stash)
 
 	index = 0;
 	end = 0;
+	if (!stash[0])
+		return (NULL);
 	while (stash[end] && stash[end] != '\n')
 		end += 1;
 	line = ft_calloc(end + 2, sizeof(char));
