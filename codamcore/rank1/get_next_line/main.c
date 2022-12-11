@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/06 16:43:39 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/12 00:36:37 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/12 00:49:48 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <limits.h>
 
 // cc -Wall -Wextra -Werror -D BUFFER_SIZE=5 get_next_line.c get_next_line_utils.c main.c &&./a.out
-// cc -Wall -Wextra -Werror -D BUFFER_SIZE=55 get_next_line.c get_next_line_utils.c main.c &&./a.out
+// cc -Wall -Wextra -Werror -D BUFFER_SIZE=10 get_next_line.c get_next_line_utils.c main.c &&./a.out
 // cc -Wall -Wextra -Werror -D BUFFER_SIZE=5000 get_next_line.c get_next_line_utils.c main.c &&./a.out
 
 void	leaks(void)
@@ -30,7 +30,7 @@ int	main(void)
 	int		index;
 
 	s = "a";
-	file = open("1char.txt", O_RDONLY);
+	file = open("only_nl.txt", O_RDONLY);
 	if (!file)
 		file = 1;
 		index = 0;
