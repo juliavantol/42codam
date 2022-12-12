@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/12 13:11:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/12 13:51:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (BUFFER_SIZE < 1 || fd < 0 || read(fd, 0, 0) < 0)
+	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
 	stash = fill_stash(fd, stash);
 	if (!stash || ft_strlen(stash) == 0)
