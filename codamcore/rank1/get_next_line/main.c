@@ -6,22 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/06 16:43:39 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/12 13:53:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/12 14:02:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <limits.h>
-
-// cc -Wall -Wextra -Werror -D BUFFER_SIZE=5 get_next_line.c get_next_line_utils.c main.c &&./a.out
-// cc -Wall -Wextra -Werror -D BUFFER_SIZE=10 get_next_line.c get_next_line_utils.c main.c &&./a.out
-// cc -Wall -Wextra -Werror -D BUFFER_SIZE=5000 get_next_line.c get_next_line_utils.c main.c &&./a.out
-
-void	leaks(void)
-{
-	system("leaks a.out");
-}
 
 int	main(void)
 {
@@ -43,7 +34,6 @@ int	main(void)
 		printf("%s", s);
 		free(s);
 	}
-	// leaks();
 	close(file);
 }
 

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/12 13:51:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/12 17:34:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*new_stash(char *line)
 	if (!line[end])
 		return (free(line), NULL);
 	stash = ft_calloc((ft_strlen(line) - end + 1), sizeof(char));
-	if (!stash)
+	if (stash == NULL)
 		return (free(line), NULL);
 	j = 0;
 	end++;
@@ -47,7 +47,9 @@ char	*extract_line(char *stash)
 		return (NULL);
 	while (stash[end] && stash[end] != '\n')
 		end += 1;
-	line = ft_calloc(end + 2, sizeof(char));
+	if (stash[end] == '\n')
+		end++;
+	line = ft_calloc(1 + end, sizeof(char));
 	if (!line)
 		return (NULL);
 	index = 0;
@@ -57,7 +59,8 @@ char	*extract_line(char *stash)
 		index++;
 	}
 	if (stash[index] == '\n' && stash[index] != '\0')
-		line[index] = '\n';
+		line[index++] = '\n';
+	line[index] = '\0';
 	return (line);
 }
 
@@ -78,7 +81,7 @@ char	*fill_stash(int fd, char *stash)
 			return (free(stash), free(buffer), NULL);
 		buffer[check] = '\0';
 		stash = ft_strjoin(stash, buffer, 0, 0);
-		if (!stash)
+		if (stash == NULL)
 			return (free(buffer), NULL);
 		if (search_newline(buffer) > 0)
 			break ;
@@ -99,10 +102,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	stash = fill_stash(fd, stash);
 	if (!stash || ft_strlen(stash) == 0)
-		return (free(stash), NULL);
+		return (NULL);
 	line = extract_line(stash);
 	stash = new_stash(stash);
 	if (!stash && !line)
-		return (free(stash), NULL);
+		return (NULL);
 	return (line);
 }
