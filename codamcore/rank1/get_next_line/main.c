@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/06 16:43:39 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/12 00:49:48 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/12 12:48:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,30 @@ void	leaks(void)
 	system("leaks a.out");
 }
 
+// int	main(void)
+// {
+// 	int		file;
+// 	char	*s;
+// 	int		index;
+
+// 	s = "a";
+// 	file = open("testtxt", O_RDONLY);
+// 	if (!file)
+// 		file = 1;
+// 		index = 0;
+// 	while (s)
+// 	{
+// 		s = get_next_line(file);
+// 		if (s == 0)
+// 			break ;
+// 		index++;
+// 		printf("%s", s);
+// 		free(s);
+// 	}
+// 	// leaks();
+// 	close(file);
+// }
+
 int	main(void)
 {
 	int		file;
@@ -30,10 +54,23 @@ int	main(void)
 	int		index;
 
 	s = "a";
-	file = open("only_nl.txt", O_RDONLY);
+	file = open("read_error.txt", O_RDONLY);
 	if (!file)
 		file = 1;
 		index = 0;
+	while (s)
+	{
+		s = get_next_line(file);
+		if (s == 0)
+			break ;
+		index++;
+		printf("%s", s);
+		free(s);
+	}
+	// leaks();
+	close(file);
+	file = open("read_error.txt", O_RDONLY);
+	s = "a";
 	while (s)
 	{
 		s = get_next_line(file);
