@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/06 16:43:39 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/12 14:02:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/13 11:41:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,48 +36,3 @@ int	main(void)
 	}
 	close(file);
 }
-
-// int main(int argc, char **argv)
-// {
-// 	int		file;
-// 	char	*s;
-// 	int		index;
-
-// 	s = "a";
-// 	if (argc == 2)
-// 	{
-// 		file = open(argv[1], O_RDONLY);
-// 		if (!file)
-// 			file = 1;
-// 		index = 0;
-// 		while (s)
-// 		{
-// 			s = get_next_line(file);
-// 			if (s == 0)
-// 				break ;
-// 			index++;
-// 			printf("%s", s);
-// 			free(s);
-// 		}
-// 		close(file);
-// 	}
-// 	else if (argc == 1)
-// 	{
-// 		file = open("test.txt", O_RDONLY);
-// 		if (!file)
-// 			file = 1;
-// 		index = 0;
-// 		while (s)
-// 		{
-// 			s = get_next_line(file);
-// 			if (s == 0)
-// 				break ;
-// 			index++;
-// 			printf("%s", s);
-// 			free(s);
-// 		}
-// 		// leaks();
-// 		close(file);
-// 	}
-// 	return (0);
-// }
