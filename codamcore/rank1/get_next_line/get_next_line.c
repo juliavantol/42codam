@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/13 12:06:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/13 15:26:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*new_stash(char *line)
 {
 	char	*stash;
-	size_t	j;
+	size_t	index;
 	size_t	end;
 
 	end = 0;
@@ -26,10 +26,10 @@ char	*new_stash(char *line)
 	stash = ft_calloc((ft_strlen(line) - end + 1), sizeof(char));
 	if (!stash)
 		return (free(line), NULL);
-	j = 0;
+	index = 0;
 	end++;
 	while (line[end])
-		stash[j++] = line[end++];
+		stash[index++] = line[end++];
 	if (ft_strlen(stash) == 0)
 		return (free(line), free(stash), NULL);
 	free(line);
@@ -77,8 +77,6 @@ char	*fill_stash(int fd, char *stash)
 		return (free(stash), free(buffer), NULL);
 	while (check > 0)
 	{
-		if (check == -1)
-			return (free(stash), free(buffer), NULL);
 		buffer[check] = '\0';
 		stash = ft_strjoin(stash, buffer, 0, 0);
 		if (!stash)
@@ -87,8 +85,6 @@ char	*fill_stash(int fd, char *stash)
 			break ;
 		check = read(fd, buffer, BUFFER_SIZE);
 	}
-	if (check == -1)
-		return (free(stash), free(buffer), NULL);
 	free(buffer);
 	return (stash);
 }
@@ -102,11 +98,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	stash = fill_stash(fd, stash);
 	if (!stash || ft_strlen(stash) == 0)
-	{
-		free(stash);
-		stash = NULL;
 		return (NULL);
-	}
 	line = extract_line(stash);
 	if (!line)
 	{
@@ -115,7 +107,5 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	stash = new_stash(stash);
-	if (!stash && !line)
-		return (NULL);
 	return (line);
 }

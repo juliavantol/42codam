@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/13 11:45:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/13 14:00:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@ size_t	ft_strlen(const char *s)
 	return (index);
 }
 
-char	*ft_strchr(const char *str)
-{
-	size_t	index;
-
-	index = 0;
-	if (str[index] == '\n')
-		return (&((char *) str)[index]);
-	while (index < (ft_strlen(str) + 1))
-	{
-		if (str[index] == '\n')
-			return (&((char *) str)[index + 1]);
-		index++;
-	}
-	return (NULL);
-}
-
 int	search_newline(char *s)
 {
 	size_t	index;
@@ -45,13 +29,10 @@ int	search_newline(char *s)
 	index = 0;
 	if (!s)
 		return (0);
-	if (s[0] == '\n')
-		return (1);
 	while (index < ft_strlen(s))
 	{
-		if (s[index] == '\n')
-			return (index);
-		index++;
+		if (s[index++] == '\n')
+			return (1);
 	}
 	return (0);
 }
