@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/13 15:26:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/15 10:48:57 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ char	*extract_line(char *stash)
 	char	*line;
 
 	end = 0;
-	if (!stash[0])
-		return (0);
+	if (!stash)
+		return (NULL);
 	while (stash[end] && stash[end] != '\n')
 		end += 1;
 	if (stash[end] == '\n')
 		end++;
-	line = (char *)malloc(1 + end * sizeof(char));
+	line = ft_calloc(1 + end, sizeof(char));
 	if (!line)
 		return (NULL);
 	index = 0;
@@ -107,5 +107,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	stash = new_stash(stash);
+	if (!stash && !line)
+		return (NULL);
 	return (line);
 }

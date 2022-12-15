@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/13 14:00:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2022/12/15 10:56:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
 		if (stash == NULL)
 			return (NULL);
 	}
-	new_str = malloc(sizeof(char) * ft_strlen(stash) + ft_strlen(str) + 1);
+	new_str = ft_calloc(ft_strlen(stash) + ft_strlen(str) + 1, sizeof(char));
 	if (!new_str)
 		return (free(stash), NULL);
 	while (stash[index])
@@ -64,19 +64,14 @@ char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
 
 void	*ft_calloc(size_t nelem, size_t elsize)
 {
-	void			*m;
-	unsigned char	*p;
-	size_t			index;
+	char	*str;
+	size_t	index;
 
-	m = malloc(nelem * elsize);
-	if (m == NULL)
+	str = malloc(nelem * elsize);
+	if (str == NULL)
 		return (NULL);
-	p = m;
 	index = 0;
 	while (index < nelem * elsize)
-	{
-		p[index] = '\0';
-		index++;
-	}
-	return (m);
+		str[index++] = '\0';
+	return (str);
 }
