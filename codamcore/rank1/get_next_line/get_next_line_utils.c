@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/12 00:10:15 by Julia         ########   odam.nl         */
+/*   Updated: 2022/12/15 10:56:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@ size_t	ft_strlen(const char *s)
 	return (index);
 }
 
-char	*ft_strchr(const char *str)
-{
-	size_t	index;
-
-	index = 0;
-	if (str[index] == '\n')
-		return (&((char *) str)[index]);
-	while (index < (ft_strlen(str) + 1))
-	{
-		if (str[index] == '\n')
-			return (&((char *) str)[index + 1]);
-		index++;
-	}
-	return (NULL);
-}
-
 int	search_newline(char *s)
 {
 	size_t	index;
@@ -45,13 +29,10 @@ int	search_newline(char *s)
 	index = 0;
 	if (!s)
 		return (0);
-	if (s[0] == '\n')
-		return (1);
 	while (index < ft_strlen(s))
 	{
-		if (s[index] == '\n')
-			return (index);
-		index++;
+		if (s[index++] == '\n')
+			return (1);
 	}
 	return (0);
 }
@@ -64,9 +45,9 @@ char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
 	{
 		stash = ft_calloc(1, 1);
 		if (stash == NULL)
-			return (free(str), NULL);
+			return (NULL);
 	}
-	new_str = malloc(sizeof(char) * ft_strlen(stash) + ft_strlen(str) + 1);
+	new_str = ft_calloc(ft_strlen(stash) + ft_strlen(str) + 1, sizeof(char));
 	if (!new_str)
 		return (free(stash), NULL);
 	while (stash[index])
@@ -83,19 +64,14 @@ char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
 
 void	*ft_calloc(size_t nelem, size_t elsize)
 {
-	void			*m;
-	unsigned char	*p;
-	size_t			index;
+	char	*str;
+	size_t	index;
 
-	m = malloc(nelem * elsize);
-	if (m == NULL)
+	str = malloc(nelem * elsize);
+	if (str == NULL)
 		return (NULL);
-	p = m;
 	index = 0;
 	while (index < nelem * elsize)
-	{
-		p[index] = '\0';
-		index++;
-	}
-	return (m);
+		str[index++] = '\0';
+	return (str);
 }
