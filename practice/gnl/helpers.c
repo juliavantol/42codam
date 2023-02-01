@@ -6,15 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/31 13:10:15 by Julia         #+#    #+#                 */
-/*   Updated: 2023/01/31 13:55:20 by Julia         ########   odam.nl         */
+/*   Updated: 2023/02/01 12:19:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-
 
 int	ft_strlen(char *str)
 {
@@ -76,4 +74,40 @@ char	*ft_strchr(const char *s, int c)
 	if (*s == c)
 		return ((char *)s);
 	return (NULL);
+}
+char	*ft_substr(char *s, int start, int len)
+{
+	int	index;
+	char	*sub;
+
+	index = 0;
+	if (start >= ft_strlen(s) || ft_strlen(s) == 0)
+		return (ft_strdup(""));
+	if (len > ft_strlen(s) || len < 0)
+		sub = (char *)malloc((ft_strlen(s) - start + 1) * sizeof(char));
+	else if ((start + len) > ft_strlen(s))
+		sub = (char *)malloc(len * sizeof(char));
+	else
+		sub = (char *)malloc((len + 1) * sizeof(char));
+	if (sub == NULL)
+		return (NULL);
+	while (index < len && s[start] != '\0')
+		sub[index++] = s[start++];
+	sub[index] = '\0';
+	return (sub);
+}
+
+void	ft_memdel(void **ap)
+{
+	if (ap != NULL)
+	{
+		free(*ap);
+		*ap = NULL;
+	}
+}
+
+void	ft_strdel(char **as)
+{
+	if (as != NULL && *as != NULL)
+		ft_memdel((void**)as);
 }
