@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/31 12:50:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/01/31 13:54:05 by Julia         ########   odam.nl         */
+/*   Updated: 2023/02/01 12:19:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,23 @@ void leaks(void)
 static int append_line(char **stash, char **line)
 {
 	int len = 0;
-	// char *temp;
+	char *temp;
 	while ((*stash)[len] != '\n' && (*stash)[len] != '\0')
 		len++;
-	
-	*line = ft_strdup(*stash);
+	if ((*stash)[len] == '\n')
+	{
+		*line = ft_substr(*stash, 0, len);
+		temp = ft_strdup(&((*stash)[len + 1]));
+		free(*stash);
+		*stash = temp;
+		if ((*stash)[0] == '\0')
+			ft_strdel(stash);
+	}
+	else
+	{
+		*line = ft_strdup(*stash);
+		ft_strdel(stash);
+	}
 	return (1);
 }
 
@@ -46,7 +58,7 @@ int get_next_line(const int fd, char **line)
 	int	bytes_read;
 	char *temp;
 	
-	if (!fd || line == NULL)
+	if (fd < 0 || line == NULL)
 		return (-1);
 	while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
@@ -67,16 +79,21 @@ int get_next_line(const int fd, char **line)
 
 int	main(void)
 {
-	int file = open("test1.txt", O_RDONLY);
-	char *temp;
-	int result = 1;
+	char  *line;
+  int   fd1;
 
-	// leaks();
-	temp = "a";
-	while (result > 0)
-	{
-		result = get_next_line(file, &temp);
-		printf("%s\n", temp);
-	}
-	return (0);
+  fd1 = open("test1.txt", O_RDONLY);
+  get_next_line(fd1, &line);
+  printf("%s\n", line);
+  get_next_line(fd1, &line);
+  printf("%s\n", line);
+
+
+  get_next_line(fd1, &line);
+  printf("%s\n", line);
+
+  get_next_line(fd1, &line);
+  printf("%s\n", line);
+  close(fd1);
+
 }

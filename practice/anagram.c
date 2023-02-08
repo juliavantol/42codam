@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/25 12:31:58 by Julia         #+#    #+#                 */
-/*   Updated: 2023/01/27 12:17:20 by Julia         ########   odam.nl         */
+/*   Updated: 2023/02/01 11:41:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int        is_anagram(char *a, char *b)
 
 int main(void)
 {
-	int result = is_anagram("hello", "olleh");
+	int result = is_anagram("hello", "ohell");
 	if (result == 1)
 		printf("It's an anagram\n");
 	else
