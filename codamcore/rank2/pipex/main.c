@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/13 13:02:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/13 14:19:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		len = 3;
+		len = ft_strlen("he!");
 		printf("%d\n", len);
 		return 0;
 	}
