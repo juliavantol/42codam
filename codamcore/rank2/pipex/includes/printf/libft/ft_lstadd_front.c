@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_lstadd_front.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/13 14:27:43 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/26 13:04:58 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:14:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+/* Adds the node ’new’ at the beginning of the list. */
+
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	char	*stdin;
-	char	*stdout;
-	char	*cmd1;
-	char	*cmd2;
-	int		len;
-
-	if (argc == 5)
-	{
-		stdin = argv[1];
-		cmd1 = argv[2];
-		stdout = argv[3];
-		cmd2 = argv[4];
-		printf("%s %s %s %s\n", stdin, cmd1, stdout, cmd2);
-	}
-	else
-	{
-		len = ft_strlen("heyyy!");
-		ft_printf("%d\n", len);
-		return 0;
-	}
+	new -> next = *lst;
+	*lst = new;
 }

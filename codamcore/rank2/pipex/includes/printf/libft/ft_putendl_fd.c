@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_putendl_fd.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/13 14:27:43 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/24 15:05:46 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/24 15:07:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+/* Outputs the string ’s’ to the given file descriptor
+followed by a newline. */
+
+void	ft_putendl_fd(char *s, int fd)
 {
-	char	*stdin;
-	char	*stdout;
-	char	*cmd1;
-	char	*cmd2;
-	int		len;
+	size_t	index;
 
-	if (argc == 5)
+	index = 0;
+	if (s && fd)
 	{
-		stdin = argv[1];
-		cmd1 = argv[2];
-		stdout = argv[3];
-		cmd2 = argv[4];
-		printf("%s %s %s %s\n", stdin, cmd1, stdout, cmd2);
-	}
-	else
-	{
-		len = ft_strlen("heyyy!");
-		ft_printf("%d\n", len);
-		return 0;
+		while (index < ft_strlen(s))
+		{
+			write(fd, &s[index], 1);
+			index++;
+		}
+		write(fd, "\n", 1);
 	}
 }

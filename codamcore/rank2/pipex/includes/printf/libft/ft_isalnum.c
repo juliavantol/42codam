@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_isalnum.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/13 14:27:43 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/05 13:06:39 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/05 13:17:16 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	main(int argc, char **argv)
+int	ft_isalnum(int c)
 {
-	char	*stdin;
-	char	*stdout;
-	char	*cmd1;
-	char	*cmd2;
-	int		len;
-
-	if (argc == 5)
-	{
-		stdin = argv[1];
-		cmd1 = argv[2];
-		stdout = argv[3];
-		cmd2 = argv[4];
-		printf("%s %s %s %s\n", stdin, cmd1, stdout, cmd2);
-	}
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else if (c >= '0' && c <= '9')
+		return (1);
 	else
-	{
-		len = ft_strlen("heyyy!");
-		ft_printf("%d\n", len);
-		return 0;
-	}
+		return (0);
 }

@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/13 14:27:43 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 14:04:33 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 15:08:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+/* Returns a pointer to a null-terminated byte string 
+which is a duplicate of string s */
+
+char	*ft_strdup(const char *s)
 {
-	char	*stdin;
-	char	*stdout;
-	char	*cmd1;
-	char	*cmd2;
-	int		len;
+	char	*new;
+	int		index;
 
-	if (argc == 5)
+	index = 0;
+	while (s[index] != '\0')
+		index++;
+	new = malloc(index + 1);
+	if (new == NULL)
+		return (NULL);
+	index = 0;
+	while (s[index] != '\0')
 	{
-		stdin = argv[1];
-		cmd1 = argv[2];
-		stdout = argv[3];
-		cmd2 = argv[4];
-		printf("%s %s %s %s\n", stdin, cmd1, stdout, cmd2);
+		new[index] = s[index];
+		index++;
 	}
-	else
-	{
-		len = ft_strlen("heyyy!");
-		ft_printf("%d\n", len);
-		return 0;
-	}
+	new[index] = '\0';
+	return (new);
 }

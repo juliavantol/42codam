@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_lstadd_back.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/13 14:27:43 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/27 12:50:03 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/30 21:00:48 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+/* Adds the node ’new’ at the end of the list. */
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	*stdin;
-	char	*stdout;
-	char	*cmd1;
-	char	*cmd2;
-	int		len;
+	t_list	*last;
 
-	if (argc == 5)
+	if (*lst != NULL && new != NULL)
 	{
-		stdin = argv[1];
-		cmd1 = argv[2];
-		stdout = argv[3];
-		cmd2 = argv[4];
-		printf("%s %s %s %s\n", stdin, cmd1, stdout, cmd2);
+		last = ft_lstlast(*lst);
+		last -> next = new;
 	}
 	else
-	{
-		len = ft_strlen("heyyy!");
-		ft_printf("%d\n", len);
-		return 0;
-	}
+		*lst = new;
 }

@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_strchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/13 14:27:43 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 09:54:08 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 15:00:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+/* This function finds the first occurence of character c and returns 
+a pointer to the first occurence of c. */
+
+char	*ft_strchr(const char *str, int c)
 {
-	char	*stdin;
-	char	*stdout;
-	char	*cmd1;
-	char	*cmd2;
-	int		len;
+	size_t	index;
 
-	if (argc == 5)
+	index = 0;
+	if (str[index] == (char)c)
+		return (&((char *) str)[index]);
+	while (index < (ft_strlen(str) + 1))
 	{
-		stdin = argv[1];
-		cmd1 = argv[2];
-		stdout = argv[3];
-		cmd2 = argv[4];
-		printf("%s %s %s %s\n", stdin, cmd1, stdout, cmd2);
+		if (str[index] == (char)c)
+			return (&((char *) str)[index]);
+		index++;
 	}
-	else
-	{
-		len = ft_strlen("heyyy!");
-		ft_printf("%d\n", len);
-		return 0;
-	}
+	return (NULL);
 }

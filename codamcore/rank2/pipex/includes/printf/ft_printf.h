@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.h                                            :+:    :+:            */
+/*   ft_printf.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/13 14:25:55 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/11/02 11:04:47 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/15 13:20:45 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-# include <unistd.h>
 # include <stdio.h>
+# include <ctype.h>
 # include <string.h>
-# include "includes/libft/libft.h"
-# include "includes/printf/ft_printf.h"
+# include <stdlib.h>
+# include <unistd.h>
+# include "libft/libft.h"
+# include <stdarg.h>
+
+int		ft_printf(const char	*c, ...);
+int		ft_itoa_len(long n);
+int		ft_hex(unsigned long num, int format);
+int		count_hex(unsigned long n);
+int		parse_hex(const char *s, va_list args);
+int		parse_pointer(va_list args);
+int		parse_decimal(va_list args);
 
 #endif
