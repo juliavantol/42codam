@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/14 14:05:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/15 12:08:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // fd[0] == read
 // fd[1] == write
 
-int	pipex(char *stdin, char *stdout, char *cmd1, char *cmd2)
+int	pipex(int stdin, int stdout, char *cmd1, char *cmd2)
 {
 	int		fd[2];
 	int		id;
@@ -32,31 +32,38 @@ int	pipex(char *stdin, char *stdout, char *cmd1, char *cmd2)
 	{
 		close(fd[0]);
 		str = "Hello!\n";
-		write(fd[1], str, ft_strlen(str));
+		write(stdout, str, ft_strlen(str));
 		close(fd[1]);
 	}
 	else
 	{
 		close(fd[1]);
-		read(fd[0], &test, sizeof(int));
+		read(stdin, &test, sizeof(int));
 		close(fd[0]);
 	}
-	printf("%s %s %s %s\n", stdin, cmd1, stdout, cmd2);
+	cmd1--;
+	cmd2--;
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	int		len;
+	int	stdin;
+	int	stdout;
 
 	if (argc == 5)
 	{
-		pipex(argv[1], argv[3], argv[2], argv[4]);
+		stdin = open(argv[1], O_RDONLY);
+		stdout = open(argv[4], O_CREAT | O_RDWR | O_TRUNC);
+		if (stdin == -1 || stdout == -1)
+		{
+			perror("Error with opening file");
+			return (-1);
+		}
+		pipex(stdin, stdout, argv[2], argv[4]);
+		close(stdin);
+		close(stdout);
 	}
 	else
-	{
-		len = ft_strlen("heyyy!");
-		ft_printf("%d\n", len);
 		return (0);
-	}
 }
