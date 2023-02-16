@@ -6,64 +6,56 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/16 13:45:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/16 17:59:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// fd[0] == read
-// fd[1] == write
-
-int	pipex(int stdin, int stdout, char *cmd1, char *cmd2)
+void	leaks(void)
 {
-	int		fd[2];
-	int		id;
-	char	*str;
-	int		test;
-
-	if (pipe(fd) == -1)
-	{
-		perror("An error ocurred with opening the pipe\n");
-		return (0);
-	}
-	id = fork();
-	if (id == 0)
-	{
-		close(stdin);
-		str = "Hello!\n";
-		write(stdout, str, ft_strlen(str));
-		close(stdout);
-	}
-	else
-	{
-		close(stdout);
-		read(stdin, &test, sizeof(int));
-		close(stdin);
-	}
-	cmd1--;
-	cmd2--;
-	return (0);
+	system("leaks pipex");
 }
 
-int	main(int argc, char **argv)
+char	*find_path(char **envp)
 {
-	int	stdin;
-	int	stdout;
+	int		index;
+	char	*path;
+
+	index = 0;
+	while (envp[index] != '\0')
+	{
+		if (ft_strnstr(envp[index], "PATH=", ft_strlen(envp[index])) > 0)
+			path = ft_substr(envp[index], 5, ft_strlen(envp[index]));
+		index++;
+	}
+	return (path);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	*path;
+	char	*command[] = {"grep 'a'", NULL};
+	int		fd;
+	pid_t	pid;
+	int		status;
 
 	if (argc == 5)
 	{
-		stdin = open(argv[1], O_RDONLY);
-		stdout = open(argv[4], O_CREAT | O_RDWR | O_TRUNC);
-		if (stdin == -1 || stdout == -1)
+		pid = fork();
+		if (pid == 0)
 		{
-			perror("Error with opening file");
-			return (-1);
+			fd = open("Makefile", O_RDONLY);
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+			path = find_path(envp);
+			execve(path, command, NULL);
+			exit(EXIT_FAILURE);
 		}
-		pipex(stdin, stdout, argv[2], argv[4]);
-		close(stdin);
-		close(stdout);
+		wait(&status);
 	}
 	else
 		return (0);
+	// leaks();
+	argv--;
 }
