@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/15 12:08:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/16 13:45:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ int	pipex(int stdin, int stdout, char *cmd1, char *cmd2)
 	id = fork();
 	if (id == 0)
 	{
-		close(fd[0]);
+		close(stdin);
 		str = "Hello!\n";
 		write(stdout, str, ft_strlen(str));
-		close(fd[1]);
+		close(stdout);
 	}
 	else
 	{
-		close(fd[1]);
+		close(stdout);
 		read(stdin, &test, sizeof(int));
-		close(fd[0]);
+		close(stdin);
 	}
 	cmd1--;
 	cmd2--;

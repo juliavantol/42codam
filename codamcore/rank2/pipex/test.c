@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.h                                            :+:    :+:            */
+/*   test.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/16 13:50:25 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/02/16 13:49:49 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/02/16 14:10:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <string.h>
-# include "includes/libft/libft.h"
-# include "includes/printf/ft_printf.h"
-# include <fcntl.h>
-# include <stdlib.h>
+int	main(void)
+{
+	char *a[] = {"/usr/bin/grep", "a", NULL};
+	pid_t pid;
+	int	status;
+	int	fd;
 
-#endif
+	pid = fork();
+	if (pid == 0)
+	{
+		fd = open("Makefile", O_RDONLY);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		execve(a[0], a, NULL);
+		exit(EXIT_FAILURE);	
+	}
+	wait(&status);
+}
+
