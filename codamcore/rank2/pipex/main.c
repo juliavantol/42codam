@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/16 17:59:54 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/18 00:32:26 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,43 @@ char	*find_path(char **envp)
 	char	*path;
 
 	index = 0;
-	while (envp[index] != '\0')
+	path = NULL;
+	while (envp[index])
 	{
 		if (ft_strnstr(envp[index], "PATH=", ft_strlen(envp[index])) > 0)
+		{
 			path = ft_substr(envp[index], 5, ft_strlen(envp[index]));
+			break;
+		}
 		index++;
 	}
 	return (path);
 }
 
+void loop_paths(char *path)
+{
+	int		index;
+	int		start;
+	char	*str;
+
+	index = 0;
+	start = 0;
+	while (path[index])
+	{
+		if (path[index] == ':')
+		{
+			str = ft_substr(path, start, index - start);
+			printf("%s\n\n", str);
+			start = index + 1;
+		}
+		index++;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*path;
-	char	*command[] = {"grep 'a'", NULL};
+	char	*command[] = {"/usr/bin/grep", "a", NULL};
 	int		fd;
 	pid_t	pid;
 	int		status;
@@ -49,6 +73,9 @@ int	main(int argc, char **argv, char **envp)
 			dup2(fd, STDIN_FILENO);
 			close(fd);
 			path = find_path(envp);
+			path = ft_strjoin(path, "/grep");
+			printf("%s\n\n\n", path);
+			loop_paths(path);
 			execve(path, command, NULL);
 			exit(EXIT_FAILURE);
 		}
