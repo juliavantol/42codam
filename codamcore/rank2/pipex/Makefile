@@ -2,7 +2,7 @@ NAME = pipex
 LIBFT = includes/libft/libft.a
 PRINTF = includes/printf/libftprintf.a
 CFLAGS = -Wall -Wextra -Werror
-SRCS = main.c
+SRCS = main.c helpers.c
 OBJS = $(SRCS:%.c=%.o)
 CC = gcc
 
@@ -14,13 +14,13 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -o pipex $(SRCS) $(LIBFT) $(PRINTF)
 
 clean:
-	rm -f *.o
-	rm -f *.out
+	@rm -f *.o
+	@rm -f *.out
 	@cd includes/libft && make clean
 	@cd includes/printf && make clean
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 	@cd includes/libft && make fclean
 	@cd includes/printf && make fclean
 

@@ -1,49 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   helpers.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/19 00:46:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/02/19 00:45:31 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	leaks(void)
+char	*find_path(char **envp)
 {
-	system("leaks pipex");
+	while (*envp++)
+	{
+		if (ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
+			return(*envp + 5);
+	}
+	return (0);
 }
 
-
-int	main(int argc, char **argv, char **envp)
+int	loop_paths(char **paths, char *command)
 {
+	int		output;
+	char	*a[3];
 	char	*path;
-	int		fd;
-	pid_t	pid;
-	int		status;
-	char	**split_path;
+	char	*temp;
 
-	if (argc == 5)
+	temp = ft_split(command, ' ')[0];
+	output = 1;
+	a[1] = command;
+	a[2] = NULL;
+	
+	while (*paths)
 	{
-		path = find_path(envp);
-		split_path = ft_split(path, ':');
-		pid = fork();
-		if (pid == 0)
-		{
-			fd = open("Makefile", O_RDONLY);
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-			if (loop_paths(split_path, "ls -l") == -1)
-				printf("Command couldn't be executed\n");
-			exit(EXIT_FAILURE);
-		}
-		wait(&status);
+		path = ft_strjoin(*paths, "/");
+		a[0] = path;
+		output = execve(ft_strjoin(path, temp), a, NULL);
+		if (output != -1)
+			return (0);
+		paths++;
 	}
-	else
-		return (0);
-	// leaks();
-	argv--;
+	return (output);
 }
