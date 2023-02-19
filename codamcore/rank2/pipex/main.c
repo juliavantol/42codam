@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/19 00:46:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/02/19 18:44:37 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 5)
 	{
 		path = find_path(envp);
-		split_path = ft_split(path, ':');
+		split_path = ft_split_path(path, ':');
 		pid = fork();
 		if (pid == 0)
 		{
