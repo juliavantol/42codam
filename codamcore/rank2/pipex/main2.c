@@ -1,60 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   main2.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/20 16:43:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/20 15:39:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	main_loop(char *cmd, int fd_in, char **paths)
+void	leaks(void)
 {
-	int		fds[2];
-	pid_t	pid;
-
-	if (pipe(fds) == -1)
-	{
-		perror("Error with opening the pipe\n");
-		return ;
-	}
-	pid = fork();
-	if (pid)
-	{
-		close(fds[1]);
-		dup2(fds[0], 0);
-		waitpid(pid, NULL, 0);
-	}
-	else
-	{
-		close(fds[0]);
-		dup2(fds[1], 1);
-		if (fd_in == 0)
-			exit(1);
-		else
-			run_command(paths, cmd);
-	}
+	system("leaks pipex");
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	int		fd;
+	int		fds[2];
+	int		status;
 	char	**paths;
-	int		fd_in;
-	int		fd_out;
+	pid_t	pid;
 
 	if (argc == 5)
 	{
+		if (pipe(fds) == -1)
+		{
+			perror("Error with opening the pipe\n");
+			return (-1);
+		}
 		paths = ft_split_path(get_path(envp), ':');
-		fd_in = open(argv[1], O_RDONLY);
-		fd_out = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
-		dup2(fd_in, 0);
-		dup2(fd_out, 1);
-		main_loop(argv[2], fd_in, paths);
-		run_command(paths, argv[3]);
+		pid = fork();
+		if (pid == 0)
+		{
+			fd = open(argv[1], O_RDONLY);
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+			if (run_command(paths, argv[2]) == -1)
+				printf("Command couldn't be executed\n");
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			wait(&status);
+		}	
 	}
 	else
 		return (0);

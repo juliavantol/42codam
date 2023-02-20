@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/20 11:29:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/20 16:41:57 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 
 char	*get_path(char **envp);
 int		run_command(char **paths, char *command);
+void	main_loop(char *cmd, int fd_in, char **paths);
 
 #endif
