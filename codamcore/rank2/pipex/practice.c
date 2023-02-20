@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/16 17:16:33 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/16 17:37:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/20 12:02:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,3 +67,9 @@ int	main(int argc, char **argv)
 	else
 		return (0);
 }
+
+// fd = open(argv[4], O_CREAT | O_RDWR | O_TRUNC);
+// if (run_command(paths, argv[3]) == -1)
+// 	printf("Command couldn't be executed\n");
+// 	close(fd);
+// 	exit(EXIT_FAILURE);

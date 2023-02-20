@@ -6,7 +6,7 @@
 #    By: juvan-to <juvan-to@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/11/21 10:59:12 by juvan-to      #+#    #+#                  #
-#    Updated: 2022/11/21 15:47:38 by juvan-to      ########   odam.nl          #
+#    Updated: 2023/02/20 11:53:10 by juvan-to      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ $(NAME): $(OBJ)
 	@ar r $(NAME) $(OBJ)
 
 %.o: %.c
-	$(CC) -c -o $@ $< $(CFLAGS)
+	@$(CC) -c -o $@ $< $(CFLAGS)
 
 clean:	
 	@rm -f $(OBJ)
@@ -34,4 +34,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY:	all clean fclean re

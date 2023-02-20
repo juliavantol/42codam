@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/19 00:24:25 by Julia         ########   odam.nl         */
+/*   Updated: 2023/02/20 11:29:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-char	*find_path(char **envp);
-int	loop_paths(char **paths, char *command);
-int	loop_paths2(char *paths, char *command);
+char	*get_path(char **envp);
+int		run_command(char **paths, char *command);
 
 #endif

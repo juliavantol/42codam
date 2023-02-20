@@ -26,5 +26,4 @@ fclean: clean
 
 re: fclean all
 
-run: all
-	@$(CC) $(CFLAGS) -o pipex $(SRCS) && ./pipex
+.PHONY:	all clean fclean re
