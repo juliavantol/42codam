@@ -6,11 +6,17 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/20 11:47:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/20 17:53:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	error_exit(char *msg)
+{
+	perror(msg);
+	exit(EXIT_FAILURE);
+}
 
 char	*get_path(char **envp)
 {
