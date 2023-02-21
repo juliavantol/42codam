@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/21 14:31:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/21 17:43:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,12 @@ int	run_command(char **paths, char *command)
 	cmd[2] = NULL;
 	while (*paths)
 	{
+		printf("hey\n");
 		cmd[0] = ft_strjoin(*paths, ft_split(command, ' ')[0]);
 		if (access(cmd[0], F_OK) == 0)
-		{
-			if (execve(cmd[0], cmd, NULL) == -1)
-				error_exit("");
-			else
-				return (0);
-		}
+			execve(cmd[0], cmd, NULL);
 		paths++;
 	}
-	error_exit("Error");
+	error_exit("");
 	return (0);
 }

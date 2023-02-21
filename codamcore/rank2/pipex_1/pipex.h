@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/21 14:43:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/02/21 16:10:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@
 
 struct s_pipex
 {
-	char	*outfile;
-	char	*infile;
+	int	outfile;
+	int	infile;
 };
 
 char	**get_paths(char **envp);
 void	error_exit(char *msg);
 int		run_command(char **paths, char *command);
+void	fork_loop(char **paths, char *cmd);
 
 #endif
