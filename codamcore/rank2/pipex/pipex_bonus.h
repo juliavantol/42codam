@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strlen.c                                        :+:    :+:            */
+/*   pipex_bonus.h                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/05 13:44:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/31 15:46:32 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/02/28 10:44:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
-/* Returns length of string */
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include "includes/libft/libft.h"
+# include <fcntl.h>
+# include <stdlib.h>
+# include <errno.h>
 
-size_t	ft_strlen(const char *s)
+struct s_pipex
 {
-	size_t	index;
+	int	outfile;
+	int	infile;
+};
 
-	index = 0;
-	while (s[index] != '\0')
-		index++;
-	return (index);
-}
+char	**get_paths(char **envp);
+void	error_exit(char *msg);
+void	run_command(char **paths, char *command);
+
+#endif

@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/02 16:31:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/21 13:12:40 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/02/28 12:33:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,50 @@
 void	error_exit(char *msg)
 {
 	perror(msg);
+	if (ft_strncmp(msg, "Command not found", 19) == 0)
+		exit(127);
 	exit(EXIT_FAILURE);
 }
 
-char	*get_path(char **envp)
+char	**get_paths(char *envp[])
 {
+	char	*path;
+
+	path = NULL;
 	while (*envp++)
 	{
 		if (ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
-			return (*envp + 5);
+		{
+			path = *envp + 5;
+			break ;
+		}
 	}
-	return (0);
+	return (ft_split_path(path, ':'));
 }
 
-int	run_command(char **paths, char *command)
+void	run_command(char **paths, char *command)
 {
-	int		output;
 	char	*cmd[3];
-	char	*temp;
+	char	**split_args;
+	int		output;
 
-	temp = ft_split(command, ' ')[1];
-	output = 1;
-	cmd[1] = temp;
+	if (ft_strrchr(command, '/') != 0)
+		command = ft_strrchr(command, '/');
+	split_args = ft_split(command, ' ');
+	cmd[1] = command;
 	cmd[2] = NULL;
 	while (*paths)
 	{
 		cmd[0] = ft_strjoin(*paths, ft_split(command, ' ')[0]);
-		output = execve(cmd[0], cmd, NULL);
-		if (output != -1)
-			return (0);
+		if (access(cmd[0], F_OK) == 0)
+		{
+			output = execve(cmd[0], split_args, NULL);
+			free(cmd[0]);
+			if (output < 0)
+				error_exit("Execve error failed");
+		}
 		paths++;
 	}
-	return (output);
+	free(cmd[0]);
+	error_exit("Command not found");
 }

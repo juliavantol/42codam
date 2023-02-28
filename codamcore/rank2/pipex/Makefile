@@ -1,28 +1,36 @@
 NAME = pipex
-LIBFT = includes/libft/libft.a
-PRINTF = includes/printf/libftprintf.a
-CFLAGS = -Wall -Wextra -Werror
-SRCS = main.c helpers.c
-OBJS = $(SRCS:%.c=%.o)
 CC = gcc
+LIBFT = includes/libft/libft.a
+CFLAGS = -Wall -Wextra -Werror
+SRCS = pipex.c helpers.c
+BONUS_SRCS = pipex.c heleprs.c
+BONUS_OBJS = $(BONUS_SRCS:%.c=%.o)
+OBJS	= $(SRCS:%.c=%.o)
+
+ifdef BONUS
+OBJ_F = $(BONUS_OBJS) $(OBJS)
+else
+OBJ_F = $(OBJS)
+endif
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@cd includes/libft && make bonus
-	@cd includes/printf && make
-	@$(CC) $(CFLAGS) -o pipex $(SRCS) $(LIBFT) $(PRINTF)
+	@$(CC) $(CFLAGS) -o pipex $(SRCS) $(LIBFT)
+
+bonus:
+	@make BONUS=1 all
 
 clean:
 	@rm -f *.o
 	@rm -f *.out
+	@rm -f output.txt
 	@cd includes/libft && make clean
-	@cd includes/printf && make clean
 
 fclean: clean
 	@rm -f $(NAME)
 	@cd includes/libft && make fclean
-	@cd includes/printf && make fclean
 
 re: fclean all
 
