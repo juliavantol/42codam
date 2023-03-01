@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/28 12:33:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/01 15:56:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,50 +15,29 @@
 void	error_exit(char *msg)
 {
 	perror(msg);
-	if (ft_strncmp(msg, "Command not found", 19) == 0)
-		exit(127);
-	exit(EXIT_FAILURE);
+	exit(errno);
 }
 
-char	**get_paths(char *envp[])
+char	*get_cmd_path(char *envp[], char	*cmd)
 {
 	char	*path;
+	char	**all_paths;
 
-	path = NULL;
-	while (*envp++)
+	while (*envp && !ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
+		envp++;
+	all_paths = ft_split_path(ft_substr(*envp, 5, ft_strlen(*envp) - 5), ':');
+	cmd = *ft_split(cmd, ' ');
+	while (*all_paths)
 	{
-		if (ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
-		{
-			path = *envp + 5;
-			break ;
-		}
+		path = ft_strjoin(*all_paths, cmd);
+		if (access(path, F_OK) == 0)
+			return (path);
+		free(path);
+		all_paths++;
 	}
-	return (ft_split_path(path, ':'));
-}
-
-void	run_command(char **paths, char *command)
-{
-	char	*cmd[3];
-	char	**split_args;
-	int		output;
-
-	if (ft_strrchr(command, '/') != 0)
-		command = ft_strrchr(command, '/');
-	split_args = ft_split(command, ' ');
-	cmd[1] = command;
-	cmd[2] = NULL;
-	while (*paths)
-	{
-		cmd[0] = ft_strjoin(*paths, ft_split(command, ' ')[0]);
-		if (access(cmd[0], F_OK) == 0)
-		{
-			output = execve(cmd[0], split_args, NULL);
-			free(cmd[0]);
-			if (output < 0)
-				error_exit("Execve error failed");
-		}
-		paths++;
-	}
-	free(cmd[0]);
-	error_exit("Command not found");
+	if (access(cmd, F_OK) == 0)
+		return (cmd);
+	ft_putstr_fd("Command not found\n", 2);
+	exit(127);
+	return (NULL);
 }
