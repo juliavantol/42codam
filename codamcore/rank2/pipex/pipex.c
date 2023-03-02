@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/01 15:56:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/02 11:53:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	index = 2;
 	infile = open(argv[1], O_RDONLY);
-	if (infile < 0)
-	{
-		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
 	dup2(infile, 0);
 	while (index < argc - 2)
 		main_loop(argv[index++], envp);
