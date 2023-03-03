@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/02 15:57:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/03 14:42:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static char	*word(char const *s, unsigned int start, size_t len)
 {
 	size_t		index;
 	char		*sub;
-	char		*word;
 
 	index = 0;
 	sub = (char *)malloc((len + 1) * sizeof(char));
@@ -44,35 +43,33 @@ static char	*word(char const *s, unsigned int start, size_t len)
 	while (index < len && s[start] != '\0')
 		sub[index++] = s[start++];
 	sub[index] = '\0';
-	word = ft_strtrim(sub, " '\"");
-	free(sub);
-	return (word);
+	return (sub);
 }
 
 /* Loops through s and fills the array with the found words */
 static char	**arr(char const *s, char	**split, size_t count, char c)
 {
 	size_t	found;
-	size_t	i;
+	size_t	start;
 	char	*w;
 
 	found = 0;
-	i = 0;
-	while (i < ft_strlen(s))
+	start = 0;
+	while (s[start])
 	{
-		while (s[found] != c && s[found])
+		while (s[found] != c && s[found] && s[found != '\''] && s[found] != '"')
 			found++;
-		if (found == i)
-			i++;
+		if (found == start)
+			start++;
 		else
 		{
-			w = word(s, i, found - i);
+			w = word(s, start, found - start);
 			if (w == NULL)
 				return (free_arr(split, count));
 			split[count++] = w;
-			i = found;
+			start = found;
 		}
-		found = i;
+		found = start;
 	}
 	split[count] = 0;
 	return (split);
@@ -101,6 +98,8 @@ static size_t	count_words(char const *s, char c)
 		}
 		found = index;
 	}
+	if (s[index - 1] != c)
+		count--;
 	return (count);
 }
 
@@ -116,3 +115,5 @@ char	**ft_split_quote(char const *s, char c)
 	split = arr(s, split, 0, c);
 	return (split);
 }
+
+// make && ./pipex "awk \"'''{count++} END {print count}''''''''\""

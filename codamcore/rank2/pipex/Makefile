@@ -2,8 +2,8 @@ NAME = pipex
 CC = gcc
 LIBFT = includes/libft/libft.a
 CFLAGS = -Wall -Wextra -Werror
-SRCS = pipex.c helpers.c test.c ft_split_quote.c ft_split_awk.c
-BONUS_SRCS = pipex.c helpers.c ft_split_quote.c ft_split_awk.c
+SRCS = pipex.c helpers.c ft_split_quote.c
+BONUS_SRCS = pipex.c helpers.c
 BONUS_OBJS = $(BONUS_SRCS:%.c=%.o)
 OBJS	= $(SRCS:%.c=%.o)
 

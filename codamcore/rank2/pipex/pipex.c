@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/02 16:08:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/03 14:43:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	**check_command(char	*str)
 	while (str[index])
 	{
 		if (str[index] == '\'')
-			return (ft_split_awk(str, '\''));
+			return (ft_split_quote(str, '\''));
 		else if (str[index] == '"')
-			return (ft_split_awk(str, '"'));
+			return (ft_split_quote(str, '"'));
 		index++;
 	}
 	return (ft_split_quote(str, ' '));
@@ -99,3 +99,9 @@ int	main(int argc, char *argv[], char *envp[])
 		exit(WEXITSTATUS(status));
 	return (EXIT_FAILURE);
 }
+
+// grep Hello input.txt | awk '"{count++} END {print count}"' > output.txt print hele tektst
+// make && ./pipex "input.txt" "grep Hello" "awk '\"{count++} END {print count}\"'" "output.txt"
+
+// grep Hello input.txt | awk '{count++} END {print count}' > output.txt print de count
+// make && ./pipex "input.txt" "grep Hello" "awk '{count++} END {print count}'" "output.txt"
