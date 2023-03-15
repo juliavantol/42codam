@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/15 16:02:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/15 16:30:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,18 @@ char	**delete_sub(const char *s)
 	char	two;
 	char	one;
 
-	one = s[ft_strlen(s) - 2];
-	two = s[ft_strlen(s) - 1];
+	two = s[ft_strlen(s) - 2];
+	one = s[ft_strlen(s) - 1];
 	new_str = (char *)malloc(10 * sizeof(char));
 	index = 0;
 	len = 0;
-	while (s[len - 1] != one && s[len])
+	while (s[len - 1] != two && s[len])
 		new_str[index++] = s[len++];
 	new_str[index++] = ' ';
-	new_str[index++] = one;
 	new_str[index++] = two;
+	new_str[index++] = one;
 	new_str[index++] = '\0';
-	printf("%s\n", new_str);
-	split_new_str = ft_split(new_str, '\'');
+	split_new_str = ft_split(new_str, one);
 	return (split_new_str);
 }
 
