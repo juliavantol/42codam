@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/03 14:43:21 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/15 15:13:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,3 @@ int	main(int argc, char *argv[], char *envp[])
 		exit(WEXITSTATUS(status));
 	return (EXIT_FAILURE);
 }
-
-// grep Hello input.txt | awk '"{count++} END {print count}"' > output.txt print hele tektst
-// make && ./pipex "input.txt" "grep Hello" "awk '\"{count++} END {print count}\"'" "output.txt"
-
-// grep Hello input.txt | awk '{count++} END {print count}' > output.txt print de count
-// make && ./pipex "input.txt" "grep Hello" "awk '{count++} END {print count}'" "output.txt"

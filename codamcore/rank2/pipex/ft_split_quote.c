@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/03 14:42:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/15 16:02:45 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ char	**ft_split_quote(char const *s, char c)
 
 	if (!s)
 		return (NULL);
+	if (ft_strnstr(s, "'\"", ft_strlen(s)))
+		return (delete_sub(s));
 	split = malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (split == NULL)
 		return (NULL);
