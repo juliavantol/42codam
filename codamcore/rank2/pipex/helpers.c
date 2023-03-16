@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/15 16:30:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/16 16:27:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	**delete_sub(const char *s)
 	char	*new_str;
 	char	**split_new_str;
 	int		index;
-	int		len;
 	char	two;
 	char	one;
 
@@ -31,9 +30,11 @@ char	**delete_sub(const char *s)
 	one = s[ft_strlen(s) - 1];
 	new_str = (char *)malloc(10 * sizeof(char));
 	index = 0;
-	len = 0;
-	while (s[len - 1] != two && s[len])
-		new_str[index++] = s[len++];
+	while (s[index - 1] != two && s[index])
+	{
+		new_str[index] = s[index];
+		index++;
+	}
 	new_str[index++] = ' ';
 	new_str[index++] = two;
 	new_str[index++] = one;
@@ -46,6 +47,7 @@ char	*get_cmd_path(char *envp[], char	*cmd)
 {
 	char	*path;
 	char	**all_paths;
+	char	*err;
 
 	while (*envp && !ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
 		envp++;
@@ -61,7 +63,8 @@ char	*get_cmd_path(char *envp[], char	*cmd)
 	}
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
-	ft_putstr_fd("Command not found\n", 2);
+	err = ft_strjoin(ft_strjoin("pipex: ", cmd), ": command not found\n");
+	ft_putstr_fd(err, 2);
 	exit(127);
 	return (NULL);
 }

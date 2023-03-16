@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/15 16:34:08 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/16 13:01:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,3 @@ char	**ft_split_quote(char const *s, char c)
 	split = arr(s, split, 0, c);
 	return (split);
 }
-
-// make && ./pipex "awk \"'''{count++} END {print count}''''''''\""
