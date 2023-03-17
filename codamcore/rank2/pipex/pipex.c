@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/16 17:59:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/17 16:29:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**check_command(char	*str)
 	return (ft_split_quote(str, ' '));
 }
 
-void	output(char *output, char *cmd, char	**envp)
+void	output(char *output, char *cmd, char *const envp[])
 {
 	int		output_file;
 	char	*path;
@@ -40,11 +40,13 @@ void	output(char *output, char *cmd, char	**envp)
 		error_exit("Can't be read/written");
 	dup2(output_file, 1);
 	path = get_cmd_path(envp, cmd);
-	if (!path || execve(path, check_command(cmd), envp) == -1)
-		error_exit("Execve Error command failed/not founded ");
+	if (!path)
+		error_exit("Command not found");
+	if (execve(path, check_command(cmd), envp) == -1)
+		error_exit("Execve Error");
 }
 
-void	main_loop(char **split_cmd, char	*cmd, char	**envp, int infile)
+void	main_loop(char **split_cmd, char *cmd, char *const envp[], int infile)
 {
 	int		fds[2];
 	pid_t	pid;
@@ -59,7 +61,7 @@ void	main_loop(char **split_cmd, char	*cmd, char	**envp, int infile)
 	{
 		if (infile < 0)
 		{
-			ft_putstr_fd("pipex: input: No such file or directory\n", STDERR_FILENO);
+			ft_putstr_fd("pipex: input: No such file or directory\n", 2);
 			exit(0);
 		}
 		else
@@ -67,9 +69,11 @@ void	main_loop(char **split_cmd, char	*cmd, char	**envp, int infile)
 		close(fds[0]);
 		dup2(fds[1], 1);
 		path = get_cmd_path(envp, cmd);
-		if (!path || execve(path, split_cmd, envp) == -1)
+		if (!path)
+			error_exit("Command not found");
+		if (execve(path, split_cmd, envp) == -1)
 		{
-			ft_putstr_fd("Execve Error command failed/not founded\n", 2);
+			ft_putstr_fd("Execve Error", 2);
 			exit(127);
 		}
 	}
@@ -80,14 +84,15 @@ void	main_loop(char **split_cmd, char	*cmd, char	**envp, int infile)
 	}
 }
 
-int	main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *const envp[])
 {
 	int		infile;
 	int		index;
 	int		status;
 
-	if (envp == NULL || envp < 0)
-		exit(EXIT_FAILURE);
+	envp = NULL;
+	// if (envp == NULL || envp < 0 || envp[0] == NULL)
+	// 	exit(errno);
 	if (argc < 5)
 	{
 		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);

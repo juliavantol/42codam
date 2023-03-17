@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/16 16:27:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/17 16:27:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ char	**delete_sub(const char *s)
 	return (split_new_str);
 }
 
-char	*get_cmd_path(char *envp[], char	*cmd)
+char	*get_cmd_path(char *const envp[], char	*cmd)
 {
 	char	*path;
 	char	**all_paths;
 	char	*err;
 
+	if (envp == NULL)
+		return (cmd);
 	while (*envp && !ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
 		envp++;
 	all_paths = ft_split_path(ft_substr(*envp, 5, ft_strlen(*envp) - 5), ':');
