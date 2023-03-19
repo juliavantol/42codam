@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/17 16:27:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/19 16:03:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,38 @@ char	**delete_sub(const char *s)
 	return (split_new_str);
 }
 
+char 	**get_paths(void)
+{
+	char		**all_paths;
+	const char	*temp[] = {"/usr/local/sbin/",
+		"/usr/local/bin/", "/usr/sbin/", "/usr/bin/", "/sbin/", "/bin/"};
+	int			index;
+
+	index = 0;
+	all_paths = malloc(7 * sizeof(char *));;
+	while (index < 6)
+	{
+		all_paths[index] = ft_strdup(temp[index]);
+		index++;
+	}
+	all_paths[index] = NULL;
+	return (all_paths);
+}
+
 char	*get_cmd_path(char *const envp[], char	*cmd)
 {
-	char	*path;
-	char	**all_paths;
-	char	*err;
-
-	if (envp == NULL)
-		return (cmd);
-	while (*envp && !ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
-		envp++;
-	all_paths = ft_split_path(ft_substr(*envp, 5, ft_strlen(*envp) - 5), ':');
+	char		*path;
+	char		**all_paths;
+	char		*err;
+	
+	if (envp == NULL || envp[0] == NULL)
+		all_paths = get_paths();
+	else
+	{
+		while (*envp && !ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
+			envp++;
+		all_paths = ft_split_path(ft_substr(*envp, 5, ft_strlen(*envp) - 5), ':');
+	}
 	cmd = *ft_split(cmd, ' ');
 	while (*all_paths)
 	{

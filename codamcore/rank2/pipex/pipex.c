@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/17 16:29:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/19 16:02:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,13 @@ void	main_loop(char **split_cmd, char *cmd, char *const envp[], int infile)
 	}
 }
 
-int	main(int argc, char *argv[], char *const envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
-	int		infile;
-	int		index;
-	int		status;
+	int			infile;
+	int			index;
+	int			status;
+	// t_pipex		pipex;
 
-	envp = NULL;
-	// if (envp == NULL || envp < 0 || envp[0] == NULL)
-	// 	exit(errno);
 	if (argc < 5)
 	{
 		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);

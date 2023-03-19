@@ -3,7 +3,7 @@ CC = gcc
 LIBFT = includes/libft/libft.a
 CFLAGS = -Wall -Wextra -Werror
 SRCS = pipex.c helpers.c ft_split_quote.c
-BONUS_SRCS = pipex.c helpers.c
+BONUS_SRCS = pipex_bonus.c
 BONUS_OBJS = $(BONUS_SRCS:%.c=%.o)
 OBJS	= $(SRCS:%.c=%.o)
 

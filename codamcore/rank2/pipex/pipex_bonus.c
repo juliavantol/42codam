@@ -6,66 +6,112 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/02/28 10:40:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/19 15:12:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	leaks(void)
+char	**check_command(char	*str)
 {
-	system("leaks pipex");
+	int		index;
+
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == '\'')
+			return (ft_split_quote(str, '\''));
+		else if (str[index] == '"')
+			return (ft_split_quote(str, '"'));
+		index++;
+	}
+	return (ft_split_quote(str, ' '));
 }
 
-int	main_loop(char *cmd, int fd_in, char **paths)
+void	output(char *output, char *cmd, char *const envp[])
+{
+	int		output_file;
+	char	*path;
+
+	output_file = open(output, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (output_file < 0)
+		error_exit("File couldn't be opened");
+	if (access(output, R_OK) != 0 || access(output, W_OK) != 0)
+		error_exit("Can't be read/written");
+	dup2(output_file, 1);
+	path = get_cmd_path(envp, cmd);
+	if (!path)
+		error_exit("Command not found");
+	if (execve(path, check_command(cmd), envp) == -1)
+		error_exit("Execve Error");
+}
+
+void	main_loop(char **split_cmd, char *cmd, char *const envp[], int infile)
 {
 	int		fds[2];
 	pid_t	pid;
+	char	*path;
 
-	if (pipe(fds) == -1)
+	if (pipe(fds) < 0)
 		error_exit("Error with opening the pipe");
 	pid = fork();
-	if (pid == -1)
+	if (pid < 0)
 		error_exit("Error with fork");
-	if (pid)
+	if (pid == 0)
+	{
+		if (infile < 0)
+		{
+			ft_putstr_fd("pipex: input: No such file or directory\n", 2);
+			exit(0);
+		}
+		else
+			dup2(infile, 0);
+		close(fds[0]);
+		dup2(fds[1], 1);
+		path = get_cmd_path(envp, cmd);
+		if (!path)
+			error_exit("Command not found");
+		if (execve(path, split_cmd, envp) == -1)
+		{
+			ft_putstr_fd("Execve Error", 2);
+			exit(127);
+		}
+	}
+	else
 	{
 		close(fds[1]);
 		dup2(fds[0], 0);
 	}
-	else
-	{
-		close(fds[0]);
-		dup2(fds[1], 1);
-		if (fd_in < 0)
-			error_exit("Input");
-		else
-			run_command(paths, cmd);
-	}
-	return (0);
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char			**path;
-	struct s_pipex	pipex;
-	int				index;
-	int				status;
+	int			infile;
+	int			index;
+	int			status;
+	// extern char **environ;
 
-	index = 2;
+	// printf("%s\n", *environ);
+	// envp[0] = NULL;
+	// printf("%s\n", *environ);
+	// if (envp[0] == NULL || envp == NULL)
+	// 	exit(0);
+	// envp = NULL;
+	// if (envp == NULL)
+	// 	exit(0);
 	if (argc < 5)
-		error_exit("Not enough arguments");
-	path = get_paths(envp);
-	pipex.infile = open(argv[1], O_RDONLY);
-	dup2(pipex.infile, 0);
-	pipex.outfile = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (pipex.outfile == -1)
-		error_exit("Output");
-	dup2(pipex.outfile, 1);
+	{
+		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+	index = 2;
+	infile = open(argv[1], O_RDONLY);
 	while (index < argc - 2)
-		main_loop(argv[index++], pipex.infile, path);
-	run_command(path, argv[index]);
-	close(pipex.infile);
-	close(pipex.outfile);
+	{
+		main_loop(check_command(argv[index]), argv[index], envp, infile);
+		index++;
+	}
+	output(argv[argc - 1], argv[index], envp);
 	if (WIFEXITED(status))
 		exit(WEXITSTATUS(status));
 	return (EXIT_FAILURE);
