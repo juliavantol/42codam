@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/19 16:02:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/19 16:39:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	main(int argc, char *argv[], char *envp[])
 	int			infile;
 	int			index;
 	int			status;
-	// t_pipex		pipex;
 
 	if (argc < 5)
 	{
