@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/19 16:36:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/20 17:08:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,46 +43,48 @@ char	**delete_sub(const char *s)
 	return (split_new_str);
 }
 
-char 	**get_paths(void)
+void	check_envp(t_pipex *pipex, char **envp)
 {
-	char		**all_paths;
+	char		**paths;
 	const char	*temp[] = {"/usr/local/sbin/",
 		"/usr/local/bin/", "/usr/sbin/", "/usr/bin/", "/sbin/", "/bin/"};
 	int			index;
 
-	index = 0;
-	all_paths = malloc(7 * sizeof(char *));;
-	while (index < 6)
-	{
-		all_paths[index] = ft_strdup(temp[index]);
-		index++;
-	}
-	all_paths[index] = NULL;
-	return (all_paths);
-}
-
-char	*get_cmd_path(char *const envp[], char	*cmd)
-{
-	char		*path;
-	char		**all_paths;
-	char		*err;
-	
+	pipex->full_envp = envp;
 	if (envp == NULL || envp[0] == NULL)
-		all_paths = get_paths();
+	{
+		index = 0;
+		paths = malloc(7 * sizeof(char *));
+		while (index < 6)
+		{
+			paths[index] = ft_strdup(temp[index]);
+			index++;
+		}
+		paths[index] = NULL;
+		pipex->paths = paths;
+	}
 	else
 	{
 		while (*envp && !ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
 			envp++;
-		all_paths = ft_split_path(ft_substr(*envp, 5, ft_strlen(*envp) - 5), ':');
+		pipex->paths = ft_split_env(ft_substr(*envp, 5, ft_strlen(*envp) - 5),
+				':');
 	}
+}
+
+char	*get_cmd_path(char **paths, char	*cmd)
+{
+	char		*path;
+	char		*err;
+
 	cmd = *ft_split(cmd, ' ');
-	while (*all_paths)
+	while (*paths)
 	{
-		path = ft_strjoin(*all_paths, cmd);
+		path = ft_strjoin(*paths, cmd);
 		if (access(path, F_OK) == 0)
 			return (path);
 		free(path);
-		all_paths++;
+		paths++;
 	}
 	if (access(cmd, F_OK) == 0)
 		return (cmd);

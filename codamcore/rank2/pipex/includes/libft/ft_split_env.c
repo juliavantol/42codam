@@ -1,52 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_split_awk.c                                     :+:    :+:            */
+/*   ft_split_path.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/02 15:26:19 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/03/20 17:07:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
 /* Returns the array of new strings resulting from the split, NULL if 
 the allocation fails. */
 
-/* Frees the array in case of errors */
-static void	*free_arr(char	**split, size_t count)
+static char		**arr(char const *s, char	**split, size_t count, char c);
+static char		*word(char const *s, unsigned int start, size_t len);
+static void		*free_arr(char	**split, size_t count);
+static size_t	count_words(char const *s, char c);
+
+char	**ft_split_env(char const *s, char c)
 {
-	size_t	index;
+	char	**split;
 
-	index = 0;
-	while (index < count)
-	{
-		free(split[index]);
-		index++;
-	}
-	free(split);
-	return (NULL);
-}
-
-/* Returns the substring using the starting index of s and its len */
-static char	*word(char const *s, unsigned int start, size_t len)
-{
-	size_t		index;
-	char		*sub;
-	char		*word;
-
-	index = 0;
-	sub = (char *)malloc((len + 1) * sizeof(char));
-	if (sub == NULL)
+	if (!s)
 		return (NULL);
-	while (index < len && s[start] != '\0')
-		sub[index++] = s[start++];
-	sub[index] = '\0';
-	word = ft_strtrim(sub, " \"'");
-	free(sub);
-	return (word);
+	split = malloc((count_words(s, c) + 1) * sizeof(char *));
+	if (split == NULL)
+		return (NULL);
+	split = arr(s, split, 0, c);
+	return (split);
 }
 
 /* Loops through s and fills the array with the found words */
@@ -78,6 +62,23 @@ static char	**arr(char const *s, char	**split, size_t count, char c)
 	return (split);
 }
 
+/* Returns the substring using the starting index of s and its len */
+static char	*word(char const *s, unsigned int start, size_t len)
+{
+	size_t	index;
+	char	*word;
+
+	index = 0;
+	word = (char *)malloc((len + 2) * sizeof(char));
+	if (word == NULL)
+		return (NULL);
+	while (index < len && s[start] != '\0')
+		word[index++] = s[start++];
+	word[index] = '/';
+	word[++index] = '\0';
+	return (word);
+}
+
 /* Counts how many words can be made after splitting */
 static size_t	count_words(char const *s, char c)
 {
@@ -104,15 +105,17 @@ static size_t	count_words(char const *s, char c)
 	return (count);
 }
 
-char	**ft_split_awk(char const *s, char c)
+/* Frees the array in case of errors */
+static void	*free_arr(char	**split, size_t count)
 {
-	char	**split;
+	size_t	index;
 
-	if (!s)
-		return (NULL);
-	split = malloc((count_words(s, c) + 1) * sizeof(char *));
-	if (split == NULL)
-		return (NULL);
-	split = arr(s, split, 0, c);
-	return (split);
+	index = 0;
+	while (index < count)
+	{
+		free(split[index]);
+		index++;
+	}
+	free(split);
+	return (NULL);
 }
