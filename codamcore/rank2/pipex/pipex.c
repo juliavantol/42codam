@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/19 16:39:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/20 12:34:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void	main_loop(char **split_cmd, char *cmd, char *const envp[], int infile)
 			ft_putstr_fd("pipex: input: No such file or directory\n", 2);
 			exit(0);
 		}
-		else
-			dup2(infile, 0);
 		close(fds[0]);
 		dup2(fds[1], 1);
 		path = get_cmd_path(envp, cmd);
@@ -97,6 +95,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	index = 2;
 	infile = open(argv[1], O_RDONLY);
+	dup2(infile, 0);
 	while (index < argc - 2)
 	{
 		main_loop(check_command(argv[index]), argv[index], envp, infile);
