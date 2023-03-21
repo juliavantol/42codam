@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:02:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/20 17:05:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ char	**delete_sub(const char *s);
 char	**ft_split_quote(char const *s, char c);
 void	error_exit(char *msg);
 void	check_envp(t_pipex *pipex, char **envp);
-char	**ft_split_pipex(char const *s);
 
 #endif

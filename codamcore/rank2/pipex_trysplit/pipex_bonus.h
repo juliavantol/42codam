@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.h                                            :+:    :+:            */
+/*   pipex_bonus.h                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:02:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/20 17:05:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -36,6 +36,5 @@ char	**delete_sub(const char *s);
 char	**ft_split_quote(char const *s, char c);
 void	error_exit(char *msg);
 void	check_envp(t_pipex *pipex, char **envp);
-char	**ft_split_pipex(char const *s);
 
 #endif

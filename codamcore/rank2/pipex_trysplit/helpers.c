@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:20:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/20 17:35:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,31 @@ void	error_exit(char *msg)
 {
 	perror(msg);
 	exit(errno);
+}
+
+char	**delete_sub(const char *s)
+{
+	char	*new_str;
+	char	**split_new_str;
+	int		index;
+	char	two;
+	char	one;
+
+	two = s[ft_strlen(s) - 2];
+	one = s[ft_strlen(s) - 1];
+	new_str = (char *)malloc(10 * sizeof(char));
+	index = 0;
+	while (s[index - 1] != two && s[index])
+	{
+		new_str[index] = s[index];
+		index++;
+	}
+	new_str[index++] = ' ';
+	new_str[index++] = two;
+	new_str[index++] = one;
+	new_str[index++] = '\0';
+	split_new_str = ft_split(new_str, one);
+	return (split_new_str);
 }
 
 void	check_envp(t_pipex *pipex, char **envp)

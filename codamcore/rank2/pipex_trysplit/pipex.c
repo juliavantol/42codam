@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex_bonus.c                                      :+:    :+:            */
+/*   pipex.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:23:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:32:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
+
+char	**check_command(char	*str)
+{
+	int		index;
+
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == '\'')
+			return (ft_split_quote(str, '\''));
+		else if (str[index] == '"')
+			return (ft_split_quote(str, '"'));
+		index++;
+	}
+	return (ft_split_quote(str, ' '));
+}
 
 void	output(char *output, char *cmd, t_pipex pipex)
 {
@@ -26,7 +42,7 @@ void	output(char *output, char *cmd, t_pipex pipex)
 	path = get_cmd_path(pipex.paths, cmd);
 	if (!path)
 		error_exit("Command not found");
-	if (execve(path, ft_split_pipex(cmd), pipex.full_envp) == -1)
+	if (execve(path, check_command(cmd), pipex.full_envp) == -1)
 		error_exit("Execve Error");
 }
 
@@ -70,30 +86,30 @@ void	pipes(t_pipex pipex)
 	}
 }
 
-int	main(int argc, char *argv[], char **envp)
-{
-	int		index;
-	int		status;
-	t_pipex	pipex;
+// int	main(int argc, char *argv[], char **envp)
+// {
+// 	int		index;
+// 	int		status;
+// 	t_pipex	pipex;
 
-	if (argc < 5)
-	{
-		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
-	index = 2;
-	pipex.infile = open(argv[1], O_RDONLY);
-	dup2(pipex.infile, 0);
-	check_envp(&pipex, envp);
-	while (index < argc - 2)
-	{
-		pipex.cmd = argv[index];
-		pipex.cmd_split = ft_split_pipex(argv[index]);
-		pipes(pipex);
-		index++;
-	}
-	output(argv[argc - 1], argv[index], pipex);
-	if (WIFEXITED(status))
-		exit(WEXITSTATUS(status));
-	return (EXIT_FAILURE);
-}
+// 	if (argc < 5)
+// 	{
+// 		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	index = 2;
+// 	pipex.infile = open(argv[1], O_RDONLY);
+// 	dup2(pipex.infile, 0);
+// 	check_envp(&pipex, envp);
+// 	while (index < argc - 2)
+// 	{
+// 		pipex.cmd = argv[index];
+// 		pipex.cmd_split = check_command(argv[index]);
+// 		pipes(pipex);
+// 		index++;
+// 	}
+// 	output(argv[argc - 1], argv[index], pipex);
+// 	if (WIFEXITED(status))
+// 		exit(WEXITSTATUS(status));
+// 	return (EXIT_FAILURE);
+// }

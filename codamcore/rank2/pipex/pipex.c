@@ -6,27 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/20 17:01:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/21 14:20:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-char	**check_command(char	*str)
-{
-	int		index;
-
-	index = 0;
-	while (str[index])
-	{
-		if (str[index] == '\'')
-			return (ft_split_quote(str, '\''));
-		else if (str[index] == '"')
-			return (ft_split_quote(str, '"'));
-		index++;
-	}
-	return (ft_split_quote(str, ' '));
-}
 
 void	output(char *output, char *cmd, t_pipex pipex)
 {
@@ -42,7 +26,7 @@ void	output(char *output, char *cmd, t_pipex pipex)
 	path = get_cmd_path(pipex.paths, cmd);
 	if (!path)
 		error_exit("Command not found");
-	if (execve(path, check_command(cmd), pipex.full_envp) == -1)
+	if (execve(path, ft_split_pipex(cmd), pipex.full_envp) == -1)
 		error_exit("Execve Error");
 }
 
@@ -67,7 +51,7 @@ void	child_process(int fds[], t_pipex pipex)
 	}
 }
 
-void	main_loop(t_pipex pipex)
+void	pipes(t_pipex pipex)
 {
 	int		fds[2];
 	pid_t	pid;
@@ -78,9 +62,7 @@ void	main_loop(t_pipex pipex)
 	if (pid < 0)
 		error_exit("Error with fork");
 	if (pid == 0)
-	{
 		child_process(fds, pipex);
-	}
 	else
 	{
 		close(fds[1]);
@@ -106,8 +88,8 @@ int	main(int argc, char *argv[], char **envp)
 	while (index < argc - 2)
 	{
 		pipex.cmd = argv[index];
-		pipex.cmd_split = check_command(argv[index]);
-		main_loop(pipex);
+		pipex.cmd_split = ft_split_pipex(argv[index]);
+		pipes(pipex);
 		index++;
 	}
 	output(argv[argc - 1], argv[index], pipex);
