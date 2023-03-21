@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 13:59:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:19:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/21 14:38:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ static size_t	count_words(char const *s)
 	return (count);
 }
 
-static char	*make_word(char const *s, size_t index)
+static char	*make_word(char const *s, size_t index, size_t len)
 {
-	size_t	len;
 	size_t	start;
 	char	*word;
 
 	start = index;
-	len = 0;
 	if (s[index] == '\'' || s[index] == '"')
 	{
 		index++;
@@ -64,7 +62,7 @@ static char	*make_word(char const *s, size_t index)
 	}
 	word = ft_substr(s, start, len);
 	if (!word)
-		return (NULL);
+		error_exit("Malloc error");
 	return (word);
 }
 
@@ -80,7 +78,7 @@ static char	**ft_fill(char const *s, char **split)
 	{
 		while (s[index] == ' ' && s[index])
 			index++;
-		word = make_word(s, index);
+		word = make_word(s, index, 0);
 		if (ft_strlen(word) != 0)
 			split[count++] = word;
 		index += ft_strlen(word) + 1;
@@ -93,26 +91,9 @@ char	**ft_split_pipex(char const *s)
 {
 	char	**split;
 
-	if (!s)
-		return (NULL);
 	split = malloc((count_words(s) + 1) * sizeof(char *));
 	if (split == NULL)
-		return (NULL);
+		error_exit("Malloc error");
 	ft_fill(s, split);
 	return (split);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	char	**split;
-
-// 	if (argc > 1)
-// 	{
-// 		split = ft_split_pipex(argv[1]);
-// 		while (*split)
-// 		{
-// 			printf("%s\n", *split);
-// 			split++;
-// 		}
-// 	}
-// }
