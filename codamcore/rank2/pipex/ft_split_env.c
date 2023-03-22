@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/22 16:29:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/22 18:03:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	**ft_split_env(char	*s, char c)
 	char	**split;
 
 	if (!s)
-		error_exit("Malloc error");
+		error_exit("No input");
 	split = malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (split == NULL)
 		error_exit("Malloc error");
@@ -72,7 +72,7 @@ static char	*word(char const *s, unsigned int start, size_t len)
 	index = 0;
 	word = (char *)malloc((len + 2) * sizeof(char));
 	if (word == NULL)
-		return (NULL);
+		error_exit("Malloc error");
 	while (index < len && s[start] != '\0')
 		word[index++] = s[start++];
 	word[index] = '/';

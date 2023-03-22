@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/22 17:47:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/22 17:55:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*get_cmd_path(char **paths, char	*cmd)
 	{
 		path = ft_strjoin(*paths, cmd);
 		if (!path)
-			error_exit("Malloc");
+			error_exit("Malloc error");
 		if (access(path, F_OK) == 0)
 			return (free(cmd), path);
 		free(path);
@@ -79,6 +79,8 @@ char	*get_cmd_path(char **paths, char	*cmd)
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	err = ft_strjoin(ft_strjoin("pipex: ", cmd), ": command not found\n");
+	if (!err)
+		error_exit("Malloc error");
 	ft_putstr_fd(err, 2);
 	exit(127);
 	return (NULL);
