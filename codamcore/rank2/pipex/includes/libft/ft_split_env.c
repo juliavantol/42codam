@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_split_path.c                                    :+:    :+:            */
+/*   ft_split_env.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/20 17:07:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/22 12:31:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <errno.h>
 
 /* Returns the array of new strings resulting from the split, NULL if 
 the allocation fails. */
@@ -20,16 +21,23 @@ static char		*word(char const *s, unsigned int start, size_t len);
 static void		*free_arr(char	**split, size_t count);
 static size_t	count_words(char const *s, char c);
 
-char	**ft_split_env(char const *s, char c)
+void	error_exit2(char *msg)
+{
+	perror(msg);
+	exit(errno);
+}
+
+char	**ft_split_env(char	*s, char c)
 {
 	char	**split;
 
 	if (!s)
-		return (NULL);
+		error_exit2("Malloc error");
 	split = malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (split == NULL)
-		return (NULL);
+		error_exit2("Malloc error");
 	split = arr(s, split, 0, c);
+	free(s);
 	return (split);
 }
 

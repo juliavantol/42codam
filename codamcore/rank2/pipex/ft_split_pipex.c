@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 13:59:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:38:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/22 13:48:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,19 @@ static char	**ft_fill(char const *s, char **split)
 {
 	size_t	index;
 	size_t	count;
+	size_t	len;
 	char	*word;
 
 	index = 0;
 	count = 0;
-	while (s[index])
+	len = ft_strlen(s);
+	while (index < len)
 	{
 		while (s[index] == ' ' && s[index])
 			index++;
 		word = make_word(s, index, 0);
+		// printf("[%s]\n", word);
+		// printf("[%zu]\n", index);
 		if (ft_strlen(word) != 0)
 			split[count++] = word;
 		index += ft_strlen(word) + 1;
@@ -87,13 +91,13 @@ static char	**ft_fill(char const *s, char **split)
 	return (split);
 }
 
-char	**ft_split_pipex(char const *s)
+char	**ft_split_pipex(char *s)
 {
 	char	**split;
 
 	split = malloc((count_words(s) + 1) * sizeof(char *));
 	if (split == NULL)
 		error_exit("Malloc error");
-	ft_fill(s, split);
+	split = ft_fill(s, split);
 	return (split);
 }
