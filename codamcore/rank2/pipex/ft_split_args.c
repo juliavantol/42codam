@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_split_pipex.c                                   :+:    :+:            */
+/*   ft_split_args.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 13:59:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/22 14:49:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/22 16:51:57 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static char	**ft_fill_split(char const *s, char **split)
 	return (split);
 }
 
-char	**ft_split_pipex(char *s)
+char	**ft_split_args(char *s)
 {
 	char	**split;
 

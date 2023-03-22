@@ -6,16 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/22 14:00:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/22 17:09:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	leaks(void)
-{
-	system("leaks pipex");
-}
 
 void	output(char *output, char *cmd, t_pipex pipex)
 {
@@ -30,7 +25,7 @@ void	output(char *output, char *cmd, t_pipex pipex)
 	path = get_cmd_path(pipex.paths, cmd);
 	if (!path)
 		error_exit("Command not found");
-	if (execve(path, pipex.cmd_split, pipex.full_envp) == -1)
+	if (execve(path, ft_split_args(cmd), pipex.full_envp) == -1)
 		error_exit("Execve Error");
 }
 
@@ -88,17 +83,14 @@ int	main(int argc, char *argv[], char **envp)
 	index = 2;
 	pipex.infile = open(argv[1], O_RDONLY);
 	dup2(pipex.infile, 0);
-	check_envp(&pipex, envp);
+	get_envp(&pipex, envp);
 	while (index < argc - 2)
 	{
 		pipex.cmd = argv[index];
-		pipex.cmd_split = ft_split_pipex(argv[index]);
-		// leaks();
+		pipex.cmd_split = ft_split_args(argv[index]);
 		pipes(pipex);
 		index++;
 	}
-	pipex.cmd = argv[index];
-	pipex.cmd_split = ft_split_pipex(argv[index]);
 	output(argv[argc - 1], argv[index], pipex);
 	if (WIFEXITED(status))
 		exit(WEXITSTATUS(status));
