@@ -6,16 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/23 13:37:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/23 14:14:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	leaks(void)
-{
-	system("leaks pipex");
-}
 
 void	output(char *output, char *cmd, t_pipex pipex)
 {

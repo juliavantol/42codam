@@ -2,8 +2,8 @@ NAME = pipex
 CC = gcc
 LIBFT = includes/libft/libft.a
 CFLAGS = -Wall -Wextra -Werror
-MAN_SRCS = pipex.c helpers.c ft_split_args.c free.c
-BONUS_SRCS = pipex_bonus.c helpers_bonus.c ft_split_args_bonus.c free_bonus.c
+MAN_SRCS = pipex.c utils.c ft_split_args.c free.c
+BONUS_SRCS = pipex_bonus.c utils_bonus.c ft_split_args_bonus.c free_bonus.c
 
 ifdef BONUS
 SRC = $(BONUS_SRCS)
@@ -26,6 +26,7 @@ clean:
 	@rm -f *.o
 	@rm -f *.out
 	@rm -f output.txt
+	@rm -f input.txt
 	@cd includes/libft && make clean
 
 fclean: clean
