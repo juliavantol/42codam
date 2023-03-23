@@ -2,22 +2,22 @@ NAME = pipex
 CC = gcc
 LIBFT = includes/libft/libft.a
 CFLAGS = -Wall -Wextra -Werror
-SRCS = pipex.c helpers.c ft_split_args.c ft_split_env.c
-BONUS_SRCS = pipex_bonus.c
-BONUS_OBJS = $(BONUS_SRCS:%.c=%.o)
-OBJS	= $(SRCS:%.c=%.o)
+MAN_SRCS = pipex.c helpers.c ft_split_args.c free.c
+BONUS_SRCS = pipex_bonus.c helpers_bonus.c ft_split_args_bonus.c free_bonus.c
 
 ifdef BONUS
-OBJ_F = $(BONUS_OBJS) $(OBJS)
+SRC = $(BONUS_SRCS)
 else
-OBJ_F = $(OBJS)
+SRC = $(MAN_SRCS)
 endif
+
+OBJS	= $(SRC:%.c=%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@cd includes/libft && make bonus
-	@$(CC) $(CFLAGS) -o pipex $(SRCS) $(LIBFT)
+	@$(CC) $(CFLAGS) -o pipex $(SRC) $(LIBFT)
 
 bonus:
 	@make BONUS=1 all

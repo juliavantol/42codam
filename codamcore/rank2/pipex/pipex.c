@@ -6,11 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/22 17:55:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/23 13:37:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	leaks(void)
+{
+	system("leaks pipex");
+}
 
 void	output(char *output, char *cmd, t_pipex pipex)
 {
@@ -89,6 +94,7 @@ int	main(int argc, char *argv[], char **envp)
 		pipex.cmd = argv[index];
 		pipex.cmd_split = ft_split_args(argv[index]);
 		pipes(pipex);
+		free_cmd_split(&pipex);
 		index++;
 	}
 	output(argv[argc - 1], argv[index], pipex);

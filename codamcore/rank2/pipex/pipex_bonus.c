@@ -6,28 +6,32 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:23:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/23 13:03:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
+void	leaks(void)
+{
+	system("leaks pipex");
+}
+
 void	output(char *output, char *cmd, t_pipex pipex)
 {
-	int		output_file;
 	char	*path;
 
-	output_file = open(output, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (output_file < 0)
+	pipex.outfile = open(output, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (pipex.outfile < 0)
 		error_exit("File couldn't be opened");
 	if (access(output, R_OK) != 0 || access(output, W_OK) != 0)
 		error_exit("Can't be read/written");
-	dup2(output_file, 1);
+	dup2(pipex.outfile, 1);
 	path = get_cmd_path(pipex.paths, cmd);
 	if (!path)
 		error_exit("Command not found");
-	if (execve(path, ft_split_pipex(cmd), pipex.full_envp) == -1)
-		error_exit("Execve Error");
+	if (execve(path, ft_split_args(cmd), pipex.full_envp) == -1)
+		error_exit("Execve error");
 }
 
 void	child_process(int fds[], t_pipex pipex)
@@ -46,7 +50,7 @@ void	child_process(int fds[], t_pipex pipex)
 		error_exit("Command not found");
 	if (execve(path, pipex.cmd_split, pipex.full_envp) == -1)
 	{
-		ft_putstr_fd("Execve Error", 2);
+		ft_putstr_fd("Execve error", 2);
 		exit(127);
 	}
 }
@@ -84,12 +88,13 @@ int	main(int argc, char *argv[], char **envp)
 	index = 2;
 	pipex.infile = open(argv[1], O_RDONLY);
 	dup2(pipex.infile, 0);
-	check_envp(&pipex, envp);
+	get_envp(&pipex, envp);
 	while (index < argc - 2)
 	{
 		pipex.cmd = argv[index];
-		pipex.cmd_split = ft_split_pipex(argv[index]);
+		pipex.cmd_split = ft_split_args(argv[index]);
 		pipes(pipex);
+		free_cmd_split(&pipex);
 		index++;
 	}
 	output(argv[argc - 1], argv[index], pipex);

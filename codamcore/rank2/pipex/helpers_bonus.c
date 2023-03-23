@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   helpers.c                                          :+:    :+:            */
+/*   helpers_bonus.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/23 13:37:02 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/03/23 12:10:06 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/03/23 13:37:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	error_exit(char *msg)
 {
