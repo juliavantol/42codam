@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/28 14:34:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/29 14:11:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,27 @@ void	print_stack(t_node *stack)
 	temp = stack;
 	if (stack != NULL)
 	{
-		while (temp -> next != NULL)
+		while (temp != NULL)
 		{
 			printf("%d\n", temp -> value);
 			temp = temp -> next;
 		}
 	}
+	else
+		printf("Stack is null\n");
 }
 
 // atexit(leaks);
 int	main(int argc, char **argv)
 {
-	t_list	**stack_a;
-	t_list	*new;
+	t_node	**stack_a;
+	t_node	*new;
 
 	if (argc < 2)
 		exit(1);
 	check_input(argc, argv);
-	stack_a = (t_list **)malloc(sizeof(t_list));
-	*stack_a = NULL;
-	new = ft_lstnew((void *)1);
-	ft_lstadd_back(stack_a, new);
+	stack_a = (t_node **) malloc(sizeof(t_node));
+	stack_a = NULL;
+	new = ft_newnode(1);
+	ft_addnode(stack_a, new);
 }
