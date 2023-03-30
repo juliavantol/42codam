@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/29 13:59:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/30 12:43:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/30 15:56:11 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,29 @@ void	ft_addnode(t_node **stack, t_node *new)
 {
 	t_node	*last;
 
-	ft_lstnode(*stack);
-	if (*stack != NULL && new != NULL)
+	if (*stack)
 	{
 		last = ft_lstnode(*stack);
 		last -> next = new;
+		new -> next = NULL;
 	}
 	else
+	{
 		*stack = new;
-	last = new;
+		(*stack)->next = NULL;
+	}
+}
+
+void	fill_stack(char	**input, t_node **stack)
+{
+	int		index;
+	int		num;
+
+	index = 0;
+	while (input[index])
+	{
+		num = ft_atoi(input[index]);
+		ft_addnode(stack, ft_newnode(num));
+		index++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 15:36:02 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/27 15:36:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/30 14:55:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	ft_digit_str(char	*str)
 	index = 0;
 	while (str[index])
 	{
-		if ((ft_isdigit(str[index]) == 0 && str[index] != '-') || (str[index] == '-' && index != 0))
+		if ((ft_isdigit(str[index]) == 0 && str[index] != '-')
+			|| (str[index] == '-' && index != 0))
 		{
 			ft_putstr_fd("Error\n", 2);
 			exit(1);
@@ -34,7 +35,7 @@ int	ft_digit_str(char	*str)
 	return (1);
 }
 
-void	check_input(int argc, char	**argv)
+char	**check_input(int argc, char	**argv)
 {
 	int		index;
 	char	**args;
@@ -45,16 +46,16 @@ void	check_input(int argc, char	**argv)
 		args = ft_split(argv[1], ' ');
 		while (args[index])
 		{
-			ft_digit_str(args[index]);
-			free(args[index]);
-			index++;
+			ft_digit_str(args[index++]);
 		}
-		free(args);
+		return (args);
 	}
 	else
 	{
 		index = 1;
 		while (argv[index])
 			ft_digit_str(argv[index++]);
+		return (&argv[1]);
 	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/29 14:06:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/30 15:44:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
+char	**check_input(int argc, char	**argv);
+t_node	*ft_newnode(int num);
+void	fill_stack(char	**input, t_node **stack);
+void	ft_addnode(t_node **lst, t_node *new);
 void	leaks(void);
 int		ft_digit_str(char	*str);
-void	check_input(int argc, char	**argv);
-t_node	*ft_newnode(int num);
-void	ft_addnode(t_node **lst, t_node *new);
 
 #endif
