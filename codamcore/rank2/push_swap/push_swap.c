@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/30 15:59:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/30 16:27:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_stack(t_node *head)
 	temp = head;
 	while (temp != NULL)
 	{
-		printf("%d, %p, next: %p\n", temp -> value, temp, temp -> next);
+		printf("%d\n", temp -> value);
 		temp = temp -> next;
 	}
 }
@@ -28,13 +28,22 @@ void	print_stack(t_node *head)
 int	main(int argc, char **argv)
 {
 	t_node	**stack_a;
+	t_node	**stack_b;
 	char	**input;
 
 	if (argc < 2)
 		exit(1);
 	input = check_input(argc, argv);
 	stack_a = (t_node **)malloc(sizeof(t_node));
+	stack_b = (t_node **)malloc(sizeof(t_node));
 	*stack_a = NULL;
+	*stack_b = NULL;
 	fill_stack(input, stack_a);
+	ft_pb(stack_a, stack_b);
+
+	printf("STACK A:\n");
 	print_stack(*stack_a);
+	printf("\n\n\n");
+	printf("STACK B:\n");
+	print_stack(*stack_b);
 }
