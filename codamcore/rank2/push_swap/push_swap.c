@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/30 17:49:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/31 14:30:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,23 @@ int	main(int argc, char **argv)
 	stack_b = (t_node **)malloc(sizeof(t_node));
 	*stack_a = NULL;
 	*stack_b = NULL;
-	fill_stack(input, stack_a);
+	fill_stack(input, stack_b);
 
-	ft_rotate(stack_a);
 	printf("STACK A:\n");
 	print_stack(*stack_a);
 	printf("\n\n\n");
 	printf("STACK B:\n");
 	print_stack(*stack_b);
-
+	
+	printf("_____________\n");
+	ft_reverse_rotate(stack_b);
+	printf("\n\nAfter reverse rotate\n\n");
+	printf("STACK A:\n");
+	print_stack(*stack_a);
+	printf("\n\n\n");
+	printf("STACK B:\n");
+	print_stack(*stack_b);
+	
 	// ft_push(stack_a, stack_b);
 	// ft_push(stack_a, stack_b);
 	// ft_push(stack_b, stack_a);

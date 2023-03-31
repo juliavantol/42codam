@@ -6,11 +6,26 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/29 13:59:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/30 15:56:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/31 13:52:51 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	ft_stacksize(t_node *lst)
+{
+	t_node	*temp;
+	int		count;
+
+	temp = lst;
+	count = 0;
+	while (temp != NULL)
+	{
+		temp = temp -> next;
+		count++;
+	}
+	return (count);
+}
 
 t_node	*ft_newnode(int num)
 {
@@ -24,14 +39,27 @@ t_node	*ft_newnode(int num)
 	return (node);
 }
 
-t_node	*ft_lstnode(t_node *lst)
+t_node	*ft_last(t_node *stack)
 {
 	t_node	*temp;
 
-	temp = lst;
-	if (lst != NULL)
+	temp = stack;
+	if (stack != NULL)
 	{
 		while (temp -> next != NULL)
+			temp = temp -> next;
+	}
+	return (temp);
+}
+
+t_node	*ft_secondlast(t_node *stack)
+{
+	t_node	*temp;
+
+	temp = stack;
+	if (stack != NULL)
+	{
+		while (temp -> next != NULL && temp -> next -> next != NULL)
 			temp = temp -> next;
 	}
 	return (temp);
@@ -41,9 +69,9 @@ void	ft_addnode(t_node **stack, t_node *new)
 {
 	t_node	*last;
 
-	if (*stack)
+	if (*stack && new)
 	{
-		last = ft_lstnode(*stack);
+		last = ft_last(*stack);
 		last -> next = new;
 		new -> next = NULL;
 	}
