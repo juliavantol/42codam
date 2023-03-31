@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/31 17:09:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/31 17:15:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,6 @@ int	main(int argc, char **argv)
 	*stack_a = NULL;
 	*stack_b = NULL;
 	fill_stack(input, stack_a);
-
-	// printf("STACK A:\n");
-	// print_stack(*stack_a);
-	// printf("\n");
-	// printf("STACK B:\n");
-	// print_stack(*stack_b);
-	
-	// ft_swap(stack_a);
-	
-	// printf("_____________\n");
-	// printf("STACK A:\n");
-	// print_stack(*stack_a);
-	// printf("\n");
-	// printf("STACK B:\n");
-	// print_stack(*stack_b);
-	
-	// ft_push(stack_a, stack_b);
-	// ft_push(stack_a, stack_b);
-	// ft_push(stack_a, stack_b);
-
-	// ft_swap(stack_a);
-	// ft_push(stack_a, stack_b);
-	// ft_push(stack_a, stack_b);
-	// ft_push(stack_a, stack_b);
 	
 	ft_swap(stack_a);
 	ft_push(stack_a, stack_b);
@@ -70,14 +46,11 @@ int	main(int argc, char **argv)
 	ft_push(stack_a, stack_b);
 	ft_rotate(stack_a);
 	ft_rotate(stack_b);
-
-	printf("_____________\n");
-	printf("STACK A:\n");
-	print_stack(*stack_a);
-	printf("\n");
-	printf("STACK B:\n");
-	print_stack(*stack_b);
 	ft_reverse_rotate_both(stack_a, stack_b);
+	ft_swap(stack_a);
+	ft_push(stack_b, stack_a);
+	ft_push(stack_b, stack_a);
+	ft_push(stack_b, stack_a);
 
 	printf("_____________\n");
 	printf("STACK A:\n");
@@ -85,5 +58,7 @@ int	main(int argc, char **argv)
 	printf("\n");
 	printf("STACK B:\n");
 	print_stack(*stack_b);
+
+	ft_sort(stack_a);
 
 }
