@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/29 13:59:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/31 14:50:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/31 16:09:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/* Returns size of stack */
 int	ft_stacksize(t_node *stack)
 {
 	t_node	*temp;
@@ -27,6 +28,7 @@ int	ft_stacksize(t_node *stack)
 	return (count);
 }
 
+/* Fills the stack up with the numbers from the input */
 void	fill_stack(char	**input, t_node **stack)
 {
 	int		index;
@@ -41,6 +43,7 @@ void	fill_stack(char	**input, t_node **stack)
 	}
 }
 
+/* Creates a new node */
 t_node	*ft_make_node(int num)
 {
 	t_node	*node;
@@ -53,6 +56,7 @@ t_node	*ft_make_node(int num)
 	return (node);
 }
 
+/* Adds the node to the stack */
 void	ft_add_node(t_node **stack, t_node *new)
 {
 	t_node	*last;
@@ -70,6 +74,7 @@ void	ft_add_node(t_node **stack, t_node *new)
 	}
 }
 
+/* Returns last element of the stack */
 t_node	*ft_last(t_node *stack)
 {
 	t_node	*temp;
@@ -83,6 +88,7 @@ t_node	*ft_last(t_node *stack)
 	return (temp);
 }
 
+/* Returns second to last element of the stack */
 t_node	*ft_secondlast(t_node *stack)
 {
 	t_node	*temp;

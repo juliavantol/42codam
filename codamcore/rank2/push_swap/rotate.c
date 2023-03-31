@@ -6,13 +6,27 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/31 14:35:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/31 14:36:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/31 17:08:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 void	ft_rotate(t_node **stack)
+{
+	t_node	*last;
+	t_node	*top;
+	
+	if (*stack == NULL)
+		return ;
+	last = ft_last(*stack);
+	top = *stack;
+	*stack = (*stack) -> next;
+	top -> next = NULL;
+	last -> next = top;
+}
+
+void	ft_reverse_rotate(t_node **stack)
 {
 	t_node	*last;
 	t_node	*head;
@@ -26,20 +40,6 @@ void	ft_rotate(t_node **stack)
 	*stack = last;
 	(*stack)-> next = head;
 	second_last -> next = NULL;
-}
-
-void	ft_reverse_rotate(t_node **stack)
-{
-	t_node	*last;
-	t_node	*head;
-	
-	if (*stack == NULL)
-		return ;
-	last = ft_last(*stack);
-	head = *stack;
-	*stack = (*stack) -> next;
-	head -> next = NULL;
-	last -> next = head;
 	
 }
 

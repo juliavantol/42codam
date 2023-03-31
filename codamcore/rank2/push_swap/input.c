@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 15:36:02 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/30 14:55:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/03/31 14:57:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	leaks(void)
 	system("leaks push_swap");
 }
 
+/* Checks if there are only digits in the string */
 int	ft_digit_str(char	*str)
 {
 	int	index;
@@ -35,6 +36,7 @@ int	ft_digit_str(char	*str)
 	return (1);
 }
 
+/* Checks whether the input only contains digits */
 char	**check_input(int argc, char	**argv)
 {
 	int		index;
