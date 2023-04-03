@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/31 17:14:57 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/03 15:39:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_node	*ft_secondlast(t_node *stack);
 t_node	*ft_last(t_node *lst);
 t_node	*ft_make_node(int num);
 t_node	*ft_pop(t_node **stack);
+int		max_digit(t_node	*stack);
 int		ft_digit_str(char	*str);
 int		ft_stacksize(t_node *lst);
 

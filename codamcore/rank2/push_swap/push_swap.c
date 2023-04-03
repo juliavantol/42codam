@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/31 17:15:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/03 15:41:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 	*stack_a = NULL;
 	*stack_b = NULL;
 	fill_stack(input, stack_a);
-	
+	printf("max length: %d\n", max_digit(*stack_a));
 	ft_swap(stack_a);
 	ft_push(stack_a, stack_b);
 	ft_push(stack_a, stack_b);
