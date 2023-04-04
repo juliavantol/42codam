@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/03 15:30:41 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/03 15:45:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/04 16:06:47 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	count_digits(int n)
 int	max_digit(t_node	*stack)
 {
 	int		max_len;
-	int		index;
 	t_node	*temp;
 	int		num;
 	int		len;
@@ -42,7 +41,6 @@ int	max_digit(t_node	*stack)
 	if (stack == NULL)
 		return (0);
 	max_len = 0;
-	index = 0;
 	while (temp != NULL)
 	{
 		num = temp -> value;

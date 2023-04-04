@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/03 15:39:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/04 17:52:04 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_swap(t_node **stack);
 void	ft_push(t_node **stack_src, t_node **stack_dst);
 void	fill_stack(char	**input, t_node **stack);
 void	ft_add_node(t_node **stack, t_node *new);
-void	ft_sort(t_node **stack);
+void	ft_sort(t_node **stack, int	max_len);
 void	leaks(void);
 char	**check_input(int argc, char	**argv);
 t_node	*ft_secondlast(t_node *stack);
