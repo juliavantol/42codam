@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/31 17:13:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/06 18:18:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/06 18:28:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ void	ft_simplify(char **input, int arg_len, t_node **stack)
 		temp_arr[index][1] = index;
 		index++;
 	}
+	index = 0;
+	while (index < arg_len)
+	{
+		printf("%d -- %d\n", temp_arr[index][0], temp_arr[index][1]);
+		index++;
+	}
+	printf("\n\n\n\n");
 	index = 1;
 	while (index < arg_len)
 	{
@@ -68,5 +75,8 @@ void	ft_simplify(char **input, int arg_len, t_node **stack)
 
 	index = 0;
 	while (index < arg_len)
+	{
+		printf("%d -- %d\n", temp_arr[index][0], temp_arr[index][1]);
 		ft_add_node(stack, ft_make_node(temp_arr[index++][1]));
+	}
 }
