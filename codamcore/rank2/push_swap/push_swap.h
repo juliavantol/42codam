@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/04 17:52:04 by Julia         ########   odam.nl         */
+/*   Updated: 2023/04/06 18:11:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
+typedef struct s_value
+{
+	int				value;
+	int				original_position;
+	int				new_position;
+}	t_value;
+
 void	ft_reverse_rotate_both(t_node **stack_a, t_node **stack_b);
 void	ft_reverse_rotate(t_node **stack);
 void	ft_rotate_both(t_node **stack_a, t_node **stack_b);
@@ -34,8 +41,9 @@ void	ft_push(t_node **stack_src, t_node **stack_dst);
 void	fill_stack(char	**input, t_node **stack);
 void	ft_add_node(t_node **stack, t_node *new);
 void	ft_sort(t_node **stack, int	max_len);
+void	ft_simplify(char **input, int arg_len, t_node **stack);
 void	leaks(void);
-char	**check_input(int argc, char	**argv);
+char	**check_input(int argc, char	**argv, int	*arg_len);
 t_node	*ft_secondlast(t_node *stack);
 t_node	*ft_last(t_node *lst);
 t_node	*ft_make_node(int num);
