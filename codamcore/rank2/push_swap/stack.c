@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/29 13:59:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/06 18:12:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/07 13:23:11 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,6 @@ int	ft_stacksize(t_node *stack)
 		count++;
 	}
 	return (count);
-}
-
-/* Fills the stack up with the numbers from the input */
-void	fill_stack(char	**input, t_node **stack)
-{
-	int		index;
-	int		num;
-
-	index = 0;
-	while (input[index])
-	{
-		num = ft_atoi(input[index]);
-		ft_add_node(stack, ft_make_node(num));
-		index++;
-	}
 }
 
 /* Creates a new node */

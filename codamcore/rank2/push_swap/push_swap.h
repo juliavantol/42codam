@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/07 12:09:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/07 13:26:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ void	ft_rotate(t_node **stack);
 void	ft_swap_both(t_node **stack_a, t_node **stack_b);
 void	ft_swap(t_node **stack);
 void	ft_push(t_node **stack_src, t_node **stack_dst);
-void	fill_stack(char	**input, t_node **stack);
 void	ft_add_node(t_node **stack, t_node *new);
-void	ft_sort(t_node **stack, int	max_len);
-void	ft_simplify(char **input, int arg_len, t_node **stack);
+void	ft_sort(t_node **stack, int max_len);
+void	ft_simplify_input(char **input, int arg_len, t_node **stack);
 void	leaks(void);
 char	**check_input(int argc, char	**argv, int	*arg_len);
 t_node	*ft_secondlast(t_node *stack);

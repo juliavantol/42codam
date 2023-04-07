@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/06 18:13:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/07 13:30:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	stack_b = (t_node **)malloc(sizeof(t_node));
 	*stack_a = NULL;
 	*stack_b = NULL;
-	ft_simplify(input, arg_len, stack_a);
+	ft_simplify_input(input, arg_len, stack_a);
 	// fill_stack(input, stack_a);
 	max_len = max_digit(*stack_a);
 
@@ -64,8 +64,6 @@ int	main(int argc, char **argv)
 	printf("\n");
 	printf("STACK B:\n");
 	print_stack(*stack_b);
-
 	// ft_sort(stack_a, max_len);
 	// leaks();
-
 }
