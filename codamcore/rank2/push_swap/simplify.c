@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/07 13:15:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/07 13:27:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/07 13:31:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	insertion_sort(t_value	*indexed_nums, int arg_len)
+static void	insertion_sort(t_value	*indexed_nums, int arg_len)
 {
 	int		index;
 	int		j;
@@ -39,7 +39,7 @@ void	insertion_sort(t_value	*indexed_nums, int arg_len)
 	}
 }
 
-int	search_num(t_value	*indexed_nums, int arg_len, int original)
+static int	search_num(t_value	*indexed_nums, int arg_len, int original)
 {
 	int	index;
 
@@ -53,7 +53,7 @@ int	search_num(t_value	*indexed_nums, int arg_len, int original)
 	return (-1);
 }
 
-void	fill_stack(t_value	*indexed_nums, t_node **stack, int arg_len)
+static void	fill_stack(t_value	*indexed_nums, t_node **stack, int arg_len)
 {
 	int	index;
 	int	num;

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/07 13:26:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/07 13:31:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ t_node	*ft_pop(t_node **stack);
 int		max_digit(t_node	*stack);
 int		ft_digit_str(char	*str);
 int		ft_stacksize(t_node *lst);
-void	insertion_sort(t_value	*indexed_nums, int arg_len);
 
 #endif

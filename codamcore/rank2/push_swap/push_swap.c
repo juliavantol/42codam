@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/07 13:30:08 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/07 14:23:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	print_stack(t_node *head)
 }
 
 // with sequence [2 1 3 6 5 8] 2 is the top of the stack
+
+// 87 -487 781 -100 101 0 1 becomes 4 0 6 1 5 2 3
+// 87 and 4 being the top of the stack
 int	main(int argc, char **argv)
 {
 	t_node	**stack_a;
@@ -42,9 +45,14 @@ int	main(int argc, char **argv)
 	*stack_a = NULL;
 	*stack_b = NULL;
 	ft_simplify_input(input, arg_len, stack_a);
-	// fill_stack(input, stack_a);
 	max_len = max_digit(*stack_a);
 
+	printf("before\n");
+	printf("STACK A:\n");
+	print_stack(*stack_a);
+	printf("\n");
+	printf("STACK B:\n");
+	print_stack(*stack_b);
 	
 	// ft_swap(stack_a);
 	// ft_push(stack_a, stack_b);
@@ -58,12 +66,12 @@ int	main(int argc, char **argv)
 	// ft_push(stack_b, stack_a);
 	// ft_push(stack_b, stack_a);
 
-	printf("_____________\n");
-	printf("STACK A:\n");
-	print_stack(*stack_a);
-	printf("\n");
-	printf("STACK B:\n");
-	print_stack(*stack_b);
-	// ft_sort(stack_a, max_len);
+	// printf("\nafter\n_____________\n");
+	// printf("STACK A:\n");
+	// print_stack(*stack_a);
+	// printf("\n");
+	// printf("STACK B:\n");
+	// print_stack(*stack_b);
+	ft_sort(stack_a, max_len);
 	// leaks();
 }
