@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/11 13:06:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/11 14:15:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ typedef struct s_value
 	int				new_position;
 }	t_value;
 
+typedef struct s_swap
+{
+	int		stack_size;
+	int		max_len;
+	t_node	**stack_a;
+	t_node	**stack_b;
+}	t_swap;
+
 void	ft_reverse_rotate_both(t_node **stack_a, t_node **stack_b);
 void	ft_reverse_rotate(t_node **stack);
 void	ft_rotate_both(t_node **stack_a, t_node **stack_b);
@@ -39,7 +47,7 @@ void	ft_swap_both(t_node **stack_a, t_node **stack_b);
 void	ft_swap(t_node **stack);
 void	ft_push(t_node **stack_src, t_node **stack_dst);
 void	ft_add_node(t_node **stack, t_node *new);
-void	ft_sort(int max_len, t_node **stack_a, t_node **stack_b);
+void	ft_sort(t_swap swap, int i, int j);
 void	ft_simplify_input(char **input, int arg_len, t_node **stack);
 void	leaks(void);
 char	**check_input(int argc, char	**argv, int	*arg_len);

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/31 17:13:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/11 13:52:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/11 14:19:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,41 @@
 
 //make && ./push_swap "87 -487 781 -100 101 0 1"
 
-void	ft_sort(int max_len, t_node **stack_a, t_node **stack_b)
+void	empty_b(t_swap swap)
 {
-	int		index;
-	int		index2;
-	int		stack_size;
 	t_node	*temp;
 
-	stack_size = ft_stacksize(*stack_a);
-	index = 0;
-	while (index < max_len)
+	temp = *(swap.stack_b);
+	while (temp != NULL)
+	{
+		ft_push(swap.stack_b, swap.stack_a);
+		temp = temp -> next;
+	}
+}
+
+void	ft_sort(t_swap swap, int i, int j)
+{
+	t_node	*temp;
+
+	while (i < swap.max_len)
 	{	
-		index2 = 0;
-		temp = *stack_a;
-		while (index2 < stack_size)
+		j = 0;
+		temp = *(swap.stack_a);
+		while (j < swap.stack_size)
 		{
-			if ((temp -> value >> index & 1) == 0)
+			if ((temp -> value >> i & 1) == 0)
 			{
-				ft_push(stack_a, stack_b);
+				ft_push(swap.stack_a, swap.stack_b);
 				temp = temp -> next;
 			}
 			else
 			{
-				ft_rotate(stack_a);
-				temp = *stack_a;
+				ft_rotate(swap.stack_a);
+				temp = *(swap.stack_a);
 			}
-			index2++;
+			j++;
 		}
-		index++;
-	
+		i++;
 	}
+	empty_b(swap);
 }

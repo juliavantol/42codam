@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/11 13:19:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/11 14:18:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	print_stack(t_node *head)
 int	main(int argc, char **argv)
 {
 	t_node	**stack_a;
+	t_swap	swap;
 	t_node	**stack_b;
 	char	**input;
-	int		max_len;
 	int		arg_len;
 
 	arg_len = 0;
@@ -45,7 +45,6 @@ int	main(int argc, char **argv)
 	*stack_a = NULL;
 	*stack_b = NULL;
 	ft_simplify_input(input, arg_len, stack_a);
-	max_len = max_digit(*stack_a);
 
 	// printf("before\n");
 	// printf("STACK A:\n");
@@ -53,7 +52,6 @@ int	main(int argc, char **argv)
 	// printf("\n");
 	// printf("STACK B:\n");
 	// print_stack(*stack_b);
-	
 	// ft_swap(stack_a);
 	// ft_push(stack_a, stack_b);
 	// ft_push(stack_a, stack_b);
@@ -65,8 +63,11 @@ int	main(int argc, char **argv)
 	// ft_push(stack_b, stack_a);
 	// ft_push(stack_b, stack_a);
 	// ft_push(stack_b, stack_a);
-	
-	ft_sort(max_len, stack_a, stack_b);
+	swap.stack_a = stack_a;
+	swap.stack_b = stack_b;
+	swap.stack_size = ft_stacksize(*stack_a);
+	swap.max_len = max_digit(*stack_a);
+	ft_sort(swap, 0, 0);
 
 	printf("\nafter\n_____________\n");
 	printf("STACK A:\n");
