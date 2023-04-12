@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/07 13:15:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/07 13:31:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/12 12:26:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ static void	fill_stack(t_value	*indexed_nums, t_node **stack, int arg_len)
 	while (index < arg_len)
 	{
 		num = search_num(indexed_nums, arg_len, index);
-		ft_add_node(stack, ft_make_node(num));
+		if (num == -1)
+			return ;
+		ft_add_node(stack, ft_make_node2(num));
 		index++;
 	}
 	free(indexed_nums);

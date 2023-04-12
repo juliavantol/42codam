@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/31 17:13:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/11 14:19:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/12 12:37:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	empty_b(t_swap swap)
 	temp = *(swap.stack_b);
 	while (temp != NULL)
 	{
-		ft_push(swap.stack_b, swap.stack_a);
+		ft_push(swap.stack_b, swap.stack_a, 'a');
 		temp = temp -> next;
 	}
 }
@@ -38,7 +38,7 @@ void	ft_sort(t_swap swap, int i, int j)
 		{
 			if ((temp -> value >> i & 1) == 0)
 			{
-				ft_push(swap.stack_a, swap.stack_b);
+				ft_push(swap.stack_a, swap.stack_b, 'b');
 				temp = temp -> next;
 			}
 			else
@@ -48,7 +48,7 @@ void	ft_sort(t_swap swap, int i, int j)
 			}
 			j++;
 		}
+		empty_b(swap);
 		i++;
 	}
-	empty_b(swap);
 }

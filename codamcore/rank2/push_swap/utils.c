@@ -6,48 +6,19 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/03 15:30:41 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/04 16:06:47 by Julia         ########   odam.nl         */
+/*   Updated: 2023/04/12 12:09:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	count_digits(int n)
+int	max_digit(int max_num)
 {
-	int		count;
+	int	index;
 
-	count = 1;
-	if (n < 0)
-	{
-		n *= -1;
-		count++;	
-	}
-	while (n >= 10)
-	{
-		count++;
-		n = n / 10;
-	}
-	return (count);
-}
-
-int	max_digit(t_node	*stack)
-{
-	int		max_len;
-	t_node	*temp;
-	int		num;
-	int		len;
-
-	temp = stack;
-	if (stack == NULL)
-		return (0);
-	max_len = 0;
-	while (temp != NULL)
-	{
-		num = temp -> value;
-		len = count_digits(num);
-		if (len > max_len)
-			max_len = len;
-		temp = temp -> next;
-	}
-	return (max_len);	
+	index = 0;
+	max_num--;
+	while (max_num >> index != 0)
+		index++;
+	return (index);
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/11 14:27:57 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/12 12:39:09 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ int	main(int argc, char **argv)
 	*stack_b = NULL;
 	ft_simplify_input(input, arg_len, stack_a);
 
-	printf("before\n");
-	printf("STACK A:\n");
-	print_stack(*stack_a);
-	printf("\n");
-	printf("STACK B:\n");
-	print_stack(*stack_b);
+	// printf("before\n");
+	// printf("STACK A:\n");
+	// print_stack(*stack_a);
+	// printf("\n");
+	// printf("STACK B:\n");
+	// print_stack(*stack_b);
 	// ft_swap(stack_a);
 	// ft_push(stack_a, stack_b);
 	// ft_push(stack_a, stack_b);
@@ -66,14 +66,11 @@ int	main(int argc, char **argv)
 	swap.stack_a = stack_a;
 	swap.stack_b = stack_b;
 	swap.stack_size = ft_stacksize(*stack_a);
-	swap.max_len = max_digit(*stack_a);
+	swap.max_len = max_digit(swap.stack_size);
 	ft_sort(swap, 0, 0);
 
-	printf("\nafter\n_____________\n");
-	printf("STACK A:\n");
-	print_stack(*stack_a);
-	printf("\n");
-	printf("STACK B:\n");
-	print_stack(*stack_b);
+	// printf("\nafter\n_____________\n");
+	// printf("STACK A:\n");
+	// print_stack(*stack_a);
 	// leaks();
 }
