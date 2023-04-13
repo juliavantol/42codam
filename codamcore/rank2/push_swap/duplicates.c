@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/13 12:36:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 17:46:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,22 @@
 
 void	check_dups(t_value	*indexed_nums, int arg_len)
 {
-	int		index;
-	int		temp;
-	int		*dups;
+	int		i;
+	int		j;
 
-	index = 0;
-	dups = malloc(arg_len * sizeof(int));
-	while (index < arg_len)
-		dups[index++] = 0;
-	index = 0;
-	while (index < arg_len)
+	i = 0;
+	while (i < arg_len)
 	{
-		temp = indexed_nums[index].value;
-		if (dups[temp] == 1)
+		j = 0;
+		while (j < arg_len)
 		{
-			free(dups);
-			printf("Error\n");
-			exit(1);
+			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
+			{
+				ft_putstr_fd("Error\n", 2);
+				exit(1);
+			}
+			j++;
 		}
-		else
-			dups[temp] = 1;	
-		index++;
+		i++;
 	}
-	free(dups);
 }

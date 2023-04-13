@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/13 15:34:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 16:36:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ typedef struct s_node
 	int				value;
 	struct s_node	*next;
 }	t_node;
+
+typedef struct s_item
+{
+	char	*key;
+	int		value;
+}	t_item;
 
 typedef struct s_value
 {

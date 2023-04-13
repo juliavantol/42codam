@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/30 16:06:50 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/13 13:08:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 17:55:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,4 @@ void	ft_swap(t_node **stack)
 	second -> next = (*stack);
 	(*stack) = second;
 	ft_putstr_fd("sa\n", 1);
-}
-
-void	ft_swap_both(t_node **stack_a, t_node **stack_b)
-{
-	ft_swap(stack_a);
-	ft_swap(stack_b);
 }

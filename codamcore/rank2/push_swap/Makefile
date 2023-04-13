@@ -6,12 +6,12 @@
 #    By: juvan-to <juvan-to@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/24 12:19:20 by juvan-to      #+#    #+#                  #
-#    Updated: 2023/04/13 12:25:54 by juvan-to      ########   odam.nl          #
+#    Updated: 2023/04/13 17:48:02 by juvan-to      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 LIBFT = libft/libft.a
 MAN_SRC = push_swap.c simplify.c input.c duplicates.c stack.c rotate.c operations.c sort.c utils.c small_stack.c
 CC = gcc

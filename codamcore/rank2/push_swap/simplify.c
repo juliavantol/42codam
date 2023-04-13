@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/07 13:15:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/13 12:27:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 17:49:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	fill_stack(t_value	*indexed_nums, t_node **stack, int arg_len)
 		ft_add_node(stack, ft_make_node2(num));
 		index++;
 	}
-	free(indexed_nums);
 }
 
 void	ft_simplify_input(char **input, int arg_len, t_node **stack)
@@ -77,7 +76,7 @@ void	ft_simplify_input(char **input, int arg_len, t_node **stack)
 	t_value	*temp;
 
 	index = 0;
-	indexed_nums = malloc(arg_len * sizeof(t_value));
+	indexed_nums = malloc((arg_len + 1) * sizeof(t_value));
 	if (!indexed_nums)
 		exit(1);
 	while (index < arg_len)
@@ -91,7 +90,8 @@ void	ft_simplify_input(char **input, int arg_len, t_node **stack)
 		index++;
 		free(temp);
 	}
-	insertion_sort(indexed_nums, arg_len);
 	check_dups(indexed_nums, arg_len);
+	insertion_sort(indexed_nums, arg_len);
 	fill_stack(indexed_nums, stack, arg_len);
+	free(indexed_nums);
 }

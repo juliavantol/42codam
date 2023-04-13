@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/13 14:45:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 17:58:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,4 @@ int	main(int argc, char **argv)
 		small_sort_5(swap);
 	else
 		ft_sort(swap, 0, 0);
-	// leaks();
 }
