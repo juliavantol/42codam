@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/07 13:15:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/12 12:26:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 12:27:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ void	ft_simplify_input(char **input, int arg_len, t_node **stack)
 		free(temp);
 	}
 	insertion_sort(indexed_nums, arg_len);
+	check_dups(indexed_nums, arg_len);
 	fill_stack(indexed_nums, stack, arg_len);
 }

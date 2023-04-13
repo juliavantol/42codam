@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/12 16:40:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 14:45:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ int	main(int argc, char **argv)
 	swap.stack_size = ft_stacksize(*stack_a);
 	swap.max_len = max_digit(swap.stack_size);
 	if (swap.stack_size == 3)
-		small_sort(swap, 0, 0, 0);
+		small_sort(swap.stack_a, 0, 0, 0);
 	else if (swap.stack_size == 5)
 		small_sort_5(swap);
 	else
 		ft_sort(swap, 0, 0);
+	// leaks();
 }

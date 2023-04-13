@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/30 16:06:50 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/12 16:26:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 13:08:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	ft_push(t_node **stack_src, t_node **stack_dst, char name)
 	ft_push_node(stack_dst, node);
 	(*stack_src) = second;
 	if (name == 'a')
-		printf("pa\n");
+		ft_putstr_fd("pa\n", 1);
 	else
-		printf("pb\n");
+		ft_putstr_fd("pb\n", 1);
 }
 
 /* Swap top two elements from stack */
@@ -69,7 +69,7 @@ void	ft_swap(t_node **stack)
 	(*stack)-> next = third;
 	second -> next = (*stack);
 	(*stack) = second;
-	printf("sa\n");
+	ft_putstr_fd("sa\n", 1);
 }
 
 void	ft_swap_both(t_node **stack_a, t_node **stack_b)
