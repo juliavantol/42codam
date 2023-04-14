@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/13 17:58:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/14 14:20:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	main(int argc, char **argv)
 	arg_len = 0;
 	if (argc < 2)
 		exit(1);
+	parse_input(argv);
+	exit(1);
 	input = check_input(argc, argv, &arg_len);
 	stack_a = (t_node **)malloc(sizeof(t_node));
 	stack_b = (t_node **)malloc(sizeof(t_node));

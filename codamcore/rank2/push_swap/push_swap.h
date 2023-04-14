@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/13 16:36:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/14 14:20:09 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ typedef struct s_node
 	int				value;
 	struct s_node	*next;
 }	t_node;
-
-typedef struct s_item
-{
-	char	*key;
-	int		value;
-}	t_item;
 
 typedef struct s_value
 {
@@ -59,6 +53,7 @@ void	small_sort_5(t_swap swap);
 void	leaks(void);
 char	**check_input(int argc, char	**argv, int	*arg_len);
 void	check_dups(t_value	*indexed_nums, int arg_len);
+char	**parse_input(char	**argv);
 t_node	*ft_secondlast(t_node *stack);
 t_node	*ft_last(t_node *lst);
 t_node	*ft_make_node(int num);
@@ -72,4 +67,3 @@ void	empty_b(t_swap swap);
 t_node	*ft_make_node2(int num);
 
 #endif
-
