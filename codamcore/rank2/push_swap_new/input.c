@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 15:36:02 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/18 17:04:26 by Julia         ########   odam.nl         */
+/*   Updated: 2023/04/18 18:01:26 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,37 @@ void	leaks(void)
 	system("leaks push_swap");
 }
 
-t_stack2 *swap(t_stack2 * ptr1, t_stack2 * ptr2)
+t_stack2 *swap(t_stack2 *one, t_stack2 *two)
 {
-   	t_stack2 *tmp = ptr2->next;
-    ptr2->next = ptr1;
-    ptr1->next = tmp;
-    return ptr2;
+   	t_stack2	*temp;
+	
+	temp = two->next;
+    two->next = one;
+   	one->next = temp;
+    return (two);
+}
+
+void	insertion2(t_stack2 **stack, int count)
+{
+	int i;
+	int j;
+	t_stack2	*node;
+	t_stack2	*temp;
+	
+	i = 1;
+	node = *stack;
+	while (i < count && node)
+	{
+		j = i;
+		temp = node;
+		while (j > 0 && temp)
+		{
+			j--;
+			temp = tep -> next;
+		}
+		node = node -> temp;
+		i++;
+	}
 }
 
 void	bubbleSort(t_stack2 **stack, int count)
