@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/17 16:11:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/17 17:51:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/18 17:05:31 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	print_stack2(t_stack2 *head, int count)
 	i = 0;
 	while (i < count)
 	{
-		printf("value: %d original i: %d new i: %d\n", temp -> value, temp->original_position, temp->new_position);
+		printf("%d, ", temp -> value);
+		//printf("value: %d original i: %d new i: %d\n", temp -> value, temp->original_position, temp->new_position);
 		temp = temp -> next;
 		i++;
 	}
+	printf("\n");
 }
 
 /* Adds the node to the stack */

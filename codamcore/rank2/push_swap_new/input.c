@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 15:36:02 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/17 18:35:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/18 17:04:26 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ void	bubbleSort(t_stack2 **stack, int count)
 			if ((*head)-> value > (*head) -> next -> value)
 			{
 				*head = swap(*head, (*head)-> next);
-				// temp = (*head) -> next -> next;
-				// (*head) -> next -> next = (*head);
-				// (*head) -> next = temp;
 				swapped = 1;
 			}
+			head = &(*head) -> next;
 			j++;
 		}
 		if (swapped == 0)

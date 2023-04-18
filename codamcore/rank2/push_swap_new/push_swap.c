@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/17 16:58:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/18 15:43:19 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 	swap.stack_size = ft_stacksize(*stack_a);
 	swap.max_len = max_digit(swap.stack_size);
 	if (swap.stack_size == 3)
-		small_sort(swap.stack_a, 0, 0, 0);
+		small_sort(swap.stack_a, 0, 0);
 	else if (swap.stack_size == 5)
 		small_sort_5(swap);
 	else

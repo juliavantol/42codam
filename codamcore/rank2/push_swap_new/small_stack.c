@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/12 15:06:45 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/17 15:47:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/18 13:33:00 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	biggest_value(t_stack	**stack)
 	t_stack	*temp;
 	int		value;
 	int		index;
-	int		biggest_index;
 
 	temp = *stack;
 	value = temp -> value;;
@@ -25,10 +24,7 @@ int	biggest_value(t_stack	**stack)
 	while (temp != NULL)
 	{
 		if (temp -> value > value)
-		{
 			value = temp -> value;
-			biggest_index = index;
-		}
 		index++;
 		temp = temp -> next;
 	}
@@ -71,11 +67,11 @@ int	is_sorted(t_swap swap)
 	return (1);
 }
 
-void	small_sort(t_stack	**stack, int first, int second, int third)
+void	small_sort(t_stack	**stack, int first, int second)
 {
 	first = (*(stack))-> value;
 	second = (*(stack))-> next -> value;
-	third = (*(stack))-> next -> next -> value;
+
 	if (first == 0)
 	{
 		ft_reverse_rotate(stack);
