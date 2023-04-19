@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_putnbr_fd.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/24 15:09:13 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 14:48:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Outputs the integer ’n’ to the given file descriptor using recursion */
+
+void	ft_putnbr_fd(int n, int fd)
 {
-	int		i;
-	int		j;
-
-	i = 0;
-	while (i < arg_len)
+	if (n == -2147483648)
+		ft_putstr_fd("-2147483648", fd);
+	else if (n < 0)
 	{
-		j = 0;
-		while (j < arg_len)
-		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
-		}
-		i++;
+		n *= -1;
+		ft_putchar_fd('-', fd);
+		return (ft_putnbr_fd(n, fd));
 	}
+	else if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		return (ft_putnbr_fd(n % 10, fd));
+	}
+	else
+		ft_putchar_fd(n + 48, fd);
 }

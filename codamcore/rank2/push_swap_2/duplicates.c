@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/17 17:01:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+void	check_dups(t_value	*indexed_nums, int arg_len)
 {
 	int		i;
 	int		j;

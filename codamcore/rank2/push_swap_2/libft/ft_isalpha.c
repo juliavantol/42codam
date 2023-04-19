@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_isalpha.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/04 14:57:13 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/05 13:11:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	check_dups(t_temp *indexed_nums, int arg_len)
+int	ft_isalpha(int c)
 {
-	int		i;
-	int		j;
-
-	i = 0;
-	while (i < arg_len)
-	{
-		j = 0;
-		while (j < arg_len)
-		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
-		}
-		i++;
-	}
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
+	return (0);
 }

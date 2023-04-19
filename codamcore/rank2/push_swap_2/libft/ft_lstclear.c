@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_lstclear.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/28 11:49:14 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:26:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Deletes and frees the given node and every successor of that node, 
+using the function lstdelone. The pointer to the list is set to NULL. */
+
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	int		i;
-	int		j;
+	t_list	*temp;
+	t_list	*next;
 
-	i = 0;
-	while (i < arg_len)
+	if (*lst != 0 && del != 0)
 	{
-		j = 0;
-		while (j < arg_len)
+		temp = *lst;
+		while (temp)
 		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
+			next = temp -> next;
+			ft_lstdelone(temp, del);
+			temp = next;
 		}
-		i++;
+		*lst = 0;
 	}
 }

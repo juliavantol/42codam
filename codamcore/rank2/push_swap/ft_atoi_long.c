@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_atoi.c                                          :+:    :+:            */
+/*   ft_atoi_long.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/13 13:03:01 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 13:36:46 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/04/19 13:38:42 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/04/19 13:39:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-/* This function converts a str to int */
-
-static int	convert(const char *str, int index, int n)
+static long	convert(const char *str, long index, long n)
 {
-	int	sum;
+	long	sum;
 
 	sum = 0;
 	while (ft_isdigit(str[index]))
@@ -24,10 +22,10 @@ static int	convert(const char *str, int index, int n)
 	return (sum * n);
 }
 
-static int	find_start(const char *str)
+static long	find_start(const char *str)
 {
-	int	start;
-	int	n;
+	long	start;
+	long	n;
 
 	start = 0;
 	n = 1;
@@ -42,7 +40,7 @@ static int	find_start(const char *str)
 	return (convert(str, start, n));
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi_long(const char *str)
 {
 	if (ft_strlen(str) == 0)
 		return (0);

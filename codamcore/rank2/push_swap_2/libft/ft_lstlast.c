@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_lstlast.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/27 12:28:03 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:18:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+/* Returns the last node of the list. */
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+#include "libft.h"
+
+t_list	*ft_lstlast(t_list *lst)
 {
-	int		i;
-	int		j;
+	t_list	*temp;
 
-	i = 0;
-	while (i < arg_len)
+	temp = lst;
+	if (lst != NULL)
 	{
-		j = 0;
-		while (j < arg_len)
-		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
-		}
-		i++;
+		while (temp -> next != NULL)
+			temp = temp -> next;
 	}
+	return (temp);
 }

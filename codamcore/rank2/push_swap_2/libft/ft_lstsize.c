@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_lstsize.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/27 12:10:32 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:21:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Counts the number of nodes in a list. */
+
+int	ft_lstsize(t_list *lst)
 {
-	int		i;
-	int		j;
+	t_list	*temp;
+	int		count;
 
-	i = 0;
-	while (i < arg_len)
+	temp = lst;
+	count = 0;
+	while (temp != NULL)
 	{
-		j = 0;
-		while (j < arg_len)
-		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
-		}
-		i++;
+		temp = temp -> next;
+		count++;
 	}
+	return (count);
 }

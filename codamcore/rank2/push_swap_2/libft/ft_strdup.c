@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 14:04:33 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 15:08:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Returns a pointer to a null-terminated byte string 
+which is a duplicate of string s */
+
+char	*ft_strdup(const char *s)
 {
-	int		i;
-	int		j;
+	char	*new;
+	int		index;
 
-	i = 0;
-	while (i < arg_len)
+	index = 0;
+	while (s[index] != '\0')
+		index++;
+	new = malloc(index + 1);
+	if (new == NULL)
+		return (NULL);
+	index = 0;
+	while (s[index] != '\0')
 	{
-		j = 0;
-		while (j < arg_len)
-		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
-		}
-		i++;
+		new[index] = s[index];
+		index++;
 	}
+	new[index] = '\0';
+	return (new);
 }

@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_striteri.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/24 14:41:51 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 15:36:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Applies the function ’f’ on each character of the string passed as argument, 
+passing its index as first argument. Each character is passed by address 
+to ’f’ to be modified if necessary. */
+
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	int		i;
-	int		j;
+	unsigned int	index;
 
-	i = 0;
-	while (i < arg_len)
+	index = 0;
+	if (s && f)
 	{
-		j = 0;
-		while (j < arg_len)
+		while (index < ft_strlen(s))
 		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
+			f(index, &s[index]);
+			index++;
 		}
-		i++;
 	}
 }

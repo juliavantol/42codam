@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_putendl_fd.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/24 15:05:46 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/24 15:07:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Outputs the string ’s’ to the given file descriptor
+followed by a newline. */
+
+void	ft_putendl_fd(char *s, int fd)
 {
-	int		i;
-	int		j;
+	size_t	index;
 
-	i = 0;
-	while (i < arg_len)
+	index = 0;
+	if (s && fd)
 	{
-		j = 0;
-		while (j < arg_len)
+		while (index < ft_strlen(s))
 		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
+			write(fd, &s[index], 1);
+			index++;
 		}
-		i++;
+		write(fd, "\n", 1);
 	}
 }

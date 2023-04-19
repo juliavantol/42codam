@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_calloc.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 13:36:42 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 11:28:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Allocates specified amount of memory and initializes it to zero */
+
+void	*ft_calloc(size_t nelem, size_t elsize)
 {
-	int		i;
-	int		j;
+	void	*m;
 
-	i = 0;
-	while (i < arg_len)
-	{
-		j = 0;
-		while (j < arg_len)
-		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
-		}
-		i++;
-	}
+	m = malloc(nelem * elsize);
+	if (m == NULL)
+		return (NULL);
+	ft_bzero(m, nelem * elsize);
+	return (m);
 }

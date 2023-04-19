@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_lstiter.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/11/01 11:17:19 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:18:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Iterates the list ’lst’ and applies the function ’f’ on the content 
+of each node. */
+
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	int		i;
-	int		j;
+	t_list	*temp;
 
-	i = 0;
-	while (i < arg_len)
+	if (lst != 0 && f != 0)
 	{
-		j = 0;
-		while (j < arg_len)
+		temp = lst;
+		while (temp)
 		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
+			f(temp -> content);
+			temp = temp -> next;
 		}
-		i++;
 	}
 }

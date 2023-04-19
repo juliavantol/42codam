@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_memset.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/05 14:39:25 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 14:43:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Sets the first n bytes of dest to the value c. 
+The value of c is converted to an unsigned character. */
+
+void	*ft_memset(void *s, int c, size_t n)
 {
-	int		i;
-	int		j;
+	unsigned char	*new;
+	size_t			index;
 
-	i = 0;
-	while (i < arg_len)
+	index = 0;
+	new = s;
+	while (index < n)
 	{
-		j = 0;
-		while (j < arg_len)
-		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
-		}
-		i++;
+		new[index] = (unsigned char)c;
+		index++;
 	}
+	return (new);
 }

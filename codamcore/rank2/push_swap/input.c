@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 15:36:02 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/14 14:31:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/17 15:20:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,31 +59,85 @@ char	**check_input(int argc, char	**argv, int	*arg_len)
 	return (NULL);
 }
 
-void	add_to_nums(char **input)
+int	first_smallest_num(int	*nums)
+{
+	int	index;
+	int	output;
+
+	index = 0;
+	output = nums[0];
+	while (nums[index])
+	{
+		if (nums[index] < output)
+			output = nums[index];
+		index++;
+	}
+	return (output);
+}
+
+int	next_smallest(int *nums, int	min)
+{
+	int				index;
+	int	output;
+
+	index = 0;
+	output = nums[index];
+	while (nums[index])
+	{
+		if (nums[index] < output && nums[index] > min)
+			output = nums[index];
+		index++;
+	}
+	return (output);
+}
+
+
+void	index_nums(int	*nums, int size)
+{
+	int	index;
+	int	value;
+	int	*sorted_nums;
+
+	index = 0;
+	value = first_smallest_num(nums);
+	sorted_nums = malloc((size + 1) * sizeof(int));
+	sorted_nums[index++] = value;
+	while (nums[index])
+	{
+		value = next_smallest(nums, value);
+		sorted_nums[index] = value;
+		index++;
+	}
+	sorted_nums[index] = '\0';
+	index = 0;
+	while (sorted_nums[index])
+	{
+		printf("%d\n", sorted_nums[index++]);
+	}
+	
+}
+
+// this is basically simplify input
+void	convert_input(char **input)
 {
 	int		index;
 	int		size;
-	t_value	*indexed_nums;
-	t_value	*temp;
+	int		*nums;
 
 	size = 0;
 	while (input[size])
 		size++;
-	indexed_nums = malloc((size + 1) * sizeof(t_value));
-	if (!indexed_nums)
+	nums = malloc((size + 1) * sizeof(int));
+	if (!nums)
 		exit(1);
 	index = 0;
 	while (index < size)
 	{
-		temp = malloc(sizeof(t_value));
-		if (!temp)
-			exit(1);
-		temp -> value = ft_atoi(input[index]);
-		temp -> original_position = index;
-		indexed_nums[index] = *temp;
+		nums[index] = ft_atoi(input[index]);
 		index++;
-		free(temp);
 	}
+	nums[index] = '\0';
+	index_nums(nums, size);
 }
 
 char	**ft_array_join(char **arr, char *str)
@@ -138,6 +192,6 @@ char	**parse_input(char	**argv)
 			input = ft_array_join(input, *argv);
 		argv++;
 	}
-	add_to_nums(input);
+	convert_input(input);
 	return (input);
 }

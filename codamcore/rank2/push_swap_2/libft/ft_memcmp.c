@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_memcmp.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 11:41:59 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 14:06:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* Compares up to n bytes between s1 and s2. Returns 0 if equal. */
+
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int		i;
-	int		j;
+	unsigned char	*a;
+	unsigned char	*b;
+	size_t			index;
+	int				sum;
 
-	i = 0;
-	while (i < arg_len)
+	a = (unsigned char *) s1;
+	b = (unsigned char *) s2;
+	index = 0;
+	sum = 0;
+	while (index < n)
 	{
-		j = 0;
-		while (j < arg_len)
+		if (a[index] != b[index])
 		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
+			sum = a[index] - b[index];
+			return (a[index] - b[index]);
 		}
-		i++;
+		index++;
 	}
+	return (sum);
 }

@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   duplicates.c                                       :+:    :+:            */
+/*   ft_strchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/13 12:23:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:14 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 09:54:08 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 15:00:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	check_dups(t_temp *indexed_nums, int arg_len)
+/* This function finds the first occurence of character c and returns 
+a pointer to the first occurence of c. */
+
+char	*ft_strchr(const char *str, int c)
 {
-	int		i;
-	int		j;
+	size_t	index;
 
-	i = 0;
-	while (i < arg_len)
+	index = 0;
+	if (str[index] == (char)c)
+		return (&((char *) str)[index]);
+	while (index < (ft_strlen(str) + 1))
 	{
-		j = 0;
-		while (j < arg_len)
-		{
-			if (i != j && indexed_nums[i].value == indexed_nums[j].value)
-			{
-				ft_putstr_fd("Error\n", 2);
-				exit(1);
-			}
-			j++;
-		}
-		i++;
+		if (str[index] == (char)c)
+			return (&((char *) str)[index]);
+		index++;
 	}
+	return (NULL);
 }
