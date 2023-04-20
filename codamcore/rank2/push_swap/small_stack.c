@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/12 15:06:45 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/13 15:35:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/20 17:55:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,23 @@ void	rev_sort_3(t_node	**stack)
 		ft_reverse_rotate(stack);
 	head = (*stack);
 	if (head -> value > head -> next -> value)
-		ft_swap(stack);
+		ft_swap(stack, 'a');
+}
+
+void	sort_3(t_node	**stack)
+{
+	int		highest;
+	t_node	*head;
+
+	highest = biggest_value(stack);
+	head = (*stack);
+	if (head -> value == highest)
+		ft_rotate(stack);
+	else if (head -> next -> value == highest)
+		ft_reverse_rotate(stack);
+	head = (*stack);
+	if (head -> value > head -> next -> value)
+		ft_swap(stack, 'a');
 }
 
 int	is_sorted(t_swap swap)
@@ -69,35 +85,6 @@ int	is_sorted(t_swap swap)
 		temp = temp -> next;
 	}
 	return (1);
-}
-
-void	small_sort(t_node	**stack, int first, int second, int third)
-{
-	first = (*(stack))-> value;
-	second = (*(stack))-> next -> value;
-	third = (*(stack))-> next -> next -> value;
-	if (first == 0)
-	{
-		ft_reverse_rotate(stack);
-		ft_swap(stack);
-	}
-	else if (first == 1)
-	{
-		if (second == 0)
-			ft_swap(stack);
-		else
-			ft_reverse_rotate(stack);
-	}
-	else if (first == 2)
-	{
-		if (second == 1)
-		{
-			ft_rotate(stack);
-			ft_swap(stack);
-		}
-		else
-			ft_rotate(stack);
-	}
 }
 
 void	small_sort_5(t_swap swap)
@@ -124,9 +111,10 @@ void	small_sort_5(t_swap swap)
 		}
 		index++;
 	}
-	rev_sort_3(swap.stack_a);
+	if (is_sorted(swap) == 0)
+		sort_3(swap.stack_a);
 	temp = *(swap.stack_b);
 	if (temp -> value < temp -> next -> value)
-		ft_swap(swap.stack_b);
+		ft_swap(swap.stack_b, 'b');
 	empty_b(swap);
 }

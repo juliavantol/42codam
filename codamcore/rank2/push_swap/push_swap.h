@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/19 15:13:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/20 17:40:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,8 @@
 typedef struct s_node
 {
 	int				value;
-	int				index;
 	struct s_node	*next;
 }	t_node;
-
-typedef struct s_temp
-{
-	long			value;
-	int				original_position;
-	int				new_position;
-}	t_temp;
 
 typedef struct s_value
 {
@@ -51,7 +43,7 @@ void	ft_reverse_rotate(t_node **stack);
 void	ft_rotate_both(t_node **stack_a, t_node **stack_b);
 void	ft_rotate(t_node **stack);
 void	ft_swap_both(t_node **stack_a, t_node **stack_b);
-void	ft_swap(t_node **stack);
+void	ft_swap(t_node **stack, char c);
 void	ft_push(t_node **stack_src, t_node **stack_dst, char name);
 void	ft_add_node(t_node **stack, t_node *new);
 void	ft_sort(t_swap swap, int i, int j);
@@ -60,8 +52,7 @@ void	small_sort(t_node	**stack, int first, int second, int third);
 void	small_sort_5(t_swap swap);
 void	leaks(void);
 char	**check_input(int argc, char	**argv, int	*arg_len);
-void	check_dups(t_temp *indexed_nums, int arg_len);
-char	**parse_input(char	**argv);
+void	check_dups(t_value	*indexed_nums, int arg_len);
 t_node	*ft_secondlast(t_node *stack);
 t_node	*ft_last(t_node *lst);
 t_node	*ft_make_node(int num);
@@ -73,7 +64,7 @@ int		is_sorted(t_swap swap);
 void	print_stack(t_node *head);
 void	empty_b(t_swap swap);
 t_node	*ft_make_node2(int num);
-void	handle_input(char	**argv, int *arg_len);
-long	ft_atoi_long(const char *str);
+void	rev_sort_3(t_node	**stack);
 
 #endif
+
