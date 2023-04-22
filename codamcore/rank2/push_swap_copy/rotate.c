@@ -6,16 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/31 14:35:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 11:35:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 13:09:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_rotate(t_stack **stack)
+void	ft_rotate(t_node **stack)
 {
-	t_stack	*last;
-	t_stack	*top;
+	t_node	*last;
+	t_node	*top;
 	
 	if (*stack == NULL)
 		return ;
@@ -27,11 +27,11 @@ void	ft_rotate(t_stack **stack)
 	ft_putstr_fd("ra\n", 1);
 }
 
-void	ft_reverse_rotate(t_stack **stack)
+void	ft_reverse_rotate(t_node **stack)
 {
-	t_stack	*last;
-	t_stack	*head;
-	t_stack	*second_last;
+	t_node	*last;
+	t_node	*head;
+	t_node	*second_last;
 	
 	if (*stack == NULL)
 		return ;
@@ -42,4 +42,16 @@ void	ft_reverse_rotate(t_stack **stack)
 	(*stack)-> next = head;
 	second_last -> next = NULL;
 	ft_putstr_fd("rra\n", 1);
+}
+
+void	ft_reverse_rotate_both(t_node **stack_a, t_node **stack_b)
+{
+	ft_reverse_rotate(stack_a);
+	ft_reverse_rotate(stack_b);
+}
+
+void	ft_rotate_both(t_node **stack_a, t_node **stack_b)
+{
+	ft_rotate(stack_a);
+	ft_rotate(stack_b);
 }

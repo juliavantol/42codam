@@ -5,56 +5,117 @@
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/03/27 15:36:02 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/06 13:16:17 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/04/20 18:21:56 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/04/20 18:44:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	leaks(void)
+static void	sort_back(t_temp	*input, int arg_len)
 {
-	system("leaks push_swap");
-}
+	int		index;
+	int		j;
+	t_temp	temp;
 
-/* Checks if there are only digits in the string */
-int	ft_digit_str(char	*str)
-{
-	int	index;
-
-	index = 0;
-	while (str[index])
+	index = 1;
+	while (index < arg_len)
 	{
-		if ((ft_isdigit(str[index]) == 0 && str[index] != '-')
-			|| (str[index] == '-' && index != 0))
+		j = index;
+		while (j > 0 && input[j].original_position < input[j - 1].original_position)
 		{
-			ft_putstr_fd("Error\n", 2);
-			exit(1);
+			temp = input[j];
+			input[j] = input[j - 1];
+			input[j - 1] = temp;
+			j--;
 		}
 		index++;
 	}
-	return (1);
 }
 
-/* Checks whether the input only contains digits */
-char	**check_input(int argc, char	**argv, int	*arg_len)
+static void	sort_values(t_temp	*input, int arg_len)
 {
-	char	**args;
+	int		index;
+	int		j;
+	t_temp	temp;
 
-	if (argc == 2)
+	index = 1;
+	while (index < arg_len)
 	{
-		args = ft_split(argv[1], ' ');
-		while (args[(*arg_len)])
-			ft_digit_str(args[(*arg_len)++]);
-		return (args);
+		j = index;
+		while (j > 0 && input[j].value < input[j - 1].value)
+		{
+			temp = input[j];
+			input[j] = input[j - 1];
+			input[j - 1] = temp;
+			j--;
+		}
+		index++;
 	}
+	index = 0;
+	while (index < arg_len)
+	{
+		input[index].new_position = index;
+		index++;
+	}
+}
+
+t_temp	*new_temp(char *str, int size)
+{
+	t_temp	*node;
+
+	node = malloc(sizeof(t_temp));
+	if (!node)
+		exit(1);
+	node -> value = ft_atoi_long(str);
+	node -> original_position = size;
+	return (node);
+}
+
+t_temp	*temp_stack(t_temp *stack, char *str, int size)
+{
+	t_temp	*temp_stack;
+	int		index;
+
+	index = 0;
+	temp_stack = malloc((size + 2) * sizeof(t_temp));
+	if (!temp_stack)
+		exit (1);
+	if (stack == NULL)
+		temp_stack[index] = *(new_temp(str, size));
 	else
 	{
-		(*arg_len)++;
-		while (argv[(*arg_len)])
-			ft_digit_str(argv[(*arg_len)++]);
-		(*arg_len)--;
-		return (&argv[1]);
+		while (index < size)
+		{
+			temp_stack[index] = stack[index];
+			index++;
+		}
+		temp_stack[index] = *(new_temp(str, size));
 	}
-	return (NULL);
+	return (temp_stack);
+}
+
+t_temp	*handle_input(char	**argv, int *arg_len)
+{
+	char	**temp;
+	t_temp	*input;
+
+	argv++;
+	input = NULL;
+	while (*argv)
+	{
+		if (ft_strchr(*argv, ' '))
+		{
+			temp = ft_split(*argv, ' ');
+			while (*temp)
+				input = temp_stack(input, *temp++, (*arg_len)++);
+		}
+		else
+			input = temp_stack(input, *argv, (*arg_len)++);
+		argv++;
+	}
+	// check_dups(input, *arg_len);
+	sort_values(input, *arg_len);
+	sort_back(input, *arg_len);
+	return (input);
 }

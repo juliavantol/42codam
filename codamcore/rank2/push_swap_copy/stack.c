@@ -6,16 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/29 13:59:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/20 18:41:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/13 15:23:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /* Returns size of stack */
-int	ft_stacksize(t_stack *stack)
+int	ft_stacksize(t_node *stack)
 {
-	t_stack	*temp;
+	t_node	*temp;
 	int		count;
 
 	temp = stack;
@@ -29,11 +29,11 @@ int	ft_stacksize(t_stack *stack)
 }
 
 /* Creates a new node */
-t_stack	*ft_make_node2(int num)
+t_node	*ft_make_node2(int num)
 {
-	t_stack	*node;
+	t_node	*node;
 
-	node = malloc(sizeof(t_stack));
+	node = malloc(sizeof(t_node));
 	if (node == NULL)
 		exit (1);
 	node -> value = num;
@@ -42,11 +42,11 @@ t_stack	*ft_make_node2(int num)
 }
 
 /* Creates a new node */
-t_stack	*ft_make_node(int num)
+t_node	*ft_make_node(int num)
 {
-	t_stack	*node;
+	t_node	*node;
 
-	node = malloc(sizeof(t_stack));
+	node = malloc(sizeof(t_node));
 	if (node == NULL)
 		exit (1);
 	node -> value = num;
@@ -55,9 +55,9 @@ t_stack	*ft_make_node(int num)
 }
 
 /* Adds the node to the stack */
-void	ft_add_node(t_stack **stack, t_stack *new)
+void	ft_add_node(t_node **stack, t_node *new)
 {
-	t_stack	*last;
+	t_node	*last;
 
 	if (*stack && new)
 	{
@@ -73,9 +73,9 @@ void	ft_add_node(t_stack **stack, t_stack *new)
 }
 
 /* Returns last element of the stack */
-t_stack	*ft_last(t_stack *stack)
+t_node	*ft_last(t_node *stack)
 {
-	t_stack	*temp;
+	t_node	*temp;
 
 	temp = stack;
 	if (stack != NULL)
@@ -87,9 +87,9 @@ t_stack	*ft_last(t_stack *stack)
 }
 
 /* Returns second to last element of the stack */
-t_stack	*ft_secondlast(t_stack *stack)
+t_node	*ft_secondlast(t_node *stack)
 {
-	t_stack	*temp;
+	t_node	*temp;
 
 	temp = stack;
 	if (stack != NULL)

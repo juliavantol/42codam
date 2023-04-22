@@ -1,58 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   input.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/03 15:30:41 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 11:37:43 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/03/27 15:36:02 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/04/06 13:16:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	max_digit(int max_num)
+void	leaks(void)
 {
-	int	index;
-
-	index = 0;
-	max_num--;
-	while (max_num >> index != 0)
-		index++;
-	return (index);
-}
-
-void	ft_error(void)
-{
-	ft_putstr_fd("Error\n", 2);
-	exit(1);
-}
-
-void	check_dups(t_value	*indexed_nums, int arg_len)
-{
-	int		index;
-	int		temp;
-	int		*dups;
-
-	index = 0;
-	dups = malloc(arg_len * sizeof(int));
-	while (index < arg_len)
-		dups[index++] = 0;
-	index = 0;
-	while (index < arg_len)
-	{
-		temp = indexed_nums[index].value;
-		if (dups[temp] == 1)
-		{
-			free(dups);
-			ft_error();
-		}
-		else
-			dups[temp] = 1;	
-		index++;
-	}
-	free(dups);
+	system("leaks push_swap");
 }
 
 /* Checks if there are only digits in the string */
@@ -72,4 +34,27 @@ int	ft_digit_str(char	*str)
 		index++;
 	}
 	return (1);
+}
+
+/* Checks whether the input only contains digits */
+char	**check_input(int argc, char	**argv, int	*arg_len)
+{
+	char	**args;
+
+	if (argc == 2)
+	{
+		args = ft_split(argv[1], ' ');
+		while (args[(*arg_len)])
+			ft_digit_str(args[(*arg_len)++]);
+		return (args);
+	}
+	else
+	{
+		(*arg_len)++;
+		while (argv[(*arg_len)])
+			ft_digit_str(argv[(*arg_len)++]);
+		(*arg_len)--;
+		return (&argv[1]);
+	}
+	return (NULL);
 }
