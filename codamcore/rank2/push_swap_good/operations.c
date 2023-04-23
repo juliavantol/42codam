@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/30 16:06:50 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 12:43:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/22 11:35:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_rotate(t_stack **stack)
 	
 	if (*stack == NULL)
 		return ;
-	last = last_node(*stack);
+	last = ft_last(*stack);
 	top = *stack;
 	*stack = (*stack) -> next;
 	top -> next = NULL;
@@ -97,8 +97,8 @@ void	ft_reverse_rotate(t_stack **stack)
 	
 	if (*stack == NULL)
 		return ;
-	last = last_node(*stack);
-	second_last = second_last_node(*stack);
+	last = ft_last(*stack);
+	second_last = ft_secondlast(*stack);
 	head = *stack;
 	*stack = last;
 	(*stack)-> next = head;

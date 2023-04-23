@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/20 18:21:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 16:31:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/20 18:44:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ static void	sort_values(t_temp	*input, int arg_len)
 	}
 }
 
-t_temp	new_temp(char *str, int size)
+t_temp	*new_temp(char *str, int size)
 {
-	t_temp	node;
+	t_temp	*node;
 
-	node . value = ft_atoi_long(str);
-	node . original_position = size;
+	node = malloc(sizeof(t_temp));
+	if (!node)
+		exit(1);
+	node -> value = ft_atoi_long(str);
+	node -> original_position = size;
 	return (node);
 }
 
@@ -75,17 +78,11 @@ t_temp	*temp_stack(t_temp *stack, char *str, int size)
 	int		index;
 
 	index = 0;
-	ft_digit_str(str);
-
-	temp_stack = malloc((size + 1) * sizeof(t_temp));
-
+	temp_stack = malloc((size + 2) * sizeof(t_temp));
 	if (!temp_stack)
 		exit (1);
 	if (stack == NULL)
-	{
-		temp_stack[index] = (new_temp(str, size));
-		// leaks();
-}
+		temp_stack[index] = *(new_temp(str, size));
 	else
 	{
 		while (index < size)
@@ -93,10 +90,8 @@ t_temp	*temp_stack(t_temp *stack, char *str, int size)
 			temp_stack[index] = stack[index];
 			index++;
 		}
-		temp_stack[index] = (new_temp(str, size));
+		temp_stack[index] = *(new_temp(str, size));
 	}
-
-	free(stack);
 	return (temp_stack);
 }
 
@@ -119,8 +114,7 @@ t_temp	*handle_input(char	**argv, int *arg_len)
 			input = temp_stack(input, *argv, (*arg_len)++);
 		argv++;
 	}
-	
-	check_duplicates(input, *arg_len);
+	// check_dups(input, *arg_len);
 	sort_values(input, *arg_len);
 	sort_back(input, *arg_len);
 	return (input);

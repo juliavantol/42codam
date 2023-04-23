@@ -6,20 +6,34 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/20 18:36:00 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 13:16:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/22 10:39:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/* Adds the node from the input to the end of stack */
-void	add_node(t_stack **stack, t_stack *new)
+/* Returns last element of the stack */
+t_stack	*ft_last2(t_stack *stack)
+{
+	t_stack	*last;
+
+	last = stack;
+	if (stack != NULL)
+	{
+		while (last -> next != NULL)
+			last = last -> next;
+	}
+	return (last);
+}
+
+/* Adds the node to the stack */
+void	ft_add_node2(t_stack **stack, t_stack *new)
 {
 	t_stack	*last;
 
 	if (*stack && new)
 	{
-		last = last_node(*stack);
+		last = ft_last2(*stack);
 		last -> next = new;
 		new -> next = NULL;
 	}
@@ -31,7 +45,7 @@ void	add_node(t_stack **stack, t_stack *new)
 }
 
 /* Creates a new node */
-t_stack	*make_node(t_temp input)
+t_stack	*ft_make_node3(t_temp input)
 {
 	t_stack	*node;
 
@@ -44,15 +58,14 @@ t_stack	*make_node(t_temp input)
 	return (node);
 }
 
-/* Fills the stack with the input */
-void	fill_stack(t_temp *input, t_stack **stack, int arg_len)
+void	fill_stack2(t_temp *input, t_stack **stack, int arg_len)
 {
 	int	index;
 
 	index = 0;
 	while (index < arg_len)
 	{
-		add_node(stack, make_node(input[index]));
+		ft_add_node2(stack, ft_make_node3(input[index]));
 		index++;
 	}
 }
