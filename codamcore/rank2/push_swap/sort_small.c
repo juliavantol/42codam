@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/12 15:06:45 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 13:06:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/23 23:17:03 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	biggest_value(t_stack	**stack)
 	t_stack	*temp;
 	int		value;
 	int		index;
-	int		biggest_index;
 
 	temp = *stack;
 	value = temp -> index;;
@@ -25,10 +24,7 @@ int	biggest_value(t_stack	**stack)
 	while (temp != NULL)
 	{
 		if (temp -> index > value)
-		{
 			value = temp -> index;
-			biggest_index = index;
-		}
 		index++;
 		temp = temp -> next;
 	}

@@ -6,14 +6,14 @@
 #    By: juvan-to <juvan-to@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/24 12:19:20 by juvan-to      #+#    #+#                  #
-#    Updated: 2023/04/22 13:21:35 by juvan-to      ########   odam.nl          #
+#    Updated: 2023/04/23 23:19:04 by Julia         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 LIBFT = libft/libft.a
-MAN_SRC = fill_stack.c ft_atoi_long.c push_swap.c input.c stack.c\
+MAN_SRC = ft_atoi_long.c push_swap.c input.c stack.c\
 			operations.c sort_big.c utils.c sort_small.c
 CC = gcc
 

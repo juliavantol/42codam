@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:51:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 13:18:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/23 23:19:18 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ int		is_sorted(t_swap swap);
 void	print_stack(t_stack *head);
 void	empty_b(t_swap swap);
 int		ft_atoi_long(const char *str);
-t_temp	*handle_input(char	**argv, int *arg_len);
-void	fill_stack(t_temp *input, t_stack **stack, int arg_len);
+void	handle_input(t_swap swap, char **argv, int *arg_len);
 void	sort_big(t_swap swap, int i, int j, int arg_len);
 void	sort_5(t_swap swap, int arg_len);
 void	sort_3(t_stack	**stack);
 void	ft_error(void);
+void	add_node(t_stack **stack, t_stack *new);
 
 #endif
 
