@@ -6,16 +6,17 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/20 18:21:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/23 23:24:59 by Julia         ########   odam.nl         */
+/*   Updated: 2023/04/24 13:18:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/* Get index from element by counting how many elements are smaller */
 int	get_index(t_stack **stack, int num)
 {
 	int		place;
-	t_stack *temp;
+	t_stack	*temp;
 
 	place = 0;
 	temp = *stack;
@@ -28,15 +29,14 @@ int	get_index(t_stack **stack, int num)
 	return (place);
 }
 
-void	index_stack(t_swap swap)
+/* Simplify the numbers in the stack and check for duplicates */
+void	index_stack(t_stack **stack_a, int size)
 {
-	t_stack *temp;
-	int		size;
+	t_stack	*temp;
 	int		*dups;
 	int		index;
 
-	temp = *(swap.stack_a);
-	size = ft_stacksize(*(swap.stack_a));
+	temp = *stack_a;
 	dups = malloc(size * sizeof(int));
 	if (!dups)
 		exit (1);
@@ -46,7 +46,7 @@ void	index_stack(t_swap swap)
 	index = 0;
 	while (temp)
 	{
-		index = get_index(swap.stack_a, temp -> value);
+		index = get_index(stack_a, temp -> value);
 		if (dups[index] > 0)
 			ft_error();
 		dups[index]++;
@@ -55,20 +55,8 @@ void	index_stack(t_swap swap)
 	}
 }
 
-void	add_to_stack(t_swap swap, char *str)
-{
-	t_stack	*node;
-
-	node = malloc(sizeof(t_stack));
-	if (node == NULL)
-		exit (1);
-	node -> value = ft_atoi_long(str);
-	node -> index = -1;
-	node -> next = NULL;
-	add_node(swap.stack_a, node);
-}
-
-void	handle_input(t_swap swap, char **argv, int *arg_len)
+/* Puts the input in the stack */
+void	handle_input(t_stack **stack_a, char **argv)
 {
 	char	**temp;
 
@@ -80,16 +68,18 @@ void	handle_input(t_swap swap, char **argv, int *arg_len)
 			temp = ft_split(*argv, ' ');
 			while (*temp)
 			{
-				add_to_stack(swap, *temp++);
-				(*arg_len)++;
+				ft_digit_str(*temp);
+				add_node(stack_a, new_node(ft_atoi_max(*temp), -1));
 			}
 		}
 		else
 		{
-			add_to_stack(swap, *argv);
-			(*arg_len)++;
+			ft_digit_str(*argv);
+			add_node(stack_a, new_node(ft_atoi_max(*argv), -1));
 		}
 		argv++;
 	}
-	index_stack(swap);
+	if (is_sorted(stack_a) == 1)
+		exit (1);
+	index_stack(stack_a, stack_size(*stack_a));
 }

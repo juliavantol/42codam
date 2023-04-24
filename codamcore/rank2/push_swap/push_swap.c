@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   push_swap.c                                        :+:    :+:            */
+/*   push_ps.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/23 23:24:48 by Julia         ########   odam.nl         */
+/*   Updated: 2023/04/24 12:57:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stack(t_stack *head)
-{
-	t_stack	*temp;
-
-	temp = head;
-	while (temp != NULL)
-	{
-		printf("%d -> %d\n", temp -> value, temp -> index);
-		temp = temp -> next;
-	}
-}
-
-t_swap	init_stacks(void)
+/* Initialise the stacks */
+t_ps	init_stacks(void)
 {
 	t_stack	**stack_a;
 	t_stack	**stack_b;
-	t_swap	swap;
+	t_ps	ps;
 
 	stack_a = (t_stack **)malloc(sizeof(t_stack));
 	if (!stack_a)
@@ -38,25 +27,25 @@ t_swap	init_stacks(void)
 		exit(1);
 	*stack_a = NULL;
 	*stack_b = NULL;
-	swap.stack_a = stack_a;
-	swap.stack_b = stack_b;
-	return (swap);
+	ps.stack_a = stack_a;
+	ps.stack_b = stack_b;
+	return (ps);
 }
 
 int	main(int argc, char **argv)
 {
-	t_swap	swap;
-	int		arg_len;
+	t_ps	ps;
+	int		size;
 
-	arg_len = 0;
 	if (argc < 2)
 		exit(1);
-	swap = init_stacks();
-	handle_input(swap, argv, &arg_len);
-	if (arg_len == 3)
-		sort_3(swap.stack_a);
-	else if (arg_len == 5)
-		sort_5(swap, arg_len);
+	ps = init_stacks();
+	handle_input(ps.stack_a, argv);
+	size = stack_size(*(ps.stack_a));
+	if (size == 3)
+		sort_3(ps.stack_a);
+	else if (size == 5)
+		sort_5(ps.stack_a, ps.stack_b, size, 0);
 	else
-		sort_big(swap, 0, 0, arg_len);
+		sort_big(ps, 0, 0, size);
 }

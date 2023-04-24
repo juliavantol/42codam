@@ -6,49 +6,34 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/30 16:06:50 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 12:43:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 12:58:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/* Pushes node to the stack */
-void	ft_push_node(t_stack **stack, t_stack *new)
+// Take the top value from SRC and puts it into DST
+void	ft_push(t_stack **src, t_stack **dst, char name)
 {
-	t_stack	*second;
+	t_stack	*node;
+	t_stack	*temp;
 
-	if (!new)
-		return ;
-	if (*stack)
+	if (*src == NULL)
+		exit(1);
+	temp = (*src)->next;
+	node = new_node((*src)->value, (*src)->index);
+	(*src) = temp;
+	if (*dst)
 	{
-		second = *stack;
-		*stack = new;
-		new -> next = second;
+		temp = *dst;
+		*dst = node;
+		node->next = temp;
 	}
 	else
 	{
-		*stack = new;
-		(*stack)->next = NULL;
+		*dst = node;
+		(*dst)->next = NULL;
 	}
-}
-
-// Take the top value from SRC and puts it into DST
-void	ft_push(t_stack **stack_src, t_stack **stack_dst, char name)
-{
-	t_stack	*node;
-	t_stack	*second;
-
-	if (*stack_src == NULL)
-		exit(1);
-	second = (*stack_src) -> next;
-	node = malloc(sizeof(t_stack));
-	if (node == NULL)
-		exit (1);
-	node -> value = (*stack_src) -> value;
-	node -> index =  (*stack_src) -> index;
-	node -> next = NULL;
-	ft_push_node(stack_dst, node);
-	(*stack_src) = second;
 	if (name == 'a')
 		ft_putstr_fd("pa\n", 1);
 	else
@@ -56,17 +41,17 @@ void	ft_push(t_stack **stack_src, t_stack **stack_dst, char name)
 }
 
 /* Swap top two elements from stack */
-void	ft_swap(t_stack **stack, char c)
+void	ft_ps(t_stack **stack, char c)
 {
 	t_stack	*second;
 	t_stack	*third;
 
-	if (*stack == NULL || (*stack) -> next == NULL)
+	if (*stack == NULL || (*stack)->next == NULL)
 		exit(1);
 	second = (*stack)-> next;
-	third = (*stack)-> next -> next;
+	third = (*stack)-> next->next;
 	(*stack)-> next = third;
-	second -> next = (*stack);
+	second->next = (*stack);
 	(*stack) = second;
 	if (c == 'a')
 		ft_putstr_fd("sa\n", 1);
@@ -74,27 +59,29 @@ void	ft_swap(t_stack **stack, char c)
 		ft_putstr_fd("sb\n", 1);
 }
 
+/* Rotate the stack so that the first node becomes the last */
 void	ft_rotate(t_stack **stack)
 {
 	t_stack	*last;
 	t_stack	*top;
-	
+
 	if (*stack == NULL)
 		return ;
 	last = last_node(*stack);
 	top = *stack;
-	*stack = (*stack) -> next;
-	top -> next = NULL;
-	last -> next = top;
+	*stack = (*stack)->next;
+	top->next = NULL;
+	last->next = top;
 	ft_putstr_fd("ra\n", 1);
 }
 
+/* Rotate the stack so that the last node becomes the first */
 void	ft_reverse_rotate(t_stack **stack)
 {
 	t_stack	*last;
 	t_stack	*head;
 	t_stack	*second_last;
-	
+
 	if (*stack == NULL)
 		return ;
 	last = last_node(*stack);
@@ -102,6 +89,6 @@ void	ft_reverse_rotate(t_stack **stack)
 	head = *stack;
 	*stack = last;
 	(*stack)-> next = head;
-	second_last -> next = NULL;
+	second_last->next = NULL;
 	ft_putstr_fd("rra\n", 1);
 }

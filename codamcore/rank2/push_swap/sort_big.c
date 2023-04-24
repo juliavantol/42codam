@@ -6,48 +6,63 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/31 17:13:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 13:10:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 13:06:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	empty_b(t_swap swap)
+/* Push every element in stack b to stack a */
+void	empty_b(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack	*temp;
 
-	temp = *(swap.stack_b);
+	temp = *stack_b;
 	while (temp != NULL)
 	{
-		ft_push(swap.stack_b, swap.stack_a, 'a');
-		temp = temp -> next;
+		ft_push(stack_b, stack_a, 'a');
+		temp = temp->next;
 	}
 }
 
-void	sort_big(t_swap swap, int i, int j, int arg_len)
+/* Returns the binary length of the max digit */
+int	max_digit(int max_num)
+{
+	int	index;
+
+	index = 0;
+	max_num--;
+	while (max_num >> index != 0)
+		index++;
+	return (index);
+}
+
+/* Sorts a big stack using radix sort */
+void	sort_big(t_ps ps, int i, int j, int arg_len)
 {
 	t_stack	*temp;
+	int		len;
 
-	swap.max_len = max_digit(arg_len);
-	while (i < swap.max_len)
+	len = max_digit(arg_len);
+	while (i < len)
 	{	
 		j = 0;
-		temp = *(swap.stack_a);
+		temp = *(ps.stack_a);
 		while (j < arg_len)
 		{
-			if ((temp -> index >> i & 1) == 0)
+			if ((temp->index >> i & 1) == 0)
 			{
-				ft_push(swap.stack_a, swap.stack_b, 'b');
-				temp = temp -> next;
+				ft_push(ps.stack_a, ps.stack_b, 'b');
+				temp = temp->next;
 			}
 			else
 			{
-				ft_rotate(swap.stack_a);
-				temp = *(swap.stack_a);
+				ft_rotate(ps.stack_a);
+				temp = *(ps.stack_a);
 			}
 			j++;
 		}
-		empty_b(swap);
+		empty_b(ps.stack_a, ps.stack_b);
 		i++;
 	}
 }

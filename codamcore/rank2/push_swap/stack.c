@@ -6,11 +6,25 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/29 13:59:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/23 23:18:37 by Julia         ########   odam.nl         */
+/*   Updated: 2023/04/24 12:41:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/* Returns new node */
+t_stack	*new_node(int value, int index)
+{
+	t_stack	*node;
+
+	node = malloc(sizeof(t_stack));
+	if (node == NULL)
+		exit (1);
+	node->value = value;
+	node->index = index;
+	node->next = NULL;
+	return (node);
+}
 
 /* Adds the node from the input to the end of stack */
 void	add_node(t_stack **stack, t_stack *new)
@@ -31,7 +45,7 @@ void	add_node(t_stack **stack, t_stack *new)
 }
 
 /* Returns size of stack */
-int	ft_stacksize(t_stack *stack)
+int	stack_size(t_stack *stack)
 {
 	t_stack	*temp;
 	int		count;

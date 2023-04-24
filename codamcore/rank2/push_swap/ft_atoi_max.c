@@ -40,7 +40,7 @@ static long	find_start(const char *str)
 	return (convert(str, start, n));
 }
 
-int	ft_atoi_long(const char *str)
+int	ft_atoi_max(const char *str)
 {
 	long	num;
 
