@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 	if (size == 3)
 		sort_3(ps.stack_a);
 	else if (size == 5)
-		sort_5(ps, 0, 0);
+		sort_5(ps, 0);
 	else
 		sort_big(ps, 0, 0, max_digit(size));
 }

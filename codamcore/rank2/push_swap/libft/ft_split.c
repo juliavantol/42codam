@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 16:12:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 20:12:51 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	*word(char const *s, unsigned int start, size_t len)
 	index = 0;
 	word = (char *)malloc((len + 1) * sizeof(char));
 	if (word == NULL)
-		exit (1);
+		exit(1);
 	while (index < len && s[start] != '\0')
 		word[index++] = s[start++];
 	word[index] = '\0';

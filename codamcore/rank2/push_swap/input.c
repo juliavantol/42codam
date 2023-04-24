@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/20 18:21:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 17:47:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 20:15:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	*free_temp(char	**temp)
 
 	index = 0;
 	while (temp[index])
-	{
-		free(temp[index]);
-		index++;
-	}
+		free(temp[index++]);
 	free(temp);
 	return (NULL);
 }
@@ -81,6 +78,8 @@ void	handle_input(t_stack **stack_a, char **argv)
 	temp = NULL;
 	while (*argv)
 	{
+		if (if_empty(*argv) == 1)
+			ft_error();
 		if (ft_strchr(*argv, ' '))
 		{
 			temp = ft_split(*argv, ' ');

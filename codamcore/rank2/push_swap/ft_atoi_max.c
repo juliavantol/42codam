@@ -44,7 +44,7 @@ int	ft_atoi_max(char *str)
 {
 	long	num;
 
-	if (ft_strlen(str) == 0)
+	if (ft_strlen(str) == 0 || if_empty(str) == 1)
 		ft_error();
 	ft_digit_str(str);
 	num = find_start(str);

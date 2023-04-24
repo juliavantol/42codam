@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/24 14:32:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 17:59:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 19:18:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 	if (size == 3)
 		sort_3(ps.stack_a);
 	else if (size == 5)
-		sort_5(ps, 0, 0);
+		sort_5(ps, 0);
 	else
 		sort_big(ps, 0, 0, max_digit(size));
 	if (is_sorted(ps.stack_a) == 1 && stack_size(*(ps.stack_b)) == 0)

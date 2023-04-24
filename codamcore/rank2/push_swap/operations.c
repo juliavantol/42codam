@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/30 16:06:50 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 17:49:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 19:16:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,16 @@
 // Take the top value from SRC and puts it into DST
 void	ft_push(t_stack **src, t_stack **dst, char name)
 {
-	t_stack	*node;
 	t_stack	*temp;
+	t_stack	*temp2;
 
-	temp = (*src)->next;
-	node = *src;
-	(*src) = temp;
-	if (*dst)
-	{
-		temp = *dst;
-		*dst = node;
-		node->next = temp;
-	}
-	else
-	{
-		*dst = node;
-		(*dst)->next = NULL;
-	}
+	if (*src == NULL)
+		return ;
+	temp = (*src);
+	temp2 = (*dst);
+	*src = (*src)->next;
+	*dst = temp;
+	(*dst)->next = temp2;
 	if (name == 'a')
 		ft_putstr_fd("pa\n", 1);
 	else

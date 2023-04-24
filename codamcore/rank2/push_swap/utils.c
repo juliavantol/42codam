@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/03 15:30:41 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 17:47:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 20:08:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,24 @@ void	ft_error(void)
 {
 	ft_putstr_fd("Error\n", 2);
 	exit(1);
+}
+
+int	if_empty(char *str)
+{
+	int	index;
+	int	count;
+
+	index = 0;
+	count = 0;
+	while (str[index])
+	{
+		if (str[index] == ' ')
+			count++;
+		index++;
+	}
+	if (count == index)
+		return (1);
+	return (0);
 }
 
 /* Checks if there are only digits in the string */
@@ -45,6 +63,8 @@ int	is_sorted(t_stack **stack)
 	int		value;
 	int		prev_value;
 
+	if (*stack == NULL)
+		return (0);
 	temp = *stack;
 	prev_value = temp->value;
 	value = prev_value;

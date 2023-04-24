@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/12 15:06:45 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 17:53:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 20:03:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,17 @@ void	sort_3(t_stack **stack)
 }
 
 /* Sorts a stack of size 5 */
-void	sort_5(t_ps ps, int index, int value)
+void	sort_5(t_ps ps, int index)
 {
 	t_stack	*temp;
 
-	temp = *(ps.stack_a);
 	while (index < ps.arg_len)
 	{
-		value = temp -> index;
-		if (value < 2)
+		temp = *(ps.stack_a);
+		if (temp->index < 2)
 		{
 			ft_push(ps.stack_a, ps.stack_b, 'b');
-			free(temp);
-			temp = temp->next;
+			temp = temp -> next;
 		}
 		else
 		{
@@ -86,7 +84,8 @@ void	sort_5(t_ps ps, int index, int value)
 	}
 	if (is_sorted(ps.stack_a) == 0)
 		sort_3(ps.stack_a);
-	if ((*(ps.stack_b))->index < (*(ps.stack_b))->next->index)
+	temp = *(ps.stack_b);
+	if (temp->index < temp->next->index)
 		ft_swap(ps.stack_b, 'b');
 	empty_b(ps.stack_a, ps.stack_b);
 }
