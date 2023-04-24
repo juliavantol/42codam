@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/30 16:06:50 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 14:00:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 17:49:59 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ void	ft_push(t_stack **src, t_stack **dst, char name)
 	t_stack	*node;
 	t_stack	*temp;
 
-	if (*src == NULL)
-		exit(1);
 	temp = (*src)->next;
-	node = new_node((*src)->value, (*src)->index);
+	node = *src;
 	(*src) = temp;
 	if (*dst)
 	{
@@ -41,13 +39,13 @@ void	ft_push(t_stack **src, t_stack **dst, char name)
 }
 
 /* Swap top two elements from stack */
-void	ft_ps(t_stack **stack, char c)
+void	ft_swap(t_stack **stack, char c)
 {
 	t_stack	*second;
 	t_stack	*third;
 
 	if (*stack == NULL || (*stack)->next == NULL)
-		exit(1);
+		return ;
 	second = (*stack)-> next;
 	third = (*stack)-> next->next;
 	(*stack)-> next = third;

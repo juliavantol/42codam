@@ -6,11 +6,26 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/20 18:21:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 13:57:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 17:47:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/* Frees the temp input */
+void	*free_temp(char	**temp)
+{
+	size_t	index;
+
+	index = 0;
+	while (temp[index])
+	{
+		free(temp[index]);
+		index++;
+	}
+	free(temp);
+	return (NULL);
+}
 
 /* Get index from element by counting how many elements are smaller */
 int	get_index(t_stack **stack, int num)
@@ -60,24 +75,22 @@ void	index_stack(t_stack **stack_a, int size)
 void	handle_input(t_stack **stack_a, char **argv)
 {
 	char	**temp;
+	int		index;
 
 	argv++;
+	temp = NULL;
 	while (*argv)
 	{
 		if (ft_strchr(*argv, ' '))
 		{
 			temp = ft_split(*argv, ' ');
-			while (*temp)
-			{
-				ft_digit_str(*temp);
-				add_node(stack_a, new_node(ft_atoi_max(*temp++), -1));
-			}
+			index = 0;
+			while (temp[index])
+				add_node(stack_a, new_node(ft_atoi_max(temp[index++]), -1));
+			temp = free_temp(temp);
 		}
 		else
-		{
-			ft_digit_str(*argv);
 			add_node(stack_a, new_node(ft_atoi_max(*argv), -1));
-		}
 		argv++;
 	}
 	if (is_sorted(stack_a) == 1)

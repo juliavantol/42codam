@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/22 17:08:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 16:12:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char		*word(char const *s, unsigned int start, size_t len);
 static void		*free_arr(char	**split, size_t count);
 static size_t	count_words(char const *s, char c);
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**split;
 
@@ -28,7 +28,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	split = malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (split == NULL)
-		return (NULL);
+		exit (1);
 	split = arr(s, split, 0, c);
 	return (split);
 }
@@ -71,7 +71,7 @@ static char	*word(char const *s, unsigned int start, size_t len)
 	index = 0;
 	word = (char *)malloc((len + 1) * sizeof(char));
 	if (word == NULL)
-		return (NULL);
+		exit (1);
 	while (index < len && s[start] != '\0')
 		word[index++] = s[start++];
 	word[index] = '\0';

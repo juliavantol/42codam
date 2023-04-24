@@ -6,11 +6,24 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/12 15:06:45 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 14:29:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 17:53:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/* Push every element in stack b to stack a */
+void	empty_b(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*temp;
+
+	temp = *stack_b;
+	while (temp != NULL)
+	{
+		ft_push(stack_b, stack_a, 'a');
+		temp = temp->next;
+	}
+}
 
 /* Returns the biggest value of the stack */
 int	biggest_value(t_stack **stack)
@@ -46,7 +59,7 @@ void	sort_3(t_stack **stack)
 		ft_reverse_rotate(stack);
 	head = (*stack);
 	if (head->index > head->next->index)
-		ft_ps(stack, 'a');
+		ft_swap(stack, 'a');
 }
 
 /* Sorts a stack of size 5 */
@@ -74,6 +87,6 @@ void	sort_5(t_ps ps, int index, int value)
 	if (is_sorted(ps.stack_a) == 0)
 		sort_3(ps.stack_a);
 	if ((*(ps.stack_b))->index < (*(ps.stack_b))->next->index)
-		ft_ps(ps.stack_b, 'b');
+		ft_swap(ps.stack_b, 'b');
 	empty_b(ps.stack_a, ps.stack_b);
 }

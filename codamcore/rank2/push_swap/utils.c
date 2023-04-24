@@ -6,16 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/03 15:30:41 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 12:15:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 17:47:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	leaks(void)
-{
-	system("leaks push_swap");
-}
 
 /* Prints an error message and exits */
 void	ft_error(void)

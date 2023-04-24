@@ -40,16 +40,15 @@ static long	find_start(const char *str)
 	return (convert(str, start, n));
 }
 
-int	ft_atoi_max(const char *str)
+int	ft_atoi_max(char *str)
 {
 	long	num;
 
 	if (ft_strlen(str) == 0)
-		return (0);
-	if (str == NULL)
-		return (ft_atoi(str));
+		ft_error();
+	ft_digit_str(str);
 	num = find_start(str);
 	if (num < -2147483648 || num > 2147483647)
 		ft_error();
-	return (find_start(str));
+	return (num);
 }
