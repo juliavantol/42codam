@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/20 18:21:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/24 13:18:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 13:57:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	index_stack(t_stack **stack_a, int size)
 		temp -> index = index;
 		temp = temp -> next;
 	}
+	free(dups);
 }
 
 /* Puts the input in the stack */
@@ -69,7 +70,7 @@ void	handle_input(t_stack **stack_a, char **argv)
 			while (*temp)
 			{
 				ft_digit_str(*temp);
-				add_node(stack_a, new_node(ft_atoi_max(*temp), -1));
+				add_node(stack_a, new_node(ft_atoi_max(*temp++), -1));
 			}
 		}
 		else

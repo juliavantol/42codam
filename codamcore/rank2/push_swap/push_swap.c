@@ -42,10 +42,11 @@ int	main(int argc, char **argv)
 	ps = init_stacks();
 	handle_input(ps.stack_a, argv);
 	size = stack_size(*(ps.stack_a));
+	ps.arg_len = size;
 	if (size == 3)
 		sort_3(ps.stack_a);
 	else if (size == 5)
-		sort_5(ps.stack_a, ps.stack_b, size, 0);
+		sort_5(ps, 0, 0);
 	else
-		sort_big(ps, 0, 0, size);
+		sort_big(ps, 0, 0, max_digit(size));
 }

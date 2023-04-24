@@ -6,11 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 12:48:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/22 11:43:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/24 14:03:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	leaks(void)
+{
+	system ("leaks push_swap");
+}
 
 void	print_stack(t_stack *head)
 {
@@ -75,5 +80,5 @@ int	main(int argc, char **argv)
 		small_sort_5(swap, arg_len);
 	else
 		ft_sort(swap, 0, 0, arg_len);
-	// leaks();
+	leaks();
 }
