@@ -6,17 +6,24 @@
 #    By: juvan-to <juvan-to@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/24 12:19:20 by juvan-to      #+#    #+#                  #
-#    Updated: 2023/04/24 13:08:20 by juvan-to      ########   odam.nl          #
+#    Updated: 2023/04/24 14:41:20 by juvan-to      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIBFT = libft/libft.a
 MAN_SRC = ft_atoi_max.c push_swap.c input.c stack.c\
 			operations.c sort_big.c utils.c sort_small.c
-CC = gcc
+BONUS_SRC = ft_atoi_max.c push_swap_bonus.c input.c stack.c\
+			operations.c sort_big.c utils.c sort_small.c
+
+ifdef BONUS
+SRC = $(BONUS_SRC)
+else
 SRC = $(MAN_SRC)
+endif
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
@@ -24,6 +31,9 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@cd libft && make bonus
 	@$(CC) $(CFLAGS) -o push_swap $(SRC) $(LIBFT)
+
+bonus:
+	@make BONUS=1 all
 
 clean:
 	@rm -f *.o
