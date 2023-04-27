@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   so_long.h                                          :+:    :+:            */
+/*   get_next_line.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/27 20:02:09 by Julia         ########   odam.nl         */
+/*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/04/27 18:18:04 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include "include/libft/libft.h"
-# include "include/get_next_line/get_next_line.h"
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42 
+# endif
 
-void	ft_error(char *str);
-void	check_map_dups(int map, int start, int exit, int collectible);
-int		if_empty_line(char *str);
+# include <fcntl.h>
+# include "../libft/libft.h"
+
+char	*get_next_line(int fd);
+char	*ft_strjoin_gnl(char *stash, char *str, size_t index, size_t start);
+int		search_newline(char *s);
 
 #endif
