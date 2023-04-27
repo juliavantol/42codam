@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:17:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/27 19:13:58 by Julia         ########   odam.nl         */
+/*   Updated: 2023/04/27 20:15:01 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	main(int argc, char	**argv)
 	map = open(argv[1], O_RDONLY);
 	if (map < 0)
 		ft_error("Invalid file\n");
-	check_map_dups(map, 0, 0, 0);
+	check_map(map);
 	close(map);
 }
