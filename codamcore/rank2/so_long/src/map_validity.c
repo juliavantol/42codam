@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/04/27 20:15:35 by Julia         ########   odam.nl         */
+/*   Updated: 2023/04/27 20:17:05 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ void	check_map_dups(char	*line, int *start, int *exit, int *collectible)
 	}
 }
 
+void	check_map_walls(char *line)
+{
+	int		index;
+
+	index = 0;
+	while (line[index])
+	{
+		index++;
+	}
+}
+
 void	check_map(int map)
 {
 	char	*line;
@@ -54,19 +65,3 @@ void	check_map(int map)
 		ft_error("Invalid map: invalid components\n");
 }
 
-void	check_map_walls(int map, int walls)
-{
-	char	*line;
-	int		index;
-
-	line = get_next_line(map);
-	while (line)
-	{
-		index = 0;
-		printf("%s", line);
-		line = get_next_line(map);
-	}
-	map--;
-	walls--;
-	index--;
-}
