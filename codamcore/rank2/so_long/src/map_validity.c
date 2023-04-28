@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/04/27 20:17:05 by Julia         ########   odam.nl         */
+/*   Updated: 2023/04/28 10:53:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	check_map_dups(char	*line, int *start, int *exit, int *collectible)
 		else if (line[index] == 'E')
 			(*exit)++;
 		if (line[index] != 'P' && line[index] != 'C' && line[index] != 'E'
-				&& line[index] != '0' && line[index] != '1' && line[index] != '\n')
+			&& line[index] != '0' && line[index] != '1' && line[index] != '\n')
 			ft_error("Invalid map: illegal components\n");
 		index++;
 	}

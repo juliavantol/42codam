@@ -3,14 +3,17 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIBFT = include/libft/libft.a
 SRC = main.c src/utils.c include/get_next_line/get_next_line.c include/get_next_line/get_next_line_utils.c \
-		src/map_validity.c
+		src/map_validity.c src/window.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
+%.o: %.c
+	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+
 $(NAME): $(OBJ)
-	@cd include/libft && make bonus
-	@$(CC) $(CFLAGS) -o so_long $(SRC) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	
 
 clean:
 	@cd include/libft && make clean
