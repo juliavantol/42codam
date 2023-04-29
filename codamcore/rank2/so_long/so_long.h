@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/28 14:07:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/04/29 15:11:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "include/libft/libft.h"
 # include "include/get_next_line/get_next_line.h"
-# include <mlx.h>
+# include "MLX42/include/MLX42/MLX42.h"
 
 typedef struct s_data
 {
@@ -25,12 +25,6 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }	t_data;
-
-typedef struct s_mlx
-{
-	void	*mlx;
-	void	*win;
-}	t_mlx;
 
 void	ft_error(char *str);
 void	check_map(int map);
