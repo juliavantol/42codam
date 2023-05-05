@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/06 00:53:26 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/06 01:47:21 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "include/get_next_line/get_next_line.h"
 # include "MLX42/include/MLX42/MLX42.h"
 
-# define PIXELS 32
+# define PIXELS 16
 
 typedef struct s_data
 {
