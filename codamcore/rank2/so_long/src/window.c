@@ -6,11 +6,45 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/05 12:39:36 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/05 17:52:43 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+void	fill_background(mlx_t *mlx, mlx_image_t	*img, char **map)
+{
+	int x;
+	int y;
+	int	height;
+	int width;
+
+	x = 0;
+	y = 0;
+	while (x < 1080)
+	{
+		y = 0;
+		while (y < 1920)
+		{
+			if (mlx_image_to_window(mlx, img, y, x) < 0)
+    			ft_error("Image error\n");
+			y += 70;
+		}
+		x += 70;
+	}
+	height = 0;
+	while (map[height])
+	{
+		width = 0;
+		while (map[height][width] != '\n')
+		{
+			printf("%c", map[height][width]);
+			width++;	
+		}
+		printf("\n");
+		height++;
+	}
+}
 
 int	close_window(void)
 {
@@ -24,13 +58,13 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 	param--;
 }
 
-void	open_window(void)
+void	open_window(t_dimensions window, char **map)
 {
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
 
-	mlx = mlx_init(1920, 1080, "Hello world!", true);
+	mlx = mlx_init(window.width, window.height, "Hello world!", true);
 	if (mlx == NULL)
 		ft_error("MLX error\n");
 	// Load texture
@@ -40,9 +74,8 @@ void	open_window(void)
 	img = mlx_texture_to_image(mlx, texture);
 	if (!img)
         ft_error("Image error\n");
-	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
-    	ft_error("Image error\n");
 	mlx_key_hook(mlx, &key_hooks, NULL);
+	fill_background(mlx, img, map);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }
