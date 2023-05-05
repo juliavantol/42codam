@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/06 01:05:34 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/06 01:23:52 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void	open_window(t_map map_data)
 	mlx = mlx_init((ft_strlen(*(map_data.map)) * PIXELS), (height * PIXELS), "so_long", false);
 	if (mlx == NULL)
 		ft_error("MLX error\n");
-	wall = get_picture(mlx, "textures/swamp/Tiles/Tile_31.png");
-	free = get_picture(mlx, "textures/swamp/Tiles/Tile_12.png");
+	wall = get_picture(mlx, "textures/stone.png");
+	free = get_picture(mlx, "textures/water.png");
 	mlx_key_hook(mlx, &key_hooks, NULL);
 	fill_background(mlx, free, wall, map_data.map);
 	mlx_loop(mlx);
