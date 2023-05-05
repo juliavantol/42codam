@@ -6,11 +6,23 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/05 17:52:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/06 00:09:57 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+void	print_map(char	**map)
+{
+	int	row;
+
+	row = 0;
+	while (map[row])
+	{
+		printf("%s\n", map[row]);
+		row++;
+	}
+}
 
 void	fill_background(mlx_t *mlx, mlx_image_t	*img, char **map)
 {
@@ -19,29 +31,23 @@ void	fill_background(mlx_t *mlx, mlx_image_t	*img, char **map)
 	int	height;
 	int width;
 
-	x = 0;
-	y = 0;
-	while (x < 1080)
-	{
-		y = 0;
-		while (y < 1920)
-		{
-			if (mlx_image_to_window(mlx, img, y, x) < 0)
-    			ft_error("Image error\n");
-			y += 70;
-		}
-		x += 70;
-	}
 	height = 0;
+	x = 0;
 	while (map[height])
 	{
 		width = 0;
-		while (map[height][width] != '\n')
+		y = 0;
+		while (map[height][width])
 		{
-			printf("%c", map[height][width]);
-			width++;	
+			if (map[height][width] == '0')
+			{
+				if (mlx_image_to_window(mlx, img, y, x) < 0)
+       				ft_error("Image error\n");
+			}
+			width++;
+			y += 70;
 		}
-		printf("\n");
+		x += 70;
 		height++;
 	}
 }
@@ -55,16 +61,21 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 {
 	if (keydata.key == 256 && keydata.action == MLX_RELEASE)
 		exit(1);
+	param++;
 	param--;
 }
 
-void	open_window(t_dimensions window, char **map)
+void	open_window(char **map)
 {
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
-
-	mlx = mlx_init(window.width, window.height, "Hello world!", true);
+	int				height;
+	
+	height = 0;
+	while (map[height])
+		height++;
+	mlx = mlx_init(((ft_strlen(*map) * 70) - 1), (height * 70), "so_long", true);
 	if (mlx == NULL)
 		ft_error("MLX error\n");
 	// Load texture

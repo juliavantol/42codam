@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/05 17:48:48 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/06 00:00:32 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,27 @@ void	check_map_walls(char *line)
 	}
 }
 
-char	**fill_map(char	*file, int rows)
+char	**fill_map(t_map map_data)
 {
 	char	*line;
 	char 	**parsed_map;
+	char	*all_lines;
 	int		map;
 	
-	parsed_map = ft_calloc(rows + 1, sizeof(char));
+	parsed_map = malloc(map_data.height + 1 * sizeof(char *));
+	all_lines = ft_calloc(1, 1);
 	if (!parsed_map)
 		ft_error("Malloc error\n");
-	map = open(file, O_RDONLY);
+	map = open(map_data.file, O_RDONLY);
 	if (map < 0)
 		ft_error("Invalid file\n");
 	line = get_next_line(map);
-	rows = 0;
 	while (line)
 	{
-		parsed_map[rows] = line;
+		all_lines = ft_strjoin(all_lines, line);
 		line = get_next_line(map);
-		rows++;
 	}
-	parsed_map[rows] = NULL;
+	parsed_map = ft_split(all_lines, '\n');
 	return (parsed_map);
 }
 

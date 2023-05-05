@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/05 17:35:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/05 23:07:34 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
-typedef struct s_dimensions
+typedef struct s_map
 {
+	char	*file;
 	int		width;
 	int		height;
-}	t_dimensions;
+}	t_map;
 
 void	ft_error(char *str);
 int		check_map(int map, int start, int exit, int collectible);
 int		if_empty_line(char *str);
-void	open_window(t_dimensions window, char **map);
-char	**fill_map(char	*file, int rows);
+void	open_window(char **map);
+char	**fill_map(t_map map_data);
+void	print_map(char	**map);
 
 #endif
