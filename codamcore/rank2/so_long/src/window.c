@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/06 01:55:22 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/06 17:57:04 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,16 @@ mlx_image_t	*get_picture(mlx_t *mlx, char *path)
 	return (img);
 }
 
-void	fill_background(mlx_t *mlx, mlx_image_t	*img, mlx_image_t *wall, char **map)
+t_imgs	set_images(mlx_t *mlx)
+{
+	t_imgs	pics;
+
+	pics.wall = get_picture(mlx, "textures/tiles/038.png");
+	pics.floor = get_picture(mlx, "textures/tiles/171.png");
+	return (pics);
+}
+
+void	fill_background(mlx_t *mlx, t_imgs pics, char **map)
 {
 	int x;
 	int y;
@@ -56,12 +65,12 @@ void	fill_background(mlx_t *mlx, mlx_image_t	*img, mlx_image_t *wall, char **map
 		{
 			if (map[height][width] == '0')
 			{
-				if (mlx_image_to_window(mlx, img, y, x) < 0)
+				if (mlx_image_to_window(mlx, pics.floor, y, x) < 0)
        				ft_error("Image error\n");
 			}
 			else if (map[height][width] == '1')
 			{
-				if (mlx_image_to_window(mlx, wall, y, x) < 0)
+				if (mlx_image_to_window(mlx, pics.wall, y, x) < 0)
        				ft_error("Image error\n");
 			}
 			width++;
@@ -88,8 +97,7 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 void	open_window(t_map map_data)
 {
 	mlx_t			*mlx;
-	mlx_image_t		*wall;
-	mlx_image_t		*free;
+	t_imgs			pics;
 	int				height;
 	
 	height = 0;
@@ -98,10 +106,9 @@ void	open_window(t_map map_data)
 	mlx = mlx_init((ft_strlen(*(map_data.map)) * PIXELS), (height * PIXELS), "so_long", false);
 	if (mlx == NULL)
 		ft_error("MLX error\n");
-	wall = get_picture(mlx, "textures/tiles/038.png");
-	free = get_picture(mlx, "textures/tiles/171.png");
+	pics = set_images(mlx);
 	mlx_key_hook(mlx, &key_hooks, NULL);
-	fill_background(mlx, free, wall, map_data.map);
+	fill_background(mlx, pics, map_data.map);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }
