@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/06 22:29:27 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/07 00:21:20 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ typedef struct s_imgs
 	mlx_image_t *wall;
 	mlx_image_t *floor;
 	mlx_image_t *player_front;
+	mlx_image_t *player_back;
+	mlx_image_t *player_left;
+	mlx_image_t *player_right;
 }	t_imgs;
 
 typedef struct s_data
