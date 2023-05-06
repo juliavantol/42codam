@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/06 17:57:04 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/06 22:31:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ t_imgs	set_images(mlx_t *mlx)
 {
 	t_imgs	pics;
 
-	pics.wall = get_picture(mlx, "textures/tiles/038.png");
-	pics.floor = get_picture(mlx, "textures/tiles/171.png");
+	pics.floor = get_picture(mlx, "textures/tile_32/00.png");
+	pics.wall = get_picture(mlx, "textures/ice_32/113.png");
+	pics.player_front = get_picture(mlx, "textures/ghosts/one.png");
 	return (pics);
 }
 
@@ -71,6 +72,13 @@ void	fill_background(mlx_t *mlx, t_imgs pics, char **map)
 			else if (map[height][width] == '1')
 			{
 				if (mlx_image_to_window(mlx, pics.wall, y, x) < 0)
+       				ft_error("Image error\n");
+			}
+			else if (map[height][width] == 'P')
+			{
+				if (mlx_image_to_window(mlx, pics.floor, y, x) < 0)
+       				ft_error("Image error\n");
+				if (mlx_image_to_window(mlx, pics.player_front, y, x) < 0)
        				ft_error("Image error\n");
 			}
 			width++;

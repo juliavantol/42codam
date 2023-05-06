@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/06 17:50:41 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/06 22:29:27 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@
 # include "include/get_next_line/get_next_line.h"
 # include "MLX42/include/MLX42/MLX42.h"
 
-# define PIXELS 16
+# define PIXELS 32
 
 typedef struct s_imgs
 {
 	mlx_image_t *wall;
 	mlx_image_t *floor;
+	mlx_image_t *player_front;
 }	t_imgs;
 
 typedef struct s_data
