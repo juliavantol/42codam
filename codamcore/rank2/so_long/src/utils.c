@@ -6,11 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:34:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/04/27 19:59:30 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/07 13:29:08 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+int	close_window(void)
+{
+	exit(1);
+}
 
 void	ft_error(char *str)
 {

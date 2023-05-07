@@ -6,23 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/07 00:21:59 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/07 14:40:40 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-void	print_map(char	**map)
-{
-	int	row;
-
-	row = 0;
-	while (map[row])
-	{
-		printf("%s\n", map[row]);
-		row++;
-	}
-}
 
 mlx_image_t	*get_picture(mlx_t *mlx, char *path)
 {
@@ -49,10 +37,23 @@ t_imgs	set_images(mlx_t *mlx)
 	pics.player_back = get_picture(mlx, "textures/ghosts/back.png");
 	pics.player_left = get_picture(mlx, "textures/ghosts/left.png");
 	pics.player_right = get_picture(mlx, "textures/ghosts/right.png");
+	pics.collectible = get_picture(mlx, "textures/porb2.png");
+	pics.exit = get_picture(mlx, "textures/exitstone.png");
 	return (pics);
 }
 
-void	fill_background(mlx_t *mlx, t_imgs pics, char **map)
+void	put_image(mlx_t *mlx, mlx_image_t *img, int x, int y)
+{
+	if (mlx_image_to_window(mlx, img, y, x) < 0)
+       	ft_error("Image error\n");
+}
+
+void	delete_image(mlx_t *mlx, mlx_image_t *img)
+{
+	mlx_delete_image(mlx, img);
+}
+
+void	parse_map(mlx_t *mlx, t_imgs pics, char **map)
 {
 	int x;
 	int y;
@@ -67,23 +68,8 @@ void	fill_background(mlx_t *mlx, t_imgs pics, char **map)
 		y = 0;
 		while (map[height][width])
 		{
-			if (map[height][width] == '0')
-			{
-				if (mlx_image_to_window(mlx, pics.floor, y, x) < 0)
-       				ft_error("Image error\n");
-			}
-			else if (map[height][width] == '1')
-			{
-				if (mlx_image_to_window(mlx, pics.wall, y, x) < 0)
-       				ft_error("Image error\n");
-			}
-			else if (map[height][width] == 'P')
-			{
-				if (mlx_image_to_window(mlx, pics.floor, y, x) < 0)
-       				ft_error("Image error\n");
-				if (mlx_image_to_window(mlx, pics.player_front, y, x) < 0)
-       				ft_error("Image error\n");
-			}
+			if (mlx_image_to_window(mlx, pics.floor, y, x) < 0)
+       			ft_error("Image error\n");
 			width++;
 			y += PIXELS;
 		}
@@ -92,9 +78,40 @@ void	fill_background(mlx_t *mlx, t_imgs pics, char **map)
 	}
 }
 
-int	close_window(void)
+void	fill_background(mlx_t *mlx, t_imgs pics, char **map, t_game *game)
 {
-	exit(1);
+	int x;
+	int y;
+	int	height;
+	int width;
+
+	height = 0;
+	x = 0;
+	while (map[height])
+	{
+		width = 0;
+		y = 0;
+		while (map[height][width])
+		{
+			if (map[height][width] == '1')
+				put_image(mlx, pics.wall, x, y);
+			else if (map[height][width] == 'P')
+			{
+				put_image(mlx, pics.player_front, x, y);
+				game->player_img = pics.player_front;
+				game->player_x = x;
+				game->player_y = y;
+			}
+			else if (map[height][width] == 'C')
+				put_image(mlx, pics.collectible, x, y);
+			else if (map[height][width] == 'E')
+				put_image(mlx, pics.exit, x, y);
+			width++;
+			y += PIXELS;
+		}
+		x += PIXELS;
+		height++;
+	}
 }
 
 void	key_hooks(mlx_key_data_t keydata, void *param)
@@ -109,6 +126,7 @@ void	open_window(t_map map_data)
 {
 	mlx_t			*mlx;
 	t_imgs			pics;
+	t_game			game;
 	int				height;
 	
 	height = 0;
@@ -119,7 +137,9 @@ void	open_window(t_map map_data)
 		ft_error("MLX error\n");
 	pics = set_images(mlx);
 	mlx_key_hook(mlx, &key_hooks, NULL);
-	fill_background(mlx, pics, map_data.map);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	parse_map(mlx, pics, map_data.map);
+	fill_background(mlx, pics, map_data.map, &game);
+	printf("x: %d and y: %d\n", game.player_x, game.player_y);
+	// mlx_loop(mlx);
+	// mlx_terminate(mlx);
 }
