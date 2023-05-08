@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:17:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/08 15:05:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/08 16:48:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ int	main(int argc, char	**argv)
 	map_data.height = check_map(map, 0, 0, 0);
 	close(map);
 	map_data.map = fill_map(map_data);
-	open_window(map_data);
+	open_window(map_data, ft_strlen(*(map_data.map)));
 }

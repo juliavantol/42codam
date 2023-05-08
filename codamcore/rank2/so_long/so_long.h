@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/08 15:01:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/08 16:54:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,26 @@ typedef struct s_map
 
 typedef struct s_imgs
 {
-	mlx_image_t *wall;
-	mlx_image_t *floor;
-	mlx_image_t *player_front;
-	mlx_image_t *player_back;
-	mlx_image_t *player_left;
-	mlx_image_t *player_right;
-	mlx_image_t *collectible;
-	mlx_image_t *exit;
+	mlx_image_t	*wall;
+	mlx_image_t	*floor;
+	mlx_image_t	*player_front;
+	mlx_image_t	*player_back;
+	mlx_image_t	*player_left;
+	mlx_image_t	*player_right;
+	mlx_image_t	*collectible;
+	mlx_image_t	*exit;
 }	t_imgs;
 
 typedef struct s_game
 {
-	mlx_image_t *player_img;
+	mlx_image_t	*player_img;
 	char		**map;
-	int			player_x;
-	int			player_y;
 }	t_game;
-
 
 void	ft_error(char *str);
 int		check_map(int map, int start, int exit, int collectible);
 int		if_empty_line(char *str);
-void	open_window(t_map map_data);
+void	open_window(t_map map_data, int width);
 int		close_window(void);
 char	**fill_map(t_map map_data);
 void	print_map(char **map);
