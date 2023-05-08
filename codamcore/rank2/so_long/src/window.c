@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/07 23:18:33 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/08 13:03:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,14 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 {
 	if (keydata.key == 256 && keydata.action == MLX_RELEASE)
 		exit(1);
-	param++;
-	param--;
+	if (keydata.key == 263 && keydata.action == MLX_RELEASE)
+		((t_game *)param)->player_img->instances[0].x -= PIXELS;
+	if (keydata.key == 262 && keydata.action == MLX_RELEASE)
+		((t_game *)param)->player_img->instances[0].x += PIXELS;
+	if (keydata.key == 265 && keydata.action == MLX_RELEASE)
+		((t_game *)param)->player_img->instances[0].y -= PIXELS;
+	if (keydata.key == 264 && keydata.action == MLX_RELEASE)
+		((t_game *)param)->player_img->instances[0].y += PIXELS;
 }
 
 void	open_window(t_map map_data)
@@ -136,10 +142,11 @@ void	open_window(t_map map_data)
 	if (mlx == NULL)
 		ft_error("MLX error\n");
 	pics = set_images(mlx);
-	mlx_key_hook(mlx, &key_hooks, NULL);
 	parse_map(mlx, pics, map_data.map);
 	fill_background(mlx, pics, map_data.map, &game);
-	printf("x: %d and y: %d\n", game.player_x, game.player_y);
-	// mlx_loop(mlx);
-	// mlx_terminate(mlx);
+	// printf("x: %d and y: %d\n", game.player_x, game.player_y);
+	// printf("test: %d\n", game.player_img->instances[0].y);
+	mlx_key_hook(mlx, &key_hooks, &game);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 }
