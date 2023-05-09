@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/06 00:26:07 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/09 14:04:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	check_map_walls(char *line)
 char	**fill_map(t_map map_data)
 {
 	char	*line;
-	char 	**parsed_map;
+	char	**parsed_map;
 	char	*all_lines;
 	int		map;
-	
+
 	parsed_map = malloc(map_data.height + 1 * sizeof(char *));
 	all_lines = ft_calloc(1, 1);
 	if (!parsed_map)
@@ -69,13 +69,16 @@ char	**fill_map(t_map map_data)
 	return (parsed_map);
 }
 
-int	check_map(int map, int start, int exit, int collectible)
+t_map	check_map(int map, int start, int exit, int collectible)
 {
+	t_map	map_data;
 	char	*line;
 	int		length;
+	int		width;
 
 	length = 0;
 	line = get_next_line(map);
+	width = ft_strlen(line);
 	while (line)
 	{
 		valid_character(line, &start, &exit, &collectible);
@@ -84,6 +87,7 @@ int	check_map(int map, int start, int exit, int collectible)
 	}
 	if (start != 1 || exit != 1 || collectible < 1)
 		ft_error("Invalid map: invalid components\n");
-	return (length);
+	map_data.height = length;
+	map_data.width = width;
+	return (map_data);
 }
-

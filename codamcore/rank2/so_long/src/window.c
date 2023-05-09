@@ -6,34 +6,29 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/08 16:54:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/09 13:12:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	fill_background(mlx_t *mlx, t_imgs pics, char **map)
+void	fill_background(mlx_t *mlx, t_imgs pics, t_game *game)
 {
 	int	x;
 	int	y;
-	int	height;
-	int	width;
 
-	height = 0;
 	x = 0;
-	while (map[height])
+	while (x < game->map.height)
 	{
-		width = 0;
 		y = 0;
-		while (map[height][width])
+		while (y < game->map.width)
 		{
-			if (mlx_image_to_window(mlx, pics.floor, y, x) < 0)
+			if (mlx_image_to_window(mlx, pics.floor,
+					y * PIXELS, x * PIXELS) < 0)
 				ft_error("Image error\n");
-			width++;
-			y += PIXELS;
+			y++;
 		}
-		x += PIXELS;
-		height++;
+		x++;
 	}
 }
 
@@ -41,33 +36,27 @@ void	parse_map(mlx_t *mlx, t_imgs pics, t_game *game)
 {
 	int	x;
 	int	y;
-	int	height;
-	int	width;
 
-	height = 0;
 	x = 0;
-	while (game->map[height])
+	while (x < game->map.height)
 	{
-		width = 0;
 		y = 0;
-		while (game->map[height][width])
+		while (y < game->map.width)
 		{
-			if (game->map[height][width] == '1')
-				put_image(mlx, pics.wall, x, y);
-			else if (game->map[height][width] == 'P')
+			if (game->map.map[x][y] == '1')
+				put_image(mlx, pics.wall, x * PIXELS, y * PIXELS);
+			else if (game->map.map[x][y] == 'P')
 			{
-				put_image(mlx, pics.player_front, x, y);
+				put_image(mlx, pics.player_front, x * PIXELS, y * PIXELS);
 				game->player_img = pics.player_front;
 			}
-			else if (game->map[height][width] == 'C')
-				put_image(mlx, pics.collectible, x, y);
-			else if (game->map[height][width] == 'E')
-				put_image(mlx, pics.exit, x, y);
-			width++;
-			y += PIXELS;
+			else if (game->map.map[x][y] == 'C')
+				put_image(mlx, pics.collectible, x * PIXELS, y * PIXELS);
+			else if (game->map.map[x][y] == 'E')
+				put_image(mlx, pics.exit, x * PIXELS, y * PIXELS);
+			y++;
 		}
-		x += PIXELS;
-		height++;
+		x++;
 	}
 }
 
@@ -82,7 +71,7 @@ void	key_hooks(mlx_key_data_t keydata, void *data)
 		return ;
 	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
 		game->player_img->instances[0].x -= PIXELS;
-	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)	
+	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
 		game->player_img->instances[0].x += PIXELS;
 	else if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE)
 		game->player_img->instances[0].y -= PIXELS;
@@ -100,12 +89,13 @@ void	open_window(t_map map_data, int width)
 	height = 0;
 	while (map_data.map[height])
 		height++;
+	map_data.width = ft_strlen(*(map_data.map));
 	mlx = mlx_init(width * PIXELS, (height * PIXELS), "so_long", false);
 	if (mlx == NULL)
 		ft_error("MLX error\n");
 	pics = set_images(mlx);
-	game.map = map_data.map;
-	fill_background(mlx, pics, map_data.map);
+	game.map = map_data;
+	fill_background(mlx, pics, &game);
 	parse_map(mlx, pics, &game);
 	mlx_key_hook(mlx, &key_hooks, &game);
 	mlx_loop(mlx);

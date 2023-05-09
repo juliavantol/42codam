@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:34:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/08 16:15:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/09 13:11:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	if_empty_line(char *str)
 void	print_map(char **map)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;

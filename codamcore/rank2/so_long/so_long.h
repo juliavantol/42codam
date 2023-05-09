@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/08 16:54:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/09 14:00:35 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ typedef struct s_imgs
 typedef struct s_game
 {
 	mlx_image_t	*player_img;
-	char		**map;
+	t_map		map;
 }	t_game;
 
 void	ft_error(char *str);
-int		check_map(int map, int start, int exit, int collectible);
+t_map	check_map(int map, int start, int exit, int collectible);
 int		if_empty_line(char *str);
 void	open_window(t_map map_data, int width);
 int		close_window(void);
