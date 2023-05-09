@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/10 01:42:31 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/10 01:54:04 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,24 @@ void	put_collectible(mlx_t *mlx, t_game *game, int x, int y)
 	put_image(mlx, img, x, y);
 	temp = new_list(img);
 	add_collectible(game->collectibles, temp);	
+}
+
+void	found_collectible(t_game *game, int x, int y)
+{
+	t_node	**collectibles;
+	t_node	*head;
+
+	collectibles = game->collectibles;
+	head = *collectibles;
+	if (collectibles == NULL)
+		return ;
+	printf("%d\n", head->img->instances[0].x);
+	// while (head->img != NULL)
+	// {
+	// 	// if (head->img->instances[0].x == y && head->img->instances[0].y == x)
+	// 	// 	printf("found collectible!\n");
+	// 	head = head -> next;
+	// }
+	x--;
+	y--;
 }

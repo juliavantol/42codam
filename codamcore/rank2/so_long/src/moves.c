@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/09 23:44:08 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/10 01:48:33 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ int	check_move(t_game *game, int key)
 	y = y / PIXELS;
 	if (game->map.map[y][x] == '1')
 		return (0);
+	if (game->map.map[y][x] == 'C')
+		found_collectible(game, x, y);
 	return (1);
 }

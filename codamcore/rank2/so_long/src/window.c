@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/10 01:42:42 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/10 01:44:17 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ void	open_window(t_game game)
 	pics = set_images(mlx);
 	fill_background(mlx, pics, &game);
 	parse_map(mlx, pics, &game);
-	print_list(game.collectibles);
-	exit(1);
 	mlx_key_hook(mlx, &key_hooks, &game);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

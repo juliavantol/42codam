@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/10 01:39:49 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/10 01:48:53 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void	add_collectible(t_node **collectibles, t_node *new);
 void	put_collectible(mlx_t *mlx, t_game *game, int x, int y);
 mlx_image_t	*get_picture(mlx_t *mlx, char *path);
 void	print_list(t_node **collectibles);
+void	found_collectible(t_game *game, int x, int y);
 
 #endif
