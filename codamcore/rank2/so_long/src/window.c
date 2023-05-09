@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/09 13:12:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/09 23:42:05 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,15 @@ void	key_hooks(mlx_key_data_t keydata, void *data)
 		game->player_img->instances[0].y += PIXELS;
 }
 
-void	open_window(t_map map_data, int width)
+void	open_window(t_game game)
 {
 	mlx_t			*mlx;
 	t_imgs			pics;
-	t_game			game;
-	int				height;
 
-	height = 0;
-	while (map_data.map[height])
-		height++;
-	map_data.width = ft_strlen(*(map_data.map));
-	mlx = mlx_init(width * PIXELS, (height * PIXELS), "so_long", false);
+	mlx = mlx_init(game.map.width * PIXELS, (game.map.height * PIXELS), "so_long", false);
 	if (mlx == NULL)
 		ft_error("MLX error\n");
 	pics = set_images(mlx);
-	game.map = map_data;
 	fill_background(mlx, pics, &game);
 	parse_map(mlx, pics, &game);
 	mlx_key_hook(mlx, &key_hooks, &game);

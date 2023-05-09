@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:17:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/09 14:02:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/09 23:36:51 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char	**argv)
 {
 	int			map;
+	t_game		game;
 	t_map		map_data;
 
 	if (argc != 2)
@@ -25,6 +26,7 @@ int	main(int argc, char	**argv)
 	map_data = check_map(map, 0, 0, 0);
 	map_data.file = argv[1];
 	map_data.map = fill_map(map_data);
+	game.map = map_data;
 	close(map);
-	open_window(map_data, ft_strlen(*(map_data.map)));
+	open_window(game);
 }

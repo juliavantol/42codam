@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/09 14:04:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/09 23:40:09 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ t_map	check_map(int map, int start, int exit, int collectible)
 	if (start != 1 || exit != 1 || collectible < 1)
 		ft_error("Invalid map: invalid components\n");
 	map_data.height = length;
-	map_data.width = width;
+	map_data.width = (width - 1);
 	return (map_data);
 }
