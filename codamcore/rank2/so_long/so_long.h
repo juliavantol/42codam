@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/09 14:00:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/09 18:50:58 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include "MLX42/include/MLX42/MLX42.h"
 
 # define PIXELS 32
+
+typedef struct s_node
+{
+	mlx_image_t		*img;
+	bool			found;
+	struct s_node	*next;
+}	t_node;
 
 typedef struct s_map
 {
