@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/09 23:37:18 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/10 01:39:49 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_game
 {
 	mlx_image_t	*player_img;
 	t_node		**collectibles;
+	t_imgs		*pics;
 	t_map		map;
 }	t_game;
 
@@ -63,5 +64,10 @@ void	print_map(char **map);
 t_imgs	set_images(mlx_t *mlx);
 void	put_image(mlx_t *mlx, mlx_image_t *img, int x, int y);
 int		check_move(t_game *game, int key);
+t_node	*new_list(void *content);
+void	add_collectible(t_node **collectibles, t_node *new);
+void	put_collectible(mlx_t *mlx, t_game *game, int x, int y);
+mlx_image_t	*get_picture(mlx_t *mlx, char *path);
+void	print_list(t_node **collectibles);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:34:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/09 13:11:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/10 01:43:47 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,19 @@ void	print_map(char **map)
 		printf("\n");
 		i++;
 	}
+}
+
+void	print_list(t_node **collectibles)
+{
+	t_node	*head;
+	int		count;
+
+	head = *collectibles;
+	count = 0;
+	while (head->img != NULL)
+	{
+		head = head -> next;
+		count++;
+	}
+	printf("%d\n", count);
 }

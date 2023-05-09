@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/09 23:42:05 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/10 01:42:42 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	parse_map(mlx_t *mlx, t_imgs pics, t_game *game)
 				game->player_img = pics.player_front;
 			}
 			else if (game->map.map[x][y] == 'C')
-				put_image(mlx, pics.collectible, x * PIXELS, y * PIXELS);
+				put_collectible(mlx, game, x * PIXELS, y * PIXELS);
 			else if (game->map.map[x][y] == 'E')
 				put_image(mlx, pics.exit, x * PIXELS, y * PIXELS);
 			y++;
@@ -90,6 +90,8 @@ void	open_window(t_game game)
 	pics = set_images(mlx);
 	fill_background(mlx, pics, &game);
 	parse_map(mlx, pics, &game);
+	print_list(game.collectibles);
+	exit(1);
 	mlx_key_hook(mlx, &key_hooks, &game);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
