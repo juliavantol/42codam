@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/10 01:54:04 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/10 15:39:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,37 @@ t_node	*new_list(void *content)
 
 void	add_collectible(t_node **collectibles, t_node *new)
 {
-	if (*collectibles == NULL || collectibles == NULL)
+	t_node	*last;
+
+	last = *collectibles;
+	if (*collectibles == NULL)
 	{
 		new -> next = NULL;
 		*collectibles = new;
 	}
 	else
 	{
-		new -> next = *collectibles;
-		*collectibles = new;		
+		while (last -> next != NULL)
+			last = last -> next;
+		new -> next = NULL;
+		last -> next = new;		
 	}
+}
+
+int		check_status(t_game *game)
+{
+	t_node	*head;
+
+	head = *(&game->collectibles);
+	if (head == NULL)
+		return (0);
+	while (head != NULL)
+	{
+		if (head -> found != true)
+			return (0);
+		head = head -> next;
+	}
+	return (1);
 }
 
 void	put_collectible(mlx_t *mlx, t_game *game, int x, int y)
@@ -50,25 +71,24 @@ void	put_collectible(mlx_t *mlx, t_game *game, int x, int y)
 	img = get_picture(mlx, "textures/porb2.png");
 	put_image(mlx, img, x, y);
 	temp = new_list(img);
-	add_collectible(game->collectibles, temp);	
+	add_collectible(&game->collectibles, temp);	
 }
 
 void	found_collectible(t_game *game, int x, int y)
 {
-	t_node	**collectibles;
 	t_node	*head;
 
-	collectibles = game->collectibles;
-	head = *collectibles;
-	if (collectibles == NULL)
+	head = *(&game->collectibles);
+	if (head == NULL)
 		return ;
-	printf("%d\n", head->img->instances[0].x);
-	// while (head->img != NULL)
-	// {
-	// 	// if (head->img->instances[0].x == y && head->img->instances[0].y == x)
-	// 	// 	printf("found collectible!\n");
-	// 	head = head -> next;
-	// }
-	x--;
-	y--;
+	while (head != NULL)
+	{
+		if (x * PIXELS == head->img->instances[0].x &&
+			y * PIXELS == head->img->instances[0].y)
+		{
+			head->img->enabled = false;
+			head->found = true;
+		}
+		head = head -> next;
+	}
 }

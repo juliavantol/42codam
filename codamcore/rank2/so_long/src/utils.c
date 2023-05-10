@@ -6,16 +6,54 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:34:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/10 01:43:47 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/10 17:37:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
+
+void	free_map(char	**map, int height)
+{
+	int	index;
+
+	index = 0;
+	while (index < height - 1)
+	{
+		printf("%s\n", map[index]);
+		free(map[index]);
+		index++;
+	}
+	free(map);
+}
+
+void	free_collectibles(t_node **collectibles)
+{
+	t_node	*temp;
+
+	if (!collectibles)
+		return ;
+	while (*collectibles)
+	{
+		temp = (*collectibles)->next;
+		free(*collectibles);
+		*collectibles = temp;
+	}
+	*collectibles = NULL;
+	free(collectibles);
+}
+
 int	close_window(void)
 {
-	exit(1);
+	exit(EXIT_SUCCESS);
 }
+
+// int	close_window(t_game game)
+// {
+// 	// free_map(game.map.map, game.map.height);
+// 	free_collectibles(&game.collectibles);
+// 	exit(1);
+// }
 
 void	ft_error(char *str)
 {
@@ -72,7 +110,7 @@ void	print_list(t_node **collectibles)
 
 	head = *collectibles;
 	count = 0;
-	while (head->img != NULL)
+	while (head != NULL)
 	{
 		head = head -> next;
 		count++;
