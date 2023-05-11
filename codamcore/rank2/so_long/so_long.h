@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/10 17:48:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/11 16:31:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ typedef struct s_game
 	t_map		map;
 	bool		won;
 	int			moves;
+	mlx_image_t	*display;
+	mlx_t		*mlx;
+	char		**temp_grid;
 }	t_game;
 
 void		ft_error(char *str);
@@ -73,5 +76,7 @@ mlx_image_t	*get_picture(mlx_t *mlx, char *path);
 void		print_list(t_node **collectibles);
 void		found_collectible(t_game *game, int x, int y);
 int			check_status(t_game *game);
+void		display_moves(mlx_t *mlx, t_game *game);
+void		fill_grid(t_map map, t_game game);
 
 #endif

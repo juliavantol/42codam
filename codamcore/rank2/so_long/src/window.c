@@ -6,11 +6,29 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/10 17:57:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/11 13:29:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+void	display_moves(mlx_t *mlx, t_game *game)
+{
+	char	*str;
+	char	*temp;
+
+	if (game->display != NULL)
+		game->display->enabled = false;
+	temp = ft_itoa(game->moves);
+	if (!temp)
+		ft_error("itoa\n");
+	str = ft_strjoin(" Moves: ", temp);
+	if (!str)
+		ft_error("strjoin\n");
+	game->display = mlx_put_string(mlx, str, 0, (game->map.height) * PIXELS);
+	game->display->enabled = true;
+	game->moves += 1;
+}
 
 void	fill_backdrop(mlx_t *mlx, t_imgs pics, t_game *game)
 {
@@ -70,12 +88,7 @@ void	key_hooks(mlx_key_data_t key, void *data)
 	if (check_move(game, key.key) == 0)
 		return ;
 	else if (key.action == MLX_RELEASE)
-	{
-		game->moves += 1;
-		ft_putstr_fd("Moves: ", 1);
-		ft_putstr_fd(ft_itoa(game->moves), 1);
-		ft_putstr_fd("\n", 1);
-	}
+		display_moves(game->mlx, game);
 	if ((key.key == MLX_KEY_LEFT || key.key == MLX_KEY_A)
 		&& key.action == MLX_RELEASE)
 		game->player_img->instances[0].x -= PIXELS;
@@ -96,15 +109,18 @@ void	open_window(t_game game)
 	t_imgs			pics;
 	mlx_image_t		*backdrop;
 
-	mlx = mlx_init(game.map.width * PIXELS, ((game.map.height + 2) * PIXELS),
+	mlx = mlx_init(game.map.width * PIXELS, ((game.map.height + 1) * PIXELS),
 			"so_long", false);
 	if (mlx == NULL)
 		ft_error("MLX error\n");
 	pics = set_images(mlx);
+	game.mlx = mlx;
+	game.display = NULL;
+	display_moves(game.mlx, &game);
 	fill_backdrop(mlx, pics, &game);
 	parse_map(mlx, pics, &game);
-	backdrop = mlx_new_image(mlx, game.map.width * PIXELS, 2 * PIXELS);
-	ft_memset(backdrop->pixels, 255,
+	backdrop = mlx_new_image(mlx, game.map.width * PIXELS, 1 * PIXELS);
+	ft_memset(backdrop->pixels, 0,
 		backdrop-> width * backdrop->height * sizeof(int));
 	mlx_image_to_window(mlx, backdrop, 0, (game.map.height) * PIXELS);
 	mlx_key_hook(mlx, &key_hooks, &game);
