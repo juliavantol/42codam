@@ -6,59 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/11 14:39:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/11 17:40:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/12 14:20:19 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-// void	fill_with_one(int **grid, int x, int y, t_map map)
-// {
-// 	int i;
-// 	int j;
-
-// 	i = 0;
-// 	grid[x - 1][y] = 1;
-// 	grid[x + 1][y] = 1;
-// 	grid[x][y - 1] = 1;
-// 	grid[x][y + 1] = 1;
-// 	while (i < map.height)
-// 	{
-// 		j = 0;
-// 		while (j < map.width)
-// 		{
-// 			printf("%d ", grid[i][j]);
-// 			j++;
-// 		}
-// 		printf("\n");
-// 		i++;
-// 	}
-// }
-
-void	print_grid(t_game *game)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < game->map.height)
-	{
-		j = 0;
-		while (j < game->map.width)
-		{
-			printf("%c ", game->temp_grid[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
-
 void	fill_with_one(t_game *game, int x, int y)
 {
-	if (game->temp_grid[x][y] == '1' || game->temp_grid[x][y] == 'E')
+	if (game->temp_grid[x][y] == '1')
 		return ;
-	
 	game->temp_grid[x][y] = '1';
 	fill_with_one(game, x - 1, y);
 	fill_with_one(game, x + 1, y);
@@ -66,13 +23,11 @@ void	fill_with_one(t_game *game, int x, int y)
 	fill_with_one(game, x, y + 1);
 }
 
-void	fill_grid(t_map map, t_game game)
+void	fill_grid(t_map map, t_game *game)
 {
 	char	**temp_grid;
 	int	i;
 	int j;
-	int	x;
-	int	y;
 
 	i = 0;
 	j = 0;
@@ -82,22 +37,10 @@ void	fill_grid(t_map map, t_game game)
 		temp_grid[i] = ft_strdup(map.map[i]);
 		i++;
 	}
-	game.temp_grid = temp_grid;
-	i = 0;
-	while (i < map.height)
-	{
-		j = 0;
-		while (j < map.width)
-		{
-			if (temp_grid[i][j] == 'P')
-			{
-				x = i;
-				y = j;
-			}
-			j++;
-		}
-		i++;
-	}
-	fill_with_one(&game, x, y);
-	print_grid(&game);
+	game->temp_grid = temp_grid;
+	fill_with_one(game, map.start_x, map.start_y);
+	if (temp_grid[map.exit_x][map.exit_y] != '1')
+		ft_error("No valid path\n");
+	// print_map(game.temp_grid);
+	get_collectibles(game);
 }

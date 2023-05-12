@@ -6,11 +6,23 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/10 15:39:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/12 14:21:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+void	print_collectibles(t_game game)
+{
+	t_node	*temp;
+
+	temp = game.collectibles;
+	while(temp)
+	{
+		printf("%d - %d\n", temp->x, temp->y);
+		temp = temp -> next;
+	}
+}
 
 t_node	*new_list(void *content)
 {
@@ -63,17 +75,6 @@ int		check_status(t_game *game)
 	return (1);
 }
 
-void	put_collectible(mlx_t *mlx, t_game *game, int x, int y)
-{
-	mlx_image_t		*img;
-	t_node			*temp;
-
-	img = get_picture(mlx, "textures/porb2.png");
-	put_image(mlx, img, x, y);
-	temp = new_list(img);
-	add_collectible(&game->collectibles, temp);	
-}
-
 void	found_collectible(t_game *game, int x, int y)
 {
 	t_node	*head;
@@ -90,5 +91,38 @@ void	found_collectible(t_game *game, int x, int y)
 			head->found = true;
 		}
 		head = head -> next;
+	}
+}
+
+void	put_collectible(mlx_t *mlx, t_game *game, int x, int y)
+{
+	mlx_image_t		*img;
+	t_node			*temp;
+
+	img = get_picture(mlx, "textures/porb2.png");
+	put_image(mlx, img, x, y);
+	temp = new_list(img);
+	add_collectible(&game->collectibles, temp);	
+}
+
+void	get_collectibles(t_game *game)
+{
+	int		x;
+	int		y;
+
+	x = 0;
+	while (x < game->map.height)
+	{
+		y = 0;
+		while (y < game->map.width)
+		{
+			if (game->map.map[x][y] == 'C')
+			{
+				if (game->temp_grid[x][y] != '1')
+					ft_error("No valid path\n");
+			}
+			y++;
+		}
+		x++;
 	}
 }

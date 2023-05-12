@@ -6,27 +6,33 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/09 23:40:09 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/12 13:04:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	valid_character(char *line, int *start, int *exit, int *collectible)
+void	valid_character(t_map *data, char *line, int height)
 {
 	int		index;
 
 	index = 0;
-	if (if_empty_line(line) == 1)
-		ft_error("Invalid map: empty lines\n");
 	while (line[index])
 	{
 		if (line[index] == 'P')
-			(*start)++;
+		{
+			data->start += 1;
+			data->start_y = index;
+			data->start_x = height;
+		}
 		else if (line[index] == 'C')
-			(*collectible)++;
+			data->collectibles += 1;
 		else if (line[index] == 'E')
-			(*exit)++;
+		{
+			data->exit += 1;
+			data->exit_y = index;
+			data->exit_x = height;
+		}
 		if (line[index] != 'P' && line[index] != 'C' && line[index] != 'E'
 			&& line[index] != '0' && line[index] != '1' && line[index] != '\n')
 			ft_error("Invalid map: illegal components\n");
@@ -69,25 +75,28 @@ char	**fill_map(t_map map_data)
 	return (parsed_map);
 }
 
-t_map	check_map(int map, int start, int exit, int collectible)
+t_map	check_map(int map)
 {
 	t_map	map_data;
 	char	*line;
 	int		length;
-	int		width;
 
 	length = 0;
 	line = get_next_line(map);
-	width = ft_strlen(line);
+	map_data.width = (ft_strlen(line) - 1);
+	map_data.exit = 0;
+	map_data.start = 0;
+	map_data.collectibles = 0;
 	while (line)
 	{
-		valid_character(line, &start, &exit, &collectible);
+		if (if_empty_line(line) == 1)
+			ft_error("Invalid map: empty lines\n");
+		valid_character(&map_data, line, length);
 		line = get_next_line(map);
 		length++;
 	}
-	if (start != 1 || exit != 1 || collectible < 1)
-		ft_error("Invalid map: invalid components\n");
+	if (map_data.start != 1 || map_data.exit != 1 || map_data.collectibles < 1)
+		ft_error("Invalid map\n");
 	map_data.height = length;
-	map_data.width = (width - 1);
 	return (map_data);
 }
