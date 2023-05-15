@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/12 14:25:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/15 13:11:59 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ typedef struct s_node
 
 typedef struct s_map
 {
-	char	*file;
+	int		file;
+	char	*file_name;
 	char	**map;
 	int		width;
 	int		height;
@@ -68,7 +69,6 @@ typedef struct s_game
 }	t_game;
 
 void		ft_error(char *str);
-t_map		check_map(int map);
 int			if_empty_line(char *str);
 void		open_window(t_game game);
 int			close_window(void);
@@ -89,5 +89,8 @@ void		print_collectibles(t_game game);
 void		get_collectibles(t_game *game);
 void		put_collectible(mlx_t *mlx, t_game *game, int x, int y);
 
-
+void		valid_character(t_map *data, char *line, int height);
+t_map		check_characters(t_map map);
+t_game		init_game(int file, char *filename);
+void		check_walls(t_game game, int i, int j);
 #endif

@@ -4,8 +4,8 @@ CFLAGS = -Wall -Wextra -Werror -framework Cocoa -framework OpenGL -framework IOK
 LIBFT = include/libft/libft.a
 LIBS	:= MLX42/build/libmlx42.a -Iinclude -lglfw3
 SRC = main.c src/utils.c include/get_next_line/get_next_line.c include/get_next_line/get_next_line_utils.c \
-		src/collectibles.c src/map_validity.c src/window.c src/images.c src/moves.c \
-		src/find_path.c
+		src/collectibles.c src/map_utils.c src/window.c src/images.c src/moves.c \
+		src/check_path.c src/check_map.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)

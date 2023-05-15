@@ -6,23 +6,23 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/12 14:21:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/15 12:08:51 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	print_collectibles(t_game game)
-{
-	t_node	*temp;
+// void	print_collectibles(t_game game)
+// {
+// 	t_node	*temp;
 
-	temp = game.collectibles;
-	while(temp)
-	{
-		printf("%d - %d\n", temp->x, temp->y);
-		temp = temp -> next;
-	}
-}
+// 	temp = game.collectibles;
+// 	while(temp)
+// 	{
+// 		printf("%d - %d\n", temp->x, temp->y);
+// 		temp = temp -> next;
+// 	}
+// }
 
 t_node	*new_list(void *content)
 {
