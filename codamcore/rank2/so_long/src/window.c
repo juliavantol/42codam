@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/12 14:21:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/15 15:16:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	display_moves(mlx_t *mlx, t_game *game)
 	game->display = mlx_put_string(mlx, str, 0, (game->map.height) * PIXELS);
 	game->display->enabled = true;
 	game->moves += 1;
+	free(temp);
+	free(str);
 }
 
 void	fill_backdrop(mlx_t *mlx, t_imgs pics, t_game *game)
@@ -84,7 +86,7 @@ void	key_hooks(mlx_key_data_t key, void *data)
 
 	game = (t_game *)data;
 	if (key.key == MLX_KEY_ESCAPE && key.action == MLX_RELEASE)
-		exit(1);
+		mlx_close_window(game->mlx);
 	if (check_move(game, key.key) == 0)
 		return ;
 	else if (key.action == MLX_RELEASE)
@@ -106,8 +108,8 @@ void	key_hooks(mlx_key_data_t key, void *data)
 void	open_window(t_game game)
 {
 	mlx_t			*mlx;
-	t_imgs			pics;
 	mlx_image_t		*backdrop;
+	t_imgs			pics;
 
 	mlx = mlx_init(game.map.width * PIXELS, ((game.map.height + 1) * PIXELS),
 			"so_long", false);

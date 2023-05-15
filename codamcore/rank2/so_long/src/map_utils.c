@@ -6,18 +6,17 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/15 13:13:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/15 17:22:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 /* Checks if all the characters in the line are valid */
-void	valid_character(t_map *data, char *line, int height)
+void	valid_character(t_map *data, char *line, int height, int index)
 {
-	int		index;
-
-	index = 0;
+	if (if_empty_line(line) == 1)
+		ft_error("Empty lines\n");
 	while (line[index])
 	{
 		if (line[index] == 'P')

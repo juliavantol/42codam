@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 11:40:14 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/15 13:11:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/15 17:58:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,63 +24,44 @@ t_game	init_game(int file, char *filename)
 	map.collectibles = 0;
 	map.file_name = filename;
 	map.file = file;
-	map = check_characters(map);
+	map = check_characters(map, 0);
 	game.map = map;
-	collectibles = (t_node *) malloc(sizeof(t_node));
-	if (!collectibles)
-		ft_error("Malloc\n");
+	return (game);
 	collectibles = NULL;
 	game.collectibles = collectibles;
 	game.moves = 0;
 	check_walls(game, 0, 0);
+	if (game.map.width == game.map.height)
+		ft_error("Map must be rectangular\n");
 	return (game);
 }
 
 /* Checks if all the characters in the map are valid */
-t_map	check_characters(t_map map)
+t_map	check_characters(t_map map, int length)
 {
 	char	*line;
-	int		length;
+	char	*all_lines;
+	char	*temp;
 
-	length = 0;
 	line = get_next_line(map.file);
+	if (line == NULL)
+		ft_error("Empty line\n");
+	all_lines = ft_calloc(1, 1);
 	map.width = (ft_strlen(line) - 1);
 	while (line)
 	{
-		if (if_empty_line(line) == 1)
-			ft_error("Invalid map: empty lines\n");
-		valid_character(&map, line, length);
+		valid_character(&map, line, length, 0);
+		temp = all_lines;
+		all_lines = ft_strjoin(temp, line);
+		free(temp);
+		free(line);
 		line = get_next_line(map.file);
 		length++;
 	}
 	if (map.start != 1 || map.exit != 1 || map.collectibles < 1)
 		ft_error("Invalid map\n");
 	map.height = length;
-	map.map = fill_map(map);
+	map.map = ft_split_sl(all_lines, '\n');
+	free(all_lines);
 	return (map);
-}
-
-/* Reads the map into a double pointer char */
-char	**fill_map(t_map map_data)
-{
-	char	*line;
-	char	**parsed_map;
-	char	*all_lines;
-	int		map;
-
-	parsed_map = malloc(map_data.height + 1 * sizeof(char *));
-	if (!parsed_map)
-		ft_error("Malloc error\n");
-	all_lines = ft_calloc(1, 1);
-	map = open(map_data.file_name, O_RDONLY);
-	if (map < 0)
-		ft_error("File couldn't be found\n");
-	line = get_next_line(map);
-	while (line)
-	{
-		all_lines = ft_strjoin(all_lines, line);
-		line = get_next_line(map);
-	}
-	parsed_map = ft_split(all_lines, '\n');
-	return (parsed_map);
 }

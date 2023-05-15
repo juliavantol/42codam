@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/15 13:11:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/15 17:47:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,11 @@ void		print_collectibles(t_game game);
 void		get_collectibles(t_game *game);
 void		put_collectible(mlx_t *mlx, t_game *game, int x, int y);
 
-void		valid_character(t_map *data, char *line, int height);
-t_map		check_characters(t_map map);
+void		valid_character(t_map *data, char *line, int height, int index);
+t_map		check_characters(t_map map, int length);
 t_game		init_game(int file, char *filename);
 void		check_walls(t_game game, int i, int j);
+void		free_map(char	**map, int max);
+void		stop_game(t_game *game);
+char		**ft_split_sl(char const *s, char c);
 #endif
