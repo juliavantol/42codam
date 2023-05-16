@@ -6,18 +6,18 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/15 17:47:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/16 15:31:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "include/libft/libft.h"
-# include "include/get_next_line/get_next_line.h"
-# include "MLX42/include/MLX42/MLX42.h"
+# include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 
-# define PIXELS 32
+# define PIXELS 48
 
 typedef struct s_node
 {
@@ -84,9 +84,9 @@ void		print_list(t_node **collectibles);
 void		found_collectible(t_game *game, int x, int y);
 int			check_status(t_game *game);
 void		display_moves(mlx_t *mlx, t_game *game);
-void		fill_grid(t_map map, t_game *game);
+void		check_path(t_map map, t_game *game);
 void		print_collectibles(t_game game);
-void		get_collectibles(t_game *game);
+void		check_path_collectibles(t_game *game);
 void		put_collectible(mlx_t *mlx, t_game *game, int x, int y);
 
 void		valid_character(t_map *data, char *line, int height, int index);
@@ -96,4 +96,5 @@ void		check_walls(t_game game, int i, int j);
 void		free_map(char	**map, int max);
 void		stop_game(t_game *game);
 char		**ft_split_sl(char const *s, char c);
+void		move_player(t_game *game, int direction);
 #endif

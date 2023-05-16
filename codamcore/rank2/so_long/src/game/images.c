@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:12:58 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/15 15:16:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/16 15:31:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
 mlx_image_t	*get_picture(mlx_t *mlx, char *path)
 {
@@ -31,14 +31,14 @@ t_imgs	set_images(mlx_t *mlx)
 {
 	t_imgs	pics;
 
-	pics.floor = get_picture(mlx, "textures/tile_32/00.png");
-	pics.wall = get_picture(mlx, "textures/ice_32/113.png");
+	pics.floor = get_picture(mlx, "textures/snow.png");
+	pics.wall = get_picture(mlx, "textures/black_wall.png");
 	pics.player_front = get_picture(mlx, "textures/ghosts/front.png");
 	pics.player_back = get_picture(mlx, "textures/ghosts/back.png");
 	pics.player_left = get_picture(mlx, "textures/ghosts/left.png");
 	pics.player_right = get_picture(mlx, "textures/ghosts/right.png");
 	pics.collectible = get_picture(mlx, "textures/porb2.png");
-	pics.exit = get_picture(mlx, "textures/exitstone.png");
+	pics.exit = get_picture(mlx, "textures/fridgeclosed.png");
 	return (pics);
 }
 

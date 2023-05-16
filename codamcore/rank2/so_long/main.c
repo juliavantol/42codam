@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:17:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/15 18:05:09 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/16 11:51:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,21 @@ void	leaks(void)
 int	main(int argc, char	**argv)
 {
 	int			file;
+	char		*temp;
 	t_game		game;
 
-	atexit(leaks);
+	// atexit(leaks);
 	if (argc != 2)
 		ft_error("Not enough arguments\n");
+	temp = ft_substr(argv[1], ft_strlen(argv[1] + 4), 4);
+	if (ft_strncmp(temp, ".ber", 4) != 0)
+		ft_error("File must be a .ber extension\n");
+	free(temp);
 	file = open(argv[1], O_RDONLY);
 	if (file < 0)
-		ft_error("Invalid file\n");
+		ft_error("File couldn't be opened\n");
 	game = init_game(file, argv[1]);
-	fill_grid(game.map, &game);
+	check_path(game.map, &game);
 	close(file);
 	open_window(game);
 	exit(EXIT_SUCCESS);

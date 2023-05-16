@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/15 15:16:54 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/16 13:27:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
 void	display_moves(mlx_t *mlx, t_game *game)
 {
@@ -93,16 +93,16 @@ void	key_hooks(mlx_key_data_t key, void *data)
 		display_moves(game->mlx, game);
 	if ((key.key == MLX_KEY_LEFT || key.key == MLX_KEY_A)
 		&& key.action == MLX_RELEASE)
-		game->player_img->instances[0].x -= PIXELS;
+		move_player(game, 3);
 	else if ((key.key == MLX_KEY_RIGHT || key.key == MLX_KEY_D)
 		&& key.action == MLX_RELEASE)
-		game->player_img->instances[0].x += PIXELS;
+		move_player(game, 4);
 	else if ((key.key == MLX_KEY_UP || key.key == MLX_KEY_W)
 		&& key.action == MLX_RELEASE)
-		game->player_img->instances[0].y -= PIXELS;
+		move_player(game, 1);
 	else if ((key.key == MLX_KEY_DOWN || key.key == MLX_KEY_S)
 		&& key.action == MLX_RELEASE)
-		game->player_img->instances[0].y += PIXELS;
+		move_player(game, 2);
 }
 
 void	open_window(t_game game)

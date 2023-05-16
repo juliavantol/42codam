@@ -6,18 +6,17 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 11:40:14 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/15 17:58:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/16 12:12:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
-/* Initialises the map struct */
+/* Initialises the map and game structs */
 t_game	init_game(int file, char *filename)
 {
 	t_map	map;
 	t_game	game;
-	t_node	*collectibles;
 
 	map.exit = 0;
 	map.start = 0;
@@ -26,9 +25,7 @@ t_game	init_game(int file, char *filename)
 	map.file = file;
 	map = check_characters(map, 0);
 	game.map = map;
-	return (game);
-	collectibles = NULL;
-	game.collectibles = collectibles;
+	game.collectibles = NULL;
 	game.moves = 0;
 	check_walls(game, 0, 0);
 	if (game.map.width == game.map.height)
@@ -36,7 +33,8 @@ t_game	init_game(int file, char *filename)
 	return (game);
 }
 
-/* Checks if all the characters in the map are valid */
+/* Checks if all the characters in the map are valid and stores
+the map in a double pointer */
 t_map	check_characters(t_map map, int length)
 {
 	char	*line;
@@ -59,9 +57,9 @@ t_map	check_characters(t_map map, int length)
 		length++;
 	}
 	if (map.start != 1 || map.exit != 1 || map.collectibles < 1)
-		ft_error("Invalid map\n");
+		ft_error("Invalid number of map components\n");
 	map.height = length;
-	map.map = ft_split_sl(all_lines, '\n');
+	map.map = ft_split(all_lines, '\n');
 	free(all_lines);
 	return (map);
 }

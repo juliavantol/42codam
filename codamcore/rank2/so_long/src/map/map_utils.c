@@ -6,11 +6,11 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/15 17:22:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/16 12:12:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
 /* Checks if all the characters in the line are valid */
 void	valid_character(t_map *data, char *line, int height, int index)

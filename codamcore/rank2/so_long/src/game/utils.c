@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:34:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/15 15:13:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/16 12:13:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
 void	free_collectibles(t_node **collectibles)
 {
@@ -33,19 +33,12 @@ int	close_window(void)
 	exit(EXIT_SUCCESS);
 }
 
-// int	close_window(t_game game)
-// {
-// 	// free_map(game.map.map, game.map.height);
-// 	free_collectibles(&game.collectibles);
-// 	exit(1);
-// }
-
 void	ft_error(char *str)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (str != NULL)
 		ft_putstr_fd(str, 2);
-	exit (1);
+	exit(EXIT_FAILURE);
 }
 
 int	if_empty_line(char *str)
