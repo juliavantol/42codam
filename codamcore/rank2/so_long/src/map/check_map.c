@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 11:40:14 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/16 12:12:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/17 18:26:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_game	init_game(int file, char *filename)
 	game.map = map;
 	game.collectibles = NULL;
 	game.moves = 0;
+	set_foods(&game);
 	check_walls(game, 0, 0);
 	if (game.map.width == game.map.height)
 		ft_error("Map must be rectangular\n");

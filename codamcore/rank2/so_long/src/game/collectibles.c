@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/16 12:13:21 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/17 19:11:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,12 @@ void	put_collectible(mlx_t *mlx, t_game *game, int x, int y)
 {
 	mlx_image_t		*img;
 	t_node			*temp;
+	int				index;
+	char			*path;
 
-	img = get_picture(mlx, "textures/porb2.png");
+	index = rand() % 11;
+	path = get_food(game, index);
+	img = get_picture(mlx, path);
 	put_image(mlx, img, x, y);
 	temp = new_list(img);
 	add_collectible(&game->collectibles, temp);

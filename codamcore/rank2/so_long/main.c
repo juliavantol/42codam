@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:17:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/16 11:51:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/17 17:46:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char	**argv)
 	char		*temp;
 	t_game		game;
 
-	// atexit(leaks);
 	if (argc != 2)
 		ft_error("Not enough arguments\n");
 	temp = ft_substr(argv[1], ft_strlen(argv[1] + 4), 4);

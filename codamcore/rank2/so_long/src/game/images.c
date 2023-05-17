@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:12:58 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/16 15:31:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/17 20:27:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,17 @@ t_imgs	set_images(mlx_t *mlx)
 {
 	t_imgs	pics;
 
-	pics.floor = get_picture(mlx, "textures/snow.png");
-	pics.wall = get_picture(mlx, "textures/black_wall.png");
+	pics.floor = get_picture(mlx, "textures/tile_32/00.png");
+	pics.wall = get_picture(mlx, "textures/136.png");
 	pics.player_front = get_picture(mlx, "textures/ghosts/front.png");
-	pics.player_back = get_picture(mlx, "textures/ghosts/back.png");
-	pics.player_left = get_picture(mlx, "textures/ghosts/left.png");
-	pics.player_right = get_picture(mlx, "textures/ghosts/right.png");
-	pics.collectible = get_picture(mlx, "textures/porb2.png");
-	pics.exit = get_picture(mlx, "textures/fridgeclosed.png");
+	pics.exit = get_picture(mlx, "textures/FRIDGE_CLOSE2.png");
 	return (pics);
 }
 
 void	put_image(mlx_t *mlx, mlx_image_t *img, int x, int y)
 {
 	if (mlx_image_to_window(mlx, img, y, x) < 0)
-       	ft_error("Image error\n");
+		ft_error("Image error\n");
 }
 
 void	delete_image(mlx_t *mlx, mlx_image_t *img)

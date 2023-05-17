@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/16 15:31:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/17 20:28:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
+# include <stdlib.h>
 
-# define PIXELS 48
+# define PIXELS 64
 
 typedef struct s_node
 {
@@ -54,10 +55,17 @@ typedef struct s_imgs
 	mlx_image_t	*exit;
 }	t_imgs;
 
+typedef struct s_foods
+{
+	char			*path;
+	struct s_foods	*next;
+}	t_foods;
+
 typedef struct s_game
 {
 	mlx_image_t	*player_img;
 	t_node		*collectibles;
+	t_foods		*foods;
 	t_imgs		*pics;
 	t_map		map;
 	bool		won;
@@ -97,4 +105,8 @@ void		free_map(char	**map, int max);
 void		stop_game(t_game *game);
 char		**ft_split_sl(char const *s, char c);
 void		move_player(t_game *game, int direction);
+void		set_foods(t_game *game);
+t_foods		*new_food(char *path);
+char		*get_food(t_game	*game, int index);
+
 #endif
