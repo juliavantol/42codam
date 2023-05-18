@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:12:58 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/17 20:27:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/18 15:07:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ t_imgs	set_images(mlx_t *mlx)
 {
 	t_imgs	pics;
 
-	pics.floor = get_picture(mlx, "textures/tile_32/00.png");
-	pics.wall = get_picture(mlx, "textures/136.png");
-	pics.player_front = get_picture(mlx, "textures/ghosts/front.png");
+	// pics.floor = get_picture(mlx, "textures/brick_48.png");
+	// pics.wall = get_picture(mlx, "textures/dark_wood.png");
+	pics.floor = get_picture(mlx, "textures/light_wood.png");
+	pics.wall = get_picture(mlx, "textures/dark_wood.png");
+	pics.player_front = get_picture(mlx, "textures/player/down2.png");
 	pics.exit = get_picture(mlx, "textures/FRIDGE_CLOSE2.png");
 	return (pics);
 }

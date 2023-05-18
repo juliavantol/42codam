@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/16 13:25:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/18 15:54:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,16 @@
 
 /* Will move the player on the board. 1 for up, 2 for down
 3 for left, 4 for right */
-// void	move_player2(t_game *game, char	*path, int x, int y)
-// {
-// 	mlx_image_t	*temp;
-
-// 	temp = get_picture(game->mlx, path);
-// 	mlx_delete_image(game->mlx, game->player_img);
-// 	put_image(game->mlx, temp, x, y);
-// 	game->player_img = temp;
-// 	game->player_img->instances[0].x = x;
-// 	game->player_img->instances[0].y = y;
-// }
-
-/* Will move the player on the board. 1 for up, 2 for down
-3 for left, 4 for right */
-void	move_player(t_game *game, int direction)
+void	move_player(t_game *game, char	*path, int x, int y)
 {
-	int			x;
-	int			y;
 	mlx_image_t	*temp;
 
-	x = game->player_img->instances[0].x;
-	y = game->player_img->instances[0].y;
-	if (direction == 1)
-	{
-		temp = get_picture(game->mlx, "textures/ghosts/back.png");
-		mlx_delete_image(game->mlx, game->player_img);
-		put_image(game->mlx, temp, x, y);
-		game->player_img = temp;
-		game->player_img->instances[0].x = x;
-		game->player_img->instances[0].y = y - PIXELS;
-	}
-	else if (direction == 2)
-	{
-		temp = get_picture(game->mlx, "textures/ghosts/front.png");
-		mlx_delete_image(game->mlx, game->player_img);
-		put_image(game->mlx, temp, x, y);
-		game->player_img = temp;
-		game->player_img->instances[0].x = x;
-		game->player_img->instances[0].y = y + PIXELS;
-	}
-	else if (direction == 3)
-	{
-		temp = get_picture(game->mlx, "textures/ghosts/left.png");
-		mlx_delete_image(game->mlx, game->player_img);
-		put_image(game->mlx, temp, x, y);
-		game->player_img = temp;
-		game->player_img->instances[0].x = x - PIXELS;
-		game->player_img->instances[0].y = y;
-	}
-	else if (direction == 4)
-	{
-		temp = get_picture(game->mlx, "textures/ghosts/right.png");
-		mlx_delete_image(game->mlx, game->player_img);
-		put_image(game->mlx, temp, x, y);
-		game->player_img = temp;
-		game->player_img->instances[0].x = x + PIXELS;
-		game->player_img->instances[0].y = y;
-	}
+	temp = get_picture(game->mlx, path);
+	mlx_delete_image(game->mlx, game->player_img);
+	put_image(game->mlx, temp, x, y);
+	game->player_img = temp;
+	game->player_img->instances[0].x = x;
+	game->player_img->instances[0].y = y;
 }
 
 int	check_move(t_game *game, int key)

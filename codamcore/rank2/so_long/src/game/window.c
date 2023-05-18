@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/17 19:06:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/18 15:53:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,12 @@ void	parse_map(mlx_t *mlx, t_imgs pics, t_game *game)
 void	key_hooks(mlx_key_data_t key, void *data)
 {
 	t_game	*game;
+	int		x;
+	int		y;
 
 	game = (t_game *)data;
+	x = game->player_img->instances[0].x;
+	y = game->player_img->instances[0].y;
 	if (key.key == MLX_KEY_ESCAPE && key.action == MLX_RELEASE)
 		mlx_close_window(game->mlx);
 	if (check_move(game, key.key) == 0)
@@ -93,16 +97,16 @@ void	key_hooks(mlx_key_data_t key, void *data)
 		display_moves(game->mlx, game);
 	if ((key.key == MLX_KEY_LEFT || key.key == MLX_KEY_A)
 		&& key.action == MLX_RELEASE)
-		move_player(game, 3);
+		move_player(game, "textures/player/left2.png", x - PIXELS, y);
 	else if ((key.key == MLX_KEY_RIGHT || key.key == MLX_KEY_D)
 		&& key.action == MLX_RELEASE)
-		move_player(game, 4);
+		move_player(game, "textures/player/right2.png", x + PIXELS, y);
 	else if ((key.key == MLX_KEY_UP || key.key == MLX_KEY_W)
 		&& key.action == MLX_RELEASE)
-		move_player(game, 1);
+		move_player(game, "textures/player/up2.png", x, y - PIXELS);
 	else if ((key.key == MLX_KEY_DOWN || key.key == MLX_KEY_S)
 		&& key.action == MLX_RELEASE)
-		move_player(game, 2);
+		move_player(game, "textures/player/down2.png", x, y + PIXELS);
 }
 
 void	open_window(t_game game)

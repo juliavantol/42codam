@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/17 20:28:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/18 15:35:35 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
 
-# define PIXELS 64
+# define PIXELS 48
 
 typedef struct s_node
 {
@@ -104,7 +104,7 @@ void		check_walls(t_game game, int i, int j);
 void		free_map(char	**map, int max);
 void		stop_game(t_game *game);
 char		**ft_split_sl(char const *s, char c);
-void		move_player(t_game *game, int direction);
+void		move_player(t_game *game, char	*path, int x, int y);
 void		set_foods(t_game *game);
 t_foods		*new_food(char *path);
 char		*get_food(t_game	*game, int index);
