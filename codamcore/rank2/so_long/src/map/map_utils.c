@@ -6,37 +6,37 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/16 12:12:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/22 11:46:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 /* Checks if all the characters in the line are valid */
-void	valid_character(t_map *data, char *line, int height, int index)
+void	valid_character(t_map *data, char *line, int height, int i)
 {
 	if (if_empty_line(line) == 1)
 		ft_error("Empty lines\n");
-	while (line[index])
+	while (line[i])
 	{
-		if (line[index] == 'P')
+		if (line[i] == 'P')
 		{
 			data->start += 1;
-			data->start_y = index;
+			data->start_y = i;
 			data->start_x = height;
 		}
-		else if (line[index] == 'C')
+		else if (line[i] == 'C')
 			data->collectibles += 1;
-		else if (line[index] == 'E')
+		else if (line[i] == 'E')
 		{
 			data->exit += 1;
-			data->exit_y = index;
+			data->exit_y = i;
 			data->exit_x = height;
 		}
-		if (line[index] != 'P' && line[index] != 'C' && line[index] != 'E'
-			&& line[index] != '0' && line[index] != '1' && line[index] != '\n')
+		if (line[i] != 'P' && line[i] != 'C' && line[i] != 'E' && line[i] != 'X'
+			&& line[i] != '0' && line[i] != '1' && line[i] != '\n')
 			ft_error("Map contains invalid components\n");
-		index++;
+		i++;
 	}
 }
 
