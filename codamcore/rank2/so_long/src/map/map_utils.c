@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/22 11:46:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/22 12:56:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	valid_character(t_map *data, char *line, int height, int i)
 	}
 }
 
-void	check_walls(t_game game, int i, int j)
+int	check_walls(t_game game, int i, int j)
 {
 	while (game.map.map[i][j])
 	{
@@ -66,4 +66,5 @@ void	check_walls(t_game game, int i, int j)
 		if (game.map.map[i++][j] != '1')
 			ft_error("Map not surrounded by walls\n");
 	}
+	return (1);
 }

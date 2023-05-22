@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/17 19:11:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/22 13:34:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	add_collectible(t_node **collectibles, t_node *new)
 		while (last -> next != NULL)
 			last = last -> next;
 		new -> next = NULL;
-		last -> next = new;		
+		last -> next = new;
 	}
 }
 

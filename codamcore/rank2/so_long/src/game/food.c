@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/17 18:26:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/17 19:06:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/22 14:17:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_food(t_foods **foods, t_foods *new)
 		while (last -> next != NULL)
 			last = last -> next;
 		new -> next = NULL;
-		last -> next = new;		
+		last -> next = new;
 	}
 }
 
@@ -61,7 +61,7 @@ t_foods	*new_food(char *path)
 void	set_foods(t_game *game)
 {
 	t_foods	*foods;
-	
+
 	game->foods = NULL;
 	foods = NULL;
 	add_food(&foods, new_food("textures/food_48/apple1.png"));

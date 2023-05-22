@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 12:44:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/22 14:29:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef struct s_node
 	bool			found;
 	struct s_node	*next;
 }	t_node;
+
+typedef struct s_mouse
+{
+	mlx_image_t		*img;
+	struct s_mouse	*next;
+}	t_mouse;
 
 typedef struct s_map
 {
@@ -74,6 +80,7 @@ typedef struct s_game
 	mlx_t		*mlx;
 	char		**temp_grid;
 	int			exit[2];
+	t_mouse		*mice;
 }	t_game;
 
 void		ft_error(char *str);
@@ -100,7 +107,7 @@ void		put_collectible(mlx_t *mlx, t_game *game, int x, int y);
 void		valid_character(t_map *data, char *line, int height, int index);
 t_map		check_characters(t_map map, int length);
 t_game		init_game(int file, char *filename);
-void		check_walls(t_game game, int i, int j);
+int			check_walls(t_game game, int i, int j);
 void		free_map(char	**map, int max);
 void		stop_game(t_game *game);
 char		**ft_split_sl(char const *s, char c);
@@ -109,5 +116,8 @@ void		set_foods(t_game *game);
 t_foods		*new_food(char *path);
 char		*get_food(t_game	*game, int index);
 void		put_enemy(mlx_t *mlx, int x, int y);
+void		add_enemy(t_game *game, mlx_image_t *img);
+void		add_enemies(t_game *game);
+void		move_enemies(t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:12:58 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 11:55:19 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/22 13:39:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,4 @@ void	put_image(mlx_t *mlx, mlx_image_t *img, int x, int y)
 void	delete_image(mlx_t *mlx, mlx_image_t *img)
 {
 	mlx_delete_image(mlx, img);
-}
-
-void	put_enemy(mlx_t *mlx, int x, int y)
-{
-	mlx_image_t		*img;
-
-	img = get_picture(mlx, "textures/mouse/right2.png");
-	put_image(mlx, img, x, y);
 }

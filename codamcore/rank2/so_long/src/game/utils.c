@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:34:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/16 12:13:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/22 16:20:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,23 @@ void	stop_game(t_game *game)
 	mlx_close_window(game->mlx);
 	mlx_terminate(game->mlx);
 	exit(EXIT_SUCCESS);
+}
+
+void	print_map(char **map)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	while(map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			printf("%c", map[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 }
