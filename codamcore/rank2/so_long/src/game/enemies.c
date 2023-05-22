@@ -6,32 +6,32 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 12:24:06 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 18:06:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/22 22:54:15 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	change_enemy(t_game *game, int index, mlx_image_t *new)
-{
-	t_mouse	*mouse;
-	t_mouse	*temp;
-	int		i;
+// void	change_enemy(t_game *game, int index, mlx_image_t *new)
+// {
+// 	t_mouse	*mouse;
+// 	t_mouse	*temp;
+// 	int		i;
 
-	mouse = game->mice;
-	i = 0;
-	while (mouse != NULL && i != index)
-	{
-		if (i == index)
-		{
-			temp = mouse->img;
-			mlx_delete_image(game->mlx, temp);
-			mouse -> img = new;
-		}
-		mouse = mouse -> next;
-		i++;
-	}
-}
+// 	mouse = game->mice;
+// 	i = 0;
+// 	while (mouse != NULL && i != index)
+// 	{
+// 		if (i == index)
+// 		{
+// 			temp = mouse->img;
+// 			mlx_delete_image(game->mlx, temp);
+// 			mouse -> img = new;
+// 		}
+// 		mouse = mouse -> next;
+// 		i++;
+// 	}
+// }
 
 void	add_enemy(t_game *game, mlx_image_t *img)
 {
@@ -44,18 +44,19 @@ void	add_enemy(t_game *game, mlx_image_t *img)
 	new -> next = NULL;
 	if (game->mice == NULL)
 	{
-		new -> next = NULL;
 		game->mice = new;
+		new -> next = NULL;
 	}
 	else
 	{
 		while (last -> next != NULL)
 			last = last -> next;
 		last -> next = new;
+		new -> next = NULL;
 	}
 }
 
-void	move_enemy(t_mouse *mouse, t_game *game, int x, int y)
+mlx_image_t	*move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 {
 	mlx_image_t	*temp;
 	int			i;
@@ -72,13 +73,13 @@ void	move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 		temp = get_picture(game->mlx, "textures/mouse/left2.png");
 	else if (x == 0 && y == 1)
 		temp = get_picture(game->mlx, "textures/mouse/down2.png");
-	// mlx_delete_image(game->mlx, mouse);
-	// put_image(game->mlx, temp, i, j);
+
 	if (game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
 	{
-		mouse->img->instances[0].x = i * PIXELS;
-		mouse->img->instances[0].y = j * PIXELS;
+		temp->instances[0].x = i * PIXELS;
+		temp->instances[0].y = j * PIXELS;
 	}
+	return (temp);
 }
 
 void	try_move(t_mouse *mouse, t_game *game, int i, int j)

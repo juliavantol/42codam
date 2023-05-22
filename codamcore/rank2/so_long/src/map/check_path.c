@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/11 14:39:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 13:24:19 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/22 22:30:57 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ void	check_path(t_map map, t_game *game)
 {
 	char	**temp_grid;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	temp_grid = (char **)malloc(map.height * sizeof(char *));
 	while (i < map.height)
 	{
