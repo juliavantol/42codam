@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 12:24:06 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 22:54:15 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/22 23:07:21 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	add_enemy(t_game *game, mlx_image_t *img)
 	}
 }
 
-mlx_image_t	*move_enemy(t_mouse *mouse, t_game *game, int x, int y)
+mlx_image_t *move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 {
 	mlx_image_t	*temp;
 	int			i;
@@ -74,15 +74,16 @@ mlx_image_t	*move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 	else if (x == 0 && y == 1)
 		temp = get_picture(game->mlx, "textures/mouse/down2.png");
 
-	if (game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
+	if ((game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
+		&& temp != NULL)
 	{
-		temp->instances[0].x = i * PIXELS;
-		temp->instances[0].y = j * PIXELS;
+		put_image(game->mlx, temp, i * PIXELS, j * PIXELS);
+		return (temp);
 	}
-	return (temp);
+	return (NULL);
 }
 
-void	try_move(t_mouse *mouse, t_game *game, int i, int j)
+mlx_image_t *try_move(t_mouse *mouse, t_game *game, int i, int j)
 {
 	int	x;
 	int	y;
@@ -99,7 +100,8 @@ void	try_move(t_mouse *mouse, t_game *game, int i, int j)
 			j = (mouse->img->instances[0].y + (y * PIXELS)) / PIXELS;
 			if (game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
 			{
-				move_enemy(mouse, game, x, y);
+				if (move_enemy(mouse, game, x, y) != NULL)
+					return (move_enemy(mouse, game, x, y));
 				try = 5;
 			}
 			try++;
@@ -107,16 +109,18 @@ void	try_move(t_mouse *mouse, t_game *game, int i, int j)
 		else
 			try++;
 	}
+	return (NULL);
 }
 
 void	move_enemies(t_game *game)
 {
-	t_mouse	*mouse;
+	t_mouse			*mouse;
+	mlx_image_t		*new;
 
 	mouse = game->mice;
 	while (mouse != NULL)
 	{
-		try_move(mouse, game, 0, 0);
+		new = try_move(mouse, game, 0, 0);
 		mouse = mouse -> next;
 	}
 }
