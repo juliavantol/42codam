@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/23 13:14:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/23 13:55:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char		*get_food(t_game	*game, int index);
 void		put_enemy(mlx_t *mlx, int x, int y);
 void		add_enemy(t_game *game, mlx_image_t *img);
 void		add_enemies(t_game *game);
-void		move_enemies(t_game *game);
+void		move_enemies(void *data);
 void		print_enemies(t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/23 13:34:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/23 13:54:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	key_hooks(mlx_key_data_t key, void *data)
 	else if (key.action == MLX_RELEASE)
 	{
 		display_moves(game->mlx, game);
-		move_enemies(game);
 	}
 	if ((key.key == MLX_KEY_LEFT || key.key == MLX_KEY_A)
 		&& key.action == MLX_RELEASE)
@@ -134,6 +133,7 @@ void	open_window(t_game game)
 		backdrop-> width * backdrop->height * sizeof(int));
 	mlx_image_to_window(mlx, backdrop, 0, (game.map.height) * PIXELS);
 	mlx_key_hook(mlx, &key_hooks, &game);
+	mlx_loop_hook(mlx, move_enemies, &game);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }
