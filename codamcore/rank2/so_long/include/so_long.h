@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/23 13:55:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/23 14:29:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 
 # define PIXELS 48
+# define ENEMY_SPEED 22
 
 typedef struct s_node
 {

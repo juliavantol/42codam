@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 12:24:06 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/23 14:27:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/23 14:31:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void	move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 	{
 		mlx_delete_image(game->mlx, mouse -> img);
 		put_image(game->mlx, temp, j * PIXELS, i * PIXELS);
-		// mouse->img->instances[0].x = i * PIXELS;
-		// mouse->img->instances[0].y = i * PIXELS;
 		mouse -> img = temp;
 	}
 }
@@ -128,7 +126,7 @@ void	move_enemies(void *data)
 
 	game = (t_game *)data;
 	mouse = game->mice;
-	if (runs++ < 22)
+	if (runs++ < ENEMY_SPEED)
 		return ;
 	while (mouse != NULL)
 	{
