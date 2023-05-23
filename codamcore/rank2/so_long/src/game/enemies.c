@@ -6,12 +6,23 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 12:24:06 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 23:07:21 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/23 13:44:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	print_enemies(t_game *game)
+{
+	t_mouse			*mouse;
+
+	mouse = game->mice;
+	while (mouse != NULL)
+	{
+		printf("%d\n", mouse -> test);
+		mouse = mouse -> next;
+	}
+}
 // void	change_enemy(t_game *game, int index, mlx_image_t *new)
 // {
 // 	t_mouse	*mouse;
@@ -44,19 +55,18 @@ void	add_enemy(t_game *game, mlx_image_t *img)
 	new -> next = NULL;
 	if (game->mice == NULL)
 	{
-		game->mice = new;
 		new -> next = NULL;
+		game->mice = new;
 	}
 	else
 	{
 		while (last -> next != NULL)
 			last = last -> next;
 		last -> next = new;
-		new -> next = NULL;
 	}
 }
 
-mlx_image_t *move_enemy(t_mouse *mouse, t_game *game, int x, int y)
+void	move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 {
 	mlx_image_t	*temp;
 	int			i;
@@ -73,17 +83,17 @@ mlx_image_t *move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 		temp = get_picture(game->mlx, "textures/mouse/left2.png");
 	else if (x == 0 && y == 1)
 		temp = get_picture(game->mlx, "textures/mouse/down2.png");
-
-	if ((game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
-		&& temp != NULL)
+	if (game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
 	{
-		put_image(game->mlx, temp, i * PIXELS, j * PIXELS);
-		return (temp);
+		mlx_delete_image(game->mlx, mouse -> img);
+		put_image(game->mlx, temp, j * PIXELS, i * PIXELS);
+		// mouse->img->instances[0].x = i * PIXELS;
+		// mouse->img->instances[0].y = i * PIXELS;
+		mouse -> img = temp;
 	}
-	return (NULL);
 }
 
-mlx_image_t *try_move(t_mouse *mouse, t_game *game, int i, int j)
+void	try_move(t_mouse *mouse, t_game *game, int i, int j)
 {
 	int	x;
 	int	y;
@@ -100,8 +110,7 @@ mlx_image_t *try_move(t_mouse *mouse, t_game *game, int i, int j)
 			j = (mouse->img->instances[0].y + (y * PIXELS)) / PIXELS;
 			if (game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
 			{
-				if (move_enemy(mouse, game, x, y) != NULL)
-					return (move_enemy(mouse, game, x, y));
+				move_enemy(mouse, game, x, y);
 				try = 5;
 			}
 			try++;
@@ -109,18 +118,16 @@ mlx_image_t *try_move(t_mouse *mouse, t_game *game, int i, int j)
 		else
 			try++;
 	}
-	return (NULL);
 }
 
 void	move_enemies(t_game *game)
 {
-	t_mouse			*mouse;
-	mlx_image_t		*new;
+	t_mouse	*mouse;
 
 	mouse = game->mice;
 	while (mouse != NULL)
 	{
-		new = try_move(mouse, game, 0, 0);
+		try_move(mouse, game, 0, 0);
 		mouse = mouse -> next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 22:47:19 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/23 13:34:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	display_moves(mlx_t *mlx, t_game *game)
 	game->moves += 1;
 	free(temp);
 	free(str);
-	move_enemies(game);
 }
 
 void	fill_backdrop(mlx_t *mlx, t_imgs pics, t_game *game)
@@ -95,7 +94,10 @@ void	key_hooks(mlx_key_data_t key, void *data)
 	if (check_move(game, key.key) == 0)
 		return ;
 	else if (key.action == MLX_RELEASE)
+	{
 		display_moves(game->mlx, game);
+		move_enemies(game);
+	}
 	if ((key.key == MLX_KEY_LEFT || key.key == MLX_KEY_A)
 		&& key.action == MLX_RELEASE)
 		move_player(game, "textures/player/left2.png", x - PIXELS, y);
