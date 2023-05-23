@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 12:24:06 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/23 14:31:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/24 00:14:00 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,7 @@ void	print_enemies(t_game *game)
 		mouse = mouse -> next;
 	}
 }
-// void	change_enemy(t_game *game, int index, mlx_image_t *new)
-// {
-// 	t_mouse	*mouse;
-// 	t_mouse	*temp;
-// 	int		i;
 
-// 	mouse = game->mice;
-// 	i = 0;
-// 	while (mouse != NULL && i != index)
-// 	{
-// 		if (i == index)
-// 		{
-// 			temp = mouse->img;
-// 			mlx_delete_image(game->mlx, temp);
-// 			mouse -> img = new;
-// 		}
-// 		mouse = mouse -> next;
-// 		i++;
-// 	}
-// }
 
 void	add_enemy(t_game *game, mlx_image_t *img)
 {
@@ -85,10 +66,13 @@ void	move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 		temp = get_picture(game->mlx, "textures/mouse/down2.png");
 	if (game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
 	{
+		game->map.map[mouse->img->instances[0].y / PIXELS][mouse->img->instances[0].x / PIXELS] = '0';
 		mlx_delete_image(game->mlx, mouse -> img);
 		put_image(game->mlx, temp, j * PIXELS, i * PIXELS);
 		mouse -> img = temp;
+		game->map.map[j][i] = 'X';
 	}
+	
 }
 
 void	try_move(t_mouse *mouse, t_game *game, int i, int j)

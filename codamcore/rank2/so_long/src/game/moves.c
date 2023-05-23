@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 22:37:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/24 00:09:11 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@
 void	move_player(t_game *game, char	*path, int x, int y)
 {
 	mlx_image_t	*temp;
+	int			x_old;
+	int			y_old;
 
 	temp = get_picture(game->mlx, path);
+	x_old = game->player_img->instances[0].x / PIXELS;
+	y_old = game->player_img->instances[0].y / PIXELS;
+	game->map.map[y_old][x_old] = '0';
 	mlx_delete_image(game->mlx, game->player_img);
 	put_image(game->mlx, temp, x, y);
 	game->player_img = temp;
 	game->player_img->instances[0].x = x;
 	game->player_img->instances[0].y = y;
+	game->map.map[y / PIXELS][x / PIXELS] = 'P';
 }
 
 int	check_move(t_game *game, int key)
