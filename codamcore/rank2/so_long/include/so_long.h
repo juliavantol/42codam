@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/24 12:33:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/24 13:58:51 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_imgs
 	mlx_image_t	*player_right;
 	mlx_image_t	*collectible;
 	mlx_image_t	*exit;
+	mlx_image_t	*exit_end;
 }	t_imgs;
 
 typedef struct s_foods
@@ -72,6 +73,7 @@ typedef struct s_foods
 typedef struct s_game
 {
 	mlx_image_t	*player_img;
+	mlx_image_t	*exit_img;
 	t_node		*collectibles;
 	t_foods		*foods;
 	t_imgs		*pics;

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 13:34:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/24 14:01:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	check_status(t_game *game)
 
 void	found_collectible(t_game *game, int x, int y)
 {
-	t_node	*head;
+	t_node		*head;
+	mlx_image_t	*exit;
 
 	head = *(&game->collectibles);
 	if (head == NULL)
@@ -79,6 +80,12 @@ void	found_collectible(t_game *game, int x, int y)
 			head->found = true;
 		}
 		head = head -> next;
+	}
+	if (check_status(game) == 1)
+	{
+		game->exit_img->enabled = false;
+		exit = get_picture(game->mlx, "textures/FRIDGE_OPEN2.png");
+		put_image(game->mlx, exit, game->exit_img->instances[0].y, game->exit_img->instances[0].x);
 	}
 }
 

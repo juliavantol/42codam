@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/23 13:54:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/24 13:59:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ void	parse_map(mlx_t *mlx, t_imgs pics, t_game *game)
 			else if (game->map.map[x][y] == 'C')
 				put_collectible(mlx, game, x * PIXELS, y * PIXELS);
 			else if (game->map.map[x][y] == 'E')
+			{
 				put_image(mlx, pics.exit, x * PIXELS, y * PIXELS);
+				game->exit_img = pics.exit;
+			}
 			y++;
 		}
 		x++;
