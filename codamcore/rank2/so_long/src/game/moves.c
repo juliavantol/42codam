@@ -6,11 +6,29 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/24 00:15:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/24 12:34:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	check_collision(t_game	*game)
+{
+	int			x_player;
+	int			y_player;
+	t_mouse		*mouse;
+
+	x_player = game->player_img->instances[0].x;
+	y_player = game->player_img->instances[0].y;
+	mouse = game->mice;
+	while (mouse != NULL)
+	{
+		if (mouse->img->instances[0].x == x_player
+			&& mouse->img->instances[0].y == y_player)
+			close_window();
+		mouse = mouse -> next;
+	}
+}
 
 /* Will move the player on the board. 1 for up, 2 for down
 3 for left, 4 for right */
@@ -51,7 +69,7 @@ int	check_move(t_game *game, int key)
 	y = y / PIXELS;
 	if (game->map.map[y][x] == 'C')
 		found_collectible(game, x, y);
-	if ((game->map.map[y][x] == 'E' && check_status(game) == 1) || game->map.map[y][x] == 'X')
+	if ((game->map.map[y][x] == 'E' && check_status(game) == 1))
 		close_window();
 	else if (game->map.map[y][x] == 'E' || game->map.map[y][x] == '1')
 		return (0);

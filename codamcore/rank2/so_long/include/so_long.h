@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/23 14:29:31 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/24 12:33:59 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,7 @@ void		add_enemy(t_game *game, mlx_image_t *img);
 void		add_enemies(t_game *game);
 void		move_enemies(void *data);
 void		print_enemies(t_game *game);
+void		try_move(t_mouse *mouse, t_game *game, int i, int j);
+void		check_collision(t_game	*game);
 
 #endif
