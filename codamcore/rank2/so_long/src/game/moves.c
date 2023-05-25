@@ -6,11 +6,33 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/24 12:34:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/25 16:49:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	animate_player(t_game *game)
+{
+	// mlx_image_t	*temp;
+	int			x_old;
+	int			y_old;
+
+	x_old = game->player_img->instances[0].x;
+	y_old = game->player_img->instances[0].y;
+	printf("%d\n", game->loop);
+	if (game->loop < 3)
+		game->loop += 1;
+	else
+		game->loop = 1;
+	// temp = get_picture(game->mlx, "textures/grandma/down2.png");
+	// mlx_delete_image(game->mlx, game->player_img);
+	// put_image(game->mlx, temp, x_old, y_old);
+	// game->player_img = temp;
+	// game->player_img->instances[0].x = x_old;
+	// game->player_img->instances[0].y = y_old;
+
+}
 
 void	check_collision(t_game	*game)
 {

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/24 13:58:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/25 16:36:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_game
 	char		**temp_grid;
 	int			exit[2];
 	t_mouse		*mice;
+	int			loop;
 }	t_game;
 
 void		ft_error(char *str);
@@ -126,5 +127,6 @@ void		move_enemies(void *data);
 void		print_enemies(t_game *game);
 void		try_move(t_mouse *mouse, t_game *game, int i, int j);
 void		check_collision(t_game	*game);
+void		animate_player(t_game *game);
 
 #endif
