@@ -6,33 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/25 16:49:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 14:35:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	animate_player(t_game *game)
-{
-	// mlx_image_t	*temp;
-	int			x_old;
-	int			y_old;
-
-	x_old = game->player_img->instances[0].x;
-	y_old = game->player_img->instances[0].y;
-	printf("%d\n", game->loop);
-	if (game->loop < 3)
-		game->loop += 1;
-	else
-		game->loop = 1;
-	// temp = get_picture(game->mlx, "textures/grandma/down2.png");
-	// mlx_delete_image(game->mlx, game->player_img);
-	// put_image(game->mlx, temp, x_old, y_old);
-	// game->player_img = temp;
-	// game->player_img->instances[0].x = x_old;
-	// game->player_img->instances[0].y = y_old;
-
-}
 
 void	check_collision(t_game	*game)
 {
@@ -96,4 +74,28 @@ int	check_move(t_game *game, int key)
 	else if (game->map.map[y][x] == 'E' || game->map.map[y][x] == '1')
 		return (0);
 	return (1);
+}
+
+void	prepare_move(t_game *game, mlx_key_data_t key, int x, int y)
+{
+	if (key.key == MLX_KEY_LEFT || key.key == MLX_KEY_A)
+	{
+		game->direction = 'l';
+		move_player(game, "textures/grandma/left2.png", x - PIXELS, y);
+	}
+	else if (key.key == MLX_KEY_RIGHT || key.key == MLX_KEY_D)
+	{
+		game->direction = 'r';
+		move_player(game, "textures/grandma/right2.png", x + PIXELS, y);
+	}
+	else if (key.key == MLX_KEY_UP || key.key == MLX_KEY_W)
+	{
+		game->direction = 'u';
+		move_player(game, "textures/grandma/up2.png", x, y - PIXELS);
+	}
+	else if (key.key == MLX_KEY_DOWN || key.key == MLX_KEY_S)
+	{
+		game->direction = 'd';
+		move_player(game, "textures/grandma/down2.png", x, y + PIXELS);
+	}	
 }

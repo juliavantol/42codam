@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 12:24:06 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/25 16:47:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 14:25:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	move_enemies(void *data)
 	check_collision(game);
 	if (runs++ < ENEMY_SPEED)
 		return ;
-	animate_player(game);
+	animate_player(game, "a");
 	while (mouse != NULL)
 	{
 		try_move(mouse, game, 0, 0);
