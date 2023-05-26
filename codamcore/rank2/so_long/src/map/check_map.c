@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 11:40:14 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 14:08:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 17:36:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_game	init_game(int file, char *filename)
 
 	map.exit = 0;
 	map.start = 0;
+	map.free_tiles = 0;
+	map.free_tiles2 = NULL;
 	map.collectibles = 0;
 	map.file_name = filename;
 	map.file = file;

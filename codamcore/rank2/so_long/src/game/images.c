@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:12:58 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/25 15:32:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 17:06:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ mlx_image_t	*get_picture(mlx_t *mlx, char *path)
 
 	texture = mlx_load_png(path);
 	if (!texture)
+	{
+		printf("path: %s\n", path);
 		ft_error("Texture error\n");
+	}
 	img = mlx_texture_to_image(mlx, texture);
 	if (!img)
 		ft_error("Image error\n");

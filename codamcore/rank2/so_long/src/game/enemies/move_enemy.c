@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 12:22:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/24 12:39:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 17:51:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ void	move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 		temp = get_picture(game->mlx, "textures/mouse/down2.png");
 	if (game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
 	{
-		game->map.map[mouse->img->instances[0].y / PIXELS][mouse->img->instances[0].x / PIXELS] = '0';
+		game->map.map[mouse->img->instances[0].y
+			/ PIXELS][mouse->img->instances[0].x / PIXELS] = '0';
 		mlx_delete_image(game->mlx, mouse -> img);
-		put_image(game->mlx, temp, j * PIXELS, i * PIXELS);
-		mouse -> img = temp;
+		// put_image(game->mlx, temp, j * PIXELS, i * PIXELS);
+		// mouse -> img = temp;
 		game->map.map[j][i] = 'X';
 	}
 }
 
-void	try_move(t_mouse *mouse, t_game *game, int i, int j)
+void	try_move(t_mouse *mouse, t_game *game, int height, int width)
 {
 	int	x;
 	int	y;
@@ -52,11 +53,12 @@ void	try_move(t_mouse *mouse, t_game *game, int i, int j)
 		y = (rand() % 3) - 1;
 		if ((x - y) == 1 || (x - y) == -1)
 		{
-			i = (mouse->img->instances[0].x + (x * PIXELS)) / PIXELS;
-			j = (mouse->img->instances[0].y + (y * PIXELS)) / PIXELS;
-			if (game->map.map[j][i] == '0' || game->map.map[j][i] == 'P')
+			width = (mouse->img->instances[0].y + (y * PIXELS)) / PIXELS;
+			height = (mouse->img->instances[0].x + (x * PIXELS)) / PIXELS;
+			if (game->map.map[width][height] == '0' || game->map.map[width][height] == 'P')
 			{
-				move_enemy(mouse, game, x, y);
+				printf("mouse now: %d %d\n", width, height);
+				// move_enemy(mouse, game, x, y);
 				try = 5;
 			}
 			try++;

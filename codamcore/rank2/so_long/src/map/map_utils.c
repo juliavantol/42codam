@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/22 12:56:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 17:24:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	valid_character(t_map *data, char *line, int height, int i)
 		}
 		else if (line[i] == 'C')
 			data->collectibles += 1;
+		else if (line[i] == '0')
+			add_tile(data, &data->free_tiles2, i, height);
 		else if (line[i] == 'E')
 		{
 			data->exit += 1;
@@ -67,4 +69,43 @@ int	check_walls(t_game game, int i, int j)
 			ft_error("Map not surrounded by walls\n");
 	}
 	return (1);
+}
+
+void	add_tile(t_map *data, t_tile **free_tiles, int x, int y)
+{
+	t_tile	*tile;
+	t_tile	*last;
+
+	tile = malloc(sizeof(t_tile));
+	if (tile == NULL)
+		ft_error("Malloc\n");
+	tile->x = x;
+	tile->y = y;
+	tile->enemy = false;
+	last = *free_tiles;
+	if (*free_tiles == NULL)
+	{
+		tile -> next = NULL;
+		*free_tiles = tile;
+	}
+	else
+	{
+		while (last -> next != NULL)
+			last = last -> next;
+		tile -> next = NULL;
+		last -> next = tile;
+	}
+	data->free_tiles += 1;
+}
+
+void	print_tiles(t_tile	**tiles)
+{
+	t_tile	*tile;
+
+	tile = *tiles;
+	while (tile != NULL)
+	{
+		printf("x: %d y: %d\n", tile->x, tile->y);
+		tile = tile -> next;
+	}
 }

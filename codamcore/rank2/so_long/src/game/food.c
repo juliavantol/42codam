@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/17 18:26:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/22 14:17:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 17:08:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ void	set_foods(t_game *game)
 	add_food(&foods, new_food("textures/food_48/apple2.png"));
 	add_food(&foods, new_food("textures/food_48/apple3.png"));
 	add_food(&foods, new_food("textures/food_48/apple4.png"));
-	add_food(&foods, new_food( "textures/food_48/grape1.png"));
-	add_food(&foods, new_food( "textures/food_48/grape2.png"));
-	add_food(&foods, new_food( "textures/food_48/grape3.png"));
-	add_food(&foods, new_food( "textures/food_48/peach.png"));
-	add_food(&foods, new_food( "textures/food_48/pear1.png"));
-	add_food(&foods, new_food( "textures/food_48/pear2.png"));
-	add_food(&foods, new_food( "textures/food_48/mandarin.png"));
+	add_food(&foods, new_food("textures/food_48/grape1.png"));
+	add_food(&foods, new_food("textures/food_48/grape2.png"));
+	add_food(&foods, new_food("textures/food_48/grape3.png"));
+	add_food(&foods, new_food("textures/food_48/peach.png"));
+	add_food(&foods, new_food("textures/food_48/pear1.png"));
+	add_food(&foods, new_food("textures/food_48/pear2.png"));
+	add_food(&foods, new_food("textures/food_48/mandarin.png"));
 	game->foods = foods;
 }

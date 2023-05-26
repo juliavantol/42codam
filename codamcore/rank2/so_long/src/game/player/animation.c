@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 14:11:26 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 14:27:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 17:16:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,10 @@ char	*animate_right(t_game *game)
 	return (path);
 }
 
-void	animate_player(t_game *game, char *path)
+void	animate_player(t_game *game, char *path, int x, int y)
 {
-	int			x;
-	int			y;
 	mlx_image_t	*temp;
 
-	x = game->player_img->instances[0].x;
-	y = game->player_img->instances[0].y;
 	if (game->loop < 3)
 		game->loop += 1;
 	else
@@ -88,10 +84,13 @@ void	animate_player(t_game *game, char *path)
 		path = animate_left(game);
 	else if (game->direction == 'r')
 		path = animate_right(game);
-	temp = get_picture(game->mlx, path);
-	mlx_delete_image(game->mlx, game->player_img);
-	put_image(game->mlx, temp, x, y);
-	game->player_img = temp;
-	game->player_img->instances[0].x = x;
-	game->player_img->instances[0].y = y;
+	if (path != NULL)
+	{
+		temp = get_picture(game->mlx, path);
+		mlx_delete_image(game->mlx, game->player_img);
+		put_image(game->mlx, temp, x, y);
+		game->player_img = temp;
+		game->player_img->instances[0].x = x;
+		game->player_img->instances[0].y = y;
+	}
 }

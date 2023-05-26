@@ -8,7 +8,7 @@ SRC = include/get_next_line/get_next_line.c include/get_next_line/get_next_line_
 		src/game/collectibles.c src/map/map_utils.c src/game/window.c src/game/images.c \
 		src/game/moves.c src/map/check_path.c src/map/check_map.c src/game/utils.c main.c \
 		src/game/food.c src/game/enemies/enemies.c src/game/enemies/move_enemy.c \
-		src/game/player/animation.c
+		src/game/player/animation.c src/game/enemies/spawn_enemies.c
 
 OBJ = $(SRC:%.c=%.o)
 

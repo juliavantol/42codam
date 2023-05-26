@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 14:25:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 17:24:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,30 @@ typedef struct s_mouse
 	struct s_mouse	*next;
 }	t_mouse;
 
+typedef struct s_tile
+{
+	int				x;
+	int				y;
+	bool			enemy;
+	struct s_tile	*next;
+}	t_tile;
+
 typedef struct s_map
 {
-	int		file;
-	char	*file_name;
-	char	**map;
-	int		width;
-	int		height;
-	int		exit;
-	int		exit_x;
-	int		exit_y;
-	int		start;
-	int		start_x;
-	int		start_y;
-	int		collectibles;
+	int			file;
+	char		*file_name;
+	char		**map;
+	int			width;
+	int			height;
+	int			exit;
+	int			exit_x;
+	int			exit_y;
+	int			start;
+	int			start_x;
+	int			start_y;
+	int			free_tiles;
+	t_tile		*free_tiles2;
+	int			collectibles;
 }	t_map;
 
 typedef struct s_imgs
@@ -128,7 +138,10 @@ void		move_enemies(void *data);
 void		print_enemies(t_game *game);
 void		try_move(t_mouse *mouse, t_game *game, int i, int j);
 void		check_collision(t_game	*game);
-void		animate_player(t_game *game, char *path);
+void		animate_player(t_game *game, char *path, int x, int y);
 void		prepare_move(t_game *game, mlx_key_data_t key, int x, int y);
+void		spawn_enemies(t_game *game);
+void		add_tile(t_map *data, t_tile **free_tiles, int x, int y);
+void		print_tiles(t_tile	**tiles);
 
 #endif

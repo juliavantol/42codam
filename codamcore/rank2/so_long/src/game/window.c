@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 14:37:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/26 17:40:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ void	open_window(t_game game)
 	game.direction = 'd';
 	fill_backdrop(mlx, pics, &game);
 	parse_map(mlx, pics, &game);
-	add_enemies(&game);
+	spawn_enemies(&game);
+	// add_enemies(&game);
 	display_moves(game.mlx, &game);
 	backdrop = mlx_new_image(mlx, game.map.width * PIXELS, 1 * PIXELS);
 	ft_memset(backdrop->pixels, 0,
