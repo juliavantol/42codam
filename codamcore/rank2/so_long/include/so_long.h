@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 22:18:31 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/28 22:25:58 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_node
 typedef struct s_mouse
 {
 	mlx_image_t		*img;
+	int				x;
+	int				y;
 	struct s_mouse	*next;
 }	t_mouse;
 

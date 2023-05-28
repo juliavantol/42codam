@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 12:22:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 21:23:12 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/28 22:27:25 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,20 @@ void	move_enemy(t_mouse *mouse, t_game *game, int steps_x, int steps_y)
 
 void	try_move(t_mouse *mouse, t_game *game, int height, int width)
 {
-	int	x;
-	int	y;
 	int	try;
 
 	try = 0;
 	while (try < 5)
 	{
-		x = (rand() % 3) - 1;
-		y = (rand() % 3) - 1;
-		if ((x - y) == 1 || (x - y) == -1)
+		mouse->x = (rand() % 3) - 1;
+		mouse->y = (rand() % 3) - 1;
+		if ((mouse->x - mouse->y) == 1 || (mouse->x - mouse->y) == -1)
 		{
-			height = (mouse->img->instances[0].y + (y * PIXELS)) / PIXELS;
-			width = (mouse->img->instances[0].x + (x * PIXELS)) / PIXELS;
+			height = (mouse->img->instances[0].y + (mouse->y * PIXELS)) / PIXELS;
+			width = (mouse->img->instances[0].x + (mouse->x * PIXELS)) / PIXELS;
 			if (game->map.map[height][width] == '0' || game->map.map[height][width] == 'P')
 			{
-				move_enemy(mouse, game, x, y);
+				move_enemy(mouse, game, mouse->x, mouse->y);
 				return ;
 			}
 			try++;
