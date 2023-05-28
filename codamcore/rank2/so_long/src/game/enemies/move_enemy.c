@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 12:22:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 22:30:35 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/28 22:32:19 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	move_enemy(t_mouse *mouse, t_game *game, int line, int row)
 	}
 }
 
-void	try_move(t_mouse *mouse, t_game *game, int height, int width)
+void	try_move(t_mouse *mouse, t_game *game, int line, int row)
 {
 	int	try;
 
@@ -47,11 +47,11 @@ void	try_move(t_mouse *mouse, t_game *game, int height, int width)
 		mouse->y = (rand() % 3) - 1;
 		if ((mouse->x - mouse->y) == 1 || (mouse->x - mouse->y) == -1)
 		{
-			height = (mouse->img->instances[0].y + (mouse->y * PIXELS)) / PIXELS;
-			width = (mouse->img->instances[0].x + (mouse->x * PIXELS)) / PIXELS;
-			if (game->map.map[height][width] == '0' || game->map.map[height][width] == 'P')
+			line = (mouse->img->instances[0].y + (mouse->y * PIXELS)) / PIXELS;
+			row = (mouse->img->instances[0].x + (mouse->x * PIXELS)) / PIXELS;
+			if (game->map.map[line][row] == '0' || game->map.map[line][row] == 'P')
 			{
-				move_enemy(mouse, game, height, width);
+				move_enemy(mouse, game, line, row);
 				return ;
 			}
 			try++;
