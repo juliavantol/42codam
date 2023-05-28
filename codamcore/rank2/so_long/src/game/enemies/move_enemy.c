@@ -6,37 +6,37 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 12:22:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 18:00:09 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/28 21:17:42 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	move_enemy(t_mouse *mouse, t_game *game, int width, int height)
+void	move_enemy(t_mouse *mouse, t_game *game, int steps_x, int steps_y)
 {
 	mlx_image_t	*temp;
 	int			mouse_row;
 	int			mouse_line;
 
 	temp = NULL;
-	mouse_row = (mouse->img->instances[0].x + (width * PIXELS)) / PIXELS;
-	mouse_line = (mouse->img->instances[0].y + (height * PIXELS)) / PIXELS;
-	if (width == 0 && height == -1)
+	if (steps_x == 0 && steps_y == -1)
 		temp = get_picture(game->mlx, "textures/mouse/up2.png");
-	else if (width == 1 && height == 0)
+	else if (steps_x == 1 && steps_y == 0)
 		temp = get_picture(game->mlx, "textures/mouse/right2.png");
-	else if (width == -1 && height == 0)
+	else if (steps_x == -1 && steps_y == 0)
 		temp = get_picture(game->mlx, "textures/mouse/left2.png");
-	else if (width == 0 && height == 1)
+	else if (steps_x == 0 && steps_y == 1)
 		temp = get_picture(game->mlx, "textures/mouse/down2.png");
-	if (game->map.map[mouse_row][mouse_line] == '0' || game->map.map[mouse_row][mouse_line] == 'P')
+	mouse_row = (mouse->img->instances[0].x + (steps_x * PIXELS)) / PIXELS;
+	mouse_line = (mouse->img->instances[0].y + (steps_y * PIXELS)) / PIXELS;
+	if (game->map.map[mouse_line][mouse_row] == '0' || game->map.map[mouse_line][mouse_row] == 'P')
 	{
 		game->map.map[mouse->img->instances[0].y
 			/ PIXELS][mouse->img->instances[0].x / PIXELS] = '0';
 		mlx_delete_image(game->mlx, mouse -> img);
-		put_image(game->mlx, temp, mouse_row * PIXELS, mouse_line * PIXELS);
+		put_image(game->mlx, temp, mouse_line * PIXELS, mouse_row * PIXELS);
 		mouse -> img = temp;
-		game->map.map[mouse_row][mouse_line] = 'X';
+		game->map.map[mouse_line][mouse_row] = 'X';
 	}
 }
 
@@ -55,6 +55,7 @@ void	try_move(t_mouse *mouse, t_game *game, int height, int width)
 		{
 			height = (mouse->img->instances[0].y + (y * PIXELS)) / PIXELS;
 			width = (mouse->img->instances[0].x + (x * PIXELS)) / PIXELS;
+			//printf("%c\n", game->map.map[height][width]);
 			if (game->map.map[height][width] == '0' || game->map.map[height][width] == 'P')
 			{
 				move_enemy(mouse, game, x, y);
