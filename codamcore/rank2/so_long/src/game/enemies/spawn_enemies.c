@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 15:13:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 17:36:16 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/28 22:10:16 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	get_enemy(t_game *game, int place)
+int	get_enemy(t_game *game, int place)
 {
 	int 		index;
 	mlx_image_t	*mouse;
@@ -22,23 +22,25 @@ void	get_enemy(t_game *game, int place)
 	tile = game->map.free_tiles2;
 	while (tile != NULL)
 	{
-		if (index == place)
+		if (index == place && tile->enemy == false)
 		{
 			mouse = get_picture(game->mlx, "textures/mouse/right2.png");
 			add_enemy(game, mouse);
 			put_image(game->mlx, mouse, tile->y * PIXELS, tile->x * PIXELS);
-			return ;
+			tile->enemy = true;
+			return (1);
 		}
 		index++;
 		tile = tile->next;
 	}
+	return (0);
 }
 
 void	spawn_enemies(t_game *game)
 {
 	int	enemy_count;
-	int	place;
 	int	index;
+	int	try;
 
 	enemy_count = game->map.free_tiles / 20;
 	if (enemy_count == 0 && game->map.height > 3)
@@ -46,8 +48,9 @@ void	spawn_enemies(t_game *game)
 	index = 0;
 	while (index < enemy_count)
 	{
-		place = rand() % game->map.free_tiles;
-		get_enemy(game, place);
+		try = 0;
+		while (try != 1)
+			try = get_enemy(game, rand() % game->map.free_tiles);
 		index++;
 	}
 }

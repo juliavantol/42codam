@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 12:22:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 21:17:42 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/28 21:23:12 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	try_move(t_mouse *mouse, t_game *game, int height, int width)
 	int	try;
 
 	try = 0;
-	while (try < 4)
+	while (try < 5)
 	{
 		x = (rand() % 3) - 1;
 		y = (rand() % 3) - 1;
@@ -55,7 +55,6 @@ void	try_move(t_mouse *mouse, t_game *game, int height, int width)
 		{
 			height = (mouse->img->instances[0].y + (y * PIXELS)) / PIXELS;
 			width = (mouse->img->instances[0].x + (x * PIXELS)) / PIXELS;
-			//printf("%c\n", game->map.map[height][width]);
 			if (game->map.map[height][width] == '0' || game->map.map[height][width] == 'P')
 			{
 				move_enemy(mouse, game, x, y);
