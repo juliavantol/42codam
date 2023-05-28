@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 21:19:51 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/28 22:18:31 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_node
 typedef struct s_mouse
 {
 	mlx_image_t		*img;
-	int				test;
 	struct s_mouse	*next;
 }	t_mouse;
 
@@ -134,7 +133,6 @@ t_foods		*new_food(char *path);
 char		*get_food(t_game	*game, int index);
 void		put_enemy(mlx_t *mlx, int x, int y);
 void		add_enemy(t_game *game, mlx_image_t *img);
-void		add_enemies(t_game *game);
 void		move_enemies(void *data);
 void		print_enemies(t_game *game);
 void		try_move(t_mouse *mouse, t_game *game, int i, int j);

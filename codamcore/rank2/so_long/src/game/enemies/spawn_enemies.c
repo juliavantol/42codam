@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 15:13:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 22:10:16 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/28 22:19:43 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,29 @@ void	spawn_enemies(t_game *game)
 		while (try != 1)
 			try = get_enemy(game, rand() % game->map.free_tiles);
 		index++;
+	}
+}
+
+void	add_enemy(t_game *game, mlx_image_t *img)
+{
+	t_mouse	*last;
+	t_mouse	*new;
+
+	last = game->mice;
+	new = malloc(sizeof(t_mouse));
+	if (!new)
+		ft_error("Malloc\n");
+	new -> img = img;
+	new -> next = NULL;
+	if (game->mice == NULL)
+	{
+		new -> next = NULL;
+		game->mice = new;
+	}
+	else
+	{
+		while (last -> next != NULL)
+			last = last -> next;
+		last -> next = new;
 	}
 }
