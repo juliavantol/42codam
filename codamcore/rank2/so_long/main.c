@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:17:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 14:47:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/28 17:24:10 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char	**argv)
 	file = open(argv[1], O_RDONLY);
 	if (file < 0)
 		ft_error("File couldn't be opened\n");
+	srand(time(NULL));
 	game = init_game(file, argv[1]);
 	game.mlx = NULL;
 	check_path(game.map, &game);

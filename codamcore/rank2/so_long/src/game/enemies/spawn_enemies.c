@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 15:13:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 17:41:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/28 17:36:16 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_enemy(t_game *game, int place)
 			mouse = get_picture(game->mlx, "textures/mouse/right2.png");
 			add_enemy(game, mouse);
 			put_image(game->mlx, mouse, tile->y * PIXELS, tile->x * PIXELS);
-			tile->enemy = true;
+			return ;
 		}
 		index++;
 		tile = tile->next;

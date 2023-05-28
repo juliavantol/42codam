@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 17:24:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/28 17:23:09 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "get_next_line/get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
+# include <time.h>
 
 # define PIXELS 48
 # define ENEMY_SPEED 22

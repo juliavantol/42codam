@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 12:22:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 17:51:54 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/28 16:11:11 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	move_enemy(t_mouse *mouse, t_game *game, int x, int y)
 	{
 		game->map.map[mouse->img->instances[0].y
 			/ PIXELS][mouse->img->instances[0].x / PIXELS] = '0';
-		mlx_delete_image(game->mlx, mouse -> img);
+		// mlx_delete_image(game->mlx, mouse -> img);
 		// put_image(game->mlx, temp, j * PIXELS, i * PIXELS);
-		// mouse -> img = temp;
+		mouse -> img = temp;
 		game->map.map[j][i] = 'X';
 	}
 }
