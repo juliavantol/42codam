@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   moves.c                                            :+:    :+:            */
+/*   move_player.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 13:04:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:55:21 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/* Checks if the player has bumped into an enemy */
 void	check_collision(t_game	*game)
 {
 	int			x_player;
@@ -25,7 +26,7 @@ void	check_collision(t_game	*game)
 	{
 		if (mouse->img->instances[0].x == x_player
 			&& mouse->img->instances[0].y == y_player)
-			close_window();
+			stop_game(game);
 		mouse = mouse -> next;
 	}
 }

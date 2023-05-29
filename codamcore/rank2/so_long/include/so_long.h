@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:38:31 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:48:56 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct s_game
 	mlx_image_t	*display;
 	t_mouse		*mice;
 	t_collect	*collectibles;
-	t_imgs		*pics;
 	t_map		map;
 	mlx_t		*mlx;
 	char		**food_paths;

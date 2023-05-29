@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 14:11:26 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 17:16:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:54:20 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char	*animate_right(t_game *game)
 	return (path);
 }
 
+/* Loops through displaying the player image in the current direction */
 void	animate_player(t_game *game, char *path, int x, int y)
 {
 	mlx_image_t	*temp;

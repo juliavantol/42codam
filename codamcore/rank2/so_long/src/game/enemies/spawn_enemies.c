@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 15:13:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:38:28 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:52:47 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/* Puts an enemy on the tile if it's free */
 int	get_enemy(t_game *game, int place)
 {
 	int 		index;
@@ -37,6 +38,7 @@ int	get_enemy(t_game *game, int place)
 	return (0);
 }
 
+/* Spawns enemies at random places */
 void	spawn_enemies(t_game *game)
 {
 	int	enemy_count;
@@ -54,8 +56,10 @@ void	spawn_enemies(t_game *game)
 			try = get_enemy(game, rand() % game->map.tile_count);
 		index++;
 	}
+	check_path_enemies(game);
 }
 
+/* Adds enemy to linked list of enemies */
 void	add_enemy(t_game *game, mlx_image_t *img)
 {
 	t_mouse	*last;
