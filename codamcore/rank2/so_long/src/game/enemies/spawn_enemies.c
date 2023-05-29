@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 15:13:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:52:47 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:58:43 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	spawn_enemies(t_game *game)
 	int	index;
 	int	try;
 
-	enemy_count = game->map.tile_count / 20;
+	enemy_count = game->map.tile_count / 25;
 	if (enemy_count == 0 && game->map.height > 3)
 		enemy_count = 1;
 	index = 0;
