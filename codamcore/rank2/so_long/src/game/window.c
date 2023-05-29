@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 14:25:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:24:51 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/* Display the current amount of moves on the screen */
 void	display_moves(mlx_t *mlx, t_game *game)
 {
 	char	*str;
@@ -25,6 +26,8 @@ void	display_moves(mlx_t *mlx, t_game *game)
 		ft_error("Strjoin\n");
 	mlx_delete_image(game->mlx, game->display);
 	game->display = mlx_put_string(mlx, str, 0, (game->map.height) * PIXELS);
+	if (!game->display)
+		ft_error("Mlx string\n");
 	free(temp);
 	free(str);
 }
@@ -80,6 +83,7 @@ void	parse_map(mlx_t *mlx, t_imgs pics, t_game *game, int x)
 	}
 }
 
+/* Listens to the player's input */
 void	key_hooks(mlx_key_data_t key, void *data)
 {
 	t_game	*game;
@@ -97,6 +101,7 @@ void	key_hooks(mlx_key_data_t key, void *data)
 		prepare_move(game, key, x, y);
 }
 
+/* Opens up a window and starts the game */
 void	open_window(t_game game)
 {
 	mlx_image_t		*backdrop;

@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:21:11 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:22:44 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/* Returns new collectible instance */
 t_collect	*collectible(void *content)
 {
 	t_collect	*node;
