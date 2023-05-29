@@ -6,17 +6,17 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 13:07:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 14:40:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_node	*new_list(void *content)
+t_collect	*new_list(void *content)
 {
-	t_node	*node;
+	t_collect	*node;
 
-	node = malloc(sizeof(t_node));
+	node = malloc(sizeof(t_collect));
 	if (node == NULL)
 		return (NULL);
 	if (content == NULL)
@@ -28,9 +28,9 @@ t_node	*new_list(void *content)
 	return (node);
 }
 
-void	add_collectible(t_node **collectibles, t_node *new)
+void	add_collectible(t_collect **collectibles, t_collect *new)
 {
-	t_node	*last;
+	t_collect	*last;
 
 	last = *collectibles;
 	if (*collectibles == NULL)
@@ -49,7 +49,7 @@ void	add_collectible(t_node **collectibles, t_node *new)
 
 int	check_status(t_game *game)
 {
-	t_node	*head;
+	t_collect	*head;
 
 	head = *(&game->collectibles);
 	if (head == NULL)
@@ -65,8 +65,8 @@ int	check_status(t_game *game)
 
 void	found_collectible(t_game *game, int x, int y)
 {
-	t_node		*head;
-	mlx_image_t	*exit;
+	t_collect		*head;
+	mlx_image_t		*exit;
 
 	head = *(&game->collectibles);
 	if (head == NULL)
@@ -90,15 +90,35 @@ void	found_collectible(t_game *game, int x, int y)
 	}
 }
 
+void	set_collectible_paths(t_game *game)
+{
+	char	**food_paths;
+
+	food_paths = (char **)malloc(11 * sizeof(char *));
+	if (!food_paths)
+		ft_error("Malloc\n");
+	food_paths[0] = "textures/food_48/apple1.png";
+	food_paths[1] = "textures/food_48/apple2.png";
+	food_paths[2] = "textures/food_48/apple3.png";
+	food_paths[3] = "textures/food_48/apple4.png";
+	food_paths[4] = "textures/food_48/grape1.png";
+	food_paths[5] = "textures/food_48/grape2.png";
+	food_paths[6] = "textures/food_48/grape3.png";
+	food_paths[7] = "textures/food_48/pear1.png";
+	food_paths[8] = "textures/food_48/pear2.png";
+	food_paths[9] = "textures/food_48/mandarin.png";
+	game->food_paths = food_paths;
+}
+
 void	put_collectible(mlx_t *mlx, t_game *game, int x, int y)
 {
 	mlx_image_t		*img;
-	t_node			*temp;
+	t_collect		*temp;
 	int				index;
 	char			*path;
 
 	index = rand() % 11;
-	path = get_food(game, index);
+	path = game->food_paths[index];
 	img = get_picture(mlx, path);
 	put_image(mlx, img, x, y);
 	temp = new_list(img);

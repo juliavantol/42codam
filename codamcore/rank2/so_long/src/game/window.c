@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 13:09:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 14:25:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	display_moves(mlx_t *mlx, t_game *game)
 	free(str);
 }
 
+/* Fills the backdrop with the floor image */
 void	fill_backdrop(mlx_t *mlx, t_imgs pics, t_game *game)
 {
 	int	x;
@@ -49,6 +50,7 @@ void	fill_backdrop(mlx_t *mlx, t_imgs pics, t_game *game)
 	}
 }
 
+/* Parses the map to the window */
 void	parse_map(mlx_t *mlx, t_imgs pics, t_game *game, int x)
 {
 	int	y;
