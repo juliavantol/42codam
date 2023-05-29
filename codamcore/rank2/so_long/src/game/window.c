@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:24:51 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:46:58 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ void	fill_backdrop(mlx_t *mlx, t_imgs pics, t_game *game)
 		y = 0;
 		while (y < game->map.width)
 		{
-			if (mlx_image_to_window(mlx, pics.floor,
-					y * PIXELS, x * PIXELS) < 0)
-				ft_error("Image error\n");
+			put_image(mlx, pics.floor, x * PIXELS, y * PIXELS);
 			y++;
 		}
 		x++;

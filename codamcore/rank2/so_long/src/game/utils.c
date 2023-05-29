@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:34:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:17:06 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:45:01 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	close_window(void)
 	exit(EXIT_SUCCESS);
 }
 
+/* Displays error message and quits the program */
 void	ft_error(char *str)
 {
 	ft_putstr_fd("Error\n", 2);
@@ -25,6 +26,7 @@ void	ft_error(char *str)
 	exit(EXIT_FAILURE);
 }
 
+/* Checks if the line is empty */
 int	if_empty_line(char *str)
 {
 	int		index;
@@ -45,6 +47,7 @@ int	if_empty_line(char *str)
 	return (0);
 }
 
+/* Stops the game */
 void	stop_game(t_game *game)
 {
 	mlx_close_window(game->mlx);
@@ -52,6 +55,7 @@ void	stop_game(t_game *game)
 	exit(EXIT_SUCCESS);
 }
 
+/* Stores the paths of the food pngs */
 void	set_collectible_paths(t_game *game)
 {
 	char	**food_paths;

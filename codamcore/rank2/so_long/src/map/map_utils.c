@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/29 23:41:05 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:43:11 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_walls(t_game game, int i, int j)
 	return (1);
 }
 
-/* Adds the free tile to the linked list of tiles */
+/* Adds the free tile to the linked list of free tiles */
 void	add_tile(t_map *data, t_tile **free_tiles, int x, int y)
 {
 	t_tile	*tile;
