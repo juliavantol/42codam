@@ -6,27 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:34:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 14:11:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:17:06 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	free_collectibles(t_collect **collectibles)
-{
-	t_collect	*temp;
-
-	if (!collectibles)
-		return ;
-	while (*collectibles)
-	{
-		temp = (*collectibles)->next;
-		free(*collectibles);
-		*collectibles = temp;
-	}
-	*collectibles = NULL;
-	free(collectibles);
-}
 
 int	close_window(void)
 {
@@ -66,4 +50,24 @@ void	stop_game(t_game *game)
 	mlx_close_window(game->mlx);
 	mlx_terminate(game->mlx);
 	exit(EXIT_SUCCESS);
+}
+
+void	set_collectible_paths(t_game *game)
+{
+	char	**food_paths;
+
+	food_paths = (char **)malloc(10 * sizeof(char *));
+	if (!food_paths)
+		ft_error("Malloc\n");
+	food_paths[0] = "textures/food_48/apple1.png";
+	food_paths[1] = "textures/food_48/apple2.png";
+	food_paths[2] = "textures/food_48/apple3.png";
+	food_paths[3] = "textures/food_48/apple4.png";
+	food_paths[4] = "textures/food_48/grape1.png";
+	food_paths[5] = "textures/food_48/grape2.png";
+	food_paths[6] = "textures/food_48/grape3.png";
+	food_paths[7] = "textures/food_48/pear1.png";
+	food_paths[8] = "textures/food_48/pear2.png";
+	food_paths[9] = "textures/food_48/mandarin.png";
+	game->food_paths = food_paths;
 }

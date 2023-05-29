@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 12:22:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 13:32:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:07:13 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/* Moves the enemy */
 void	move_enemy(t_mouse *mouse, t_game *game, int line, int row)
 {
 	mlx_image_t	*temp;
@@ -36,6 +37,7 @@ void	move_enemy(t_mouse *mouse, t_game *game, int line, int row)
 	}
 }
 
+/* Tries to find a valid direction for the enemy to go to */
 void	try_move(t_mouse *mouse, t_game *game, int line, int row)
 {
 	int	try;
@@ -61,16 +63,17 @@ void	try_move(t_mouse *mouse, t_game *game, int line, int row)
 	}
 }
 
+/* Functions is called for every frame. Checks if the player 
+has collided with an enemy, animates the player and moves all the mice */
 void	move_enemies(void *data)
 {
 	t_mouse		*mouse;
 	t_game		*game;
-	static int	runs;
 
 	game = (t_game *)data;
 	mouse = game->mice;
 	check_collision(game);
-	if (runs++ < ENEMY_SPEED)
+	if (game->runs++ < ENEMY_SPEED)
 		return ;
 	animate_player(game, NULL, game->player_img->instances[0].x,
 		game->player_img->instances[0].y);
@@ -79,5 +82,5 @@ void	move_enemies(void *data)
 		try_move(mouse, game, 0, 0);
 		mouse = mouse -> next;
 	}
-	runs = 0;
+	game->runs = 0;
 }

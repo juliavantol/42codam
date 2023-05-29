@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:12:58 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 13:12:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:15:23 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/* Returns a mlx image */
 mlx_image_t	*get_picture(mlx_t *mlx, char *path)
 {
 	mlx_texture_t	*texture;
@@ -38,6 +39,7 @@ t_imgs	set_images(mlx_t *mlx)
 	return (pics);
 }
 
+/* Puts the image to the window */
 void	put_image(mlx_t *mlx, mlx_image_t *img, int x, int y)
 {
 	if (mlx_image_to_window(mlx, img, y, x) < 0)

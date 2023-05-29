@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 11:40:14 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 14:39:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:08:01 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_game	init_game(int file, char *filename)
 	game.moves = 0;
 	game.display = NULL;
 	game.loop = 1;
+	game.runs = 0;
 	game.direction = 'd';
 	game.mice = NULL;
 	game.mlx = NULL;

@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 14:40:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:21:11 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_collect	*new_list(void *content)
+t_collect	*collectible(void *content)
 {
 	t_collect	*node;
 
@@ -28,6 +28,7 @@ t_collect	*new_list(void *content)
 	return (node);
 }
 
+/* Add collectible to the linked list */
 void	add_collectible(t_collect **collectibles, t_collect *new)
 {
 	t_collect	*last;
@@ -47,6 +48,7 @@ void	add_collectible(t_collect **collectibles, t_collect *new)
 	}
 }
 
+/* Checks if player has found all collectibles */
 int	check_status(t_game *game)
 {
 	t_collect	*head;
@@ -63,6 +65,8 @@ int	check_status(t_game *game)
 	return (1);
 }
 
+/* Sets the collectible the player has touched as found 
+and sets it to invisible. If it was the last, open the exit */
 void	found_collectible(t_game *game, int x, int y)
 {
 	t_collect		*head;
@@ -90,26 +94,7 @@ void	found_collectible(t_game *game, int x, int y)
 	}
 }
 
-void	set_collectible_paths(t_game *game)
-{
-	char	**food_paths;
-
-	food_paths = (char **)malloc(11 * sizeof(char *));
-	if (!food_paths)
-		ft_error("Malloc\n");
-	food_paths[0] = "textures/food_48/apple1.png";
-	food_paths[1] = "textures/food_48/apple2.png";
-	food_paths[2] = "textures/food_48/apple3.png";
-	food_paths[3] = "textures/food_48/apple4.png";
-	food_paths[4] = "textures/food_48/grape1.png";
-	food_paths[5] = "textures/food_48/grape2.png";
-	food_paths[6] = "textures/food_48/grape3.png";
-	food_paths[7] = "textures/food_48/pear1.png";
-	food_paths[8] = "textures/food_48/pear2.png";
-	food_paths[9] = "textures/food_48/mandarin.png";
-	game->food_paths = food_paths;
-}
-
+/* Puts a collectible on the map */
 void	put_collectible(mlx_t *mlx, t_game *game, int x, int y)
 {
 	mlx_image_t		*img;
@@ -117,10 +102,10 @@ void	put_collectible(mlx_t *mlx, t_game *game, int x, int y)
 	int				index;
 	char			*path;
 
-	index = rand() % 11;
+	index = rand() % 10;
 	path = game->food_paths[index];
 	img = get_picture(mlx, path);
 	put_image(mlx, img, x, y);
-	temp = new_list(img);
+	temp = collectible(img);
 	add_collectible(&game->collectibles, temp);
 }

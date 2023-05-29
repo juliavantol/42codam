@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 14:39:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:21:37 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_game
 	char		**temp_grid;
 	char		direction;
 	int			moves;
+	int			runs;
 	int			loop;
 	bool		won;
 }	t_game;
@@ -93,7 +94,7 @@ typedef struct s_game
 t_map		check_characters(t_map map, int length, char *temp, char *line);
 t_game		init_game(int file, char *filename);
 mlx_image_t	*get_picture(mlx_t *mlx, char *path);
-t_collect	*new_list(void *content);
+t_collect	*collectible(void *content);
 t_imgs		set_images(mlx_t *mlx);
 
 int			check_walls(t_game game, int i, int j);
