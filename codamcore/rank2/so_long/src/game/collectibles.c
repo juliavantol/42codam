@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 17:08:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 13:07:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ void	found_collectible(t_game *game, int x, int y)
 	{
 		game->exit_img->enabled = false;
 		exit = get_picture(game->mlx, "textures/FRIDGE_OPEN2.png");
-		put_image(game->mlx, exit, game->exit_img->instances[0].y, game->exit_img->instances[0].x);
+		put_image(game->mlx, exit, game->exit_img->instances[0].y,
+			game->exit_img->instances[0].x);
 	}
 }
 

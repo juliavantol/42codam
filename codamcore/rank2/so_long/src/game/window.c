@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 22:17:14 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 13:09:11 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,14 @@ void	display_moves(mlx_t *mlx, t_game *game)
 	char	*str;
 	char	*temp;
 
-	if (game->display != NULL)
-		game->display->enabled = false;
 	temp = ft_itoa(game->moves);
 	if (!temp)
-		ft_error("itoa\n");
+		ft_error("Itoa\n");
 	str = ft_strjoin(" Moves: ", temp);
 	if (!str)
-		ft_error("strjoin\n");
+		ft_error("Strjoin\n");
+	mlx_delete_image(game->mlx, game->display);
 	game->display = mlx_put_string(mlx, str, 0, (game->map.height) * PIXELS);
-	game->display->enabled = true;
-	game->moves += 1;
 	free(temp);
 	free(str);
 }
@@ -52,12 +49,10 @@ void	fill_backdrop(mlx_t *mlx, t_imgs pics, t_game *game)
 	}
 }
 
-void	parse_map(mlx_t *mlx, t_imgs pics, t_game *game)
+void	parse_map(mlx_t *mlx, t_imgs pics, t_game *game, int x)
 {
-	int	x;
 	int	y;
 
-	x = 0;
 	while (x < game->map.height)
 	{
 		y = 0;
@@ -96,38 +91,31 @@ void	key_hooks(mlx_key_data_t key, void *data)
 		mlx_close_window(game->mlx);
 	if (check_move(game, key.key) == 0)
 		return ;
-	else if (key.action == MLX_RELEASE || key.action == MLX_REPEAT)
-		display_moves(game->mlx, game);
 	if (key.action == MLX_PRESS || key.action == MLX_REPEAT)
 		prepare_move(game, key, x, y);
 }
 
 void	open_window(t_game game)
 {
-	mlx_t			*mlx;
 	mlx_image_t		*backdrop;
 	t_imgs			pics;
 
-	mlx = mlx_init(game.map.width * PIXELS, ((game.map.height + 1) * PIXELS),
-			"so_long", false);
-	if (mlx == NULL)
+	game.mlx = mlx_init(game.map.width * PIXELS,
+			((game.map.height + 1) * PIXELS), "so_long", false);
+	if (game.mlx == NULL)
 		ft_error("MLX error\n");
-	pics = set_images(mlx);
-	game.mlx = mlx;
-	game.display = NULL;
-	game.loop = 1;
-	game.direction = 'd';
-	game.mice = NULL;
-	fill_backdrop(mlx, pics, &game);
-	parse_map(mlx, pics, &game);
+	pics = set_images(game.mlx);
+	fill_backdrop(game.mlx, pics, &game);
+	parse_map(game.mlx, pics, &game, 0);
 	spawn_enemies(&game);
+	check_path_enemies(&game);
 	display_moves(game.mlx, &game);
-	backdrop = mlx_new_image(mlx, game.map.width * PIXELS, 1 * PIXELS);
+	backdrop = mlx_new_image(game.mlx, game.map.width * PIXELS, 1 * PIXELS);
 	ft_memset(backdrop->pixels, 0,
 		backdrop-> width * backdrop->height * sizeof(int));
-	mlx_image_to_window(mlx, backdrop, 0, (game.map.height) * PIXELS);
-	mlx_key_hook(mlx, &key_hooks, &game);
-	mlx_loop_hook(mlx, move_enemies, &game);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	mlx_image_to_window(game.mlx, backdrop, 0, (game.map.height) * PIXELS);
+	mlx_key_hook(game.mlx, &key_hooks, &game);
+	mlx_loop_hook(game.mlx, move_enemies, &game);
+	mlx_loop(game.mlx);
+	mlx_terminate(game.mlx);
 }

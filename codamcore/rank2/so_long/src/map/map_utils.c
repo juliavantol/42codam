@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/26 17:24:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 11:41:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	valid_character(t_map *data, char *line, int height, int i)
 	}
 }
 
+/* Checks if map is surrounded by walls */
 int	check_walls(t_game game, int i, int j)
 {
 	while (game.map.map[i][j])
@@ -96,16 +97,4 @@ void	add_tile(t_map *data, t_tile **free_tiles, int x, int y)
 		last -> next = tile;
 	}
 	data->free_tiles += 1;
-}
-
-void	print_tiles(t_tile	**tiles)
-{
-	t_tile	*tile;
-
-	tile = *tiles;
-	while (tile != NULL)
-	{
-		printf("x: %d y: %d\n", tile->x, tile->y);
-		tile = tile -> next;
-	}
 }

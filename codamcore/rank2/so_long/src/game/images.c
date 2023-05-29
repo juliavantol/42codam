@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:12:58 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 17:06:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 13:08:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,4 @@ void	put_image(mlx_t *mlx, mlx_image_t *img, int x, int y)
 {
 	if (mlx_image_to_window(mlx, img, y, x) < 0)
 		ft_error("Image error\n");
-}
-
-void	delete_image(mlx_t *mlx, mlx_image_t *img)
-{
-	mlx_delete_image(mlx, img);
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/26 17:07:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 13:04:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	move_player(t_game *game, char	*path, int x, int y)
 	game->player_img->instances[0].x = x;
 	game->player_img->instances[0].y = y;
 	game->map.map[y / PIXELS][x / PIXELS] = 'P';
+	game->moves += 1;
+	display_moves(game->mlx, game);
 }
 
 int	check_move(t_game *game, int key)

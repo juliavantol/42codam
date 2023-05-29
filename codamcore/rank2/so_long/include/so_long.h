@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/28 22:33:47 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 13:04:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		check_path_collectibles(t_game *game);
 void		put_collectible(mlx_t *mlx, t_game *game, int x, int y);
 
 void		valid_character(t_map *data, char *line, int height, int index);
-t_map		check_characters(t_map map, int length);
+t_map		check_characters(t_map map, int length, char *temp, char *line);
 t_game		init_game(int file, char *filename);
 int			check_walls(t_game game, int i, int j);
 void		free_map(char	**map, int max);
@@ -144,5 +144,6 @@ void		prepare_move(t_game *game, mlx_key_data_t key, int x, int y);
 void		spawn_enemies(t_game *game);
 void		add_tile(t_map *data, t_tile **free_tiles, int x, int y);
 void		print_tiles(t_tile	**tiles);
+void		check_path_enemies(t_game *game);
 
 #endif
