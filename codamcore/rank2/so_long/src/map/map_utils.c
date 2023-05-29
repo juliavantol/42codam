@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/29 23:38:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:41:05 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	valid_character(t_map *data, char *line, int height, int i)
 			data->exit_y = i;
 			data->exit_x = height;
 		}
-		if (line[i] != 'P' && line[i] != 'C' && line[i] != 'E' && line[i] != 'X'
+		if (line[i] != 'P' && line[i] != 'C' && line[i] != 'E'
 			&& line[i] != '0' && line[i] != '1' && line[i] != '\n')
 			ft_error("Map contains invalid components\n");
 		i++;
