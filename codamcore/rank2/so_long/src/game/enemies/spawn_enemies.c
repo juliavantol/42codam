@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 15:13:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 12:38:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:38:28 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_enemy(t_game *game, int place)
 	t_tile		*tile;
 
 	index = 0;
-	tile = game->map.free_tiles2;
+	tile = game->map.free_tiles;
 	while (tile != NULL)
 	{
 		if (index == place && tile->enemy == false)
@@ -43,7 +43,7 @@ void	spawn_enemies(t_game *game)
 	int	index;
 	int	try;
 
-	enemy_count = game->map.free_tiles / 20;
+	enemy_count = game->map.tile_count / 20;
 	if (enemy_count == 0 && game->map.height > 3)
 		enemy_count = 1;
 	index = 0;
@@ -51,7 +51,7 @@ void	spawn_enemies(t_game *game)
 	{
 		try = 0;
 		while (try != 1)
-			try = get_enemy(game, rand() % game->map.free_tiles);
+			try = get_enemy(game, rand() % game->map.tile_count);
 		index++;
 	}
 }

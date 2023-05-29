@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:21:37 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:38:31 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ typedef struct s_tile
 
 typedef struct s_map
 {
-	t_tile		*free_tiles2;
+	t_tile		*free_tiles;
 	char		*file_name;
 	char		**map;
 	int			collectibles;
-	int			free_tiles;
+	int			tile_count;
 	int			width;
 	int			height;
 	int			file;

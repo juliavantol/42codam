@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/29 11:41:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/29 23:38:43 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	valid_character(t_map *data, char *line, int height, int i)
 		else if (line[i] == 'C')
 			data->collectibles += 1;
 		else if (line[i] == '0')
-			add_tile(data, &data->free_tiles2, i, height);
+			add_tile(data, &data->free_tiles, i, height);
 		else if (line[i] == 'E')
 		{
 			data->exit += 1;
@@ -72,6 +72,7 @@ int	check_walls(t_game game, int i, int j)
 	return (1);
 }
 
+/* Adds the free tile to the linked list of tiles */
 void	add_tile(t_map *data, t_tile **free_tiles, int x, int y)
 {
 	t_tile	*tile;
@@ -96,5 +97,5 @@ void	add_tile(t_map *data, t_tile **free_tiles, int x, int y)
 		tile -> next = NULL;
 		last -> next = tile;
 	}
-	data->free_tiles += 1;
+	data->tile_count += 1;
 }
