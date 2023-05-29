@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:55:21 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/29 23:57:43 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	check_collision(t_game	*game)
 	}
 }
 
-/* Will move the player on the board. 1 for up, 2 for down
-3 for left, 4 for right */
+/* Will move the player on the map */
 void	move_player(t_game *game, char	*path, int x, int y)
 {
 	mlx_image_t	*temp;
@@ -53,6 +52,7 @@ void	move_player(t_game *game, char	*path, int x, int y)
 	display_moves(game->mlx, game);
 }
 
+/* Check if it's a valid move */
 int	check_move(t_game *game, int key)
 {
 	int		x;
@@ -73,12 +73,13 @@ int	check_move(t_game *game, int key)
 	if (game->map.map[y][x] == 'C')
 		found_collectible(game, x, y);
 	if ((game->map.map[y][x] == 'E' && check_status(game) == 1))
-		close_window();
+		stop_game(game);
 	else if (game->map.map[y][x] == 'E' || game->map.map[y][x] == '1')
 		return (0);
 	return (1);
 }
 
+/* Checks which direction player is going */
 void	prepare_move(t_game *game, mlx_key_data_t key, int x, int y)
 {
 	if (key.key == MLX_KEY_LEFT || key.key == MLX_KEY_A)
