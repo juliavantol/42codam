@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 15:13:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/30 00:01:57 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/30 10:55:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* Puts an enemy on the tile if it's free */
 int	get_enemy(t_game *game, int place)
 {
-	int 		index;
+	int			index;
 	mlx_image_t	*mouse;
 	t_tile		*tile;
 
@@ -69,17 +69,17 @@ void	add_enemy(t_game *game, mlx_image_t *img)
 	new = malloc(sizeof(t_mouse));
 	if (!new)
 		ft_error("Malloc\n");
-	new -> img = img;
-	new -> next = NULL;
+	new->img = img;
+	new->next = NULL;
 	if (game->mice == NULL)
 	{
-		new -> next = NULL;
+		new->next = NULL;
 		game->mice = new;
 	}
 	else
 	{
-		while (last -> next != NULL)
-			last = last -> next;
-		last -> next = new;
+		while (last->next != NULL)
+			last = last->next;
+		last->next = new;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:12:58 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:15:23 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/30 11:04:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_imgs	set_images(mlx_t *mlx)
 	pics.floor = get_picture(mlx, "textures/light_wood.png");
 	pics.wall = get_picture(mlx, "textures/dark_wood.png");
 	pics.player_front = get_picture(mlx, "textures/grandma/down2.png");
-	pics.exit = get_picture(mlx, "textures/FRIDGE_CLOSE2.png");
+	pics.exit = get_picture(mlx, "textures/fridge_close.png");
 	return (pics);
 }
 

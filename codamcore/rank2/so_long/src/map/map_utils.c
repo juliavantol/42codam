@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/29 23:43:11 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/30 10:54:16 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,15 @@ void	add_tile(t_map *data, t_tile **free_tiles, int x, int y)
 	last = *free_tiles;
 	if (*free_tiles == NULL)
 	{
-		tile -> next = NULL;
+		tile->next = NULL;
 		*free_tiles = tile;
 	}
 	else
 	{
-		while (last -> next != NULL)
-			last = last -> next;
-		tile -> next = NULL;
-		last -> next = tile;
+		while (last->next != NULL)
+			last = last->next;
+		tile->next = NULL;
+		last->next = tile;
 	}
 	data->tile_count += 1;
 }
