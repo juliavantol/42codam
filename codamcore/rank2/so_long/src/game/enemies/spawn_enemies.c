@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 15:13:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/30 10:55:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/30 13:04:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,20 @@ void	add_enemy(t_game *game, mlx_image_t *img)
 		while (last->next != NULL)
 			last = last->next;
 		last->next = new;
+	}
+}
+
+/* In case the spawn enemies block the only possible path, remove them */
+void	remove_enemies(t_game *game)
+{
+	t_mouse		*mouse;
+
+	mouse = game->mice;
+	while (mouse != NULL)
+	{
+		mouse->img->instances[0].x = 1;
+		mouse->img->instances[0].y = 1;
+		mouse->img->instances[0].enabled = false;
+		mouse = mouse->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:30:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/30 10:58:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/30 12:51:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "get_next_line/get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
+# include <sys/errno.h>
 
 # define PIXELS 48
 # define ENEMY_SPEED 30
@@ -99,7 +100,6 @@ int			check_walls(t_game game, int i, int j);
 int			check_move(t_game *game, int key);
 int			check_status(t_game *game);
 int			if_empty_line(char *str);
-int			close_window(void);
 
 void		valid_character(t_map *data, char *line, int height, int index);
 void		prepare_move(t_game *game, mlx_key_data_t key, int x, int y);
@@ -111,6 +111,7 @@ void		put_image(mlx_t *mlx, mlx_image_t *img, int x, int y);
 void		move_player(t_game *game, char	*path, int x, int y);
 void		try_move(t_mouse *mouse, t_game *game, int i, int j);
 void		found_collectible(t_game *game, int x, int y);
+void		stop_game(t_game *game, char *msg, int lost);
 void		add_enemy(t_game *game, mlx_image_t *img);
 void		display_moves(mlx_t *mlx, t_game *game);
 void		check_path_collectibles(t_game *game);
@@ -118,10 +119,10 @@ void		check_path(t_map map, t_game *game);
 void		set_collectible_paths(t_game *game);
 void		check_path_enemies(t_game *game);
 void		check_collision(t_game	*game);
+void		remove_enemies(t_game *game);
 void		spawn_enemies(t_game *game);
 void		open_window(t_game game);
-void		move_enemies(void *data);
-void		stop_game(t_game *game);
+void		loops(void *data);
 void		ft_error(char *str);
 
 #endif

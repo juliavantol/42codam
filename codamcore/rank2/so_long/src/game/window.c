@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/28 12:46:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:49:59 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/30 12:37:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	open_window(t_game game)
 		backdrop-> width * backdrop->height * sizeof(int));
 	mlx_image_to_window(game.mlx, backdrop, 0, (game.map.height) * PIXELS);
 	mlx_key_hook(game.mlx, &key_hooks, &game);
-	mlx_loop_hook(game.mlx, move_enemies, &game);
+	mlx_loop_hook(game.mlx, loops, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 }

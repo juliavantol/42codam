@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 12:22:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/30 10:56:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/30 12:11:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	try_move(t_mouse *mouse, t_game *game, int y, int x)
 
 /* Functions is called for every frame. Checks if the player 
 has collided with an enemy, animates the player and moves all the mice */
-void	move_enemies(void *data)
+void	loops(void *data)
 {
 	t_mouse		*mouse;
 	t_game		*game;

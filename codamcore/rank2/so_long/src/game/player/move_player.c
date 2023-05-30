@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/08 14:20:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/30 10:54:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/30 12:50:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_collision(t_game	*game)
 	{
 		if (mouse->img->instances[0].x == x_player
 			&& mouse->img->instances[0].y == y_player)
-			stop_game(game);
+			stop_game(game, "Game over\n", 1);
 		mouse = mouse->next;
 	}
 }
@@ -73,7 +73,7 @@ int	check_move(t_game *game, int key)
 	if (game->map.map[y][x] == 'C')
 		found_collectible(game, x, y);
 	if ((game->map.map[y][x] == 'E' && check_status(game) == 1))
-		stop_game(game);
+		stop_game(game, "You've won!\n", 0);
 	else if (game->map.map[y][x] == 'E' || game->map.map[y][x] == '1')
 		return (0);
 	return (1);
