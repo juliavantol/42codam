@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/11 14:39:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:27:18 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/30 12:48:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 /* Fills the map with 1's until it has encountered a wall */
 void	find_path(t_game *game, int x, int y)
 {
-	if (game->temp_grid[x][y] == '1')
+	if (game->temp_grid[x][y] == 'E')
+	{
+		game->temp_grid[x][y] = '1';
+		return ;
+	}
+	else if (game->temp_grid[x][y] == '1')
 		return ;
 	game->temp_grid[x][y] = '1';
 	find_path(game, x - 1, y);
@@ -61,7 +66,7 @@ void	check_path_collectibles(t_game *game)
 			if (game->map.map[x][y] == 'C')
 			{
 				if (game->temp_grid[x][y] != '1')
-					ft_error("No valid path\n");
+					ft_error("Collectible not reachable\n");
 			}
 			y++;
 		}
@@ -102,5 +107,5 @@ void	check_path_enemies(t_game *game)
 	game->temp_grid = temp_grid;
 	find_path_enemy(game, game->map.start_x, game->map.start_y);
 	if (temp_grid[game->map.exit_x][game->map.exit_y] != '1')
-		ft_error("Enemy blocks only possible path\n");
+		remove_enemies(game);
 }

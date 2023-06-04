@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:22:44 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/30 11:07:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ t_collect	*collectible(void *content)
 	if (node == NULL)
 		return (NULL);
 	if (content == NULL)
-		node -> img = NULL;
+		node->img = NULL;
 	else
-		node -> img = content;
-	node -> found = false;
-	node -> next = NULL;
+		node->img = content;
+	node->found = false;
+	node->next = NULL;
 	return (node);
 }
 
@@ -37,15 +37,15 @@ void	add_collectible(t_collect **collectibles, t_collect *new)
 	last = *collectibles;
 	if (*collectibles == NULL)
 	{
-		new -> next = NULL;
+		new->next = NULL;
 		*collectibles = new;
 	}
 	else
 	{
-		while (last -> next != NULL)
-			last = last -> next;
-		new -> next = NULL;
-		last -> next = new;
+		while (last->next != NULL)
+			last = last->next;
+		new->next = NULL;
+		last->next = new;
 	}
 }
 
@@ -59,9 +59,9 @@ int	check_status(t_game *game)
 		return (0);
 	while (head != NULL)
 	{
-		if (head -> found != true)
+		if (head->found != true)
 			return (0);
-		head = head -> next;
+		head = head->next;
 	}
 	return (1);
 }
@@ -78,18 +78,18 @@ void	found_collectible(t_game *game, int x, int y)
 		return ;
 	while (head != NULL)
 	{
-		if (x * PIXELS == head->img->instances[0].x &&
-			y * PIXELS == head->img->instances[0].y)
+		if (x * PIXELS == head->img->instances[0].x
+			&& y * PIXELS == head->img->instances[0].y)
 		{
 			head->img->enabled = false;
 			head->found = true;
 		}
-		head = head -> next;
+		head = head->next;
 	}
 	if (check_status(game) == 1)
 	{
 		game->exit_img->enabled = false;
-		exit = get_picture(game->mlx, "textures/FRIDGE_OPEN2.png");
+		exit = get_picture(game->mlx, "textures/fridge_open.png");
 		put_image(game->mlx, exit, game->exit_img->instances[0].y,
 			game->exit_img->instances[0].x);
 	}

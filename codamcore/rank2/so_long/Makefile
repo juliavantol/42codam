@@ -1,27 +1,32 @@
 NAME = so_long
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -framework Cocoa -framework OpenGL -framework IOKit
+CFLAGS = -Wall -Wextra -Werror
 LIBFT = include/libft/libft.a
 INCLUDES = -I include
-LIBS	:= MLX42/build/libmlx42.a -Iinclude -lglfw
+MLX42 = MLX42/build/libmlx42.a
+MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit -lglfw3
 SRC = include/get_next_line/get_next_line.c include/get_next_line/get_next_line_utils.c \
 		src/game/collectibles.c src/map/map_utils.c src/game/window.c src/game/images.c \
 		src/game/player/move_player.c src/map/check_path.c src/map/init_game.c \
 		src/game/utils.c main.c src/game/enemies/move_enemy.c \
 		src/game/player/animation.c src/game/enemies/spawn_enemies.c
-
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
-%.o: %.c
-	@$(CC) $(INCLUDES) -Wall -Wextra -Werror -Imlx -c $< -o $@
-
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) $(LIBFT) -o $(NAME)
+	@cd include/libft && make bonus
+	@make -C MLX42/build
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(MLX42) $(MLXFLAGS)
+
+%.o: %.c
+	@$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $^
+
+bonus: ${NAME}
 
 clean:
 	@cd include/libft && make clean
+	@rm -rf $(MLX42)
 	@rm -rf $(OBJ)
 
 fclean: clean
@@ -29,4 +34,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all
+.PHONY: all clean fclean re bonus

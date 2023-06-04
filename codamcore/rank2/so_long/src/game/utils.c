@@ -6,16 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/26 15:34:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/29 23:45:01 by Julia         ########   odam.nl         */
+/*   Updated: 2023/05/30 12:50:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	close_window(void)
-{
-	exit(EXIT_SUCCESS);
-}
 
 /* Displays error message and quits the program */
 void	ft_error(char *str)
@@ -23,7 +18,7 @@ void	ft_error(char *str)
 	ft_putstr_fd("Error\n", 2);
 	if (str != NULL)
 		ft_putstr_fd(str, 2);
-	exit(EXIT_FAILURE);
+	exit(errno);
 }
 
 /* Checks if the line is empty */
@@ -48,8 +43,11 @@ int	if_empty_line(char *str)
 }
 
 /* Stops the game */
-void	stop_game(t_game *game)
+void	stop_game(t_game *game, char *msg, int lost)
 {
+	if (lost == 1)
+		sleep(1);
+	ft_putstr_fd(msg, 1);
 	mlx_close_window(game->mlx);
 	mlx_terminate(game->mlx);
 	exit(EXIT_SUCCESS);
