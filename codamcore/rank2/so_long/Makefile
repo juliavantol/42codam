@@ -12,12 +12,17 @@ SRC = include/get_next_line/get_next_line.c include/get_next_line/get_next_line_
 		src/game/player/animation.c src/game/enemies/spawn_enemies.c
 OBJ = $(SRC:%.c=%.o)
 
+BLUE	:= \033[34;1m
+END		= \x1b[0m
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@echo "$(BLUE)Start compiling $(NAME) using $(CFLAGS)$(END)"
 	@cd include/libft && make bonus
 	@make -C MLX42/build
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(MLX42) $(MLXFLAGS)
+	@echo "$(BLUE)Done!$(END)"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $^

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/27 19:10:07 by Julia         #+#    #+#                 */
-/*   Updated: 2023/05/30 13:13:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/30 13:19:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,12 @@ int	check_walls(t_game game, int i, int j)
 	return (1);
 }
 
-/* Checks if the tiles surround the player */
-int	check_surroundings(int start_x, int start_y, int x, int y)
-{
-	if ((start_x == x - 1 && start_y == y)
-		|| (start_x == x + 1 && start_y == y)
-		|| (start_x == x && start_y == y - 1)
-		|| (start_x == x && start_y == y + 1))
-		return (0);
-	return (1);
-}
-
 /* Adds the free tile to the linked list of free tiles */
 void	add_tile(t_map *data, t_tile **free_tiles, int x, int y)
 {
 	t_tile	*tile;
 	t_tile	*last;
 
-	if (check_surroundings(data->start_x, data->start_y, x, y) == 0)
-		return ;
 	tile = malloc(sizeof(t_tile));
 	if (tile == NULL)
 		ft_error("Malloc\n");

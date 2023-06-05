@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/09 14:30:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/05/30 11:07:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/05/30 13:33:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	found_collectible(t_game *game, int x, int y)
 	if (check_status(game) == 1)
 	{
 		game->exit_img->enabled = false;
-		exit = get_picture(game->mlx, "textures/fridge_open.png");
+		exit = get_picture(game->mlx, "textures/open_fridge.png");
 		put_image(game->mlx, exit, game->exit_img->instances[0].y,
 			game->exit_img->instances[0].x);
 	}
