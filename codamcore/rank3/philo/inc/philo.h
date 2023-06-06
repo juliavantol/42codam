@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/06/04 19:51:18 by Julia         ########   odam.nl         */
+/*   Updated: 2023/06/06 12:27:51 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <pthread.h>
 
 typedef struct s_philo
 {
@@ -24,7 +25,6 @@ typedef struct s_philo
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	number_of_times_to_eat;
-	
 }	t_philo;
 
 void	put_str(char *str, int fd);
