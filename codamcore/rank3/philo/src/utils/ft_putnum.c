@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   ft_putnum.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/06/04 16:59:39 by Julia         #+#    #+#                 */
-/*   Updated: 2023/06/12 12:48:25 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/06/12 12:40:15 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/06/12 12:49:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	put_str(char *str, int fd)
+void	ft_putnum(int n)
 {
-	int	index;
-
-	index = 0;
-	while (str[index])
-		write(fd, &str[index++], 1);
-}
-
-void	put_char(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_error(char *msg)
-{
-	put_str(msg, 2);
-	exit(EXIT_FAILURE);
+	if (n == -2147483648)
+		put_str("-2147483648", 1);
+	if (n < 0)
+	{
+		n *= -1;
+		put_char('-');
+		return (ft_putnum(n));
+	}
+	else if (n >= 10)
+	{
+		ft_putnum(n / 10);
+		return (ft_putnum(n % 10));
+	}
+	else
+		put_char(n + 48);
 }

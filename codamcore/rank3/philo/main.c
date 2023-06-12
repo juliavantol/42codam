@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/06/06 14:05:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/06/12 12:38:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*routine(void)
 	return (0);
 }
 
-t_philo	fill_struct(int argc, char **argv)
+t_philo	fill_struct(int argc, char **argv, struct timeval time)
 {
 	t_philo	philo;
 
@@ -32,21 +32,24 @@ t_philo	fill_struct(int argc, char **argv)
 		philo.number_of_times_to_eat = ft_atoi(argv[5]);
 	else
 		philo.number_of_times_to_eat = 1;
+	philo.timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
 	return (philo);
 }
 
 int	main(int argc, char **argv)
 {
-	t_philo		philo;
-	pthread_t	thread1;
-	pthread_t	thread2;
+	struct timeval	time;
+	t_philo			philo;
+	pthread_t		thread1;
+	pthread_t		thread2;
 
 	if (argc != 5 && argc != 6)
 	{
 		put_str("Not enough arguments\n", 2);
 		return (EXIT_FAILURE);
 	}
-	philo = fill_struct(argc, argv);
+	gettimeofday(&time, NULL);
+	philo = fill_struct(argc, argv, time);
 	if (philo.number_of_philosophers < 1 || philo.number_of_times_to_eat < 1
 		|| philo.time_to_die < 1 || philo.time_to_eat < 1
 		|| philo.number_of_times_to_eat < 1)
@@ -55,5 +58,6 @@ int	main(int argc, char **argv)
 	pthread_create(&thread2, NULL, (void *)routine, NULL);
 	pthread_join(thread1, NULL);
 	pthread_join(thread2, NULL);
+	timestamp_in_ms(philo);
 	return (0);
 }

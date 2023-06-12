@@ -2,7 +2,8 @@ NAME = philo
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I inc
-SRC = main.c src/utils/error.c src/utils/ft_atoi.c src/utils/ft_strlen.c
+SRC = main.c src/utils/error.c src/utils/ft_atoi.c src/utils/ft_strlen.c src/utils/utils.c \
+		src/utils/ft_putnum.c
 OBJ = $(SRC:%.c=%.o)
 
 RED     := \033[31;1m

@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/06/04 16:59:39 by Julia         #+#    #+#                 */
-/*   Updated: 2023/06/12 12:48:25 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/06/12 12:52:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	put_str(char *str, int fd)
+void	timestamp_in_ms(t_philo philo)
 {
-	int	index;
+	struct timeval	time;
+	int				time_ms;
 
-	index = 0;
-	while (str[index])
-		write(fd, &str[index++], 1);
-}
-
-void	put_char(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_error(char *msg)
-{
-	put_str(msg, 2);
-	exit(EXIT_FAILURE);
+	gettimeofday(&time, NULL);
+	time_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000;
+	ft_putnum(time_ms - philo.timestamp_ms);
+	put_str("\n", 1);
 }
