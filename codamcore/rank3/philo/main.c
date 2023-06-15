@@ -6,19 +6,11 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/06/12 12:38:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/06/15 16:56:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	*routine(void)
-{
-	printf("Test from threads\n");
-	usleep(3000);
-	printf("End thread\n");
-	return (0);
-}
 
 t_philo	fill_struct(int argc, char **argv, struct timeval time)
 {
@@ -33,6 +25,9 @@ t_philo	fill_struct(int argc, char **argv, struct timeval time)
 	else
 		philo.number_of_times_to_eat = 1;
 	philo.timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
+	philo.philosophers = malloc(sizeof(t_philosopher)
+			* philo.number_of_philosophers);
+	philo.all_forks = malloc(sizeof(t_fork) * philo.number_of_philosophers);
 	return (philo);
 }
 
@@ -40,8 +35,6 @@ int	main(int argc, char **argv)
 {
 	struct timeval	time;
 	t_philo			philo;
-	pthread_t		thread1;
-	pthread_t		thread2;
 
 	if (argc != 5 && argc != 6)
 	{
@@ -54,10 +47,7 @@ int	main(int argc, char **argv)
 		|| philo.time_to_die < 1 || philo.time_to_eat < 1
 		|| philo.number_of_times_to_eat < 1)
 		return (EXIT_FAILURE);
-	pthread_create(&thread1, NULL, (void *)routine, NULL);
-	pthread_create(&thread2, NULL, (void *)routine, NULL);
-	pthread_join(thread1, NULL);
-	pthread_join(thread2, NULL);
-	timestamp_in_ms(philo);
+	parse_structs(&philo);
+	show_philos(philo);
 	return (0);
 }
