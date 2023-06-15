@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/06/15 16:59:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/06/15 17:45:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	parse_structs(t_philo *philo)
 	index = 0;
 	while (index < philo->number_of_philosophers)
 	{
+		fork.id = index;
 		fork.available = true;
 		if (pthread_mutex_init(&mutex, NULL) != 0)
 			return ;
@@ -33,14 +34,31 @@ void	parse_structs(t_philo *philo)
 	}
 }
 
-void	show_philos(t_philo philo)
+void	link_forks(t_philo *philo)
 {
-	int				index;
+	int		index;
 
 	index = 0;
-	while (index < philo.number_of_philosophers)
+	while (index < philo->number_of_philosophers)
 	{
-		printf("%d\n", philo.philosophers[2].state);
+		if (index > 0 && index < philo->number_of_philosophers - 1)
+		{
+			philo->philosophers[index].fork_left = &philo->all_forks[index + 1];
+			philo->philosophers[index].fork_right = &philo->all_forks[index];
+		}
 		index++;
+	}
+}
+
+void	show_philos(t_philo philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo.number_of_philosophers)
+	{
+		printf("%d\n", philo.all_forks[i].id);
+		printf("%d\n", philo.philosophers[i].fork_right->id);
+		i++;
 	}
 }

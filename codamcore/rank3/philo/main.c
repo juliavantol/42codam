@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/06/15 16:56:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/06/15 17:41:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char **argv)
 		|| philo.number_of_times_to_eat < 1)
 		return (EXIT_FAILURE);
 	parse_structs(&philo);
+	link_forks(&philo);
 	show_philos(philo);
 	return (0);
 }
