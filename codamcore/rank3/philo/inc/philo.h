@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/06/15 17:41:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/10 17:56:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ typedef struct s_fork
 
 typedef struct s_philosopher
 {
-	int		state;
-	t_fork	*fork_left;
-	t_fork	*fork_right;
+	int			state;
+	int			id;
+	pthread_t	thread;
+	t_fork		*fork_left;
+	t_fork		*fork_right;
 }	t_philosopher;
 
 typedef struct s_philo
@@ -47,8 +49,10 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				number_of_times_to_eat;
 	int				timestamp_ms;
-	t_philosopher	*philosophers;
 	t_fork			*all_forks;
+
+	t_philosopher	*philosophers;
+	pthread_mutex_t	*forks;
 }	t_philo;
 
 void	timestamp_in_ms(t_philo philo);

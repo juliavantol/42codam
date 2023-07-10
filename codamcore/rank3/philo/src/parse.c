@@ -6,15 +6,24 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/06/20 12:03:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/10 17:36:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	*make_philo(void *arg)
+{
+	int	id;
+
+	id = *(int *)arg;
+	return (NULL);
+}
+
+/* Makes the forks and philosphers */
 void	parse_structs(t_philo *philo)
 {
-	// pthread_mutex_t	mutex;
+	pthread_mutex_t	mutex;
 	t_philosopher	new_philo;
 	t_fork			fork;
 	int				index;
@@ -24,24 +33,25 @@ void	parse_structs(t_philo *philo)
 	{
 		fork.id = index;
 		fork.available = true;
-		// pthread_mutex_init(&mutex, NULL);
-		// if (pthread_mutex_init(&mutex, NULL) != 0)
-		// 	return ;
-		// fork.mutex = mutex;
+		if (pthread_mutex_init(&mutex, NULL) != 0)
+			return ;
+		fork.mutex = mutex;
 		philo->all_forks[index] = fork;
 		new_philo.state = THINKING;
 		philo->philosophers[index] = new_philo;
+		// pthread_create(&thread, NULL, &func, NULL);
 		index++;
 	}
 }
 
+/* Assign forks to the philosophers */
 void	link_forks(t_philo *philo)
 {
 	int	index;
 	int	last;
 
 	index = 0;
-	last = philo->number_of_philosophers - 1;
+	last = philo->number_of_philosophers;
 	while (index < philo->number_of_philosophers)
 	{
 		if (index > 0 && index < philo->number_of_philosophers)

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/06/20 11:31:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/10 17:56:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ t_philo	fill_struct(int argc, char **argv, struct timeval time)
 	else
 		philo.number_of_times_to_eat = 1;
 	philo.timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
+	philo.all_forks = malloc(sizeof(t_fork) * philo.number_of_philosophers);
 	philo.philosophers = malloc(sizeof(t_philosopher)
 			* philo.number_of_philosophers);
-	philo.all_forks = malloc(sizeof(t_fork) * philo.number_of_philosophers);
+	philo.forks = malloc(sizeof(pthread_mutex_t) * philo.number_of_philosophers);
 	return (philo);
 }
 
@@ -47,8 +48,8 @@ int	main(int argc, char **argv)
 		|| philo.time_to_die < 1 || philo.time_to_eat < 1
 		|| philo.number_of_times_to_eat < 1)
 		return (EXIT_FAILURE);
-	parse_structs(&philo);
-	link_forks(&philo);
-	show_philos(philo);
+	// parse_structs(&philo);
+	// link_forks(&philo);
+	// show_philos(philo);
 	return (0);
 }
