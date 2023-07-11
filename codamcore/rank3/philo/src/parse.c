@@ -6,19 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/10 17:36:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/11 12:14:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	*make_philo(void *arg)
-{
-	int	id;
-
-	id = *(int *)arg;
-	return (NULL);
-}
 
 /* Makes the forks and philosphers */
 void	parse_structs(t_philo *philo)

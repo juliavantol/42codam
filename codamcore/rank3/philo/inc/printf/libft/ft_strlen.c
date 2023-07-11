@@ -3,23 +3,23 @@
 /*                                                        ::::::::            */
 /*   ft_strlen.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/06/04 19:50:19 by Julia         #+#    #+#                 */
-/*   Updated: 2023/06/04 21:13:29 by Julia         ########   odam.nl         */
+/*   Created: 2022/10/05 13:44:57 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/31 15:46:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "libft.h"
 
-int	ft_strlen(char *str)
+/* Returns length of string */
+
+size_t	ft_strlen(const char *s)
 {
-	int	len;
+	size_t	index;
 
-	if (!str)
-		return (0);
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
+	index = 0;
+	while (s[index] != '\0')
+		index++;
+	return (index);
 }

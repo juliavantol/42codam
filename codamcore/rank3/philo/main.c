@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/10 17:56:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/11 12:42:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,20 @@ t_philo	fill_struct(int argc, char **argv, struct timeval time)
 	return (philo);
 }
 
+void	*make_philo(void *arg)
+{
+	int	id;
+
+	id = *(int *)arg;
+	ft_printf("%d\n", id);
+	return (NULL);
+}
+
 int	main(int argc, char **argv)
 {
 	struct timeval	time;
+	int				i;
+	int				j;
 	t_philo			philo;
 
 	if (argc != 5 && argc != 6)
@@ -48,6 +59,29 @@ int	main(int argc, char **argv)
 		|| philo.time_to_die < 1 || philo.time_to_eat < 1
 		|| philo.number_of_times_to_eat < 1)
 		return (EXIT_FAILURE);
+	i = 0;
+	while (i < philo.number_of_philosophers)
+	{
+		if (pthread_mutex_init(&philo.forks[i], NULL) != 0)
+			return (EXIT_FAILURE);
+		i++;
+	}
+	j = 0;
+	i = 1;
+	ft_printf("hey\n");
+	while (j < philo.number_of_philosophers)
+	{
+		philo.philosophers[j].id = i;
+		pthread_create(&philo.philosophers[j].thread, NULL, make_philo, &philo.philosophers[j].id);
+		j++;
+		i++;
+	}
+	i = 0;
+	while (i < philo.number_of_philosophers)
+	{
+		pthread_join(philo.philosophers[i].thread, NULL);
+		i++;
+	}
 	// parse_structs(&philo);
 	// link_forks(&philo);
 	// show_philos(philo);

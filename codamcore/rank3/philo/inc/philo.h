@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/10 17:56:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/11 12:33:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <stdbool.h>
+# include "printf/ft_printf.h"
 
 # define EATING 1
 # define THINKING 2
@@ -63,7 +64,5 @@ void	show_philos(t_philo philo);
 void	put_str(char *str, int fd);
 void	ft_putnum(int n);
 void	put_char(char c);
-int		ft_atoi(char *input);
-int		ft_strlen(char *str);
 
 #endif
