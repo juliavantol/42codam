@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/11 13:38:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/11 17:34:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define THINKING 2
 # define SLEEPING 3
 # define DEAD 4
+# define FORK 5
 
 typedef struct s_fork
 {
@@ -36,6 +37,7 @@ typedef struct s_fork
 typedef struct s_philosopher
 {
 	int			state;
+	int			total;
 	int			id;
 	pthread_t	thread;
 	t_fork		*fork_left;
@@ -50,14 +52,15 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				number_of_times_to_eat;
 	int				timestamp_ms;
-	t_fork			*all_forks;
-
+	int				index;
 	t_philosopher	*philosophers;
 	pthread_mutex_t	*forks;
 }	t_philo;
 
 t_philo	fill_struct(int argc, char **argv);
-void	timestamp_in_ms(t_philo philo);
+int 	valid_input(t_philo philo);
+int 	check_input(int argc);
+void	timestamp_in_ms(t_philo philo, int event, int id);
 void	parse_structs(t_philo *philo);
 void	link_forks(t_philo *philo);
 void	make_forks(t_philo *philo);

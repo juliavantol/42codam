@@ -6,56 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/11 13:38:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/11 17:13:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-/* Makes the forks and philosphers */
-void	parse_structs(t_philo *philo)
-{
-	pthread_mutex_t	mutex;
-	t_philosopher	new_philo;
-	t_fork			fork;
-	int				index;
-
-	index = 0;
-	while (index < philo->number_of_philosophers + 1)
-	{
-		fork.id = index;
-		fork.available = true;
-		if (pthread_mutex_init(&mutex, NULL) != 0)
-			return ;
-		fork.mutex = mutex;
-		philo->all_forks[index] = fork;
-		new_philo.state = THINKING;
-		philo->philosophers[index] = new_philo;
-		// pthread_create(&thread, NULL, &func, NULL);
-		index++;
-	}
-}
-
-/* Assign forks to the philosophers */
-void	link_forks(t_philo *philo)
-{
-	int	index;
-	int	last;
-
-	index = 0;
-	last = philo->number_of_philosophers;
-	while (index < philo->number_of_philosophers)
-	{
-		if (index > 0 && index < philo->number_of_philosophers)
-		{
-			philo->philosophers[index].fork_left = &philo->all_forks[index + 1];
-			philo->philosophers[index].fork_right = &philo->all_forks[index];
-		}
-		index++;
-	}
-	philo->philosophers[0].fork_left = &philo->all_forks[1];
-	philo->philosophers[0].fork_right = &philo->all_forks[last];
-}
 
 t_philo	fill_struct(int argc, char **argv)
 {
