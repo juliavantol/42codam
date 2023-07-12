@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/11 17:52:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/12 18:06:16 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	*eating(void *arg)
 {
 	int				id;
-	int				index;
+	// int				index;
+	int				turns;
 	int				left;
 	int 			right;
 	t_philo			*philo;
@@ -23,21 +24,29 @@ void	*eating(void *arg)
 	// time_start = 
 	philo = (t_philo *)arg;
 	id = philo->index + 1;
-	index = philo->index;
+	// index = philo->index;
 	left = id;
 	right = (id - 1) % philo->number_of_philosophers;
 	if (right == 0)
 		right = philo->number_of_philosophers;
-	while (1)
+	turns = 0;
+	while (turns < philo->number_of_times_to_eat)
 	{
 		pthread_mutex_lock(&philo->forks[left - 1]);
 		timestamp_in_ms(*philo, FORK, id);
-		pthread_mutex_lock(&philo->forks[right - 1]);
-		timestamp_in_ms(*philo, FORK, id);
-		usleep(philo->time_to_eat * 1000);
+		if (philo->number_of_philosophers > 1)
+		{
+			pthread_mutex_lock(&philo->forks[right - 1]);
+			timestamp_in_ms(*philo, FORK, id);
+		}
 		timestamp_in_ms(*philo, EATING, id);
+		usleep(philo->time_to_eat * 1000);
 		pthread_mutex_unlock(&philo->forks[left - 1]);
 		pthread_mutex_unlock(&philo->forks[right - 1]);
+		timestamp_in_ms(*philo, SLEEPING, id);
+		usleep(philo->time_to_sleep * 1000);
+		timestamp_in_ms(*philo, THINKING, id);
+		turns++;
 	}
 	return (NULL);
 }

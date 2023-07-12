@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/11 17:13:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/12 18:04:37 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_philo	fill_struct(int argc, char **argv)
 
 	gettimeofday(&time, NULL);
 	philo.number_of_philosophers = ft_atoi(argv[1]);
-	philo.number_of_times_to_eat = ft_atoi(argv[2]);
-	philo.time_to_die = ft_atoi(argv[3]);
-	philo.time_to_eat = ft_atoi(argv[4]);
+	philo.time_to_die = ft_atoi(argv[2]);
+	philo.time_to_eat = ft_atoi(argv[3]);
+	philo.time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		philo.number_of_times_to_eat = ft_atoi(argv[5]);
 	else
