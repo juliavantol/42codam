@@ -6,100 +6,63 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/12 19:24:28 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/13 14:23:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*eating(void *arg)
+int				counter;
+
+void	*eat(void *args)
 {
-	int				id;
-	// int				index;
-	int				turns;
-	int				left;
-	int 			right;
-	t_philo			*philo;
-	
-	// time_start = 
-	philo = (t_philo *)arg;
-	id = philo->index + 1;
-	// index = philo->index;
-	left = id;
-	right = (id - 1) % philo->number_of_philosophers;
-	if (right == 0)
-		right = philo->number_of_philosophers;
-	turns = 0;
-	while (1)
-	{
-		pthread_mutex_lock(&philo->forks[left - 1]);
-		timestamp_in_ms(*philo, FORK, id);
-		if (philo->number_of_philosophers > 1)
-		{
-			pthread_mutex_lock(&philo->forks[right - 1]);
-			timestamp_in_ms(*philo, FORK, id);
-		}
-		timestamp_in_ms(*philo, EATING, id);
-		usleep(philo->time_to_eat * 1000);
-		pthread_mutex_unlock(&philo->forks[left - 1]);
-		pthread_mutex_unlock(&philo->forks[right - 1]);
-		timestamp_in_ms(*philo, SLEEPING, id);
-		usleep(philo->time_to_sleep * 1000);
-		timestamp_in_ms(*philo, THINKING, id);
-		turns++;
-	}
+	t_philo	*data;
+	int		id;
+	int		left;
+	int right;
+
+	data = (t_philo *)args;
+	id = data->philosopher;
+	pthread_mutex_lock(&data->forks[0]);
+	left = data->philosopher;
+	right = (data->philosopher - 1) % data->number_of_philosophers;
+	//printf("philo: %d left: %d right: %d\n", data->philosopher, left, right);
+	ft_printf("\n %d is eating\n", data->philosopher);
+	usleep(data->time_to_eat * 1000);
+	ft_printf("\n %d is sleeping\n", data->philosopher);
+	pthread_mutex_unlock(&data->forks[0]);
+	data->philosopher += 1;
 	return (NULL);
-}
-
-
-int	philosophers(t_philo philo)
-{
-	int			i;
-	pthread_t	*threads;
-	t_philo		*philos;
-
-	threads = malloc(sizeof(pthread_t) * philo.number_of_philosophers);
-	philos = malloc(sizeof(t_philo) * philo.number_of_philosophers);
-	i = 0;
-	while (i < philo.number_of_philosophers)
-	{
-		if (pthread_mutex_init(&philo.forks[i], NULL) != 0)
-			return (EXIT_FAILURE);
-		i++;
-	}
-	i = 0;
-	while (i < philo.number_of_philosophers)
-	{
-		philos[i] = philo;
-		philos[i].index = i;
-		philo.index = i;
-		pthread_create(&threads[i], NULL, eating, &philos[i]);
-		i++;
-	}
-	i = 0;
-	while (i < philo.number_of_philosophers)
-	{
-		pthread_join(threads[i], NULL);
-		i++;
-	}
-	i = 0;
-	while (i < philo.number_of_philosophers)
-		pthread_mutex_destroy(&philo.forks[i++]);
-
-	free(threads);
-	free(philos);	
-	return (0);
+	
 }
 
 int	main(int argc, char **argv)
 {
-	t_philo			philo;
+	int		i;
+	t_philo	data;
+	// int		*ids;
 
 	if (check_input(argc) == -1)
 		return (EXIT_FAILURE);
-	philo = fill_struct(argc, argv);
-	if (valid_input(philo) == -1)
+	parse(argc, argv, 0, &data);
+	if (valid_input(data) == -1)
 		return (EXIT_FAILURE);
-	philosophers(philo);
+	i = 0;
+	// ids = malloc(sizeof(int) * (data.number_of_philosophers + 1));
+	data.philosopher = 1;
+	while (i < data.number_of_philosophers)
+	{
+		// ids[i] = i + 1;
+		// *data.ids = &ids;
+		if (pthread_create(&(data.threads[i]), NULL, &eat, &data) != 0)
+			return (EXIT_FAILURE);
+		i++;
+	}
+	i = 0;
+	while (i < data.number_of_philosophers)
+	{
+		pthread_join(data.threads[i], NULL);
+		i++;
+	}
 	return (0);
 }

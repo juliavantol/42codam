@@ -6,41 +6,33 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/12 18:04:37 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/13 12:53:11 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo	fill_struct(int argc, char **argv)
+void	parse(int argc, char **argv, int i, t_philo *philo)
 {
-	t_philo			philo;
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	philo.number_of_philosophers = ft_atoi(argv[1]);
-	philo.time_to_die = ft_atoi(argv[2]);
-	philo.time_to_eat = ft_atoi(argv[3]);
-	philo.time_to_sleep = ft_atoi(argv[4]);
+	philo->number_of_philosophers = ft_atoi(argv[1]);
+	philo->time_to_die = ft_atoi(argv[2]);
+	philo->time_to_eat = ft_atoi(argv[3]);
+	philo->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		philo.number_of_times_to_eat = ft_atoi(argv[5]);
+		philo->number_of_times_to_eat = ft_atoi(argv[5]);
 	else
-		philo.number_of_times_to_eat = 1;
-	philo.timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
-	philo.philosophers = malloc(sizeof(t_philosopher)
-			* philo.number_of_philosophers);
-	philo.forks = malloc(sizeof(pthread_mutex_t) * philo.number_of_philosophers);
-	return (philo);
-}
-
-void	show_philos(t_philo philo)
-{
-	int	i;
-
+		philo->number_of_times_to_eat = 1;
+	philo->timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
+	philo->threads = malloc(sizeof(pthread_t) * philo->number_of_philosophers);
+	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
 	i = 0;
-	while (i < philo.number_of_philosophers)
+	while (i < philo->number_of_philosophers)
 	{
-		printf("%d <-- %d --> %d\n", philo.philosophers[i].fork_left->id, i, philo.philosophers[i].fork_right->id);
+		if (pthread_mutex_init(&philo->forks[i], NULL) != 0)
+			ft_printf("error\n");
 		i++;
 	}
 }
