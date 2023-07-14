@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/13 12:53:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/14 01:53:17 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ void	parse(int argc, char **argv, int i, t_philo *philo)
 	philo->timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
 	philo->threads = malloc(sizeof(pthread_t) * philo->number_of_philosophers);
 	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
+	philo->philos = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
 	i = 0;
 	while (i < philo->number_of_philosophers)
 	{
 		if (pthread_mutex_init(&philo->forks[i], NULL) != 0)
+			ft_printf("error\n");
+		if (pthread_mutex_init(&philo->philos[i], NULL) != 0)
 			ft_printf("error\n");
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/13 14:02:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/14 00:50:45 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ typedef struct s_philo
 	int				timestamp_ms;
 	int				philosopher;
 	// int				**ids;
+	pthread_mutex_t	*philos;
+	int				p;
+	int				left;
+	int				right;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
 }	t_philo;
