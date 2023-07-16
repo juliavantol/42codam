@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/16 21:14:10 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/16 21:43:27 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ void	parse(int argc, char **argv, int i, t_philo *philo)
 	philo->threads = malloc(sizeof(pthread_t) * philo->number_of_philosophers);
 	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
 	philo->philos = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
+	philo->all_philos = malloc(sizeof(t_p) * philo->number_of_philosophers);
 	pthread_mutex_init(&philo->write, NULL);
 	i = 0;
 	while (i < philo->number_of_philosophers)
 	{
+		philo->all_philos[i].id = i + 1;
 		if (pthread_mutex_init(&philo->forks[i], NULL) != 0)
 			ft_printf("error\n");
 		if (pthread_mutex_init(&philo->philos[i], NULL) != 0)

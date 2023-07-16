@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/16 21:18:04 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/16 21:38:39 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,17 @@
 # define DEAD 4
 # define FORK 5
 
-typedef struct s_fork
-{
-	int				id;
-	pthread_mutex_t	mutex;
-	bool			available;
-}	t_fork;
-
 typedef struct s_philosopher
 {
-	int			state;
 	int			total;
 	int			id;
-	pthread_t	thread;
-	t_fork		*fork_left;
-	t_fork		*fork_right;
 }	t_philosopher;
+
+typedef struct s_p
+{
+	pthread_t	thread;
+	int			id;
+}	t_p;
 
 typedef struct s_philo
 {
@@ -54,7 +49,6 @@ typedef struct s_philo
 	int				number_of_times_to_eat;
 	int				timestamp_ms;
 	int				philosopher;
-	// int				**ids;
 	pthread_mutex_t	*philos;
 	int				p;
 	int				left;
@@ -62,6 +56,7 @@ typedef struct s_philo
 	pthread_t		*threads;
 	pthread_mutex_t	write;
 	pthread_mutex_t	*forks;
+	t_p				*all_philos;
 }	t_philo;
 
 void	parse(int argc, char **argv, int i, t_philo *philo);
