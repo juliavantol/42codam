@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/14 00:50:45 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/16 21:18:04 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,12 @@ typedef struct s_philo
 	int				left;
 	int				right;
 	pthread_t		*threads;
+	pthread_mutex_t	write;
 	pthread_mutex_t	*forks;
 }	t_philo;
 
 void	parse(int argc, char **argv, int i, t_philo *philo);
-void	timestamp_in_ms(t_philo philo, int event, int id);
+void	timestamp_in_ms(t_philo *philo, int event, int id);
 void	parse_structs(t_philo *philo);
 void	link_forks(t_philo *philo);
 void	make_forks(t_philo *philo);
