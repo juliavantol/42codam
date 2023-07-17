@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/12 19:14:20 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/17 14:01:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*eating(void *arg)
 	
 	// time_start = 
 	philo = (t_philo *)arg;
-	id = philo->index + 1;
+	// id = philo->index + 1;
 	// index = philo->index;
 	left = id;
 	right = (id - 1) % philo->number_of_philosophers;

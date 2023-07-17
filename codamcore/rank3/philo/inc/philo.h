@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/16 21:38:39 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/17 15:56:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ typedef struct s_philosopher
 
 typedef struct s_p
 {
-	pthread_t	thread;
-	int			id;
+	pthread_t		thread;
+	pthread_mutex_t	*left;
+	pthread_mutex_t	*right;
+	struct	s_philo *data;
+	int				meals;
+	int				id;
 }	t_p;
 
 typedef struct s_philo
@@ -47,6 +51,7 @@ typedef struct s_philo
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_times_to_eat;
+	int				max_meals;
 	int				timestamp_ms;
 	int				philosopher;
 	pthread_mutex_t	*philos;
@@ -59,8 +64,9 @@ typedef struct s_philo
 	t_p				*all_philos;
 }	t_philo;
 
-void	parse(int argc, char **argv, int i, t_philo *philo);
+void	parse(int argc, char **argv, t_philo *philo);
 void	timestamp_in_ms(t_philo *philo, int event, int id);
+void	timestamp_msg(t_philo *philo, int event, int id);
 void	parse_structs(t_philo *philo);
 void	link_forks(t_philo *philo);
 void	make_forks(t_philo *philo);
