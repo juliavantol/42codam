@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/17 15:56:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/17 17:57:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_p
 	pthread_mutex_t	*right;
 	struct	s_philo *data;
 	int				meals;
+	int				last_action;
 	int				id;
 }	t_p;
 

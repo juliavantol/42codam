@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/17 16:31:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/17 17:37:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	*eat(void *args)
 	data = (t_p *)args;
 	while (1)
 	{
+		timestamp_msg(data->data, THINKING, data->id);
 		if (data->data->number_of_times_to_eat == 1)
 		{
 			if (data->meals >= data->data->max_meals)
@@ -51,7 +52,6 @@ void	*eat(void *args)
 			pthread_mutex_unlock(data->right);
 		timestamp_msg(data->data, SLEEPING, data->id);
 		usleep(data->data->time_to_sleep * 1000);
-		timestamp_msg(data->data, THINKING, data->id);
 	}
 	return (NULL);
 	

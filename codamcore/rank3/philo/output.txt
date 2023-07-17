@@ -1,1 +1,23 @@
-Invalid input
+0 1 is thinking
+0 1 has taken a fork
+0 1 is eating
+0 3 is thinking
+0 3 has taken a fork
+0 3 has taken a fork
+0 3 is eating
+0 4 is thinking
+0 4 has taken a fork
+0 2 is thinking
+105 1 is sleeping
+105 3 is sleeping
+105 4 has taken a fork
+106 4 is eating
+105 2 has taken a fork
+106 2 has taken a fork
+106 2 is eating
+209 1 is thinking
+209 3 is thinking
+209 2 is sleeping
+209 4 is sleeping
+309 2 is thinking
+309 4 is thinking

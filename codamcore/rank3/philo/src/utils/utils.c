@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/17 16:30:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/17 17:57:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	timestamp_msg(t_philo *philo, int event, int id)
 		ft_printf("%d %d died\n", time_ms - philo->timestamp_ms, id);
 	else if (event == FORK)
 		ft_printf("%d %d has taken a fork\n", time_ms - philo->timestamp_ms, id);
+	if (event == EATING || event == FORK)
+	{
+		philo->all_philos[id - 1].last_action = 0;
+	}
 	pthread_mutex_unlock(&philo->write);
 }
 

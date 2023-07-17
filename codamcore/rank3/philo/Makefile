@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 PRINTF = inc/printf/libftprintf.a
 INCLUDES = -I inc
-SRC = main.c src/utils/error.c src/utils/utils.c src/utils/ft_putnum.c src/parse.c \
+SRC = main.c src/utils/error.c src/utils/utils.c src/parse.c \
 		inc/printf/printf.c inc/printf/ft_hex_len.c inc/printf/parser.c inc/printf/ft_itoa_len.c
 OBJ = $(SRC:%.c=%.o)
 
