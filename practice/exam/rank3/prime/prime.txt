@@ -1,0 +1,12 @@
+je krijgt een number // atoi allowed
+de factor van dat nummer 
+maar al die factors moeten primes zijn
+
+
+prime factors
+1*3*3 = 
+
+// is het een prime
+// zoek de kleinste prime
+-->blijven delen tot de volgende kleinste prime tot je niks overhoudt
+
