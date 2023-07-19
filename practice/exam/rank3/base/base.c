@@ -26,10 +26,16 @@ int ft_atoi(const char *str) {
     return result * sign;
 }
 
-char *int_to_hexadecimal(int num, char output[]) {
+int main(int argc, char **argv) 
+{	
+	int num;
+    char output[10000];
     int index = 0;
 
-    // Handle 0 as a special case
+	if (argc != 2)
+		return (0);
+	num = ft_atoi(argv[1]);
+     // Handle 0 as a special case
     if (num == 0) {
         output[index++] = '0';
     }
@@ -60,22 +66,10 @@ char *int_to_hexadecimal(int num, char output[]) {
         start++;
         end--;
     }
-	return (output);
-}
-
-int main(int argc, char **argv) 
-{	
-	int number;
-	char *output;
-
-	if (argc != 2)
-		return (0);
-	number = ft_atoi(argv[1]);
-	output = malloc(10000);
-	output = int_to_hexadecimal(number, output);
 
     printf("Hexadecimal representation: %s\n", output);
-	printf("Real: %x\n", number);
+    num = ft_atoi(argv[1]);
+	printf("Real: %x\n", num);
 
     return 0;
 }
