@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/17 16:27:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/19 14:59:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_forks(t_philo *data, int i)
 	int right;
 
 	pthread_mutex_init(&data->write, NULL);
+	pthread_mutex_init(&data->lock, NULL);
 	while (i < data->number_of_philosophers)
 	{
 		data->all_philos[i].id = i + 1;
@@ -27,6 +28,7 @@ void	init_forks(t_philo *data, int i)
 			ft_printf("error\n");
 		data->all_philos[i].data = data;
 		data->all_philos[i].meals = 0;
+		data->all_philos[i].dead = 0;
 		i++;
 	}
 	i = 0;

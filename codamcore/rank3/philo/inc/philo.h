@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/17 17:57:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/19 14:59:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_p
 	struct	s_philo *data;
 	int				meals;
 	int				last_action;
+	int				dead;
 	int				id;
 }	t_p;
 
@@ -60,23 +61,26 @@ typedef struct s_philo
 	int				left;
 	int				right;
 	pthread_t		*threads;
+	pthread_t		waiter;
+	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
 	pthread_mutex_t	*forks;
 	t_p				*all_philos;
 }	t_philo;
 
+// typedef struct s_w
+// {
+// 	struct	s_philo *data;
+// 	int			id;
+// }	t_w;
+
 void	parse(int argc, char **argv, t_philo *philo);
-void	timestamp_in_ms(t_philo *philo, int event, int id);
 void	timestamp_msg(t_philo *philo, int event, int id);
-void	parse_structs(t_philo *philo);
-void	link_forks(t_philo *philo);
-void	make_forks(t_philo *philo);
-void	show_philos(t_philo philo);
 void	put_str(char *str, int fd);
 void	ft_error(char *msg);
-void	ft_putnum(int n);
 void	put_char(char c);
 int 	valid_input(t_philo philo);
 int 	check_input(int argc);
+int		get_time_ms(void);
 
 #endif

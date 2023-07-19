@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/17 17:37:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/19 14:57:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,42 @@ void	down_fork(t_philo *data, int fork1, int fork2)
 	pthread_mutex_unlock(&data->forks[fork2]);
 }
 
-void	*eat(void *args)
+void	*waiter(void *args)
+{
+	t_p	*data;
+	int	time;
+
+	data = (t_p *)args;
+	time = get_time_ms();
+	pthread_mutex_lock(&data->data->write);
+	// ft_printf("joejoe\n");
+	pthread_mutex_unlock(&data->data->write);
+	return (NULL);
+}
+
+void	eat(t_p *data)
+{
+	pthread_mutex_lock(data->left);
+	timestamp_msg(data->data, FORK, data->id);
+	if (data->id > 1)
+	{
+		pthread_mutex_lock(data->right);
+		timestamp_msg(data->data, FORK, data->id);
+	}
+	timestamp_msg(data->data, EATING, data->id);
+	data->meals += 1;
+	usleep(data->data->time_to_eat * 1000);
+	pthread_mutex_unlock(data->left);
+	if (data->id > 1)
+		pthread_mutex_unlock(data->right);
+}
+
+void	*philosopher(void *args)
 {
 	t_p	*data;
 
 	data = (t_p *)args;
+	pthread_create(&(data->thread), NULL, &waiter, &data);
 	while (1)
 	{
 		timestamp_msg(data->data, THINKING, data->id);
@@ -37,22 +68,11 @@ void	*eat(void *args)
 			if (data->meals >= data->data->max_meals)
 				break;
 		}
-		pthread_mutex_lock(data->left);
-		timestamp_msg(data->data, FORK, data->id);
-		if (data->id > 1)
-		{
-			pthread_mutex_lock(data->right);
-			timestamp_msg(data->data, FORK, data->id);
-		}
-		timestamp_msg(data->data, EATING, data->id);
-		data->meals += 1;
-		usleep(data->data->time_to_eat * 1000);
-		pthread_mutex_unlock(data->left);
-		if (data->id > 1)
-			pthread_mutex_unlock(data->right);
+		eat(data);
 		timestamp_msg(data->data, SLEEPING, data->id);
 		usleep(data->data->time_to_sleep * 1000);
 	}
+	pthread_join(data->thread, NULL);
 	return (NULL);
 	
 }
@@ -77,7 +97,7 @@ int	main(int argc, char **argv)
 	{
 		data.left = i + 1;
 		data.right = (i + 1 )% data.number_of_philosophers;
-		if (pthread_create(&(data.threads[i]), NULL, &eat, &data.all_philos[i]) != 0)
+		if (pthread_create(&(data.threads[i]), NULL, &philosopher, &data.all_philos[i]) != 0)
 			return (EXIT_FAILURE);
 		data.philosopher += 1;
 		data.p += 1;
