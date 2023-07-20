@@ -6,38 +6,26 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/19 14:57:21 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/20 14:31:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	take_fork(t_philo *data, int philo, int fork, char *hand)
-{
-	pthread_mutex_lock(&data->forks[fork]);
-	ft_printf("\n %d has taken fork %d in their %s hand\n", philo, fork, hand);
-}
-
-void	down_fork(t_philo *data, int fork1, int fork2)
-{
-	pthread_mutex_unlock(&data->forks[fork1]);
-	pthread_mutex_unlock(&data->forks[fork2]);
-}
-
 void	*waiter(void *args)
 {
-	t_p	*data;
+	t_waiter	*waiter;
 	int	time;
 
-	data = (t_p *)args;
+	waiter = (t_waiter *)args;
 	time = get_time_ms();
-	pthread_mutex_lock(&data->data->write);
-	// ft_printf("joejoe\n");
-	pthread_mutex_unlock(&data->data->write);
+	pthread_mutex_lock(&waiter->data->write);
+	printf("\nhey\n");
+	pthread_mutex_unlock(&waiter->data->write);
 	return (NULL);
 }
 
-void	eat(t_p *data)
+void	eat(t_philosopher *data)
 {
 	pthread_mutex_lock(data->left);
 	timestamp_msg(data->data, FORK, data->id);
@@ -46,9 +34,11 @@ void	eat(t_p *data)
 		pthread_mutex_lock(data->right);
 		timestamp_msg(data->data, FORK, data->id);
 	}
+	pthread_mutex_lock(&data->data->lock);
 	timestamp_msg(data->data, EATING, data->id);
 	data->meals += 1;
 	usleep(data->data->time_to_eat * 1000);
+	pthread_mutex_unlock(&data->data->lock);
 	pthread_mutex_unlock(data->left);
 	if (data->id > 1)
 		pthread_mutex_unlock(data->right);
@@ -56,10 +46,15 @@ void	eat(t_p *data)
 
 void	*philosopher(void *args)
 {
-	t_p	*data;
+	t_philosopher			*data;
+	t_waiter	*waiter_d;
+	pthread_t	waiter_thread;
 
-	data = (t_p *)args;
-	pthread_create(&(data->thread), NULL, &waiter, &data);
+	data = (t_philosopher *)args;
+	waiter_d = malloc(sizeof(t_waiter));
+	waiter_d->data = data->data;
+	pthread_mutex_init(&waiter_d->lock, NULL);
+	pthread_create(&waiter_thread, NULL, &waiter, &waiter_d);
 	while (1)
 	{
 		timestamp_msg(data->data, THINKING, data->id);
@@ -72,7 +67,8 @@ void	*philosopher(void *args)
 		timestamp_msg(data->data, SLEEPING, data->id);
 		usleep(data->data->time_to_sleep * 1000);
 	}
-	pthread_join(data->thread, NULL);
+	pthread_join(waiter_thread, NULL);
+    pthread_mutex_destroy(&waiter_d->lock);
 	return (NULL);
 	
 }
@@ -80,7 +76,7 @@ void	*philosopher(void *args)
 int	main(int argc, char **argv)
 {
 	int		i;
-	t_philo	data;
+	t_data	data;
 
 	if (check_input(argc) == -1)
 		return (EXIT_FAILURE);
@@ -91,16 +87,12 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	i = 0;
-	data.philosopher = 1;
-	data.p = 1;
 	while (i < data.number_of_philosophers)
 	{
 		data.left = i + 1;
 		data.right = (i + 1 )% data.number_of_philosophers;
 		if (pthread_create(&(data.threads[i]), NULL, &philosopher, &data.all_philos[i]) != 0)
 			return (EXIT_FAILURE);
-		data.philosopher += 1;
-		data.p += 1;
 		i++;
 	}
 	i = 0;

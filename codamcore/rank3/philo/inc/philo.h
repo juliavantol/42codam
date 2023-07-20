@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/19 14:59:21 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/20 14:31:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,17 @@
 
 typedef struct s_philosopher
 {
-	int			total;
-	int			id;
-}	t_philosopher;
-
-typedef struct s_p
-{
 	pthread_t		thread;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
-	struct	s_philo *data;
+	struct	s_data *data;
 	int				meals;
 	int				last_action;
 	int				dead;
 	int				id;
-}	t_p;
+}	t_philosopher;
 
-typedef struct s_philo
+typedef struct s_data
 {
 	int				number_of_philosophers;
 	int				time_to_die;
@@ -55,9 +49,7 @@ typedef struct s_philo
 	int				number_of_times_to_eat;
 	int				max_meals;
 	int				timestamp_ms;
-	int				philosopher;
-	pthread_mutex_t	*philos;
-	int				p;
+	pthread_mutex_t	*philo_locks;
 	int				left;
 	int				right;
 	pthread_t		*threads;
@@ -65,21 +57,21 @@ typedef struct s_philo
 	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
 	pthread_mutex_t	*forks;
-	t_p				*all_philos;
-}	t_philo;
+	t_philosopher				*all_philos;
+}	t_data;
 
-// typedef struct s_w
-// {
-// 	struct	s_philo *data;
-// 	int			id;
-// }	t_w;
+typedef struct s_waiter
+{
+	t_data			*data;
+	pthread_mutex_t	lock;
+}	t_waiter;
 
-void	parse(int argc, char **argv, t_philo *philo);
-void	timestamp_msg(t_philo *philo, int event, int id);
+void	parse(int argc, char **argv, t_data *philo);
+void	timestamp_msg(t_data *philo, int event, int id);
 void	put_str(char *str, int fd);
 void	ft_error(char *msg);
 void	put_char(char c);
-int 	valid_input(t_philo philo);
+int 	valid_input(t_data philo);
 int 	check_input(int argc);
 int		get_time_ms(void);
 

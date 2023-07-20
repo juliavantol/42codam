@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/19 14:34:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/20 14:22:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	get_time_ms(void)
 	return (time);
 }
 
-void	timestamp_msg(t_philo *philo, int event, int id)
+void	timestamp_msg(t_data *philo, int event, int id)
 {
 	int				time_ms;
 
-	pthread_mutex_lock(&philo->write);
 	time_ms = get_time_ms();
+	pthread_mutex_lock(&philo->write);
 	if (event == EATING)
 		ft_printf("%d %d is eating\n", time_ms - philo->timestamp_ms, id);
 	else if (event == THINKING)
@@ -38,14 +38,14 @@ void	timestamp_msg(t_philo *philo, int event, int id)
 		ft_printf("%d %d died\n", time_ms - philo->timestamp_ms, id);
 	else if (event == FORK)
 		ft_printf("%d %d has taken a fork\n", time_ms - philo->timestamp_ms, id);
+	pthread_mutex_unlock(&philo->write);
 	if (event == EATING || event == FORK)
 	{
 		philo->all_philos[id - 1].last_action = get_time_ms();
 	}
-	pthread_mutex_unlock(&philo->write);
 }
 
-int valid_input(t_philo philo)
+int valid_input(t_data philo)
 {
 	if (philo.number_of_times_to_eat == 1)
 	{

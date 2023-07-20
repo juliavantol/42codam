@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/19 14:59:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/20 14:33:51 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_forks(t_philo *data, int i)
+void	init_forks(t_data *data, int i)
 {
 	int left;
 	int right;
@@ -24,7 +24,7 @@ void	init_forks(t_philo *data, int i)
 		data->all_philos[i].id = i + 1;
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			ft_printf("error\n");
-		if (pthread_mutex_init(&data->philos[i], NULL) != 0)
+		if (pthread_mutex_init(&data->philo_locks[i], NULL) != 0)
 			ft_printf("error\n");
 		data->all_philos[i].data = data;
 		data->all_philos[i].meals = 0;
@@ -43,7 +43,7 @@ void	init_forks(t_philo *data, int i)
 	}
 }
 
-void	parse(int argc, char **argv, t_philo *philo)
+void	parse(int argc, char **argv, t_data *philo)
 {
 	struct timeval	time;
 
@@ -65,7 +65,7 @@ void	parse(int argc, char **argv, t_philo *philo)
 	philo->timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
 	philo->threads = malloc(sizeof(pthread_t) * philo->number_of_philosophers);
 	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
-	philo->philos = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
-	philo->all_philos = malloc(sizeof(t_p) * philo->number_of_philosophers);
+	philo->philo_locks = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
+	philo->all_philos = malloc(sizeof(t_philosopher) * philo->number_of_philosophers);
 	init_forks(philo, 0);
 }
