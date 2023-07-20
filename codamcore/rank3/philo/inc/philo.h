@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/20 14:31:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/20 23:33:19 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_data
 
 typedef struct s_waiter
 {
-	t_data			*data;
+	t_philosopher	*data;
 	pthread_mutex_t	lock;
 }	t_waiter;
 

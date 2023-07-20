@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/20 23:30:54 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/20 23:33:54 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	*waiter(void *args)
 
 	waiter = (t_waiter *)args;
 	//pthread_mutex_lock(&waiter->lock);
-	pthread_mutex_lock(&waiter->data->write);
+	pthread_mutex_lock(&waiter->data->data->write);
 	ft_printf("\nhey\n");
-	pthread_mutex_unlock(&waiter->data->write);
+	pthread_mutex_unlock(&waiter->data->data->write);
 	//pthread_mutex_unlock(&waiter->lock);
 	return (NULL);
 }
@@ -74,7 +74,7 @@ void	*philosopher(void *args)
 	pthread_t	waiter_thread;
 
 	philo = (t_philosopher *)args;
-	waiter_d.data = philo->data;
+	waiter_d.data = philo;
 	pthread_mutex_init(&waiter_d.lock, NULL);
 	pthread_create(&waiter_thread, NULL, &waiter, &waiter_d);
 	while (1)
