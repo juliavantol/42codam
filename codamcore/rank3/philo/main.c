@@ -6,69 +6,91 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/20 14:31:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/20 23:30:54 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	timestamp_msg(t_data *philo, int event, int id)
+{
+	int				time_ms;
+
+	time_ms = get_time_ms();
+	pthread_mutex_lock(&philo->write);
+	if (event == EATING)
+		ft_printf("%d %d is eating\n", time_ms - philo->timestamp_ms, id);
+	else if (event == THINKING)
+		ft_printf("%d %d is thinking\n", time_ms - philo->timestamp_ms, id);
+	else if (event == SLEEPING)
+		ft_printf("%d %d is sleeping\n", time_ms - philo->timestamp_ms, id);
+	else if (event == DEAD)
+		ft_printf("%d %d died\n", time_ms - philo->timestamp_ms, id);
+	else if (event == FORK)
+		ft_printf("%d %d has taken a fork\n", time_ms - philo->timestamp_ms, id);
+	pthread_mutex_unlock(&philo->write);
+	if (event == EATING || event == FORK)
+	{
+		philo->all_philos[id - 1].last_action = get_time_ms();
+	}
+}
+
 void	*waiter(void *args)
 {
 	t_waiter	*waiter;
-	int	time;
 
 	waiter = (t_waiter *)args;
-	time = get_time_ms();
+	//pthread_mutex_lock(&waiter->lock);
 	pthread_mutex_lock(&waiter->data->write);
-	printf("\nhey\n");
+	ft_printf("\nhey\n");
 	pthread_mutex_unlock(&waiter->data->write);
+	//pthread_mutex_unlock(&waiter->lock);
 	return (NULL);
 }
 
-void	eat(t_philosopher *data)
+void	eat(t_philosopher *philo)
 {
-	pthread_mutex_lock(data->left);
-	timestamp_msg(data->data, FORK, data->id);
-	if (data->id > 1)
+	pthread_mutex_lock(philo->left);
+	timestamp_msg(philo->data, FORK, philo->id);
+	if (philo->id > 1)
 	{
-		pthread_mutex_lock(data->right);
-		timestamp_msg(data->data, FORK, data->id);
+		pthread_mutex_lock(philo->right);
+		timestamp_msg(philo->data, FORK, philo->id);
 	}
-	pthread_mutex_lock(&data->data->lock);
-	timestamp_msg(data->data, EATING, data->id);
-	data->meals += 1;
-	usleep(data->data->time_to_eat * 1000);
-	pthread_mutex_unlock(&data->data->lock);
-	pthread_mutex_unlock(data->left);
-	if (data->id > 1)
-		pthread_mutex_unlock(data->right);
+	pthread_mutex_lock(&philo->data->lock);
+	timestamp_msg(philo->data, EATING, philo->id);
+	philo->meals += 1;
+	usleep(philo->data->time_to_eat * 1000);
+	pthread_mutex_unlock(&philo->data->lock);
+	pthread_mutex_unlock(philo->left);
+	if (philo->id > 1)
+		pthread_mutex_unlock(philo->right);
 }
 
 void	*philosopher(void *args)
 {
-	t_philosopher			*data;
-	t_waiter	*waiter_d;
+	t_philosopher			*philo;
+	t_waiter	waiter_d;
 	pthread_t	waiter_thread;
 
-	data = (t_philosopher *)args;
-	waiter_d = malloc(sizeof(t_waiter));
-	waiter_d->data = data->data;
-	pthread_mutex_init(&waiter_d->lock, NULL);
+	philo = (t_philosopher *)args;
+	waiter_d.data = philo->data;
+	pthread_mutex_init(&waiter_d.lock, NULL);
 	pthread_create(&waiter_thread, NULL, &waiter, &waiter_d);
 	while (1)
 	{
-		timestamp_msg(data->data, THINKING, data->id);
-		if (data->data->number_of_times_to_eat == 1)
+		timestamp_msg(philo->data, THINKING, philo->id);
+		if (philo->data->number_of_times_to_eat == 1)
 		{
-			if (data->meals >= data->data->max_meals)
+			if (philo->meals >= philo->data->max_meals)
 				break;
 		}
-		eat(data);
-		timestamp_msg(data->data, SLEEPING, data->id);
-		usleep(data->data->time_to_sleep * 1000);
+		eat(philo);
+		timestamp_msg(philo->data, SLEEPING, philo->id);
+		usleep(philo->data->time_to_sleep * 1000);
+		pthread_join(waiter_thread, NULL);
+		pthread_mutex_destroy(&waiter_d.lock);
 	}
-	pthread_join(waiter_thread, NULL);
-    pthread_mutex_destroy(&waiter_d->lock);
 	return (NULL);
 	
 }
