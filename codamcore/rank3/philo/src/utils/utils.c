@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/22 14:53:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/22 15:12:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	eat(t_philosopher *philo)
 		timestamp_msg(philo->data, FORK, philo->id);
 	}
 	pthread_mutex_lock(&philo->data->lock);
+	philo->end_action = 0;
 	philo->start_action = get_time_ms();
 	timestamp_msg(philo->data, EATING, philo->id);
 	philo->meals += 1;
