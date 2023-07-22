@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/20 23:33:19 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/22 14:55:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ typedef struct s_philosopher
 	pthread_t		thread;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
+	pthread_mutex_t	lock;
 	struct	s_data *data;
 	int				meals;
-	int				last_action;
+	int				start_action;
+	int				end_action;
 	int				dead;
 	int				id;
 }	t_philosopher;
@@ -48,7 +50,10 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				number_of_times_to_eat;
 	int				max_meals;
+	int				finished;
+	int				status;
 	int				timestamp_ms;
+	int 			start_time;
 	pthread_mutex_t	*philo_locks;
 	int				left;
 	int				right;
@@ -69,6 +74,7 @@ typedef struct s_waiter
 void	parse(int argc, char **argv, t_data *philo);
 void	timestamp_msg(t_data *philo, int event, int id);
 void	put_str(char *str, int fd);
+void	eat(t_philosopher *philo);
 void	ft_error(char *msg);
 void	put_char(char c);
 int 	valid_input(t_data philo);

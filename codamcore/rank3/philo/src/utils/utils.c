@@ -6,11 +6,32 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/20 23:21:59 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/22 14:53:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	eat(t_philosopher *philo)
+{
+	pthread_mutex_lock(philo->left);
+	timestamp_msg(philo->data, FORK, philo->id);
+	if (philo->id > 1)
+	{
+		pthread_mutex_lock(philo->right);
+		timestamp_msg(philo->data, FORK, philo->id);
+	}
+	pthread_mutex_lock(&philo->data->lock);
+	philo->start_action = get_time_ms();
+	timestamp_msg(philo->data, EATING, philo->id);
+	philo->meals += 1;
+	usleep(philo->data->time_to_eat * 1000);
+	pthread_mutex_unlock(&philo->data->lock);
+	pthread_mutex_unlock(philo->left);
+	if (philo->id > 1)
+		pthread_mutex_unlock(philo->right);
+	philo->end_action = get_time_ms();
+}
 
 int	get_time_ms(void)
 {

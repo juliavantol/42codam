@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/20 14:33:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/22 14:55:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	init_forks(t_data *data, int i)
 		data->all_philos[i].data = data;
 		data->all_philos[i].meals = 0;
 		data->all_philos[i].dead = 0;
+		data->all_philos[i].start_action = 0;
+		data->all_philos[i].end_action = 0;
+		if (pthread_mutex_init(&data->all_philos[i].lock, NULL) != 0)
+			ft_printf("error\n");
 		i++;
 	}
 	i = 0;
@@ -43,29 +47,32 @@ void	init_forks(t_data *data, int i)
 	}
 }
 
-void	parse(int argc, char **argv, t_data *philo)
+void	parse(int argc, char **argv, t_data *data)
 {
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	philo->number_of_philosophers = ft_atoi(argv[1]);
-	philo->time_to_die = ft_atoi(argv[2]);
-	philo->time_to_eat = ft_atoi(argv[3]);
-	philo->time_to_sleep = ft_atoi(argv[4]);
+	data->number_of_philosophers = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	data->finished = 0;
+	data->status = 1;
 	if (argc == 6)
 	{
-		philo->number_of_times_to_eat = 1;
-		philo->max_meals = ft_atoi(argv[5]);
+		data->number_of_times_to_eat = 1;
+		data->max_meals = ft_atoi(argv[5]);
 	}
 	else
 	{
-		philo->number_of_times_to_eat = 0;
-		philo->max_meals = 0;
+		data->number_of_times_to_eat = 0;
+		data->max_meals = 0;
 	}
-	philo->timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
-	philo->threads = malloc(sizeof(pthread_t) * philo->number_of_philosophers);
-	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
-	philo->philo_locks = malloc(sizeof(pthread_mutex_t) * philo->number_of_philosophers);
-	philo->all_philos = malloc(sizeof(t_philosopher) * philo->number_of_philosophers);
-	init_forks(philo, 0);
+	data->start_time = get_time_ms();
+	data->timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
+	data->threads = malloc(sizeof(pthread_t) * data->number_of_philosophers);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->number_of_philosophers);
+	data->philo_locks = malloc(sizeof(pthread_mutex_t) * data->number_of_philosophers);
+	data->all_philos = malloc(sizeof(t_philosopher) * data->number_of_philosophers);
+	init_forks(data, 0);
 }

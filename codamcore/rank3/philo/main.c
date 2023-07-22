@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/20 23:33:54 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/22 15:06:35 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,42 +29,27 @@ void	timestamp_msg(t_data *philo, int event, int id)
 	else if (event == FORK)
 		ft_printf("%d %d has taken a fork\n", time_ms - philo->timestamp_ms, id);
 	pthread_mutex_unlock(&philo->write);
-	if (event == EATING || event == FORK)
-	{
-		philo->all_philos[id - 1].last_action = get_time_ms();
-	}
 }
 
 void	*waiter(void *args)
 {
 	t_waiter	*waiter;
+	int			time;
+	int			end_action;
 
 	waiter = (t_waiter *)args;
-	//pthread_mutex_lock(&waiter->lock);
-	pthread_mutex_lock(&waiter->data->data->write);
-	ft_printf("\nhey\n");
-	pthread_mutex_unlock(&waiter->data->data->write);
-	//pthread_mutex_unlock(&waiter->lock);
-	return (NULL);
-}
-
-void	eat(t_philosopher *philo)
-{
-	pthread_mutex_lock(philo->left);
-	timestamp_msg(philo->data, FORK, philo->id);
-	if (philo->id > 1)
+	while (waiter->data->dead == 0)
 	{
-		pthread_mutex_lock(philo->right);
-		timestamp_msg(philo->data, FORK, philo->id);
+		pthread_mutex_lock(&waiter->data->data->write);
+		time = get_time_ms() - waiter->data->data->start_time;
+		if (waiter->data->end_action != 0)
+		{
+			end_action = waiter->data->end_action - waiter->data->data->start_time;
+			ft_printf("ID %d Time: %d -- Last action: %d\n", waiter->data->id, time, end_action);	
+		}	
+		pthread_mutex_unlock(&waiter->data->data->write);
 	}
-	pthread_mutex_lock(&philo->data->lock);
-	timestamp_msg(philo->data, EATING, philo->id);
-	philo->meals += 1;
-	usleep(philo->data->time_to_eat * 1000);
-	pthread_mutex_unlock(&philo->data->lock);
-	pthread_mutex_unlock(philo->left);
-	if (philo->id > 1)
-		pthread_mutex_unlock(philo->right);
+	return (NULL);
 }
 
 void	*philosopher(void *args)
@@ -83,14 +68,18 @@ void	*philosopher(void *args)
 		if (philo->data->number_of_times_to_eat == 1)
 		{
 			if (philo->meals >= philo->data->max_meals)
-				break;
+			{
+				philo->dead = 1;
+				philo->data->finished = 1;
+				break;	
+			}
 		}
 		eat(philo);
 		timestamp_msg(philo->data, SLEEPING, philo->id);
 		usleep(philo->data->time_to_sleep * 1000);
-		pthread_join(waiter_thread, NULL);
-		pthread_mutex_destroy(&waiter_d.lock);
 	}
+	pthread_join(waiter_thread, NULL);
+	pthread_mutex_destroy(&waiter_d.lock);
 	return (NULL);
 	
 }
