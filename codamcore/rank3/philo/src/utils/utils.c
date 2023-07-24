@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/22 15:12:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/24 15:35:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,28 @@
 
 void	eat(t_philosopher *philo)
 {
-	pthread_mutex_lock(philo->left);
-	timestamp_msg(philo->data, FORK, philo->id);
-	if (philo->id > 1)
+	if (philo->data->finished != 1)
 	{
-		pthread_mutex_lock(philo->right);
+		pthread_mutex_lock(philo->left);
 		timestamp_msg(philo->data, FORK, philo->id);
+		if (philo->id > 1)
+		{
+			pthread_mutex_lock(philo->right);
+			timestamp_msg(philo->data, FORK, philo->id);
+		}
+		pthread_mutex_lock(&philo->data->lock);
+		philo->end_action = 0;
+		philo->start_action = get_time_ms();
+		timestamp_msg(philo->data, EATING, philo->id);
+		philo->meals += 1;
+		if (philo->data->finished != 1)
+			usleep(philo->data->time_to_eat * 1000);
+		pthread_mutex_unlock(&philo->data->lock);
+		pthread_mutex_unlock(philo->left);
+		if (philo->id > 1)
+			pthread_mutex_unlock(philo->right);
+		philo->end_action = get_time_ms();
 	}
-	pthread_mutex_lock(&philo->data->lock);
-	philo->end_action = 0;
-	philo->start_action = get_time_ms();
-	timestamp_msg(philo->data, EATING, philo->id);
-	philo->meals += 1;
-	usleep(philo->data->time_to_eat * 1000);
-	pthread_mutex_unlock(&philo->data->lock);
-	pthread_mutex_unlock(philo->left);
-	if (philo->id > 1)
-		pthread_mutex_unlock(philo->right);
-	philo->end_action = get_time_ms();
 }
 
 int	get_time_ms(void)
