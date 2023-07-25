@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/25 13:21:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/25 14:25:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@
 # define DEAD 4
 # define FORK 5
 
+typedef struct s_philosopher
+{
+	int				id;
+	struct t_data	*data;
+}	t_philosopher;
+
 typedef struct s_data
 {
 	int				philo_count;
@@ -36,18 +42,15 @@ typedef struct s_data
 	int				eat_time;
 	pthread_mutex_t	write;
 	pthread_t		*philo_threads;
+	t_philosopher	*philos;
 }	t_data;
 
 int		parse_input(int argc, char **argv, t_data *philo);
 int		init_mutexes(t_data *data);
-int		valid_input(t_data philo);
-int		check_input(int argc);
-int		get_time_ms(void);
+int		init_structs(t_data *data);
 
-void	timestamp_msg(t_data *philo, int event, int id);
-void	put_str(char *str, int fd);
-void	message(t_data *data);
-void	ft_error(char *msg);
-void	put_char(char c);
+void	init_threads(t_data	data);
+void	message(t_data *data, int state);
+void	*eating(void *args);
 
 #endif

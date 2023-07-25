@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/25 12:34:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/25 14:30:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,19 @@ int	parse_input(int argc, char **argv, t_data *data)
 int	init_mutexes(t_data *data)
 {
 	pthread_mutex_init(&data->write, NULL);
+	return (1);
+}
+
+int	init_structs(t_data *data)
+{
+	int	index;
+
+	data->philos = malloc(sizeof(t_philosopher) * data->philo_count);
+	index = 0;
+	while (index < data->philo_count)
+	{
+		data->philos[index].id = index;
+		index++;
+	}
 	return (1);
 }

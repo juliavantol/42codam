@@ -1,6 +1,6 @@
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 PRINTF = inc/printf/libftprintf.a
 INCLUDES = -I inc
 SRC = main.c src/utils/error.c src/utils/utils.c src/parse.c \
