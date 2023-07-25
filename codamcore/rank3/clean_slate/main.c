@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/25 12:52:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/25 13:21:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	*eating(void *args)
 
 	data = (t_data *)args;
 	pthread_mutex_lock(&data->write);
-	ft_printf("hey\n");
-	pthread_mutex_unlock(&data->write);
+	ft_printf("test\n");
+	pthread_mutex_unlock(&data->write);	
 	return (NULL);
 }
 
@@ -37,12 +37,11 @@ int	main(int argc, char **argv)
 		ft_printf("Invalid input\n");
 		exit(1);
 	}
+	init_mutexes(&data);
 	index = 0;
 	while (index < data.philo_count)
 	{
-		if (pthread_create(&(data.philo_threads[index]), NULL
-				, &eating, &data != 0)
-			return (EXIT_FAILURE);
+		pthread_create(&(data.philo_threads[index]), NULL, &eating, &data);
 		index++;
 	}
 	index = 0;

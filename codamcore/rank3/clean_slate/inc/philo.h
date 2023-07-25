@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/25 12:37:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/25 13:21:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		get_time_ms(void);
 
 void	timestamp_msg(t_data *philo, int event, int id);
 void	put_str(char *str, int fd);
+void	message(t_data *data);
 void	ft_error(char *msg);
 void	put_char(char c);
 
