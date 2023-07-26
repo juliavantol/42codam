@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/26 14:11:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/26 17:42:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@
 # define DEAD 4
 # define FORK 5
 
-typedef struct s_waiter
+typedef struct s_supervisor
 {
 	struct s_data	*data;
 	pthread_mutex_t	lock;
-}	t_waiter;
+}	t_supervisor;
 
 typedef struct s_philosopher
 {

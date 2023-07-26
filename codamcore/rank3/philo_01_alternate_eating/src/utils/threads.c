@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/26 17:27:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/26 17:36:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ void	take_forks(t_philosopher *philo)
 
 	left = philo->id - 1;
 	right = philo->id % philo->data->philo_count;
-	//printf("%d left: %d right: %d\n", philo->id, left, right);
 	if (philo->id % 2 == 0)
 	{
-		// right fork first
 		pthread_mutex_lock(&philo->data->forks[left]);
 		message(philo->data, FORK, philo->id);
 		pthread_mutex_lock(&philo->data->forks[right]);
@@ -34,7 +32,6 @@ void	take_forks(t_philosopher *philo)
 		message(philo->data, FORK, philo->id);
 		pthread_mutex_lock(&philo->data->forks[left]);
 		message(philo->data, FORK, philo->id);
-		//left fork first
 	}
 }
 
@@ -47,13 +44,11 @@ void	put_forks_down(t_philosopher *philo)
 	right = philo->id % philo->data->philo_count;
 	if (philo->id % 2 == 0)
 	{
-		// right fork first
 		pthread_mutex_unlock(&philo->data->forks[left]);
 		pthread_mutex_unlock(&philo->data->forks[right]);
 	}
 	else
 	{
-		//left fork first
 		pthread_mutex_unlock(&philo->data->forks[right]);
 		pthread_mutex_unlock(&philo->data->forks[left]);
 	}
