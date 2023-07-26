@@ -1,0 +1,100 @@
+0 1 has taken a fork
+0 1 has taken a fork
+0 1 is eating
+2 3 has taken a fork
+2 3 has taken a fork
+2 3 is eating
+201 1 is sleeping
+201 2 has taken a fork
+201 5 has taken a fork
+201 5 has taken a fork
+201 5 is eating
+203 3 is sleeping
+203 2 has taken a fork
+203 2 is eating
+203 4 has taken a fork
+402 1 is thinking
+402 5 is sleeping
+402 4 has taken a fork
+402 4 is eating
+403 3 is thinking
+403 2 is sleeping
+403 1 has taken a fork
+403 1 has taken a fork
+403 1 is eating
+604 5 is thinking
+604 4 is sleeping
+604 3 has taken a fork
+604 3 has taken a fork
+604 3 is eating
+608 2 is thinking
+608 1 is sleeping
+608 2 has taken a fork
+608 5 has taken a fork
+608 5 has taken a fork
+608 5 is eating
+804 4 is thinking
+804 4 has taken a fork
+804 3 is sleeping
+804 2 has taken a fork
+804 2 is eating
+811 1 is thinking
+811 5 is sleeping
+811 4 has taken a fork
+811 4 is eating
+1005 3 is thinking
+1005 2 is sleeping
+1005 1 has taken a fork
+1005 1 has taken a fork
+1005 1 is eating
+1012 5 is thinking
+1012 4 is sleeping
+1012 3 has taken a fork
+1012 3 has taken a fork
+1012 3 is eating
+1205 2 is thinking
+1205 1 is sleeping
+1205 2 has taken a fork
+1205 5 has taken a fork
+1205 5 has taken a fork
+1205 5 is eating
+1216 4 is thinking
+1216 3 is sleeping
+1216 4 has taken a fork
+1216 2 has taken a fork
+1216 2 is eating
+1408 1 is thinking
+1408 5 is sleeping
+1408 4 has taken a fork
+1408 4 is eating
+1418 3 is thinking
+1418 2 is sleeping
+1418 1 has taken a fork
+1418 1 has taken a fork
+1418 1 is eating
+1611 5 is thinking
+1611 4 is sleeping
+1611 3 has taken a fork
+1611 3 has taken a fork
+1611 3 is eating
+1621 2 is thinking
+1621 1 is sleeping
+1621 2 has taken a fork
+1621 5 has taken a fork
+1621 5 has taken a fork
+1621 5 is eating
+1813 4 is thinking
+1813 3 is sleeping
+1813 2 has taken a fork
+1813 2 is eating
+1813 4 has taken a fork
+1823 1 is thinking
+1823 5 is sleeping
+1823 4 has taken a fork
+1823 4 is eating
+2016 3 is thinking
+2016 2 is sleeping
+2026 5 is thinking
+2026 4 is sleeping
+2217 2 is thinking
+2227 4 is thinking
