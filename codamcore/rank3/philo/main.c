@@ -6,152 +6,26 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/24 15:35:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/27 12:54:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 // make && ./philo 44 300 200 100
 // make && ./philo 1 200 100 100
-
+// number_of_philosophers time_to_die time_to_eat time_to_sleep
+// [number_of_times_each_philosopher_must_eat]
 #include "philo.h"
-
-void	timestamp_msg(t_data *philo, int event, int id)
-{
-	int				time_ms;
-
-	time_ms = get_time_ms();
-	if (philo->finished != 1)
-	{
-		pthread_mutex_lock(&philo->write);
-		if (event == EATING)
-			ft_printf("%d %d is eating\n", time_ms - philo->timestamp_ms, id);
-		else if (event == THINKING)
-			ft_printf("%d %d is thinking\n", time_ms - philo->timestamp_ms, id);
-		else if (event == SLEEPING)
-			ft_printf("%d %d is sleeping\n", time_ms - philo->timestamp_ms, id);
-		else if (event == DEAD)
-			ft_printf("%d %d died\n", time_ms - philo->timestamp_ms, id);
-		else if (event == FORK)
-			ft_printf("%d %d has taken a fork\n", time_ms - philo->timestamp_ms, id);
-		pthread_mutex_unlock(&philo->write);	
-	}
-}
-
-void	*waiter(void *args)
-{
-    int				num_philosophers;
-	t_data			*data;
-	t_waiter		*waiter;
-	t_philosopher	*philosophers;
-	t_philosopher	*philo;
-	int				time_elapsed;
-	int				i;
-
-	data = (t_data *)args;
-	num_philosophers = data->number_of_philosophers;
-	waiter = data->waiter;
-	philosophers = data->all_philos;
-	while (1)
-    {
-		i = 0;
-		while (i < num_philosophers)
-        {
-            philo = &philosophers[i];
-
-            pthread_mutex_lock(&philo->lock);
-            time_elapsed = get_time_ms() - philo->end_action;
-			if (time_elapsed > philo->data->time_to_die)
-            {
-                timestamp_msg(philo->data, DEAD, philo->id);
-				data->finished = 1;
-				waiter->done = 1;
-                philo->dead = 1;
-            }
-            pthread_mutex_unlock(&philo->lock);
-			i++;
-        }
-        pthread_mutex_lock(&waiter->lock);
-        if (waiter->done == 1)
-        {
-            pthread_mutex_unlock(&waiter->lock);
-            break;
-        }
-        pthread_mutex_unlock(&waiter->lock);
-    }
-	return (NULL);
-}
-
-void	*philosopher(void *args)
-{
-	t_philosopher			*philo;
-
-	philo = (t_philosopher *)args;
-	while (philo->data->finished == 0)
-	{
-		timestamp_msg(philo->data, THINKING, philo->id);
-		if (philo->data->number_of_times_to_eat == 1)
-		{
-			if (philo->meals >= philo->data->max_meals)
-			{
-				philo->dead = 1;
-				pthread_mutex_lock(&philo->data->lock);
-				philo->data->finished += 1;
-				pthread_mutex_unlock(&philo->data->lock);
-				break;
-			}
-		}
-		eat(philo);
-		timestamp_msg(philo->data, SLEEPING, philo->id);
-		if (philo->data->finished != 1)
-			usleep(philo->data->time_to_sleep * 1000);
-	}
-	return (NULL);
-	
-}
 
 int	main(int argc, char **argv)
 {
-	int			i;
-	t_data		data;
-	t_waiter	*waiter_s;
-	pthread_t	waiter_thread;
+	t_data	data;
 
-	if (check_input(argc) == -1)
-		return (EXIT_FAILURE);
-	parse(argc, argv, &data);
-	if (valid_input(data) == -1)
+	if (parse_input(argc, argv, &data) == -1)
 	{
-		ft_printf("Invalid input\n");
-		return (EXIT_FAILURE);
+		printf("Invalid input\n");
+		exit(1);
 	}
-	i = 0;
-	waiter_s = (t_waiter *)malloc(sizeof(t_waiter));
-	waiter_s->done = 0;
-	data.waiter = waiter_s;
-	pthread_mutex_init(&waiter_s->lock, NULL);
-	pthread_create(&waiter_thread, NULL, &waiter, &data);
-	while (i < data.number_of_philosophers)
-	{
-		data.left = i + 1;
-		data.right = (i + 1 )% data.number_of_philosophers;
-		if (pthread_create(&(data.threads[i]), NULL, &philosopher, &data.all_philos[i]) != 0)
-			return (EXIT_FAILURE);
-		i++;
-	}
-	i = 0;
-	pthread_join(waiter_thread, NULL);
-	while (i < data.number_of_philosophers)
-	{
-		pthread_join(data.threads[i], NULL);
-		i++;
-	}
-	i = 0;
-	pthread_mutex_destroy(&waiter_s->lock);
-	while (i < data.number_of_philosophers)
-	{
-		if (pthread_mutex_destroy(&data.forks[i]) != 0)
-			ft_printf("error\n");
-		i++;
-	}
-	return (0);
+	data.start_time = get_time_ms();
+	init_struct(&data);
+	init_threads(&data);
 }

@@ -6,67 +6,35 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/24 15:35:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/26 14:27:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	eat(t_philosopher *philo)
+void	message(t_data *data, int state, int id)
 {
-	if (philo->data->finished != 1)
-	{
-		pthread_mutex_lock(philo->left);
-		timestamp_msg(philo->data, FORK, philo->id);
-		if (philo->id > 1)
-		{
-			pthread_mutex_lock(philo->right);
-			timestamp_msg(philo->data, FORK, philo->id);
-		}
-		pthread_mutex_lock(&philo->data->lock);
-		philo->end_action = 0;
-		philo->start_action = get_time_ms();
-		timestamp_msg(philo->data, EATING, philo->id);
-		philo->meals += 1;
-		if (philo->data->finished != 1)
-			usleep(philo->data->time_to_eat * 1000);
-		pthread_mutex_unlock(&philo->data->lock);
-		pthread_mutex_unlock(philo->left);
-		if (philo->id > 1)
-			pthread_mutex_unlock(philo->right);
-		philo->end_action = get_time_ms();
-	}
+	u_int64_t	time;
+
+	time = get_time_ms() - data->start_time;
+	pthread_mutex_lock(&data->write);
+	if (state == EATING)
+		printf("%llu %d is eating\n", time, id);
+	else if (state == SLEEPING)
+		printf("%llu %d is sleeping\n", time, id);
+	else if (state == THINKING)
+		printf("%llu %d is thinking\n", time, id);
+	else if (state == FORK)
+		printf("%llu %d has taken a fork\n", time, id);
+	pthread_mutex_unlock(&data->write);
 }
 
-int	get_time_ms(void)
+u_int64_t	get_time_ms(void)
 {
 	struct timeval	tv;
-	int				time;
+	u_int64_t		time;
 
 	gettimeofday(&tv, NULL);
 	time = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
 	return (time);
-}
-
-int valid_input(t_data philo)
-{
-	if (philo.number_of_times_to_eat == 1)
-	{
-		if (philo.max_meals < 1)
-			return (-1);
-	}
-	if (philo.number_of_philosophers < 1 || philo.time_to_die < 1
-		|| philo.time_to_eat < 1)
-		return (-1);
-	return (0);
-}
-
-int check_input(int argc)
-{
-	if (argc != 5 && argc != 6)
-	{
-		put_str("Invalid number of arguments\n", 2);
-		return (-1);
-	}
-	return (0);
 }

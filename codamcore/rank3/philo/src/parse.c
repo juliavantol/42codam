@@ -6,74 +6,58 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/24 13:02:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/27 12:50:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_forks(t_data *data, int i)
+int	parse_input(int argc, char **argv, t_data *data)
 {
-	int left;
-	int right;
-
-	pthread_mutex_init(&data->write, NULL);
-	pthread_mutex_init(&data->lock, NULL);
-	while (i < data->number_of_philosophers)
-	{
-		data->all_philos[i].id = i + 1;
-		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			ft_printf("error\n");
-		if (pthread_mutex_init(&data->philo_locks[i], NULL) != 0)
-			ft_printf("error\n");
-		data->all_philos[i].data = data;
-		data->all_philos[i].meals = 0;
-		data->all_philos[i].dead = 0;
-		data->all_philos[i].start_action = 0;
-		data->all_philos[i].end_action = 0;
-		if (pthread_mutex_init(&data->all_philos[i].lock, NULL) != 0)
-			ft_printf("error\n");
-		i++;
-	}
-	i = 0;
-	while (i < data->number_of_philosophers)
-	{
-		left = i;
-		right = (i % data->number_of_philosophers) - 1;
-		data->all_philos[i].left = &data->forks[left];
-		if (right > -1)
-			data->all_philos[i].right = &data->forks[right];
-		i++;
-	}
-}
-
-void	parse(int argc, char **argv, t_data *data)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	data->number_of_philosophers = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
+	if (argc != 6 && argc != 5)
+		return (-1);
+	data->philo_count = ft_atoi(argv[1]);
+	data->die_time = ft_atoi(argv[2]);
+	data->eat_time = ft_atoi(argv[3]);
+	data->sleep_time = ft_atoi(argv[4]);
+	data->meal_count = 1;
 	data->finished = 0;
-	data->philos_done = 0;
-	data->status = 1;
+	data->total_meals = 0;
+	data->meals = 0;
+	data->status = IDLE;
 	if (argc == 6)
 	{
-		data->number_of_times_to_eat = 1;
-		data->max_meals = ft_atoi(argv[5]);
+		data->meal_count = ft_atoi(argv[5]);
+		data->meals = 1;
 	}
-	else
+	if (!data->philo_count || !data->die_time || !data->eat_time
+		|| !data->sleep_time || !data->meal_count)
+		return (-1);
+	if (data->philo_count < 1 || data->die_time < 1 || data->eat_time < 1
+		|| data->sleep_time < 1 || data->meal_count < 1)
+		return (-1);
+	return (1);
+}
+
+int	init_struct(t_data *data)
+{
+	int	index;
+
+	data->philo_threads = malloc(sizeof(pthread_t) * data->philo_count);
+	data->philos = malloc(sizeof(t_philosopher) * data->philo_count);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_count);
+	pthread_mutex_init(&data->write, NULL);
+	pthread_mutex_init(&data->lock, NULL);
+	index = 0;
+	while (index < data->philo_count)
 	{
-		data->number_of_times_to_eat = 0;
-		data->max_meals = 0;
+		data->philos[index].id = index + 1;
+		data->philos[index].data = data;
+		data->philos[index].dead = 0;
+		data->philos[index].meals = 0;
+		pthread_mutex_init(&data->philos[index].lock, NULL);
+		pthread_mutex_init(&data->forks[index], NULL);
+		index++;
 	}
-	data->start_time = get_time_ms();
-	data->timestamp_ms = (time.tv_sec) * 1000 + (time.tv_usec) / 1000 ;
-	data->threads = malloc(sizeof(pthread_t) * data->number_of_philosophers);
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->number_of_philosophers);
-	data->philo_locks = malloc(sizeof(pthread_mutex_t) * data->number_of_philosophers);
-	data->all_philos = malloc(sizeof(t_philosopher) * data->number_of_philosophers);
-	init_forks(data, 0);
+	return (1);
 }
