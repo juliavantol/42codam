@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/28 22:43:32 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/28 22:48:58 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,7 @@
 # define SLEEPING 3
 # define DEAD 4
 # define FORK 5
-# define IDLE 1
-# define STARTED 2
-
-typedef struct s_supervisor
-{
-	struct s_data	*data;
-	int				status;
-	pthread_mutex_t	lock;
-}	t_supervisor;
+# define DIED -1
 
 typedef struct s_philosopher
 {
@@ -61,7 +53,6 @@ typedef struct s_data
 	pthread_t		*philo_threads;
 	pthread_t		supervisor;
 	t_philosopher	*philos;
-	t_supervisor	*supervisor_t;
 }	t_data;
 
 int			parse_input(int argc, char **argv, t_data *philo);

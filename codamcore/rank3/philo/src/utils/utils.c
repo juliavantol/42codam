@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/26 14:27:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/28 22:46:45 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	message(t_data *data, int state, int id)
 		printf("%llu %d is thinking\n", time, id);
 	else if (state == FORK)
 		printf("%llu %d has taken a fork\n", time, id);
+	else if (state == DEAD)
+		printf("%llu %d has died\n", time, id);
 	pthread_mutex_unlock(&data->write);
 }
 

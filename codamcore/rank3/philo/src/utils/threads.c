@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/28 22:44:06 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/28 23:17:56 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ void	*supervisor_routine(void *args)
 		}
 		pthread_mutex_unlock(&data->lock);
 		usleep(1000);
+	}
+	return (NULL);
+}
+
+void	*death_patrol(void *args)
+{
+	t_philosopher	*philo;
+
+	philo = (t_philosopher *)args;
+	while (1)
+	{
+		
 	}
 	return (NULL);
 }
@@ -58,10 +70,9 @@ void	*philo_routine(void *args)
 void	init_threads(t_data	*data)
 {
 	int			index;
-	pthread_t	t0;
 
 	index = 0;
-	pthread_create(&t0, NULL, &supervisor_routine, (void *)data);
+	pthread_create(&data->supervisor, NULL, &supervisor_routine, (void *)data);
 	while (index < data->philo_count)
 	{
 		pthread_create(&(data->philo_threads[index]), NULL,
@@ -72,6 +83,6 @@ void	init_threads(t_data	*data)
 	index = 0;
 	while (index < data->philo_count)
 		pthread_join(data->philo_threads[index++], NULL);
-	pthread_join(t0, NULL);
+	pthread_join(data->supervisor, NULL);
 	printf("end status: %d\n", data->status);
 }
