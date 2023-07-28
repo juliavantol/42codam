@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/28 22:37:11 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/28 22:44:06 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*supervisor_routine(void *args)
 	while (1)
 	{
 		pthread_mutex_lock(&data->lock);
-		if (data->testing_status == data->philo_count)
+		if (data->status == data->philo_count)
 		{
 			pthread_mutex_unlock(&data->lock);
 			break ;
@@ -47,10 +47,8 @@ void	*philo_routine(void *args)
 		if (philo->data->meals == 1 && philo->meals >= philo->data->meal_count)
 		{
 			pthread_mutex_lock(&philo->data->lock);
-			philo->data->testing_status += 1;
-			pthread_mutex_unlock(&philo->data->lock);
-			philo->data->finished += 1;
 			philo->data->status += 1;
+			pthread_mutex_unlock(&philo->data->lock);
 			break ;
 		}
 	}
@@ -63,7 +61,6 @@ void	init_threads(t_data	*data)
 	pthread_t	t0;
 
 	index = 0;
-	data->testing_status = 0;
 	pthread_create(&t0, NULL, &supervisor_routine, (void *)data);
 	while (index < data->philo_count)
 	{
@@ -76,5 +73,5 @@ void	init_threads(t_data	*data)
 	while (index < data->philo_count)
 		pthread_join(data->philo_threads[index++], NULL);
 	pthread_join(t0, NULL);
-	printf("end status: %d\n", data->testing_status);
+	printf("end status: %d\n", data->status);
 }
