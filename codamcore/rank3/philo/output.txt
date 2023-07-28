@@ -1,0 +1,84 @@
+
+
+finish status: -1307646568
+
+0 1 has taken a fork
+0 1 has taken a fork
+0 1 is eating
+2 3 has taken a fork
+2 3 has taken a fork
+2 3 is eating
+10 1 is sleeping
+10 2 has taken a fork
+14 3 is sleeping
+14 2 has taken a fork
+14 2 is eating
+14 4 has taken a fork
+14 4 has taken a fork
+14 4 is eating
+21 1 is thinking
+24 3 is thinking
+24 4 is sleeping
+24 2 is sleeping
+24 3 has taken a fork
+24 3 has taken a fork
+24 3 is eating
+24 1 has taken a fork
+24 1 has taken a fork
+24 1 is eating
+37 2 is thinking
+37 4 is thinking
+37 3 is sleeping
+37 1 is sleeping
+37 4 has taken a fork
+37 4 has taken a fork
+37 4 is eating
+37 2 has taken a fork
+37 2 has taken a fork
+37 2 is eating
+49 3 is thinking
+49 4 is sleeping
+49 2 is sleeping
+49 1 is thinking
+49 1 has taken a fork
+49 1 has taken a fork
+49 1 is eating
+49 3 has taken a fork
+49 3 has taken a fork
+49 3 is eating
+60 4 is thinking
+60 3 is sleeping
+60 4 has taken a fork
+60 4 has taken a fork
+60 4 is eating
+60 1 is sleeping
+60 2 is thinking
+61 2 has taken a fork
+61 2 has taken a fork
+61 2 is eating
+71 4 is sleeping
+71 2 is sleeping
+71 3 is thinking
+71 3 has taken a fork
+71 3 has taken a fork
+71 3 is eating
+73 1 is thinking
+73 1 has taken a fork
+73 1 has taken a fork
+73 1 is eating
+83 2 is thinking
+83 4 is thinking
+83 3 is sleeping
+84 1 is sleeping
+84 4 has taken a fork
+84 4 has taken a fork
+84 4 is eating
+84 2 has taken a fork
+84 2 has taken a fork
+84 2 is eating
+94 3 is thinking
+94 1 is thinking
+94 4 is sleeping
+94 2 is sleeping
+104 4 is thinking
+104 2 is thinking

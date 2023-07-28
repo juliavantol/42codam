@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/27 12:50:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/28 22:17:32 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	parse_input(int argc, char **argv, t_data *data)
 	data->finished = 0;
 	data->total_meals = 0;
 	data->meals = 0;
-	data->status = IDLE;
+	data->testing_status = 0;
 	if (argc == 6)
 	{
 		data->meal_count = ft_atoi(argv[5]);

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/27 14:30:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/28 22:37:11 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	*supervisor_routine(void *args)
 	data = (t_data *)args;
 	while (1)
 	{
-		pthread_mutex_lock(&data->write);
-		printf("\n\nfinish status: %d\n\n", data->finished);
-		pthread_mutex_unlock(&data->write);
-		if (data->finished == data->philo_count) 
+		pthread_mutex_lock(&data->lock);
+		if (data->testing_status == data->philo_count)
 		{
+			pthread_mutex_unlock(&data->lock);
 			break ;
 		}
+		pthread_mutex_unlock(&data->lock);
 		usleep(1000);
 	}
 	return (NULL);
@@ -34,7 +34,6 @@ void	*supervisor_routine(void *args)
 void	*philo_routine(void *args)
 {
 	t_philosopher	*philo;
-	int				meals_eaten;
 
 	philo = (t_philosopher *)args;
 	while (1)
@@ -45,15 +44,13 @@ void	*philo_routine(void *args)
 		message(philo->data, SLEEPING, philo->id);
 		usleep(philo->data->sleep_time * 1000);
 		message(philo->data, THINKING, philo->id);
-		pthread_mutex_lock(&philo->lock);
-		meals_eaten = philo->meals;
-		pthread_mutex_unlock(&philo->lock);
 		if (philo->data->meals == 1 && philo->meals >= philo->data->meal_count)
 		{
 			pthread_mutex_lock(&philo->data->lock);
-			philo->data->finished += 1;
+			philo->data->testing_status += 1;
 			pthread_mutex_unlock(&philo->data->lock);
-			philo->data->supervisor_t->status = 5;
+			philo->data->finished += 1;
+			philo->data->status += 1;
 			break ;
 		}
 	}
@@ -62,25 +59,22 @@ void	*philo_routine(void *args)
 
 void	init_threads(t_data	*data)
 {
-	int				index;
-	t_supervisor	*supervisor_t;
+	int			index;
+	pthread_t	t0;
 
 	index = 0;
-	supervisor_t = (t_supervisor *)malloc(sizeof(t_supervisor));
-	supervisor_t->status = 0;
-	data->supervisor_t = supervisor_t;
-	pthread_create(&(data->supervisor), NULL,
-		&supervisor_routine, &data);
-	data->status = STARTED;
+	data->testing_status = 0;
+	pthread_create(&t0, NULL, &supervisor_routine, (void *)data);
 	while (index < data->philo_count)
 	{
 		pthread_create(&(data->philo_threads[index]), NULL,
-			&philo_routine, &data->philos[index]);
+			&philo_routine, (void *)&data->philos[index]);
 		index++;
 		usleep(1000);
 	}
 	index = 0;
 	while (index < data->philo_count)
 		pthread_join(data->philo_threads[index++], NULL);
-	pthread_join(data->supervisor, NULL);
+	pthread_join(t0, NULL);
+	printf("end status: %d\n", data->testing_status);
 }

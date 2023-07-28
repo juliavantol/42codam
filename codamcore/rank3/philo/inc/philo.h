@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/27 13:14:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/07/28 22:17:21 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philosopher
 typedef struct s_data
 {
 	int				philo_count;
+	int				testing_status;
 	int				meal_count;
 	int				meals;
 	int				die_time;
