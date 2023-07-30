@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/28 22:43:55 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/29 17:46:59 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	init_struct(t_data *data)
 		data->philos[index].data = data;
 		data->philos[index].dead = 0;
 		data->philos[index].meals = 0;
+		data->philos[index].last_active = 0;
 		pthread_mutex_init(&data->philos[index].lock, NULL);
 		pthread_mutex_init(&data->forks[index], NULL);
 		index++;

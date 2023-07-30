@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/28 23:17:56 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/31 00:28:13 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,24 @@ void	*death_patrol(void *args)
 	philo = (t_philosopher *)args;
 	while (1)
 	{
-		
+		if (philo->data->meals == 1 && philo->meals == philo->data->meal_count)
+		{	
+			break ;
+		}
 	}
-	return (NULL);
+	return ((void *)0);
 }
 
 void	*philo_routine(void *args)
 {
 	t_philosopher	*philo;
+	pthread_t		p;
 
 	philo = (t_philosopher *)args;
+	pthread_create(&p, NULL, &death_patrol, (void *)philo);
 	while (1)
 	{
-		take_forks(philo);
 		eat_meal(philo);
-		put_forks_down(philo);
-		message(philo->data, SLEEPING, philo->id);
-		usleep(philo->data->sleep_time * 1000);
-		message(philo->data, THINKING, philo->id);
 		if (philo->data->meals == 1 && philo->meals >= philo->data->meal_count)
 		{
 			pthread_mutex_lock(&philo->data->lock);
@@ -64,6 +64,7 @@ void	*philo_routine(void *args)
 			break ;
 		}
 	}
+	pthread_join(p, NULL);
 	return (NULL);
 }
 
@@ -84,5 +85,4 @@ void	init_threads(t_data	*data)
 	while (index < data->philo_count)
 		pthread_join(data->philo_threads[index++], NULL);
 	pthread_join(data->supervisor, NULL);
-	printf("end status: %d\n", data->status);
 }

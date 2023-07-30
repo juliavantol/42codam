@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/28 22:48:58 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/29 18:03:47 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_philosopher
 	int				dead;
 	struct s_data	*data;
 	pthread_mutex_t	lock;
+	u_int64_t		last_active;
 }	t_philosopher;
 
 typedef struct s_data
