@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 12:17:54 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/31 00:26:42 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/31 16:04:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,18 @@ void	eat_meal(t_philosopher *philo)
 	take_forks(philo);
 	message(philo->data, EATING, philo->id);
 	pthread_mutex_lock(&philo->lock);
-	philo->last_active = 0;
-	usleep(philo->data->eat_time * 1000);
+	philo->last_active = get_time_ms() - philo->data->start_time;
+	ft_usleep(philo->data, philo->data->eat_time * 1000);
 	pthread_mutex_unlock(&philo->lock);
 	put_forks_down(philo);
 	pthread_mutex_lock(&philo->lock);
-	philo->last_active = get_time_ms();
 	philo->meals += 1;
 	pthread_mutex_unlock(&philo->lock);
 	pthread_mutex_lock(&philo->data->lock);
 	philo->data->total_meals += 1;
 	pthread_mutex_unlock(&philo->data->lock);
 	message(philo->data, SLEEPING, philo->id);
-	usleep(philo->data->sleep_time * 1000);
+	ft_usleep(philo->data, philo->data->sleep_time * 1000);
 	message(philo->data, THINKING, philo->id);
 
 }

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/29 18:03:47 by Julia         ########   odam.nl         */
+/*   Updated: 2023/07/31 16:03:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void		take_forks(t_philosopher *philo);
 void		eat_meal(t_philosopher *philo);
 void		init_threads(t_data	*data);
 void		*philo_routine(void *args);
+void		ft_usleep(t_data *data, int duration);
 
 #endif
