@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/01 14:14:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/01 21:08:34 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*supervisor_routine(void *args)
 	t_data	*data;
 
 	data = (t_data *)args;
-	while (1)
+	while (data->dead == 0)
 	{
 		pthread_mutex_lock(&data->lock);
 		if (data->status == data->philo_count || data->finished == 1)
@@ -36,18 +36,12 @@ void	*death_patrol(void *args)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *)args;
-	while (philo->data->finished != 1)
+	while (philo->data->dead == 0)
 	{
 		if (get_time_ms() - philo->data->start_time
 			> philo->last_active + philo->data->die_time)
 		{
 			message(philo->data, DEAD, philo->id);
-			pthread_mutex_lock(&philo->data->lock);
-			philo->data->finished = 1;
-			pthread_mutex_unlock(&philo->data->lock);
-			pthread_mutex_lock(&philo->lock);
-			philo->dead = 1;
-			pthread_mutex_unlock(&philo->lock);
 			return ((void *)0);
 		}
 		if (philo->data->meals == 1 && philo->meals == philo->data->meal_count)
@@ -63,7 +57,7 @@ void	*philo_routine(void *args)
 
 	philo = (t_philosopher *)args;
 	pthread_create(&p, NULL, &death_patrol, (void *)philo);
-	while (philo->data->finished != 1 && philo->dead != 1)
+	while (philo->data->dead == 0)
 	{
 		eat_meal(philo);
 		if (philo->data->meals == 1 && philo->meals >= philo->data->meal_count)
