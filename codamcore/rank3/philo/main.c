@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/07/28 21:39:48 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/02 12:41:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 // number_of_philosophers time_to_die time_to_eat time_to_sleep
 // [number_of_times_each_philosopher_must_eat]
 #include "philo.h"
+
+// make && ./philo 5 2000 500 500 -- no one should die but they do
 
 int	main(int argc, char **argv)
 {

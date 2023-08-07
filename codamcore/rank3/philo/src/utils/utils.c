@@ -6,31 +6,32 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/07/31 16:40:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/07 17:44:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	message(t_data *data, int state, int id)
+void	message(t_data *data, char *state, int id, u_int64_t time2)
 {
 	u_int64_t	time;
 
-	time = get_time_ms() - data->start_time;
 	pthread_mutex_lock(&data->write);
-	if (state == EATING)
-		printf("%llu %d is eating\n", time, id);
-	else if (state == SLEEPING)
-		printf("%llu %d is sleeping\n", time, id);
-	else if (state == THINKING)
-		printf("%llu %d is thinking\n", time, id);
-	else if (state == FORK)
-		printf("%llu %d has taken a fork\n", time, id);
-	else if (state == DEAD)
-		printf("%llu %d has died\n", time, id);
+	if (ft_strcmp(state, DEAD) == 1 && data->dead == 0)
+	{
+		time = get_time_ms() - data->start_time;
+		printf("%llu %d %s\n", time2, id, state);
+		data->dead = 1;
+	}
+	else if (data->dead == 0)
+	{
+		time = get_time_ms() - data->start_time;
+		printf("%llu %d %s\n", time2, id, state);
+	}
 	pthread_mutex_unlock(&data->write);
 }
 
+// gets time in miliseconds
 u_int64_t	get_time_ms(void)
 {
 	struct timeval	tv;
@@ -43,19 +44,50 @@ u_int64_t	get_time_ms(void)
 
 //  a custom usleep function which asks for the time constantly in
 // a while loop until the time specified has passed
-void	ft_usleep(t_data *data, int duration)
+void	ft_usleep(t_data *data, u_int64_t duration)
 {
-	u_int64_t	goal_time;
 	u_int64_t	current_time;
+	u_int64_t	goal_time;
 
-	if (data->status != -1)
+	current_time = get_time_ms() - data->start_time;
+	goal_time = current_time + duration;
+	if (data->dead != 1)
 	{
-		goal_time = get_time_ms() + duration;
 		while (1)
 		{
-			current_time = get_time_ms();
 			if (current_time >= goal_time)
 				break ;
+			else
+				usleep(250);
+			current_time = get_time_ms() - data->start_time;
 		}
+		return ;
 	}
+	return ;
+}
+
+int	len(char *s)
+{
+	int	index;
+
+	index = 0;
+	while (s[index] != '\0')
+		index++;
+	return (index);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	index;
+
+	index = 0;
+	if (len(s1) != len(s2))
+		return (0);
+	while (s1[index] && s2[index])
+	{
+		if (s1[index] != s2[index])
+			return (0);
+		index++;
+	}
+	return (1);
 }
