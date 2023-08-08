@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/07 13:53:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/08 13:32:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			init_struct(t_data *data);
 int			ft_atoi(const char *str);
 u_int64_t	get_time_ms(void);
 
-void		message(t_data *data, char *state, int id, u_int64_t time2);
+void		message(t_data *data, char *state, int id);
 void		eat_meal(t_philosopher *philo);
 void		init_threads(t_data	*data);
 void		*philo_routine(void *args);

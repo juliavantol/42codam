@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/07 17:57:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/08 13:36:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*supervisor_routine(void *args)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&data->lock);
-		usleep(100);
+		usleep(500);
 	}
 	return (NULL);
 }
@@ -42,12 +42,12 @@ void	*death_patrol(void *args)
 		time = get_time_ms() - philo->data->start_time;
 		if (time > philo->last_active + philo->data->die_time)
 		{
-			message(philo->data, DEAD, philo->id, time);
+			message(philo->data, DEAD, philo->id);
 			return ((void *)0);
 		}
 		if (philo->data->meals == 1 && philo->meals == philo->data->meal_count)
 			return ((void *)0);
-		usleep(100);
+		usleep(500);
 	}
 	return ((void *)0);
 }
@@ -59,15 +59,11 @@ void	*philo_routine(void *args)
 
 	philo = (t_philosopher *)args;
 	pthread_create(&p, NULL, &death_patrol, (void *)philo);
+	if (philo->id % 2 != 0)
+		ft_usleep(philo->data, philo->data->eat_time);
 	while (philo->data->dead == 0)
 	{
 		eat_meal(philo);
-		if (philo->data->dead == 0)
-		{
-			pthread_mutex_lock(&philo->data->lock);
-			message(philo->data, THINKING, philo->id, get_time_ms() - philo->data->start_time);
-			pthread_mutex_unlock(&philo->data->lock);
-		}
 		if (philo->data->meals == 1 && philo->meals >= philo->data->meal_count)
 		{
 			pthread_mutex_lock(&philo->data->lock);
@@ -91,7 +87,7 @@ void	init_threads(t_data	*data)
 		pthread_create(&(data->philo_threads[index]), NULL,
 			&philo_routine, (void *)&data->philos[index]);
 		index++;
-		usleep(1);
+		// usleep(1);
 	}
 	index = 0;
 	while (index < data->philo_count)

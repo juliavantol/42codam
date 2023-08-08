@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/07 17:44:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/08 13:32:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	message(t_data *data, char *state, int id, u_int64_t time2)
+void	message(t_data *data, char *state, int id)
 {
 	u_int64_t	time;
 
@@ -20,13 +20,13 @@ void	message(t_data *data, char *state, int id, u_int64_t time2)
 	if (ft_strcmp(state, DEAD) == 1 && data->dead == 0)
 	{
 		time = get_time_ms() - data->start_time;
-		printf("%llu %d %s\n", time2, id, state);
+		printf("%llu %d %s\n", time, id, state);
 		data->dead = 1;
 	}
 	else if (data->dead == 0)
 	{
 		time = get_time_ms() - data->start_time;
-		printf("%llu %d %s\n", time2, id, state);
+		printf("%llu %d %s\n", time, id, state);
 	}
 	pthread_mutex_unlock(&data->write);
 }
@@ -51,17 +51,13 @@ void	ft_usleep(t_data *data, u_int64_t duration)
 
 	current_time = get_time_ms() - data->start_time;
 	goal_time = current_time + duration;
-	if (data->dead != 1)
+	while (1)
 	{
-		while (1)
-		{
-			if (current_time >= goal_time)
-				break ;
-			else
-				usleep(250);
-			current_time = get_time_ms() - data->start_time;
-		}
-		return ;
+		if (current_time >= goal_time || data->dead == 1)
+			break ;
+		else
+			usleep(500);
+		current_time = get_time_ms() - data->start_time;
 	}
 	return ;
 }
