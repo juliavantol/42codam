@@ -6,12 +6,7 @@ SRC = main.c src/utils/ft_atoi.c src/utils/utils.c src/utils/threads.c src/parse
 		src/eat.c
 OBJ = $(SRC:%.c=%.o)
 
-RED     := \033[31;1m
 GREEN   := \033[32;1m
-YELLOW  := \033[33;1m
-BLUE    := \033[34;1m
-MAGENTA := \033[35;1m
-CYAN    := \033[36;1m
 WHITE   := \033[37;1m
 END		= \x1b[0m
 
@@ -22,7 +17,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
-	@echo "$(GREEN)[$(NAME)] compiled!$(END)"
+	@echo "$(GREEN)[$(NAME)]$(END) compiled!"
 
 clean:
 	@rm -rf $(OBJ)
