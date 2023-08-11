@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/11 15:47:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 16:13:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*supervisor_routine(void *args)
 	t_data	*data;
 
 	data = (t_data *)args;
-	while (data->dead == 0)
+	while (is_dead(data) == false)
 	{
 		pthread_mutex_lock(&data->lock);
 		if (data->status == data->philo_count)
@@ -37,7 +37,7 @@ void	*death_patrol(void *args)
 	u_int64_t		time;
 
 	philo = (t_philosopher *)args;
-	while (philo->data->dead == 0)
+	while (is_dead(philo->data) == false)
 	{
 		time = get_time_ms() - philo->data->start_time;
 		if (time > philo->last_active + philo->data->die_time)
@@ -61,7 +61,7 @@ void	*philo_routine(void *args)
 	pthread_create(&p, NULL, &death_patrol, (void *)philo);
 	if (philo->id % 2 != 0)
 		ft_usleep(philo->data, philo->data->eat_time);
-	while (philo->data->dead == 0)
+	while (is_dead(philo->data) == false)
 	{
 		if (eat_meal(philo) == -1)
 		{
