@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/08 13:36:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 15:47:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ void	*philo_routine(void *args)
 		ft_usleep(philo->data, philo->data->eat_time);
 	while (philo->data->dead == 0)
 	{
-		eat_meal(philo);
+		if (eat_meal(philo) == -1)
+		{
+			pthread_join(p, NULL);
+			return (NULL);
+		}
 		if (philo->data->meals == 1 && philo->meals >= philo->data->meal_count)
 		{
 			pthread_mutex_lock(&philo->data->lock);
@@ -87,7 +91,6 @@ void	init_threads(t_data	*data)
 		pthread_create(&(data->philo_threads[index]), NULL,
 			&philo_routine, (void *)&data->philos[index]);
 		index++;
-		// usleep(1);
 	}
 	index = 0;
 	while (index < data->philo_count)
