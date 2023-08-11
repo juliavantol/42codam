@@ -6,22 +6,38 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/02 12:41:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 14:58:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-// make && ./philo 44 300 200 100
-// make && ./philo 1 200 100 100
-// number_of_philosophers time_to_die time_to_eat time_to_sleep
-// [number_of_times_each_philosopher_must_eat]
 #include "philo.h"
 
-// make && ./philo 5 2000 500 500 -- no one should die but they do
+void	leaks(void)
+{
+	system("leaks philo");
+}
+
+void	free_all(t_data *data)
+{
+	// int	index;
+
+	// index = 0;
+	// while (index < data->philo_count)
+	// {
+	// 	// free(data->philos[index]);
+	// 	// free(data->forks[index]);
+	// 	index++;
+	// }
+	free(data->philo_threads);
+	free(data->philos);
+	free(data->forks);
+}
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
+	//atexit(leaks);
 	if (parse_input(argc, argv, &data) == -1)
 	{
 		printf("Invalid input\n");
@@ -30,4 +46,5 @@ int	main(int argc, char **argv)
 	data.start_time = get_time_ms();
 	init_struct(&data);
 	init_threads(&data);
+	free_all(&data);
 }

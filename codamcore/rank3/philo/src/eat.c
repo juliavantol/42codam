@@ -6,28 +6,33 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 12:17:54 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/08 13:36:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 15:12:19 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	take_forks(t_philosopher *philo)
+int	take_forks(t_philosopher *philo)
 {
 	int	left;
 	int	right;
 
 	left = philo->id - 1;
 	right = philo->id % philo->data->philo_count;
-	if (philo->data->dead != 0)
-		return ;
-	pthread_mutex_lock(&philo->data->forks[left]);
+	if (is_dead(philo->data) == true)
+		return (-1);
+	if (pthread_mutex_lock(&philo->data->forks[left]) != 0)
+		return (-1);
 	message(philo->data, FORK, philo->id);
-	pthread_mutex_lock(&philo->data->forks[right]);
+	if (left == right)
+		return (-1);
+	if (pthread_mutex_lock(&philo->data->forks[right]) != 0)
+		return (-1);
 	message(philo->data, FORK, philo->id);
+	return (1);
 }
 
-void	put_forks_down(t_philosopher *philo)
+int	put_forks_down(t_philosopher *philo)
 {
 	int	left;
 	int	right;
@@ -36,16 +41,18 @@ void	put_forks_down(t_philosopher *philo)
 	right = philo->id % philo->data->philo_count;
 	pthread_mutex_unlock(&philo->data->forks[left]);
 	pthread_mutex_unlock(&philo->data->forks[right]);
-	if (philo->data->dead == 0)
+	if (is_dead(philo->data) == false)
 	{
 		message(philo->data, SLEEPING, philo->id);
 		ft_usleep(philo->data, philo->data->sleep_time);
 	}
+	return (1);
 }
 
-void	eat_meal(t_philosopher *philo)
+int	eat_meal(t_philosopher *philo)
 {
-	take_forks(philo);
+	if (take_forks(philo) == -1)
+		return (-1);
 	message(philo->data, EATING, philo->id);
 	pthread_mutex_lock(&philo->lock);
 	philo->last_active = get_time_ms() - philo->data->start_time;
@@ -58,6 +65,7 @@ void	eat_meal(t_philosopher *philo)
 	pthread_mutex_lock(&philo->data->lock);
 	philo->data->total_meals += 1;
 	pthread_mutex_unlock(&philo->data->lock);
-	if (philo->data->dead == 0)
+	if (is_dead(philo->data) == false)
 		message(philo->data, THINKING, philo->id);
+	return (1);
 }

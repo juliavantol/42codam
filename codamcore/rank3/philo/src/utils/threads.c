@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/08 13:36:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 15:12:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*supervisor_routine(void *args)
 	t_data	*data;
 
 	data = (t_data *)args;
-	while (data->dead == 0)
+	while (is_dead(data) == false)
 	{
 		pthread_mutex_lock(&data->lock);
 		if (data->status == data->philo_count)
@@ -37,16 +37,22 @@ void	*death_patrol(void *args)
 	u_int64_t		time;
 
 	philo = (t_philosopher *)args;
-	while (philo->data->dead == 0)
+	while (is_dead(philo->data) == false)
 	{
 		time = get_time_ms() - philo->data->start_time;
+		pthread_mutex_lock(&philo->lock);
 		if (time > philo->last_active + philo->data->die_time)
 		{
 			message(philo->data, DEAD, philo->id);
+			pthread_mutex_unlock(&philo->lock);
 			return ((void *)0);
 		}
 		if (philo->data->meals == 1 && philo->meals == philo->data->meal_count)
+		{
+			pthread_mutex_unlock(&philo->lock);
 			return ((void *)0);
+		}
+		pthread_mutex_unlock(&philo->lock);
 		usleep(500);
 	}
 	return ((void *)0);
@@ -59,11 +65,15 @@ void	*philo_routine(void *args)
 
 	philo = (t_philosopher *)args;
 	pthread_create(&p, NULL, &death_patrol, (void *)philo);
-	if (philo->id % 2 != 0)
+	if (philo->id % 2 != 0 && philo->data->philo_count != 1)
 		ft_usleep(philo->data, philo->data->eat_time);
-	while (philo->data->dead == 0)
+	while (is_dead(philo->data) == false)
 	{
-		eat_meal(philo);
+		if (eat_meal(philo) == -1)
+		{
+			pthread_join(p, NULL);
+			return (NULL);
+		}
 		if (philo->data->meals == 1 && philo->meals >= philo->data->meal_count)
 		{
 			pthread_mutex_lock(&philo->data->lock);
