@@ -6,9 +6,10 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/11 14:58:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 15:38:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "philo.h"
 
@@ -19,15 +20,6 @@ void	leaks(void)
 
 void	free_all(t_data *data)
 {
-	// int	index;
-
-	// index = 0;
-	// while (index < data->philo_count)
-	// {
-	// 	// free(data->philos[index]);
-	// 	// free(data->forks[index]);
-	// 	index++;
-	// }
 	free(data->philo_threads);
 	free(data->philos);
 	free(data->forks);
@@ -37,7 +29,6 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	//atexit(leaks);
 	if (parse_input(argc, argv, &data) == -1)
 	{
 		printf("Invalid input\n");
