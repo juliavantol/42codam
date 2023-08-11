@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/11 16:41:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 17:28:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	*supervisor_routine(void *args)
 	while (is_dead(data) == false)
 	{
 		pthread_mutex_lock(&data->lock);
-		if (data->status == data->philo_count)
+		if (data->max_meals == true
+			&& data->total_meals == data->philo_count)
 		{
 			pthread_mutex_unlock(&data->lock);
 			return (NULL);
@@ -47,7 +48,8 @@ void	*death_patrol(void *args)
 			pthread_mutex_unlock(&philo->lock);
 			return ((void *)0);
 		}
-		if (philo->data->meals == 1 && philo->meals == philo->data->meal_count)
+		if (philo->data->max_meals == true
+			&& philo->meals == philo->data->meal_count)
 		{
 			pthread_mutex_unlock(&philo->lock);
 			return ((void *)0);
@@ -74,7 +76,8 @@ void	*philo_routine(void *args)
 			pthread_join(p, NULL);
 			return (NULL);
 		}
-		if (philo->data->meals == 1 && philo->meals >= philo->data->meal_count)
+		if (philo->data->max_meals == true
+			&& philo->meals >= philo->data->meal_count)
 		{
 			pthread_mutex_lock(&philo->data->lock);
 			philo->data->status += 1;

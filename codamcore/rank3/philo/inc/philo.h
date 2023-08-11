@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/11 15:46:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 17:18:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ typedef struct s_data
 {
 	int				philo_count;
 	int				status;
-	int				finished;
 	int				meal_count;
-	int				meals;
+	bool			max_meals;
 	int				dead;
 	int				die_time;
 	int				sleep_time;

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 13:03:01 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/11 15:41:08 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 16:59:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,16 @@ static int	find_start(const char *str)
 
 int	ft_atoi(const char *str)
 {
-	if (ft_strlen(str) == 0)
-		return (0);
+	int	index;
+
+	index = 0;
+	if (ft_strlen(str) == 0 || ft_strlen(str) > 10)
+		return (-1);
+	while (str[index])
+	{
+		if (ft_isdigit(str[index++]) == 0)
+			return (-1);
+	}
 	if (str == NULL)
 		return (ft_atoi(str));
 	return (find_start(str));

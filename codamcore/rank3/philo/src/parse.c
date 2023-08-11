@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/01 20:56:17 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/11 17:19:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,16 @@ int	parse_input(int argc, char **argv, t_data *data)
 	data->die_time = ft_atoi(argv[2]);
 	data->eat_time = ft_atoi(argv[3]);
 	data->sleep_time = ft_atoi(argv[4]);
-	data->meal_count = 1;
+	data->max_meals = false;
 	data->total_meals = 0;
-	data->meals = 0;
+	data->meal_count = 1;
 	data->status = 0;
-	data->finished = 0;
 	data->dead = 0;
 	if (argc == 6)
 	{
 		data->meal_count = ft_atoi(argv[5]);
-		data->meals = 1;
+		data->max_meals = true;
 	}
-	if (!data->philo_count || !data->die_time || !data->eat_time
-		|| !data->sleep_time || !data->meal_count)
-		return (-1);
 	if (data->philo_count < 1 || data->die_time < 1 || data->eat_time < 1
 		|| data->sleep_time < 1 || data->meal_count < 1)
 		return (-1);

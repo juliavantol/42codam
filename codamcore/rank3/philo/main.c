@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/11 16:40:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 17:02:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	//atexit(leaks);
 	if (parse_input(argc, argv, &data) == -1)
 	{
 		printf("Invalid input\n");
