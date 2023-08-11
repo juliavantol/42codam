@@ -1,6 +1,6 @@
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 INCLUDES = -I inc
 SRC = main.c src/utils/ft_atoi.c src/utils/utils.c src/utils/threads.c src/parse.c \
 		src/eat.c src/utils/libft.c

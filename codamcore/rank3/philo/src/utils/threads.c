@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/11 16:13:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/11 16:24:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,20 @@ void	*death_patrol(void *args)
 	philo = (t_philosopher *)args;
 	while (is_dead(philo->data) == false)
 	{
+		pthread_mutex_lock(&philo->lock);
 		time = get_time_ms() - philo->data->start_time;
 		if (time > philo->last_active + philo->data->die_time)
 		{
 			message(philo->data, DEAD, philo->id);
+			pthread_mutex_unlock(&philo->lock);
 			return ((void *)0);
 		}
 		if (philo->data->meals == 1 && philo->meals == philo->data->meal_count)
+		{
+			pthread_mutex_unlock(&philo->lock);
 			return ((void *)0);
+		}
+		pthread_mutex_unlock(&philo->lock);
 		usleep(500);
 	}
 	return ((void *)0);
@@ -59,7 +65,7 @@ void	*philo_routine(void *args)
 
 	philo = (t_philosopher *)args;
 	pthread_create(&p, NULL, &death_patrol, (void *)philo);
-	if (philo->id % 2 != 0)
+	if (philo->id % 2 != 0 && philo->data->philo_count != 1)
 		ft_usleep(philo->data, philo->data->eat_time);
 	while (is_dead(philo->data) == false)
 	{
