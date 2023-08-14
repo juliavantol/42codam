@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/11 17:28:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/14 21:50:39 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,7 @@ void	*philo_routine(void *args)
 		}
 		if (philo->data->max_meals == true
 			&& philo->meals >= philo->data->meal_count)
-		{
-			pthread_mutex_lock(&philo->data->lock);
-			philo->data->status += 1;
-			pthread_mutex_unlock(&philo->data->lock);
 			break ;
-		}
 	}
 	pthread_join(p, NULL);
 	return (NULL);
