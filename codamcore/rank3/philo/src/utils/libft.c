@@ -6,11 +6,18 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/11 15:39:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/11 15:39:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/15 13:31:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_error(char *str, t_data *data)
+{
+	printf("%s\n", str);
+	free_all(data);
+	return (1);
+}
 
 int	ft_isdigit(int c)
 {

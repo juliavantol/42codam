@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/11 17:18:31 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/15 13:31:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,15 @@ typedef struct s_data
 	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
 	pthread_mutex_t	*forks;
-	pthread_t		*philo_threads;
-	pthread_t		supervisor;
 	t_philosopher	*philos;
+	pthread_t		*philo_threads;
 }	t_data;
 
 int			ft_strcmp(char *s1, char *s2);
 int			parse_input(int argc, char **argv, t_data *philo);
+int			ft_error(char *str, t_data *data);
 int			eat_meal(t_philosopher *philo);
+int			init_threads(t_data	*data);
 int			init_struct(t_data *data);
 int			ft_atoi(const char *str);
 int			ft_strlen(const char *s);
@@ -68,9 +69,9 @@ int			ft_isdigit(int c);
 u_int64_t	get_time_ms(void);
 
 void		message(t_data *data, char *state, int id);
-void		init_threads(t_data	*data);
 void		*philo_routine(void *args);
 void		ft_usleep(t_data *data, u_int64_t duration);
+void		free_all(t_data *data);
 
 bool		is_dead(t_data *data);
 
