@@ -6,10 +6,9 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/15 12:19:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/15 14:24:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "philo.h"
 

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/15 13:33:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/15 14:21:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	*supervisor(void *args)
 			&& data->total_meals == (data->philo_count * data->meal_count))
 		{
 			pthread_mutex_unlock(&data->lock);
-			return (NULL);
+			return (0);
 		}
 		pthread_mutex_unlock(&data->lock);
 		usleep(500);
 	}
-	return (NULL);
+	return (0);
 }
 
 void	*death_patrol(void *args)
@@ -46,18 +46,18 @@ void	*death_patrol(void *args)
 		{
 			message(philo->data, DEAD, philo->id);
 			pthread_mutex_unlock(&philo->lock);
-			return (NULL);
+			return (0);
 		}
 		if (philo->data->max_meals == true
 			&& philo->meals == philo->data->meal_count)
 		{
 			pthread_mutex_unlock(&philo->lock);
-			return (NULL);
+			return (0);
 		}
 		pthread_mutex_unlock(&philo->lock);
 		usleep(500);
 	}
-	return (NULL);
+	return (0);
 }
 
 void	*philo_routine(void *args)
@@ -67,7 +67,7 @@ void	*philo_routine(void *args)
 
 	philo = (t_philosopher *)args;
 	if (pthread_create(&p, NULL, &death_patrol, (void *)philo) != 0)
-		return (NULL);
+		return ((void *)1);
 	if (philo->id % 2 != 0 && philo->data->philo_count != 1)
 		ft_usleep(philo->data, philo->data->eat_time);
 	while (is_dead(philo->data) == false)
@@ -76,15 +76,15 @@ void	*philo_routine(void *args)
 		{
 			if (pthread_join(p, NULL) != 0)
 				return (NULL);
-			return (NULL);
+			return (0);
 		}
 		if (philo->data->max_meals == true
 			&& philo->meals == philo->data->meal_count)
 			break ;
 	}
 	if (pthread_join(p, NULL) != 0)
-		return (NULL);
-	return (NULL);
+		return ((void *)1);
+	return (0);
 }
 
 int	init_threads(t_data	*data)
