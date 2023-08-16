@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 12:17:54 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/16 15:02:42 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/16 15:08:34 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Locks the mutexes for the two needed forks */
 int	take_forks(t_philosopher *philo)
 {
 	int	left;
@@ -30,6 +31,8 @@ int	take_forks(t_philosopher *philo)
 	return (1);
 }
 
+/* Unlocks the mutexes for the two forks after eating
+increments the meal counters and starts sleeping */
 void	put_forks_down(t_philosopher *philo)
 {
 	int	left;
@@ -52,6 +55,7 @@ void	put_forks_down(t_philosopher *philo)
 	}
 }
 
+/* Take the forks, start eating and put the forks down again */
 int	eat_meal(t_philosopher *philo)
 {
 	if (take_forks(philo) == -1)

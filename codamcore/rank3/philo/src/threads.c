@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/15 23:22:58 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/16 22:49:49 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Keeps track of how many meals have been eaten */
 void	*supervisor(void *args)
 {
 	t_data	*data;
@@ -33,6 +34,7 @@ void	*supervisor(void *args)
 	return (0);
 }
 
+/* Keeps checking if a philosopher should be dead */
 void	*death_patrol(void *args)
 {
 	t_philosopher	*philo;
@@ -82,6 +84,7 @@ void	*philo_routine(void *args)
 	return (0);
 }
 
+/* Creates the supervisor thread and all the philo threads */
 int	init_threads(t_data	*data)
 {
 	int			index;
