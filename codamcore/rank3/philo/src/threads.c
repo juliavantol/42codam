@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/15 14:21:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/15 23:22:58 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	*supervisor(void *args)
 		if (data->max_meals == true
 			&& data->total_meals == (data->philo_count * data->meal_count))
 		{
+			data->dead = 1;
 			pthread_mutex_unlock(&data->lock);
 			return (0);
 		}
@@ -48,12 +49,6 @@ void	*death_patrol(void *args)
 			pthread_mutex_unlock(&philo->lock);
 			return (0);
 		}
-		if (philo->data->max_meals == true
-			&& philo->meals == philo->data->meal_count)
-		{
-			pthread_mutex_unlock(&philo->lock);
-			return (0);
-		}
 		pthread_mutex_unlock(&philo->lock);
 		usleep(500);
 	}
@@ -67,7 +62,7 @@ void	*philo_routine(void *args)
 
 	philo = (t_philosopher *)args;
 	if (pthread_create(&p, NULL, &death_patrol, (void *)philo) != 0)
-		return ((void *)1);
+		return (NULL);
 	if (philo->id % 2 != 0 && philo->data->philo_count != 1)
 		ft_usleep(philo->data, philo->data->eat_time);
 	while (is_dead(philo->data) == false)
@@ -83,7 +78,7 @@ void	*philo_routine(void *args)
 			break ;
 	}
 	if (pthread_join(p, NULL) != 0)
-		return ((void *)1);
+		return (NULL);
 	return (0);
 }
 
