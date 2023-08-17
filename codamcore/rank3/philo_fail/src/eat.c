@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 12:17:54 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/17 19:56:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/16 15:08:34 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	take_forks(t_philosopher *philo)
 	if (is_dead(philo->data) == true)
 		return (-1);
 	pthread_mutex_lock(&philo->data->forks[left]);
+	message(philo->data, FORK, philo->id);
 	if (left == right)
 		return (-1);
 	pthread_mutex_lock(&philo->data->forks[right]);
-	message(philo->data, FORK, philo->id);
 	message(philo->data, FORK, philo->id);
 	return (1);
 }
@@ -40,8 +40,8 @@ void	put_forks_down(t_philosopher *philo)
 
 	left = philo->id - 1;
 	right = philo->id % philo->data->philo_count;
-	pthread_mutex_unlock(&philo->data->forks[right]);
 	pthread_mutex_unlock(&philo->data->forks[left]);
+	pthread_mutex_unlock(&philo->data->forks[right]);
 	pthread_mutex_lock(&philo->lock);
 	philo->meals += 1;
 	pthread_mutex_unlock(&philo->lock);

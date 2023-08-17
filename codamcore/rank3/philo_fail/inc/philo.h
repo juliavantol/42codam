@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/17 18:45:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/17 14:15:16 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ typedef struct s_data
 	pthread_t		*philo_threads;
 }	t_data;
 
-int			ft_exit(t_data *data, char *str, int err_code);
-int			parse_input(int argc, char **argv, t_data *philo);
-int			eat_meal(t_philosopher *philo);
 int			ft_strcmp(char *s1, char *s2);
+int			parse_input(int argc, char **argv, t_data *philo);
+int			ft_error(char *str, t_data *data);
+int			eat_meal(t_philosopher *philo);
 int			init_threads(t_data	*data);
 int			init_struct(t_data *data);
 int			ft_atoi(const char *str);
@@ -68,8 +68,9 @@ int			ft_isdigit(int c);
 u_int64_t	get_time_ms(void);
 
 void		message(t_data *data, char *state, int id);
-void		ft_usleep(t_data *data, u_int64_t duration);
 void		*philo_routine(void *args);
+void		ft_usleep(t_data *data, u_int64_t duration);
+void		free_all(t_data *data);
 
 bool		is_dead(t_data *data);
 

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/17 20:00:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/17 14:39:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*supervisor(void *args)
 			return (0);
 		}
 		pthread_mutex_unlock(&data->lock);
-		usleep(800);
+		usleep(500);
 	}
 	return (0);
 }
@@ -52,7 +52,7 @@ void	*death_patrol(void *args)
 			return (0);
 		}
 		pthread_mutex_unlock(&philo->lock);
-		usleep(800);
+		usleep(500);
 	}
 	return (0);
 }
@@ -94,21 +94,21 @@ int	init_threads(t_data	*data)
 
 	index = 0;
 	if (pthread_create(&p, NULL, &supervisor, (void *)data) != 0)
-		return (ft_exit(data, "Error creating thread", 2));
+		return (ft_error("Error creating thread", data));
 	while (index < data->philo_count)
 	{
 		if (pthread_create(&(data->philo_threads[index]), NULL,
 				&philo_routine, (void *)&data->philos[index]) != 0)
-			return (ft_exit(data, "Error creating thread", 2));
+			return (ft_error("Error creating thread", data));
 		index++;
 	}
 	index = 0;
 	while (index < data->philo_count)
 	{
 		if (pthread_join(data->philo_threads[index++], NULL) != 0)
-			return (ft_exit(data, "Error joining thread", 2));
+			return (ft_error("Error joining thread", data));
 	}
 	if (pthread_join(p, NULL) != 0)
-		return (ft_exit(data, "Error joining thread", 2));
+		return (ft_error("Error joining thread", data));
 	return (0);
 }

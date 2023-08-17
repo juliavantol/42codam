@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/17 19:57:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/17 14:34:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	message(t_data *data, char *state, int id)
 	u_int64_t	time;
 
 	pthread_mutex_lock(&data->write);
-	time = get_time_ms() - data->start_time;
 	if (ft_strcmp(state, DEAD) == 1 && is_dead(data) == false)
 	{
+		time = get_time_ms() - data->start_time;
 		printf("%llu %d %s\n", time, id, state);
 		pthread_mutex_lock(&data->lock);
 		data->dead = 1;
@@ -41,6 +41,7 @@ void	message(t_data *data, char *state, int id)
 	}
 	else if (is_dead(data) == false)
 	{
+		time = get_time_ms() - data->start_time;
 		printf("%llu %d %s\n", time, id, state);
 	}
 	pthread_mutex_unlock(&data->write);
