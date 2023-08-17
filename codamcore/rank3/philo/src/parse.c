@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/11 17:19:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/17 14:32:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Parse all the needed data into the data struct */
 int	parse_input(int argc, char **argv, t_data *data)
 {
 	if (argc != 6 && argc != 5)
@@ -23,7 +24,6 @@ int	parse_input(int argc, char **argv, t_data *data)
 	data->max_meals = false;
 	data->total_meals = 0;
 	data->meal_count = 1;
-	data->status = 0;
 	data->dead = 0;
 	if (argc == 6)
 	{
@@ -36,6 +36,7 @@ int	parse_input(int argc, char **argv, t_data *data)
 	return (1);
 }
 
+/* Continue initialising the struct and mutexes */
 int	init_struct(t_data *data)
 {
 	int	index;
@@ -43,6 +44,8 @@ int	init_struct(t_data *data)
 	data->philo_threads = malloc(sizeof(pthread_t) * data->philo_count);
 	data->philos = malloc(sizeof(t_philosopher) * data->philo_count);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_count);
+	if (!data->philo_threads || !data->philos || !data->forks)
+		return (-1);
 	pthread_mutex_init(&data->write, NULL);
 	pthread_mutex_init(&data->lock, NULL);
 	index = 0;

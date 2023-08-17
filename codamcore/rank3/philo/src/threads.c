@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/16 22:49:49 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/17 14:39:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	*death_patrol(void *args)
 	return (0);
 }
 
+/* Keep eating and sleeping until max meals have been eaten
+or until someone has died */
 void	*philo_routine(void *args)
 {
 	t_philosopher	*philo;
@@ -64,7 +66,7 @@ void	*philo_routine(void *args)
 
 	philo = (t_philosopher *)args;
 	if (pthread_create(&p, NULL, &death_patrol, (void *)philo) != 0)
-		return (NULL);
+		return (0);
 	if (philo->id % 2 != 0 && philo->data->philo_count != 1)
 		ft_usleep(philo->data, philo->data->eat_time);
 	while (is_dead(philo->data) == false)
@@ -72,7 +74,7 @@ void	*philo_routine(void *args)
 		if (eat_meal(philo) == -1)
 		{
 			if (pthread_join(p, NULL) != 0)
-				return (NULL);
+				return (0);
 			return (0);
 		}
 		if (philo->data->max_meals == true
@@ -80,11 +82,11 @@ void	*philo_routine(void *args)
 			break ;
 	}
 	if (pthread_join(p, NULL) != 0)
-		return (NULL);
+		return (0);
 	return (0);
 }
 
-/* Creates the supervisor thread and all the philo threads */
+/* Creates and joins the supervisor thread and all the philo threads */
 int	init_threads(t_data	*data)
 {
 	int			index;

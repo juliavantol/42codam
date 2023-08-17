@@ -1,13 +1,12 @@
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I inc
 SRC = main.c src/utils/ft_atoi.c src/utils/utils.c src/threads.c src/parse.c \
 		src/eat.c src/utils/libft.c
 OBJ = $(SRC:%.c=%.o)
 
 GREEN   := \033[32;1m
-WHITE   := \033[37;1m
 END		= \x1b[0m
 
 all: $(NAME)

@@ -6,12 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/11 16:43:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/17 14:34:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Checks if someone has died */
 bool	is_dead(t_data *data)
 {
 	pthread_mutex_lock(&data->lock);
@@ -24,6 +25,7 @@ bool	is_dead(t_data *data)
 	return (false);
 }
 
+/* Print the message with the current timestamp */
 void	message(t_data *data, char *state, int id)
 {
 	u_int64_t	time;
@@ -45,6 +47,7 @@ void	message(t_data *data, char *state, int id)
 	pthread_mutex_unlock(&data->write);
 }
 
+/* Get current time in milliseconds */
 u_int64_t	get_time_ms(void)
 {
 	struct timeval	tv;
@@ -55,6 +58,7 @@ u_int64_t	get_time_ms(void)
 	return (time);
 }
 
+/* Custom usleep that keeps checking the time until goal time is reached */
 void	ft_usleep(t_data *data, u_int64_t duration)
 {
 	u_int64_t	current_time;

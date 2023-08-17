@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/15 13:31:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/17 14:15:16 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,13 @@ typedef struct s_philosopher
 typedef struct s_data
 {
 	int				philo_count;
-	int				status;
 	int				meal_count;
-	bool			max_meals;
 	int				dead;
 	int				die_time;
 	int				sleep_time;
 	int				eat_time;
 	int				total_meals;
+	bool			max_meals;
 	u_int64_t		start_time;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
