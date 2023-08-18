@@ -6,11 +6,25 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/17 19:57:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 15:05:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+bool	all_finished(t_data *data)
+{
+	pthread_mutex_lock(&data->lock);
+	if (data->max_meals == true
+		&& data->total_meals == (data->philo_count * data->meal_count))
+	{
+		data->dead = 1;
+		pthread_mutex_unlock(&data->lock);
+		return (true);
+	}
+	pthread_mutex_unlock(&data->lock);
+	return (false);
+}
 
 /* Checks if someone has died */
 bool	is_dead(t_data *data)
@@ -70,7 +84,7 @@ void	ft_usleep(t_data *data, u_int64_t duration)
 		if (current_time >= goal_time || is_dead(data) == true)
 			break ;
 		else
-			usleep(500);
+			usleep(600);
 		current_time = get_time_ms() - data->start_time;
 	}
 	return ;

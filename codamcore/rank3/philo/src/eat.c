@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 12:17:54 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/17 19:56:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 15:07:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,11 @@ int	eat_meal(t_philosopher *philo)
 {
 	if (take_forks(philo) == -1)
 		return (-1);
-	message(philo->data, EATING, philo->id);
 	pthread_mutex_lock(&philo->lock);
-	philo->last_active = get_time_ms() - philo->data->start_time;
+	philo->last_meal = get_time_ms() - philo->data->start_time;
+	philo->eating = true;
 	pthread_mutex_unlock(&philo->lock);
+	message(philo->data, EATING, philo->id);
 	ft_usleep(philo->data, philo->data->eat_time);
 	put_forks_down(philo);
 	if (is_dead(philo->data) == false)

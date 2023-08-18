@@ -6,108 +6,54 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/17 20:26:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 15:21:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/* Keeps track of how many meals have been eaten */
-void	*supervisor(void *args)
+/* Joins the threads */
+int	join_threads(t_data *data, int i)
 {
-	t_data	*data;
-
-	data = (t_data *)args;
-	while (is_dead(data) == false)
+	while (i < data->philo_count)
 	{
-		pthread_mutex_lock(&data->lock);
-		if (data->max_meals == true
-			&& data->total_meals == (data->philo_count * data->meal_count))
-		{
-			data->dead = 1;
-			pthread_mutex_unlock(&data->lock);
-			return (0);
-		}
-		pthread_mutex_unlock(&data->lock);
-		usleep(800);
+		if (pthread_join(data->threads[i++], NULL) != 0)
+			return (ft_exit(data, "Error joining thread", 2));
 	}
 	return (0);
 }
 
-/* Keeps checking if a philosopher should be dead */
-void	*death_patrol(void *args)
+/* Detach threads in case of error */
+void	detach_threads(t_data *data, int i)
 {
-	t_philosopher	*philo;
-	u_int64_t		time;
+	int	index;
 
-	philo = (t_philosopher *)args;
-	while (is_dead(philo->data) == false)
-	{
-		pthread_mutex_lock(&philo->lock);
-		time = get_time_ms() - philo->data->start_time;
-		if (time > philo->last_active + philo->data->die_time)
-		{
-			message(philo->data, DEAD, philo->id);
-			pthread_mutex_unlock(&philo->lock);
-			return (0);
-		}
-		pthread_mutex_unlock(&philo->lock);
-		usleep(800);
-	}
-	return (0);
-}
-
-/* Keep eating and sleeping until max meals have been eaten
-or until someone has died */
-void	*philo_routine(void *args)
-{
-	t_philosopher	*philo;
-	pthread_t		p;
-
-	philo = (t_philosopher *)args;
-	if (pthread_create(&p, NULL, &death_patrol, (void *)philo) != 0)
-		return (0);
-	if (philo->id % 2 != 0 && philo->data->philo_count != 1)
-		ft_usleep(philo->data, philo->data->eat_time);
-	while (is_dead(philo->data) == false)
-	{
-		if (eat_meal(philo) == -1)
-		{
-			if (pthread_join(p, NULL) != 0)
-				return (0);
-			return (0);
-		}
-		if (philo->data->max_meals == true
-			&& philo->meals == philo->data->meal_count)
-			break ;
-	}
-	if (pthread_join(p, NULL) != 0)
-		return (0);
-	return (0);
+	index = 0;
+	while (index < i)
+		pthread_detach(data->threads[index++]);
 }
 
 /* Creates and joins the supervisor thread and all the philo threads */
-int	init_threads(t_data	*data)
+int	init_threads(t_data	*data, int i)
 {
-	int			index;
 	pthread_t	p;
 
-	index = 0;
 	if (pthread_create(&p, NULL, &supervisor, (void *)data) != 0)
 		return (ft_exit(data, "Error creating thread", 2));
-	while (index < data->philo_count)
+	while (i < data->philo_count)
 	{
-		if (pthread_create(&(data->philo_threads[index]), NULL,
-				&philo_routine, (void *)&data->philos[index]) != 0)
-			return (ft_exit(data, "Error creating thread", 2));
-		index++;
+		if (pthread_create(&(data->threads[i]), NULL,
+				&philo_routine, (void *)&data->philos[i]) != 0)
+			break ;
+		i++;
 	}
-	index = 0;
-	while (index < data->philo_count)
+	if (i != data->philo_count)
 	{
-		if (pthread_join(data->philo_threads[index++], NULL) != 0)
-			return (ft_exit(data, "Error joining thread", 2));
+		pthread_detach(p);
+		detach_threads(data, i);
+		return (ft_exit(data, "Error creating thread", 2));
 	}
+	join_threads(data, 0);
 	if (pthread_join(p, NULL) != 0)
 		return (ft_exit(data, "Error joining thread", 2));
 	return (0);

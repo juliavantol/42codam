@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/17 18:45:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 15:06:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ typedef struct s_philosopher
 	int				id;
 	int				meals;
 	int				dead;
+	bool			eating;
 	struct s_data	*data;
 	pthread_mutex_t	lock;
-	u_int64_t		last_active;
+	u_int64_t		last_meal;
 }	t_philosopher;
 
 typedef struct s_data
@@ -53,14 +54,14 @@ typedef struct s_data
 	pthread_mutex_t	write;
 	pthread_mutex_t	*forks;
 	t_philosopher	*philos;
-	pthread_t		*philo_threads;
+	pthread_t		*threads;
 }	t_data;
 
 int			ft_exit(t_data *data, char *str, int err_code);
 int			parse_input(int argc, char **argv, t_data *philo);
+int			init_threads(t_data	*data, int i);
 int			eat_meal(t_philosopher *philo);
 int			ft_strcmp(char *s1, char *s2);
-int			init_threads(t_data	*data);
 int			init_struct(t_data *data);
 int			ft_atoi(const char *str);
 int			ft_strlen(const char *s);
@@ -70,7 +71,9 @@ u_int64_t	get_time_ms(void);
 void		message(t_data *data, char *state, int id);
 void		ft_usleep(t_data *data, u_int64_t duration);
 void		*philo_routine(void *args);
+void		*supervisor(void *args);
 
+bool		all_finished(t_data *data);
 bool		is_dead(t_data *data);
 
 #endif

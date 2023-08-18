@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/17 19:05:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/17 19:06:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 12:22:57 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	ft_exit(t_data *data, char *str, int err_code)
 		pthread_mutex_destroy(&data->write);
 	if (err_code > 1)
 		pthread_mutex_destroy(&data->lock);
-	if (data->philo_threads != 0)
-		free(data->philo_threads);
+	if (data->threads != 0)
+		free(data->threads);
 	if (data->philos != 0)
 		free(data->philos);
 	if (data->forks != 0)
