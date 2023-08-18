@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/18 15:07:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 16:50:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,54 @@ int	allocate(t_data *data)
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_count);
 	if (!data->threads || !data->philos || !data->forks)
 		return (-1);
+	if (pthread_mutex_init(&data->write, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->lock, NULL) != 0)
+	{
+		pthread_mutex_destroy(&data->write);
+		return (-1);
+	}
+	return (1);
+}
+
+int	init_forks(t_data *data, int index)
+{
+	while (index < data->philo_count)
+	{
+		if (pthread_mutex_init(&data->forks[index], NULL) != 0)
+		{
+			pthread_mutex_destroy(&data->write);
+			pthread_mutex_destroy(&data->lock);
+			destroy_mutexes(data, index, 1);
+			return (-1);
+		}
+		index++;
+	}
 	return (1);
 }
 
 /* Continue initialising the struct and mutexes */
-int	init_struct(t_data *data)
+int	init_struct(t_data *data, int index)
 {
-	int	index;
-
 	if (allocate(data) == -1)
 		return (-1);
-	if (pthread_mutex_init(&data->write, NULL) != 0)
+	if (init_forks(data, 0) == -1)
 		return (-1);
-	if (pthread_mutex_init(&data->lock, NULL) != 0)
-		return (-1);
-	index = 0;
 	while (index < data->philo_count)
 	{
 		data->philos[index].id = index + 1;
 		data->philos[index].data = data;
-		data->philos[index].dead = 0;
 		data->philos[index].meals = 0;
 		data->philos[index].eating = false;
 		data->philos[index].last_meal = 0;
 		if (pthread_mutex_init(&data->philos[index].lock, NULL) != 0)
+		{
+			pthread_mutex_destroy(&data->write);
+			pthread_mutex_destroy(&data->lock);
+			destroy_mutexes(data, data->philo_count, 1);
+			destroy_mutexes(data, index, 0);
 			return (-1);
-		if (pthread_mutex_init(&data->forks[index], NULL) != 0)
-			return (-1);
+		}
 		index++;
 	}
 	return (1);

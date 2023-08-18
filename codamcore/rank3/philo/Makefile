@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I inc
 SRC = main.c src/utils/ft_atoi.c src/utils/utils.c src/threads.c src/parse.c \
-		src/eat.c src/utils/libft.c src/utils/ft_exit.c src/routines.c
+		src/eat.c src/utils/libft.c src/utils/clean.c src/routines.c
 OBJ = $(SRC:%.c=%.o)
 
 GREEN   := \033[32;1m

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/18 15:21:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 17:46:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	join_threads(t_data *data, int i)
 	while (i < data->philo_count)
 	{
 		if (pthread_join(data->threads[i++], NULL) != 0)
-			return (ft_exit(data, "Error joining thread", 2));
+			return (ft_error(data, "Error joining thread", 2));
 	}
 	return (0);
 }
@@ -39,7 +39,7 @@ int	init_threads(t_data	*data, int i)
 	pthread_t	p;
 
 	if (pthread_create(&p, NULL, &supervisor, (void *)data) != 0)
-		return (ft_exit(data, "Error creating thread", 2));
+		return (ft_error(data, "Error creating thread", 2));
 	while (i < data->philo_count)
 	{
 		if (pthread_create(&(data->threads[i]), NULL,
@@ -51,10 +51,10 @@ int	init_threads(t_data	*data, int i)
 	{
 		pthread_detach(p);
 		detach_threads(data, i);
-		return (ft_exit(data, "Error creating thread", 2));
+		return (ft_error(data, "Error creating thread", 2));
 	}
 	join_threads(data, 0);
 	if (pthread_join(p, NULL) != 0)
-		return (ft_exit(data, "Error joining thread", 2));
+		return (ft_error(data, "Error joining thread", 2));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/18 15:06:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 16:27:45 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@
 
 typedef struct s_philosopher
 {
+	bool			eating;
 	int				id;
 	int				meals;
-	int				dead;
-	bool			eating;
 	struct s_data	*data;
 	pthread_mutex_t	lock;
 	u_int64_t		last_meal;
@@ -57,17 +56,19 @@ typedef struct s_data
 	pthread_t		*threads;
 }	t_data;
 
-int			ft_exit(t_data *data, char *str, int err_code);
+int			ft_error(t_data *data, char *str, int err_code);
 int			parse_input(int argc, char **argv, t_data *philo);
 int			init_threads(t_data	*data, int i);
 int			eat_meal(t_philosopher *philo);
 int			ft_strcmp(char *s1, char *s2);
-int			init_struct(t_data *data);
+int			init_struct(t_data *data, int index);
 int			ft_atoi(const char *str);
 int			ft_strlen(const char *s);
+int			ft_exit(t_data *data, int code);
 int			ft_isdigit(int c);
 u_int64_t	get_time_ms(void);
 
+void		destroy_mutexes(t_data *data, int i, int code);
 void		message(t_data *data, char *state, int id);
 void		ft_usleep(t_data *data, u_int64_t duration);
 void		*philo_routine(void *args);
