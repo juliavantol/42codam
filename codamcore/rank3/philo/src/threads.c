@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/21 14:54:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/21 17:02:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	detach_threads(t_data *data, int i)
 /* Creates and joins the supervisor thread and all the philo threads */
 int	init_threads(t_data	*data, int i)
 {
+	pthread_t	p;
+
+	if (pthread_create(&p, NULL, &supervisor, (void *)data) != 0)
+		return (ft_error(data, "Error creating thread", 2));
 	while (i < data->philo_count)
 	{
 		if (pthread_create(&(data->threads[i]), NULL,
@@ -49,5 +53,7 @@ int	init_threads(t_data	*data, int i)
 		return (ft_error(data, "Error creating thread", 2));
 	}
 	join_threads(data, 0);
+	if (pthread_join(p, NULL) != 0)
+		return (ft_error(data, "Error joining thread", 2));
 	return (0);
 }
