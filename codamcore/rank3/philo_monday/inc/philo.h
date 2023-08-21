@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/21 14:50:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 16:27:45 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 
 typedef struct s_philosopher
 {
+	bool			eating;
 	int				id;
 	int				meals;
 	struct s_data	*data;
-	bool			enough;
 	pthread_mutex_t	lock;
 	u_int64_t		last_meal;
 }	t_philosopher;
@@ -47,7 +47,6 @@ typedef struct s_data
 	int				sleep_time;
 	int				eat_time;
 	int				total_meals;
-	int				finished_philos;
 	bool			max_meals;
 	u_int64_t		start_time;
 	pthread_mutex_t	lock;
@@ -75,6 +74,7 @@ void		ft_usleep(t_data *data, u_int64_t duration);
 void		*philo_routine(void *args);
 void		*supervisor(void *args);
 
+bool		all_finished(t_data *data);
 bool		is_dead(t_data *data);
 
 #endif

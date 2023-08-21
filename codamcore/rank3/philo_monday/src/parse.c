@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/21 14:50:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/18 16:50:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	parse_input(int argc, char **argv, t_data *data)
 	data->sleep_time = ft_atoi(argv[4]);
 	data->max_meals = false;
 	data->total_meals = 0;
-	data->finished_philos = 0;
 	data->meal_count = 1;
 	data->dead = 0;
 	data->threads = 0;
@@ -85,8 +84,8 @@ int	init_struct(t_data *data, int index)
 		data->philos[index].id = index + 1;
 		data->philos[index].data = data;
 		data->philos[index].meals = 0;
+		data->philos[index].eating = false;
 		data->philos[index].last_meal = 0;
-		data->philos[index].enough = false;
 		if (pthread_mutex_init(&data->philos[index].lock, NULL) != 0)
 		{
 			pthread_mutex_destroy(&data->write);
