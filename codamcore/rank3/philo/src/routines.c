@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/18 12:28:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/21 17:25:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/22 01:36:36 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void	*supervisor(void *args)
 	while (is_dead(data) == false)
 	{
 		i = 0;
+		if (all_eaten(data) == true)
+		{
+			pthread_mutex_lock(&data->lock);
+			data->dead = 1;
+			pthread_mutex_unlock(&data->lock);
+		}
 		time = get_time_ms() - data->start_time;
 		while (i < data->philo_count)
 		{

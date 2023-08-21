@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/21 14:50:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/22 00:57:13 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void		*philo_routine(void *args);
 void		*supervisor(void *args);
 
 bool		is_dead(t_data *data);
+bool		all_eaten(t_data *data);
 
 #endif

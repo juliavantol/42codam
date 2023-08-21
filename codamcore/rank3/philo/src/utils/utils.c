@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/21 17:41:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/22 01:23:22 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,14 @@
 /* Checks if someone has died */
 bool	all_eaten(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (i < data->philo_count)
+	pthread_mutex_lock(&data->lock);
+	if (data->max_meals && data->finished_philos == data->philo_count)
 	{
-		pthread_mutex_lock(&data->philos[i].lock);
-		if (data->max_meals == true && data->philos[i].enough == false)
-		{
-			pthread_mutex_unlock(&data->philos[i].lock);
-			return (false);
-		}
-		pthread_mutex_unlock(&data->philos[i].lock);
-		i++;
+		pthread_mutex_unlock(&data->lock);
+		return (true);
 	}
-	return (true);
+	pthread_mutex_unlock(&data->lock);
+	return (false);
 }
 
 /* Checks if someone has died or if everyone has eaten */
@@ -42,8 +35,6 @@ bool	is_dead(t_data *data)
 		return (true);
 	}
 	pthread_mutex_unlock(&data->lock);
-	if (data->max_meals == true && all_eaten(data) == true)
-		return (true);
 	return (false);
 }
 

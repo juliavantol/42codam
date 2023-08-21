@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 12:17:54 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/21 17:50:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/22 01:06:18 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ void	put_forks_down(t_philosopher *philo)
 	philo->meals += 1;
 	pthread_mutex_unlock(&philo->lock);
 	pthread_mutex_lock(&philo->lock);
-	if (philo->meals >= philo->data->meal_count)
+	if (philo->meals == philo->data->meal_count)
 	{
+		pthread_mutex_lock(&philo->data->lock);
+		philo->data->finished_philos += 1;
+		pthread_mutex_unlock(&philo->data->lock);
 		philo->enough = true;
 	}
 	pthread_mutex_unlock(&philo->lock);
