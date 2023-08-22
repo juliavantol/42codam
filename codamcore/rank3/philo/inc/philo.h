@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/22 02:57:32 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/22 22:20:05 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_philosopher
 	struct s_data	*data;
 	bool			enough;
 	pthread_mutex_t	lock;
-	pthread_mutex_t	time_check;
 	u_int64_t		last_meal;
 }	t_philosopher;
 
@@ -51,10 +50,9 @@ typedef struct s_data
 	int				finished_philos;
 	bool			max_meals;
 	u_int64_t		start_time;
+	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
-	pthread_mutex_t	dead_mutex;
-	pthread_mutex_t	eaten_mutex;
 	pthread_mutex_t	*forks;
 	t_philosopher	*philos;
 	pthread_t		*threads;

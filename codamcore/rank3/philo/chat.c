@@ -1,20 +1,3 @@
-bool	should_die(t_philosopher *philo)
-{
-	u_int64_t	time;
-
-	time = get_time_ms() - philo->data->start_time;
-	pthread_mutex_lock(&philo->lock);
-	if (time > philo->last_meal + philo->data->die_time)
-	{
-		pthread_mutex_unlock(&philo->lock);
-		message(philo->data, DEAD, philo->id);
-		return (true);
-	}
-	pthread_mutex_unlock(&philo->lock);
-	return (false);
-}
-
-/* Locks the mutexes for the two needed forks */
 int	take_forks(t_philosopher *philo)
 {
 	int	left;
@@ -46,8 +29,6 @@ void	put_forks_down(t_philosopher *philo)
 	pthread_mutex_unlock(&philo->data->forks[left]);
 	pthread_mutex_lock(&philo->lock);
 	philo->meals += 1;
-	pthread_mutex_unlock(&philo->lock);
-	pthread_mutex_lock(&philo->lock);
 	if (philo->meals == philo->data->meal_count)
 	{
 		pthread_mutex_lock(&philo->data->lock);
@@ -78,7 +59,85 @@ int	eat_meal(t_philosopher *philo)
 		message(philo->data, THINKING, philo->id);
 	return (1);
 }
+bool	should_die(t_philosopher *philo)
+{
+	bool		die;
+	u_int64_t	time;
 
+	time = get_time_ms() - philo->data->start_time;
+	pthread_mutex_lock(&philo->lock);
+	die = time > philo->last_meal + philo->data->die_time;
+	pthread_mutex_unlock(&philo->lock);
+	return (die);
+}
+
+/* Checks if someone has died */
+bool	all_eaten(t_data *data)
+{
+	bool	finished;
+
+	pthread_mutex_lock(&data->lock);
+	finished = (data->max_meals && data->finished_philos == data->philo_count);
+	pthread_mutex_unlock(&data->lock);
+	return (finished);
+}
+
+/* Checks if someone has died or if everyone has eaten */
+bool	is_dead(t_data *data)
+{
+	bool	dead;
+
+	pthread_mutex_lock(&data->dead_lock);
+	dead = data->dead == 1;
+	pthread_mutex_unlock(&data->dead_lock);
+	return (dead);
+}
+
+/* Print the message with the current timestamp */
+void	message(t_data *data, char *state, int id)
+{
+	u_int64_t	time;
+
+	time = get_time_ms() - data->start_time;
+	pthread_mutex_lock(&data->write);
+	if (ft_strcmp(state, DEAD) == 1 && is_dead(data) == false)
+	{
+		printf("%llu %d %s\n", time, id, state);
+		pthread_mutex_lock(&data->dead_lock);
+		data->dead = 1;
+		pthread_mutex_unlock(&data->dead_lock);
+	}
+	else if (is_dead(data) == false)
+		printf("%llu %d %s\n", time, id, state);
+	pthread_mutex_unlock(&data->write);
+}
+
+/* Get current time in milliseconds */
+u_int64_t	get_time_ms(void)
+{
+	struct timeval	tv;
+	u_int64_t		time;
+
+	gettimeofday(&tv, NULL);
+	time = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+	return (time);
+}
+
+/* Custom usleep that keeps checking the time until goal time is reached */
+void	ft_usleep(t_data *data, u_int64_t duration)
+{
+	u_int64_t	current_time;
+	u_int64_t	goal_time;
+
+	current_time = get_time_ms() - data->start_time;
+	goal_time = current_time + duration;
+	while (current_time < goal_time && is_dead(data) == false)
+	{
+		usleep(300);
+		current_time = get_time_ms() - data->start_time;
+	}
+	return ;
+}
 void	*supervisor(void *args)
 {
 	t_data		*data;
@@ -88,11 +147,11 @@ void	*supervisor(void *args)
 	{
 		if (all_eaten(data) == true)
 		{
-			pthread_mutex_lock(&data->lock);
+			pthread_mutex_lock(&data->dead_lock);
 			data->dead = 1;
-			pthread_mutex_unlock(&data->lock);
+			pthread_mutex_unlock(&data->dead_lock);
 		}
-		usleep(1000);
+		usleep(300);
 	}
 	return (0);
 }
@@ -100,21 +159,13 @@ void	*supervisor(void *args)
 void	*reaper(void *args)
 {
 	t_philosopher	*philo;
-	u_int64_t		time;
 
 	philo = (t_philosopher *)args;
 	while (is_dead(philo->data) == false)
 	{
-		time = get_time_ms() - philo->data->start_time;
-		pthread_mutex_lock(&philo->lock);
-		if (time > philo->last_meal + philo->data->die_time)
-		{
-			pthread_mutex_unlock(&philo->lock);
+		if (should_die(philo) == true)
 			message(philo->data, DEAD, philo->id);
-			return (0);
-		}
-		pthread_mutex_unlock(&philo->lock);
-		usleep(1000);
+		usleep(300);
 	}
 	return (0);
 }
@@ -129,7 +180,7 @@ void	*philo_routine(void *args)
 	philo = (t_philosopher *)args;
 	if (pthread_create(&p, NULL, &reaper, (void *)philo) != 0)
 		return (0);
-	if (philo->id % 2 != 0 && philo->data->philo_count != 1)
+	if (philo->id % 2 == 0 && philo->data->philo_count != 1)
 		ft_usleep(philo->data, philo->data->eat_time);
 	while (is_dead(philo->data) == false)
 	{
@@ -186,76 +237,4 @@ int	init_threads(t_data	*data, int i)
 	if (pthread_join(p, NULL) != 0)
 		return (ft_error(data, "Error joining thread", 2));
 	return (0);
-}
-
-/* Checks if someone has died */
-bool	all_eaten(t_data *data)
-{
-	pthread_mutex_lock(&data->lock);
-	if (data->max_meals && data->finished_philos == data->philo_count)
-	{
-		pthread_mutex_unlock(&data->lock);
-		return (true);
-	}
-	pthread_mutex_unlock(&data->lock);
-	return (false);
-}
-
-/* Checks if someone has died or if everyone has eaten */
-bool	is_dead(t_data *data)
-{
-	pthread_mutex_lock(&data->lock);
-	if (data->dead == 1)
-	{
-		pthread_mutex_unlock(&data->lock);
-		return (true);
-	}
-	pthread_mutex_unlock(&data->lock);
-	return (false);
-}
-
-/* Print the message with the current timestamp */
-void	message(t_data *data, char *state, int id)
-{
-	u_int64_t	time;
-
-	time = get_time_ms() - data->start_time;
-	pthread_mutex_lock(&data->write);
-	if (ft_strcmp(state, DEAD) == 1 && is_dead(data) == false)
-	{
-		printf("%llu %d %s\n", time, id, state);
-		pthread_mutex_lock(&data->lock);
-		data->dead = 1;
-		pthread_mutex_unlock(&data->lock);
-	}
-	else if (is_dead(data) == false)
-		printf("%llu %d %s\n", time, id, state);
-	pthread_mutex_unlock(&data->write);
-}
-
-/* Get current time in milliseconds */
-u_int64_t	get_time_ms(void)
-{
-	struct timeval	tv;
-	u_int64_t		time;
-
-	gettimeofday(&tv, NULL);
-	time = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
-	return (time);
-}
-
-/* Custom usleep that keeps checking the time until goal time is reached */
-void	ft_usleep(t_data *data, u_int64_t duration)
-{
-	u_int64_t	current_time;
-	u_int64_t	goal_time;
-
-	current_time = get_time_ms() - data->start_time;
-	goal_time = current_time + duration;
-	while (current_time < goal_time && is_dead(data) == false)
-	{
-		usleep(700);
-		current_time = get_time_ms() - data->start_time;
-	}
-	return ;
 }
