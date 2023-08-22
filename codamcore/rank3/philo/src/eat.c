@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 12:17:54 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/22 01:06:18 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/22 03:01:11 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,11 @@ void	put_forks_down(t_philosopher *philo)
 	pthread_mutex_unlock(&philo->data->forks[left]);
 	pthread_mutex_lock(&philo->lock);
 	philo->meals += 1;
-	pthread_mutex_unlock(&philo->lock);
-	pthread_mutex_lock(&philo->lock);
 	if (philo->meals == philo->data->meal_count)
 	{
-		pthread_mutex_lock(&philo->data->lock);
+		pthread_mutex_lock(&philo->data->eaten_mutex);
 		philo->data->finished_philos += 1;
-		pthread_mutex_unlock(&philo->data->lock);
+		pthread_mutex_unlock(&philo->data->eaten_mutex);
 		philo->enough = true;
 	}
 	pthread_mutex_unlock(&philo->lock);
@@ -66,9 +64,9 @@ int	eat_meal(t_philosopher *philo)
 {
 	if (take_forks(philo) == -1)
 		return (-1);
-	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(&philo->time_check);
 	philo->last_meal = get_time_ms() - philo->data->start_time;
-	pthread_mutex_unlock(&philo->lock);
+	pthread_mutex_unlock(&philo->time_check);
 	message(philo->data, EATING, philo->id);
 	ft_usleep(philo->data, philo->data->eat_time);
 	put_forks_down(philo);

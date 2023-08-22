@@ -1,48 +1,17 @@
-void	*supervisor(void *args)
+bool	should_die(t_philosopher *philo)
 {
 	u_int64_t	time;
-	t_data		*data;
-	int			i;
 
-	data = (t_data *)args;
-	while (is_dead(data) == false)
+	time = get_time_ms() - philo->data->start_time;
+	pthread_mutex_lock(&philo->lock);
+	if (time > philo->last_meal + philo->data->die_time)
 	{
-		i = 0;
-		time = get_time_ms() - data->start_time;
-		while (i < data->philo_count)
-		{
-			pthread_mutex_lock(&data->philos[i].lock);
-			if (time > data->philos[i].last_meal + data->die_time)
-			{
-				message(data, DEAD, data->philos[i].id);
-				pthread_mutex_unlock(&data->philos[i].lock);
-				return (0);
-			}
-			pthread_mutex_unlock(&data->philos[i].lock);
-			i++;
-		}
-		usleep(700);
+		pthread_mutex_unlock(&philo->lock);
+		message(philo->data, DEAD, philo->id);
+		return (true);
 	}
-	return (0);
-}
-
-/* Keep eating and sleeping until max meals have been eaten
-or until someone has died */
-void	*philo_routine(void *args)
-{
-	t_philosopher	*philo;
-
-	philo = (t_philosopher *)args;
-	if (philo->id % 2 != 0 && philo->data->philo_count != 1)
-		ft_usleep(philo->data, philo->data->eat_time);
-	while (is_dead(philo->data) == false)
-	{
-		if (eat_meal(philo) == -1)
-		{
-			return (0);
-		}
-	}
-	return (0);
+	pthread_mutex_unlock(&philo->lock);
+	return (false);
 }
 
 /* Locks the mutexes for the two needed forks */
@@ -77,12 +46,14 @@ void	put_forks_down(t_philosopher *philo)
 	pthread_mutex_unlock(&philo->data->forks[left]);
 	pthread_mutex_lock(&philo->lock);
 	philo->meals += 1;
-	if (philo->meals >= philo->data->meal_count)
+	pthread_mutex_unlock(&philo->lock);
+	pthread_mutex_lock(&philo->lock);
+	if (philo->meals == philo->data->meal_count)
 	{
-		philo->enough = true;
 		pthread_mutex_lock(&philo->data->lock);
 		philo->data->finished_philos += 1;
 		pthread_mutex_unlock(&philo->data->lock);
+		philo->enough = true;
 	}
 	pthread_mutex_unlock(&philo->lock);
 	if (is_dead(philo->data) == false)
@@ -108,23 +79,126 @@ int	eat_meal(t_philosopher *philo)
 	return (1);
 }
 
-bool	all_eaten(t_data *data)
+void	*supervisor(void *args)
 {
-	int	i;
+	t_data		*data;
 
-	i = 0;
+	data = (t_data *)args;
+	while (is_dead(data) == false)
+	{
+		if (all_eaten(data) == true)
+		{
+			pthread_mutex_lock(&data->lock);
+			data->dead = 1;
+			pthread_mutex_unlock(&data->lock);
+		}
+		usleep(1000);
+	}
+	return (0);
+}
+
+void	*reaper(void *args)
+{
+	t_philosopher	*philo;
+	u_int64_t		time;
+
+	philo = (t_philosopher *)args;
+	while (is_dead(philo->data) == false)
+	{
+		time = get_time_ms() - philo->data->start_time;
+		pthread_mutex_lock(&philo->lock);
+		if (time > philo->last_meal + philo->data->die_time)
+		{
+			pthread_mutex_unlock(&philo->lock);
+			message(philo->data, DEAD, philo->id);
+			return (0);
+		}
+		pthread_mutex_unlock(&philo->lock);
+		usleep(1000);
+	}
+	return (0);
+}
+
+/* Keep eating and sleeping until max meals have been eaten
+or until someone has died */
+void	*philo_routine(void *args)
+{
+	t_philosopher	*philo;
+	pthread_t		p;
+
+	philo = (t_philosopher *)args;
+	if (pthread_create(&p, NULL, &reaper, (void *)philo) != 0)
+		return (0);
+	if (philo->id % 2 != 0 && philo->data->philo_count != 1)
+		ft_usleep(philo->data, philo->data->eat_time);
+	while (is_dead(philo->data) == false)
+	{
+		if (eat_meal(philo) == -1)
+		{
+			pthread_join(p, NULL);
+			return (0);
+		}
+	}
+	pthread_join(p, NULL);
+	return (0);
+}
+
+int	join_threads(t_data *data, int i)
+{
 	while (i < data->philo_count)
 	{
-		pthread_mutex_lock(&data->philos[i].lock);
-		if (data->max_meals == true && data->philos[i].enough == false)
-		{
-			pthread_mutex_unlock(&data->philos[i].lock);
-			return (false);
-		}
-		pthread_mutex_unlock(&data->philos[i].lock);
+		if (pthread_join(data->threads[i++], NULL) != 0)
+			return (ft_error(data, "Error joining thread", 2));
+	}
+	return (0);
+}
+
+/* Detach threads in case of error */
+void	detach_threads(t_data *data, int i)
+{
+	int	index;
+
+	index = 0;
+	while (index < i)
+		pthread_detach(data->threads[index++]);
+}
+
+/* Creates and joins the supervisor thread and all the philo threads */
+int	init_threads(t_data	*data, int i)
+{
+	pthread_t	p;
+
+	if (pthread_create(&p, NULL, &supervisor, (void *)data) != 0)
+		return (ft_error(data, "Error creating thread", 2));
+	while (i < data->philo_count)
+	{
+		if (pthread_create(&(data->threads[i]), NULL,
+				&philo_routine, (void *)&data->philos[i]) != 0)
+			break ;
 		i++;
 	}
-	return (true);
+	if (i != data->philo_count)
+	{
+		detach_threads(data, i);
+		return (ft_error(data, "Error creating thread", 2));
+	}
+	join_threads(data, 0);
+	if (pthread_join(p, NULL) != 0)
+		return (ft_error(data, "Error joining thread", 2));
+	return (0);
+}
+
+/* Checks if someone has died */
+bool	all_eaten(t_data *data)
+{
+	pthread_mutex_lock(&data->lock);
+	if (data->max_meals && data->finished_philos == data->philo_count)
+	{
+		pthread_mutex_unlock(&data->lock);
+		return (true);
+	}
+	pthread_mutex_unlock(&data->lock);
+	return (false);
 }
 
 /* Checks if someone has died or if everyone has eaten */
@@ -137,8 +211,6 @@ bool	is_dead(t_data *data)
 		return (true);
 	}
 	pthread_mutex_unlock(&data->lock);
-	if (data->max_meals == true && all_eaten(data) == true)
-		return (true);
 	return (false);
 }
 
@@ -182,7 +254,7 @@ void	ft_usleep(t_data *data, u_int64_t duration)
 	goal_time = current_time + duration;
 	while (current_time < goal_time && is_dead(data) == false)
 	{
-		usleep(500);
+		usleep(700);
 		current_time = get_time_ms() - data->start_time;
 	}
 	return ;

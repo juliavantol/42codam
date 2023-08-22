@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/21 14:50:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/22 02:58:18 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	parse_input(int argc, char **argv, t_data *data)
 	if (data->philo_count < 1 || data->die_time < 1 || data->eat_time < 1
 		|| data->sleep_time < 1 || data->meal_count < 1)
 		return (-1);
+	pthread_mutex_init(&data->dead_mutex, NULL);
+	pthread_mutex_init(&data->eaten_mutex, NULL);
 	return (1);
 }
 
@@ -97,5 +99,6 @@ int	init_struct(t_data *data, int index)
 		}
 		index++;
 	}
+	pthread_mutex_init(&data->philos[index].time_check, NULL);
 	return (1);
 }
