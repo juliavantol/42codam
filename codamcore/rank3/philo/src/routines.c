@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/18 12:28:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/22 02:58:52 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/22 03:07:18 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*supervisor(void *args)
 			data->dead = 1;
 			pthread_mutex_unlock(&data->dead_mutex);
 		}
-		usleep(300);
+		usleep(700);
 	}
 	return (0);
 }
@@ -48,7 +48,7 @@ void	*reaper(void *args)
 			return (0);
 		}
 		pthread_mutex_unlock(&philo->time_check);
-		usleep(300);
+		usleep(700);
 	}
 	return (0);
 }
