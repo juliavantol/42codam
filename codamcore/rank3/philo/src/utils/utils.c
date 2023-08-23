@@ -6,23 +6,34 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/23 12:34:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/23 13:49:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /* Checks if someone should die */
-bool	should_die(t_philosopher *philo)
+bool	should_die(t_data *data)
 {
 	bool		die;
 	u_int64_t	time;
+	int			i;
 
-	time = get_time_ms() - philo->data->start_time;
-	pthread_mutex_lock(&philo->lock);
-	die = time > philo->last_meal + philo->data->die_time;
-	pthread_mutex_unlock(&philo->lock);
-	return (die);
+	i = 0;
+	while (i < data->philo_count)
+	{
+		time = get_time_ms() - data->start_time;
+		pthread_mutex_lock(&data->philos[i].lock);
+		die = time > data->philos[i].last_meal + data->die_time;
+		pthread_mutex_unlock(&data->philos[i].lock);
+		if (die == true)
+		{
+			message(data, DEAD, data->philos[i].id);
+			return (true);
+		}
+		i++;
+	}
+	return (false);
 }
 
 /* Checks if someone has died */
