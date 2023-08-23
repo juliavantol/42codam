@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/17 19:05:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/18 16:49:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/23 17:11:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	ft_exit(t_data *data, int code)
 	{
 		pthread_mutex_destroy(&data->write);
 		pthread_mutex_destroy(&data->lock);
+		pthread_mutex_destroy(&data->dead_lock);
 		clean_all_mutexes(data, code);
 	}
 	if (data->threads != 0)

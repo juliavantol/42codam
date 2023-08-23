@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/23 13:32:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/23 17:15:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define SLEEPING "is sleeping"
 # define DEAD "died"
 # define FORK "has taken a fork"
-# define DIED -1
 
 typedef struct s_philosopher
 {
