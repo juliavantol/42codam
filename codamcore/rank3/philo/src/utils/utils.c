@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/22 23:14:58 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/23 12:34:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_usleep(t_data *data, u_int64_t duration)
 	goal_time = current_time + duration;
 	while (current_time < goal_time && is_dead(data) == false)
 	{
-		usleep(500);
+		usleep(800);
 		current_time = get_time_ms() - data->start_time;
 	}
 	return ;
