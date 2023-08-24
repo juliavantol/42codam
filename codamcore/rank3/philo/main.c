@@ -6,22 +6,16 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:29:29 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/22 00:49:34 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/23 14:01:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	leaks(void)
-{
-	system("leaks philo");
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	//atexit(leaks);
 	if (parse_input(argc, argv, &data) == -1)
 		return (ft_error(&data, "Error: invalid input\n", 0));
 	data.start_time = get_time_ms();

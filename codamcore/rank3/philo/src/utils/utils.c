@@ -6,46 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/12 11:55:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/22 23:14:58 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/23 16:19:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-/* Checks if someone should die */
-bool	should_die(t_philosopher *philo)
-{
-	bool		die;
-	u_int64_t	time;
-
-	time = get_time_ms() - philo->data->start_time;
-	pthread_mutex_lock(&philo->lock);
-	die = time > philo->last_meal + philo->data->die_time;
-	pthread_mutex_unlock(&philo->lock);
-	return (die);
-}
-
-/* Checks if someone has died */
-bool	all_eaten(t_data *data)
-{
-	bool	finished;
-
-	pthread_mutex_lock(&data->lock);
-	finished = (data->max_meals && data->finished_philos == data->philo_count);
-	pthread_mutex_unlock(&data->lock);
-	return (finished);
-}
-
-/* Checks if someone has died or if everyone has eaten */
-bool	is_dead(t_data *data)
-{
-	bool	dead;
-
-	pthread_mutex_lock(&data->dead_lock);
-	dead = data->dead == 1;
-	pthread_mutex_unlock(&data->dead_lock);
-	return (dead);
-}
 
 /* Print the message with the current timestamp */
 void	message(t_data *data, char *state, int id)

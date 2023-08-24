@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/22 18:44:02 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/23 16:56:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	allocate(t_data *data)
 	data->threads = malloc(sizeof(pthread_t) * data->philo_count);
 	data->philos = malloc(sizeof(t_philosopher) * data->philo_count);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_count);
-	pthread_mutex_init(&data->dead_lock, NULL);
 	if (!data->threads || !data->philos || !data->forks)
 		return (-1);
 	if (pthread_mutex_init(&data->write, NULL) != 0)
@@ -53,6 +52,12 @@ int	allocate(t_data *data)
 	if (pthread_mutex_init(&data->lock, NULL) != 0)
 	{
 		pthread_mutex_destroy(&data->write);
+		return (-1);
+	}
+	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
+	{
+		pthread_mutex_destroy(&data->write);
+		pthread_mutex_destroy(&data->lock);
 		return (-1);
 	}
 	return (1);
