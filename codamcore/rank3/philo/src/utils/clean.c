@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/17 19:05:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/23 17:11:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/23 18:05:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,15 @@ int	ft_exit(t_data *data, int code)
 		pthread_mutex_destroy(&data->dead_lock);
 		clean_all_mutexes(data, code);
 	}
-	if (data->threads != 0)
-		free(data->threads);
-	if (data->philos != 0)
-		free(data->philos);
-	if (data->forks != 0)
-		free(data->forks);
+	if (code > 5)
+	{
+		if (data->threads != 0)
+			free(data->threads);
+		if (data->philos != 0)
+			free(data->philos);
+		if (data->forks != 0)
+			free(data->forks);
+	}
 	return (0);
 }
 
@@ -76,6 +79,12 @@ int	ft_exit(t_data *data, int code)
 int	ft_error(t_data *data, char *str, int err_code)
 {
 	printf("%s\n", str);
+	if (data->threads != 0)
+		free(data->threads);
+	if (data->philos != 0)
+		free(data->philos);
+	if (data->forks != 0)
+		free(data->forks);
 	ft_exit(data, err_code);
-	return (0);
+	return (1);
 }

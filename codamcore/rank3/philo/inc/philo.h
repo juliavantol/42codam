@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/04 16:31:47 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/23 17:15:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/23 17:55:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_data
 
 int			ft_error(t_data *data, char *str, int err_code);
 int			parse_input(int argc, char **argv, t_data *philo);
-int			init_threads(t_data	*data, int i);
+int			init_threads(t_data	*data, int i, pthread_t	p);
 int			eat_meal(t_philosopher *philo);
 int			ft_strcmp(char *s1, char *s2);
 int			init_struct(t_data *data, int index);

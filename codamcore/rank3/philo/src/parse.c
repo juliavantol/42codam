@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 16:37:30 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/23 16:56:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/23 17:27:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	init_forks(t_data *data, int index)
 		{
 			pthread_mutex_destroy(&data->write);
 			pthread_mutex_destroy(&data->lock);
+			pthread_mutex_destroy(&data->dead_lock);
 			destroy_mutexes(data, index, 1);
 			return (-1);
 		}
@@ -96,6 +97,7 @@ int	init_struct(t_data *data, int index)
 		if (pthread_mutex_init(&data->philos[index].lock, NULL) != 0)
 		{
 			pthread_mutex_destroy(&data->write);
+			pthread_mutex_destroy(&data->dead_lock);
 			pthread_mutex_destroy(&data->lock);
 			destroy_mutexes(data, data->philo_count, 1);
 			destroy_mutexes(data, index, 0);
