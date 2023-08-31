@@ -3,7 +3,7 @@ CC = gcc
 LIBFT = inc/libft/libft.a
 INCLUDES = -I inc
 CFLAGS = -Wall -Wextra -Werror
-SRC = pipex.c utils.c ft_split_args.c free.c
+SRC = pipex.c utils.c ft_split_args.c free.c main.c
 OBJ_DIR	:= obj
 OBJS	= $(SRC:%.c=$(OBJ_DIR)/%.o)
 

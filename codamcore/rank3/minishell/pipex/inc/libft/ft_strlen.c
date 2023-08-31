@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/05 13:44:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/31 15:46:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/08/30 18:48:28 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ size_t	ft_strlen(const char *s)
 	size_t	index;
 
 	index = 0;
+	if (!s)
+		return (-1);
 	while (s[index] != '\0')
 		index++;
 	return (index);

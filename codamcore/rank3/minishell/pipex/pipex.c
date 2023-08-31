@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/25 12:29:55 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/31 03:00:03 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,31 +69,19 @@ void	pipes(t_pipex pipex)
 	}
 }
 
-int	main(int argc, char *argv[], char **envp)
+int	loop_args(t_pipex *pipex, char **argv, int argc)
 {
 	int		index;
-	int		status;
-	t_pipex	pipex;
 
-	if (argc < 5)
-	{
-		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
 	index = 2;
-	pipex.infile = open(argv[1], O_RDONLY);
-	dup2(pipex.infile, 0);
-	get_envp(&pipex, envp);
 	while (index < argc - 2)
 	{
-		pipex.cmd = argv[index];
-		pipex.cmd_split = ft_split_args(argv[index]);
-		pipes(pipex);
-		free_cmd_split(&pipex);
+		pipex->cmd = argv[index];
+		pipex->cmd_split = ft_split_args(argv[index]);
+		pipes(*pipex);
+		free_cmd_split(pipex);
 		index++;
 	}
-	output(argv[argc - 1], argv[index], pipex);
-	if (WIFEXITED(status))
-		exit(WEXITSTATUS(status));
-	return (EXIT_FAILURE);
+	output(argv[argc - 1], argv[index], *pipex);
+	return (0);
 }
