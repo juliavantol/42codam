@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 13:59:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/31 02:39:59 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/31 15:16:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/pipex.h"
+#include "pipex.h"
 
-static size_t	count_words(char const *s)
+static size_t	count_words(char const *s, size_t len)
 {
 	size_t	count;
 	size_t	index;
@@ -21,7 +21,7 @@ static size_t	count_words(char const *s)
 	found = 0;
 	count = 0;
 	index = 0;
-	while (index < ft_strlen(s))
+	while (index < len)
 	{
 		while (s[found] != ' ' && s[found])
 			found++;
@@ -92,13 +92,28 @@ static char	**ft_fill_split(char const *s, char **split)
 char	**ft_split_args(char *s)
 {
 	char	**split;
-	int		len;
+	size_t	word_count;
+	size_t	len;
 
 	len = ft_strlen(s);
-	printf("len: %d\n", len);
-	split = malloc((count_words(s) + 1) * sizeof(char *));
+	if (len == 0)
+		word_count = 1;
+	else
+		word_count = count_words(s, len);
+	split = malloc((word_count + 1) * sizeof(char *));
 	if (split == NULL)
 		error_exit("Malloc error");
-	split = ft_fill_split(s, split);
+	if (len == 0)
+	{
+		split[0] = " ";
+		split[1] = "\0";
+	}
+	else
+		split = ft_fill_split(s, split);
+	// while (*split)
+	// {
+	// 	printf("[%s]\n", *split);
+	// 	split++;
+	// }
 	return (split);
 }

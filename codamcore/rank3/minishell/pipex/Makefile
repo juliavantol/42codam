@@ -3,30 +3,32 @@ CC = gcc
 LIBFT = inc/libft/libft.a
 INCLUDES = -I inc
 CFLAGS = -Wall -Wextra -Werror
-SRC = pipex.c utils.c ft_split_args.c free.c main.c
-OBJ_DIR	:= obj
-OBJS	= $(SRC:%.c=$(OBJ_DIR)/%.o)
+SRC_FILES = pipex.c utils/utils.c utils/ft_split_args.c utils/free.c main.c
+OBJ_DIR	= obj
+SRC_DIR	= src
+SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
+OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-GREEN   := \033[32;1m
-PURPLE	:= \033[35;1m
-RED		:= \033[31;1m
-BLUE	:= \033[34;1m
+GREEN   = \033[32;1m
+PURPLE	= \033[35;1m
+RED		= \033[31;1m
+BLUE	= \033[34;1m
 END		= \x1b[0m
 
-all: directories $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJS)
-	@echo "Start compiling $(PURPLE)libft$(END)..."
-	@cd inc/libft && make
+$(NAME): $(LIBFT) $(OBJS)
 	@echo "Now compiling $(PURPLE)$(NAME)$(END)..."
-	@$(CC) $(INCLUDES) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+	@$(CC) $(INCLUDES) $(CFLAGS) $(LIBFT) -o $@ $^
 	@echo "$(GREEN)$(NAME)$(END) succesfully compiled!"
 
-$(OBJ_DIR)/%.o: %.c
-	@$(CC) $(INCLUDES) -c -o $@ $< $(CFLAGS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(INCLUDES) $(CFLAGS) -c -o $@ $<
 
-directories:
-	@mkdir -p $(OBJ_DIR)
+$(LIBFT):
+	@echo "Start compiling $(PURPLE)libft$(END)..."
+	@cd inc/libft && make
 
 clean:
 	@rm -f *.o

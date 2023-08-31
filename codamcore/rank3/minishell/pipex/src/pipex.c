@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/31 03:00:03 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/31 15:15:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/pipex.h"
+#include "pipex.h"
 
 void	output(char *output, char *cmd, t_pipex pipex)
 {
@@ -82,6 +82,8 @@ int	loop_args(t_pipex *pipex, char **argv, int argc)
 		free_cmd_split(pipex);
 		index++;
 	}
+	pipex->cmd = argv[index];
+	pipex->cmd_split = ft_split_args(argv[index]);
 	output(argv[argc - 1], argv[index], *pipex);
 	return (0);
 }

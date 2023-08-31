@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/25 12:29:58 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/31 15:15:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/pipex.h"
+#include "pipex.h"
 
 void	get_envp(t_pipex *pipex, char **envp)
 {

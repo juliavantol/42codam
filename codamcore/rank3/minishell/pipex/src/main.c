@@ -6,11 +6,11 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/31 02:55:36 by Julia         ########   odam.nl         */
+/*   Updated: 2023/08/31 15:15:57 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/pipex.h"
+#include "pipex.h"
 
 // ARG="grep a"; ./pipex "input.txt" ls $ARG "output.txt"
 
