@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 13:59:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/01 13:44:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/01 22:54:55 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,7 @@ char	**ft_split_args(char *s)
 	if (split == NULL)
 		error_exit("Malloc error");
 	if (len == 0)
-	{
-		split[0] = " ";
-		split[1] = "\0";
-	}
+		return (NULL);
 	else
 		split = ft_fill_split(s, split);
 	return (split);

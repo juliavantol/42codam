@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/01 13:52:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/01 23:04:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ void	output(char *output, char *cmd, t_pipex pipex)
 	if (access(output, R_OK) != 0 || access(output, W_OK) != 0)
 		error_exit("Can't be read/written");
 	dup2(pipex.outfile, 1);
-	path = get_cmd_path(pipex.paths, cmd);
-	if (!path)
-		error_exit("Command not found");
-	// if (execve(path, ft_split_args(cmd), pipex.full_envp) == -1)
-	// 	error_exit("Execve error");
+	if (pipex.cmd_split != NULL)
+	{
+		path = get_cmd_path(pipex.paths, cmd);
+		if (!path)
+			error_exit("Command not found");
+		if (execve(path, pipex.cmd_split, pipex.full_envp) == -1)
+			error_exit("Execve error");
+	}
 }
 
 void	child_process(int fds[], t_pipex pipex)
@@ -40,13 +43,16 @@ void	child_process(int fds[], t_pipex pipex)
 	}
 	close(fds[0]);
 	dup2(fds[1], 1);
-	path = get_cmd_path(pipex.paths, pipex.cmd);
-	if (!path)
-		error_exit("Command not found");
-	if (execve(path, pipex.cmd_split, pipex.full_envp) == -1)
+	if (pipex.cmd_split != NULL)
 	{
-		ft_putstr_fd("Execve error", 2);
-		exit(127);
+		path = get_cmd_path(pipex.paths, pipex.cmd);
+		if (!path)
+			error_exit("Command not found");
+		if (execve(path, pipex.cmd_split, pipex.full_envp) == -1)
+		{
+			ft_putstr_fd("Execve error", 2);
+			exit(127);
+		}
 	}
 }
 

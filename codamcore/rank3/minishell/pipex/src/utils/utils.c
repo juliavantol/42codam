@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/01 13:54:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/01 22:55:33 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char	*get_cmd_path(char **paths, char *cmd)
 {
 	char		*path;
 
+	printf("[%s]", cmd);
 	cmd = *ft_split(cmd, ' ');
-	return (NULL);
 	while (*paths)
 	{
 		path = join_str(*paths, cmd);
