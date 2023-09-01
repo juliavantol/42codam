@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/31 15:15:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/01 13:52:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	output(char *output, char *cmd, t_pipex pipex)
 	path = get_cmd_path(pipex.paths, cmd);
 	if (!path)
 		error_exit("Command not found");
-	if (execve(path, ft_split_args(cmd), pipex.full_envp) == -1)
-		error_exit("Execve error");
+	// if (execve(path, ft_split_args(cmd), pipex.full_envp) == -1)
+	// 	error_exit("Execve error");
 }
 
 void	child_process(int fds[], t_pipex pipex)

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 13:59:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/31 15:16:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/01 13:44:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,5 @@ char	**ft_split_args(char *s)
 	}
 	else
 		split = ft_fill_split(s, split);
-	// while (*split)
-	// {
-	// 	printf("[%s]\n", *split);
-	// 	split++;
-	// }
 	return (split);
 }
