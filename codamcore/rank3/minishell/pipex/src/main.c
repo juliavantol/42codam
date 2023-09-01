@@ -6,13 +6,31 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/08/31 15:15:57 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/01 23:19:38 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 // ARG="grep a"; ./pipex "input.txt" ls $ARG "output.txt"
+int	loop_args(t_pipex *pipex, char **argv, int argc)
+{
+	int		index;
+
+	index = 2;
+	while (index < argc - 2)
+	{
+		pipex->cmd = argv[index];
+		pipex->cmd_split = ft_split_args(argv[index]);
+		pipes(*pipex);
+		free_cmd_split(pipex);
+		index++;
+	}
+	pipex->cmd = argv[index];
+	pipex->cmd_split = ft_split_args(argv[index]);
+	output(argv[argc - 1], argv[index], *pipex);
+	return (0);
+}
 
 int	main(int argc, char *argv[], char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:17:48 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/01 23:16:25 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/01 23:19:12 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,4 @@ void	pipes(t_pipex pipex)
 		close(fds[1]);
 		dup2(fds[0], 0);
 	}
-}
-
-int	loop_args(t_pipex *pipex, char **argv, int argc)
-{
-	int		index;
-
-	index = 2;
-	while (index < argc - 2)
-	{
-		pipex->cmd = argv[index];
-		pipex->cmd_split = ft_split_args(argv[index]);
-		pipes(*pipex);
-		free_cmd_split(pipex);
-		index++;
-	}
-	pipex->cmd = argv[index];
-	pipex->cmd_split = ft_split_args(argv[index]);
-	output(argv[argc - 1], argv[index], *pipex);
-	return (0);
 }
