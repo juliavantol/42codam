@@ -3,7 +3,8 @@ CC = gcc
 LIBFT = inc/libft/libft.a
 INCLUDES = -I inc
 CFLAGS = -Wall -Wextra -Werror
-SRC_FILES = pipex.c utils/utils.c utils/ft_split_args.c utils/free.c main.c
+SRC_FILES = pipex.c utils/utils.c utils/ft_split_args.c utils/exit_clean.c main.c \
+			utils/join_str.c utils/envp.c
 OBJ_DIR	= obj
 SRC_DIR	= src
 SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))

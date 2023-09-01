@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   free.c                                             :+:    :+:            */
+/*   exit_clean.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/23 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/31 15:16:19 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/01 13:39:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	cmd_error(char *cmd)
+{
+	char	*cmd_msg;
+	char	*error_msg;
+
+	cmd_msg = join_str("pipex: ", cmd);
+	if (!cmd_msg)
+		error_exit("Malloc error");
+	error_msg = join_str(cmd_msg, ": command not found\n");
+	if (!error_msg)
+		error_exit("Malloc error");
+	ft_putstr_fd(error_msg, 2);
+}
 
 void	error_exit(char *msg)
 {

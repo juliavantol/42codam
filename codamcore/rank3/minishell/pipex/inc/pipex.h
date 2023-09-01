@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/08/31 02:34:55 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/01 13:39:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ void	get_envp(t_pipex *pipex, char **envp);
 void	free_cmd_split(t_pipex *pipex);
 void	error_exit(char *msg);
 int		loop_args(t_pipex *pipex, char **argv, int argc);
+char	*join_str(char const *s1, char const *s2);
+void	cmd_error(char *cmd);
 
 #endif

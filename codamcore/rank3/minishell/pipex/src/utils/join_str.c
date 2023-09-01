@@ -1,43 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strlen.c                                        :+:    :+:            */
+/*   join_str.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/05 13:44:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/01 12:08:50 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/09/01 13:13:35 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/01 13:15:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-/* Returns length of string */
-
-int	is_empty_str(const char *s)
+char	*join_str(char const *s1, char const *s2)
 {
-	int	index;
+	char	*new_str;
+	size_t	str_len;
+	int		index;
+	int		second;
 
+	str_len = ft_strlen(s1) + ft_strlen(s2);
+	new_str = (char *)malloc((str_len + 1) * sizeof(char));
 	index = 0;
-	while (s[index])
+	if (new_str == NULL)
+		return (NULL);
+	while (s1[index] != '\0')
 	{
-		if (s[index] != ' ')
-			return (0);
+		new_str[index] = s1[index];
 		index++;
 	}
-	return (1);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	index;
-
+	second = index;
 	index = 0;
-	if (!s)
-		return (0);
-	if (is_empty_str(s) == 1)
-		return (0);
-	while (s[index] != '\0')
-		index++;
-	return (index);
+	while (s2[index] != '\0')
+		new_str[second++] = s2[index++];
+	new_str[second] = '\0';
+	return (new_str);
 }
