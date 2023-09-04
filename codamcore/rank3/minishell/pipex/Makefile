@@ -3,12 +3,11 @@ CC = gcc
 LIBFT = inc/libft/libft.a
 INCLUDES = -I inc
 CFLAGS = -Wall -Wextra -Werror
-SRC_FILES = pipex.c utils/utils.c utils/ft_split_args.c utils/exit_clean.c main.c \
-			utils/join_str.c utils/envp.c
+SRC_FILES = src/pipex.c src/utils/utils.c src/utils/ft_split_args.c src/utils/exit_clean.c src/main.c \
+			src/utils/join_str.c src/utils/envp.c
 OBJ_DIR	= obj
 SRC_DIR	= src
-SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
-OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
+OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 GREEN   = \033[32;1m
 PURPLE	= \033[35;1m

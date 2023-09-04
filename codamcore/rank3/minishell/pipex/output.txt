@@ -1,8 +1,1 @@
-total 120
--rw-r--r--  1 Julia  staff    999 Sep  1 22:05 Makefile
-drwxr-xr-x  4 Julia  staff    128 Sep  1 22:05 inc
--rwxrwxrwx  1 Julia  staff     14 Aug 25 10:37 input.txt
-drwxr-xr-x  5 Julia  staff    160 Sep  1 23:32 obj
--rw-r--r--  1 Julia  staff      0 Sep  1 23:33 output.txt
--rwxr-xr-x  1 Julia  staff  51432 Sep  1 23:33 pipex
-drwxr-xr-x  5 Julia  staff    160 Sep  1 22:05 src
+       7
