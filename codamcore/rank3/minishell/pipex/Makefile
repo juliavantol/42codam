@@ -4,7 +4,8 @@ LIBFT = inc/libft/libft.a
 INCLUDES = -I inc
 CFLAGS = -Wall -Wextra -Werror
 SRC_FILES = src/pipex.c src/utils/utils.c src/utils/ft_split_args.c src/utils/exit_clean.c src/main.c \
-			src/utils/join_str.c src/utils/envp.c
+			src/utils/join_str.c src/utils/envp.c src/heredoc.c \
+			src/utils/get_next_line/get_next_line.c src/utils/get_next_line/get_next_line_utils.c
 OBJ_DIR	= obj
 SRC_DIR	= src
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))

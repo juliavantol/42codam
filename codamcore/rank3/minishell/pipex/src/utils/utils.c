@@ -6,23 +6,43 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/05 14:27:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/05 23:35:58 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	check_input(char **argv, int argc)
+bool	ft_strcmp(char *s1, char *s2)
 {
-	if (argv[1])
+	int	index;
+
+	index = 0;
+	if (!s1 || !s2)
+		return (false);
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (false);
+	while (s1[index] && s2[index])
 	{
-		printf("1: %s\n", argv[1]);
+		if (s1[index] != s2[index])
+			return (false);
+		index++;
 	}
+	return (true);
+}
+
+int	check_input(char **argv, int argc)
+{
 	if (argc < 5)
 	{
 		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
+	if (argv[1])
+	{
+		if (ft_strcmp(argv[1], "here_doc") == true)
+			return (1);
+	}
+	return (0);
 }
 
 char	*get_cmd_path(char **paths, char *cmd)

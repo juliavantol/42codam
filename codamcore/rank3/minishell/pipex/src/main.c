@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/05 14:28:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/05 23:36:19 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,16 @@ int	main(int argc, char *argv[], char **envp)
 	int		status;
 	t_pipex	pipex;
 
-	check_input(argv, argc);
-	pipex.infile = open(argv[1], O_RDONLY);
-	dup2(pipex.infile, 0);
+	if (check_input(argv, argc) == 0)
+	{
+		pipex.infile = open(argv[1], O_RDONLY);
+		dup2(pipex.infile, 0);
+	}
+	else
+	{
+		here_doc("test");
+		exit(1);
+	}
 	get_envp(&pipex, envp);
 	loop_args(&pipex, argv, argc);
 	if (WIFEXITED(status))

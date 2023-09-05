@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/05 14:27:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/05 23:35:05 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include "libft/libft.h"
+# include <stdbool.h>
 # include <fcntl.h>
 # include <errno.h>
 
@@ -38,8 +39,11 @@ void	error_exit(char *msg);
 int		loop_args(t_pipex *pipex, char **argv, int argc);
 char	*join_str(char const *s1, char const *s2);
 void	output(char *output, char *cmd, t_pipex pipex);
-void	check_input(char **argv, int argc);
+int		check_input(char **argv, int argc);
 void	pipes(t_pipex pipex);
 void	cmd_error(char *cmd);
+void	here_doc(char *delimiter);
+char	*get_next_line(int fd);
+int		search_newline(char *s);
 
 #endif
