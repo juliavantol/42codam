@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/01 23:19:38 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/05 14:28:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,7 @@ int	main(int argc, char *argv[], char **envp)
 	int		status;
 	t_pipex	pipex;
 
-	if (argc < 5)
-	{
-		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
+	check_input(argv, argc);
 	pipex.infile = open(argv[1], O_RDONLY);
 	dup2(pipex.infile, 0);
 	get_envp(&pipex, envp);

@@ -6,11 +6,24 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/01 23:35:03 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/05 14:27:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	check_input(char **argv, int argc)
+{
+	if (argv[1])
+	{
+		printf("1: %s\n", argv[1]);
+	}
+	if (argc < 5)
+	{
+		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+}
 
 char	*get_cmd_path(char **paths, char *cmd)
 {
