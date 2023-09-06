@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/05 23:35:05 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/06 18:48:00 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ void	cmd_error(char *cmd);
 void	here_doc(char *delimiter);
 char	*get_next_line(int fd);
 int		search_newline(char *s);
+
+bool	ft_strcmp(char *s1, char *s2);
 
 #endif
