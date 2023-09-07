@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/07 02:13:06 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/07 15:25:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	output(char *output, char *cmd, t_pipex pipex);
 int		check_input(char **argv, int argc);
 void	pipes(t_pipex pipex);
 void	cmd_error(char *cmd);
-void	here_doc(char *delimiter, char *input);
 char	*get_next_line(int fd);
 int		search_newline(char *s);
-
 bool	ft_strcmp(char *s1, char *s2);
+char	*here_doc(char *delimiter, char *input);
+void	pipe_output(void);
 
 #endif

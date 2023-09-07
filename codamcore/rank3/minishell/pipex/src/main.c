@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/07 02:12:57 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/07 15:53:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	main(int argc, char *argv[], char **envp)
 	else
 	{
 		here_doc("test", NULL);
-		exit(1);
 	}
 	get_envp(&pipex, envp);
 	loop_args(&pipex, argv, argc);
