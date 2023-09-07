@@ -1,7 +1,1 @@
-Makefile
-inc
-input.txt
-obj
-output.txt
-pipex
-src
+[end]

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/07 15:53:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/07 16:10:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ int	main(int argc, char *argv[], char **envp)
 		dup2(pipex.infile, 0);
 	}
 	else
-	{
-		here_doc("test", NULL);
-	}
+		here_doc(argv[2]);
 	get_envp(&pipex, envp);
 	loop_args(&pipex, argv, argc);
 	if (WIFEXITED(status))
