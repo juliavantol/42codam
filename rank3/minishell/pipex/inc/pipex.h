@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 11:18:23 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/07 16:06:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/07 17:22:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*get_cmd_path(char **paths, char	*cmd);
 void	get_envp(t_pipex *pipex, char **envp);
 void	free_cmd_split(t_pipex *pipex);
 void	error_exit(char *msg);
-int		loop_args(t_pipex *pipex, char **argv, int argc);
+int		loop_args(t_pipex *pipex, char **argv, int argc, int index);
 char	*join_str(char const *s1, char const *s2);
 void	output(char *output, char *cmd, t_pipex pipex);
 int		check_input(char **argv, int argc);
@@ -46,6 +46,5 @@ char	*get_next_line(int fd);
 int		search_newline(char *s);
 bool	ft_strcmp(char *s1, char *s2);
 void	here_doc(char *delimiter);
-void	pipe_output(void);
 
 #endif
