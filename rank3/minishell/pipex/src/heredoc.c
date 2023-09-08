@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/05 23:08:03 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/07 16:09:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/08 12:47:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	here_doc(char *delimiter)
 {
 	int		heredoc_file;
+	int		file;
 	char	*input;
 	size_t	len;
 
@@ -29,6 +30,8 @@ void	here_doc(char *delimiter)
 		write(heredoc_file, input, ft_strlen(input));
 		free(input);
 	}
-	dup2(heredoc_file, 0);
+	close(heredoc_file);
+	file = open(".here_doc", O_RDONLY);
+	dup2(file, 0);
 	unlink(".here_doc");
 }
