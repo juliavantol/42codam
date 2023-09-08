@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/01 13:19:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/01 13:20:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/08 12:38:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_envp(t_pipex *pipex, char **envp)
 		pipex->paths = manual_envp();
 	else
 	{
-		while (*envp && !ft_strnstr(*envp, "PATH=", ft_strlen(*envp)))
+		while (*envp && !ft_strnstr(*envp, "PATH=", 5))
 			envp++;
 		temp = ft_substr(*envp, 5, ft_strlen(*envp) - 5);
 		if (!temp)

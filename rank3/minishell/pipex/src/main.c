@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/07 17:42:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/08 12:38:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char *argv[], char **envp)
 	int		index;
 	t_pipex	pipex;
 
-	index = 2;
+	index = 3;
 	if (check_input(argv, argc) == 0)
 	{
 		index = 2;
