@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_lstsize.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:15:15 by Julia         ########   odam.nl         */
+/*   Created: 2022/10/27 12:10:32 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:21:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+/* Counts the number of nodes in a list. */
+
+int	ft_lstsize(t_list *lst)
 {
-	char	*input;
+	t_list	*temp;
+	int		count;
 
-	while (1)
+	temp = lst;
+	count = 0;
+	while (temp != NULL)
 	{
-		input = readline("minishell$ ");
-		if (!input)
-		{
-			printf("\n");
-			break ;
-		}
-		if (input[0] != '\0')
-			add_history(input);
-		free(input);
+		temp = temp -> next;
+		count++;
 	}
+	return (count);
 }

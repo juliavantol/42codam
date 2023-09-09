@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:15:15 by Julia         ########   odam.nl         */
+/*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
+/*   Updated: 2023/09/09 23:13:02 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-int	main(void)
-{
-	char	*input;
+# include <unistd.h>
+# include "libft/libft.h"
+# include <stdbool.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
-	while (1)
-	{
-		input = readline("minishell$ ");
-		if (!input)
-		{
-			printf("\n");
-			break ;
-		}
-		if (input[0] != '\0')
-			add_history(input);
-		free(input);
-	}
-}
+#endif

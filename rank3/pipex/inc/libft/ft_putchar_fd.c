@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_putchar_fd.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:15:15 by Julia         ########   odam.nl         */
+/*   Created: 2022/10/24 14:52:00 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/24 15:00:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+/* Outputs the character ’c’ to the given file descriptor. */
+
+void	ft_putchar_fd(char c, int fd)
 {
-	char	*input;
-
-	while (1)
-	{
-		input = readline("minishell$ ");
-		if (!input)
-		{
-			printf("\n");
-			break ;
-		}
-		if (input[0] != '\0')
-			add_history(input);
-		free(input);
-	}
+	write(fd, &c, 1);
 }

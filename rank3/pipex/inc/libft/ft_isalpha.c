@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_isalpha.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:15:15 by Julia         ########   odam.nl         */
+/*   Created: 2022/10/04 14:57:13 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/05 13:11:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	main(void)
+int	ft_isalpha(int c)
 {
-	char	*input;
-
-	while (1)
-	{
-		input = readline("minishell$ ");
-		if (!input)
-		{
-			printf("\n");
-			break ;
-		}
-		if (input[0] != '\0')
-			add_history(input);
-		free(input);
-	}
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
+	return (0);
 }

@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_memcpy.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:15:15 by Julia         ########   odam.nl         */
+/*   Created: 2022/10/11 17:18:52 by Julia         #+#    #+#                 */
+/*   Updated: 2022/10/31 14:11:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+/* Copies up to n characters from src into dest */
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char	*input;
+	unsigned char	*csrc;
+	unsigned char	*cdest;
+	size_t			index;
 
-	while (1)
+	if (!dest && !src)
+		return (NULL);
+	csrc = (unsigned char *) src;
+	cdest = (unsigned char *) dest;
+	index = 0;
+	while (index < n)
 	{
-		input = readline("minishell$ ");
-		if (!input)
-		{
-			printf("\n");
-			break ;
-		}
-		if (input[0] != '\0')
-			add_history(input);
-		free(input);
+		cdest[index] = csrc[index];
+		index++;
 	}
+	return (cdest);
 }

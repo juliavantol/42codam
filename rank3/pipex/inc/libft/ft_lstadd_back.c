@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_lstadd_back.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:15:15 by Julia         ########   odam.nl         */
+/*   Created: 2022/10/27 12:50:03 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/10/30 21:00:48 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+/* Adds the node ’new’ at the end of the list. */
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	*input;
+	t_list	*last;
 
-	while (1)
+	if (*lst != NULL && new != NULL)
 	{
-		input = readline("minishell$ ");
-		if (!input)
-		{
-			printf("\n");
-			break ;
-		}
-		if (input[0] != '\0')
-			add_history(input);
-		free(input);
+		last = ft_lstlast(*lst);
+		last -> next = new;
 	}
+	else
+		*lst = new;
 }

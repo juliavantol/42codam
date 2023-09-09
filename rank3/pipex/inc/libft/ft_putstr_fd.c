@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_putstr_fd.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:15:15 by Julia         ########   odam.nl         */
+/*   Created: 2022/10/24 15:02:20 by juvan-to      #+#    #+#                 */
+/*   Updated: 2022/11/01 11:12:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+/* Outputs the string ’s’ to the given file descriptor */
+
+void	ft_putstr_fd(char *s, int fd)
 {
-	char	*input;
+	size_t	index;
 
-	while (1)
+	index = 0;
+	if (s && fd)
 	{
-		input = readline("minishell$ ");
-		if (!input)
+		while (index < ft_strlen(s))
 		{
-			printf("\n");
-			break ;
+			write(fd, &s[index], 1);
+			index++;
 		}
-		if (input[0] != '\0')
-			add_history(input);
-		free(input);
 	}
 }
