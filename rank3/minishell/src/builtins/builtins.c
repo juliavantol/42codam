@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   builtins.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:26:46 by Julia         ########   odam.nl         */
+/*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
+/*   Updated: 2023/09/09 23:25:49 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+char	*get_pwd(void)
 {
-	char	*input;
+	char	*path;
 
-	while (1)
-	{
-		input = readline("minishell$ ");
-		if (!input)
-		{
-			printf("\n");
-			break ;
-		}
-		if (input[0] != '\0')
-			add_history(input);
-		get_pwd();
-		free(input);
-	}
+	path = malloc(PATH_MAX + 1);
+	getcwd(path, sizeof(path));
+	printf("%s\n", path);
+	return (path);
 }
