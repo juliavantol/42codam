@@ -6,13 +6,12 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/08 12:38:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/09 02:58:52 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// ARG="grep a"; ./pipex "input.txt" ls $ARG "output.txt"
 int	loop_args(t_pipex *pipex, char **argv, int argc, int index)
 {
 	while (index < argc - 2)
