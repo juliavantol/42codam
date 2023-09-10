@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:26:46 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/10 21:49:34 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(void)
 {
 	char	*input;
 
+	print_directory();
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -26,7 +27,6 @@ int	main(void)
 		}
 		if (input[0] != '\0')
 			add_history(input);
-		get_pwd();
 		free(input);
 	}
 }

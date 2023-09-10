@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/09 23:24:01 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/10 21:49:19 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@
 # include <readline/history.h>
 # include <limits.h>
 
-char	*get_pwd(void);
+void	print_directory(void);
 
 #endif
