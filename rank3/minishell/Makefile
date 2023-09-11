@@ -1,35 +1,78 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: fras <fras@student.codam.nl>                 +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
+#    Updated: 2023/09/11 11:38:57 by juvan-to      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 CC = gcc
-LIBFT = inc/libft/libft.a
-INCLUDES = -I inc
-CFLAGS = -Wall -Wextra -Werror
-OBJ_DIR	= obj
-SRC_DIR	= src
-SRC_FILES = $(shell find $(SRC_DIR) -type f -name "*.c")
-OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
+CFLAGS = -Werror -Wextra -Wall -no-pie
+LIBFT = include/libft/libft.a
+INCLUDE = -I include
+SRC_DIR = src
+OBJ_DIR = obj
+SOURCES = $(shell find $(SRC_DIR) -type f -name "*.c")
+OBJECTS = $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SOURCES:%.c=%.o))
+RM = rm -f
+
+ifdef DEBUG
+CFLAGS += -g -D DEBUG=-1
+MLX42_DEBUG = -DDEBUG=1
+endif
+
+ifdef FSAN
+CFLAGS += -fsanitize=address -g
+endif
+
+
+# Targets
+.PHONY: all mandatory bonus clean fclean re directories debug rebug fsan resan message
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
-	@echo "Now compiling $(NAME)..."
-	@$(CC) $(CFLAGS) -lreadline $(INCLUDES) $(LIBFT) -o $@ $^
-	@echo "$(NAME) succesfully compiled!"
+$(NAME): $(OBJECTS) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lreadline $(LIBFT) $(INCLUDE)
+	@$(MAKE) message EXECUTABLE=$@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
+	@$(MAKE) directories
+	@$(CC) $(CFLAGS) -o $@ -c $^ $(INCLUDE)
 
+# Libfit
 $(LIBFT):
-	@echo "Start compiling libft..."
-	@cd inc/libft && make
+	@cd include/libft && make
 
+# Directories
+directories:
+	@find $(SRC_DIR) -type d | sed 's/$(SRC_DIR)/$(OBJ_DIR)/' | xargs mkdir -p
+
+# Cleaning
 clean:
-	@rm -rf $(OBJ_DIR)
-	@cd inc/libft && make clean
+	@$(RM) -r obj
 
 fclean: clean
-	@rm -f $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 
+# Debugging
+debug:
+	$(MAKE) DEBUG=1 
+
+rebug: fclean debug
+
+fsan:
+	$(MAKE) FSAN=1
+
+resan: fclean fsan
+
+# Info Message
+message:
+	@echo "\033[92m$(EXECUTABLE) is ready for usage!\033[0m"
 .PHONY:	all clean fclean re
