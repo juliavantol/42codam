@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_tolower.c                                       :+:    :+:            */
+/*   ft_strcmp.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/05 14:31:03 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/31 17:10:49 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/09/11 11:49:49 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/11 14:24:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Converts uppercase character to lowercase character */
+#include "minishell.h"
 
-int	ft_tolower(int c)
+bool	ft_strcmp(char *s1, char *s2)
 {
-	if (c >= 65 && c <= 90)
+	int	index;
+
+	index = 0;
+	if (!s1 || !s2)
+		return (false);
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (false);
+	while (s1[index] && s2[index])
 	{
-		c = c + 32;
-		return (c);
+		if (s1[index] != s2[index])
+			return (false);
+		index++;
 	}
-	return (c);
+	return (true);
 }

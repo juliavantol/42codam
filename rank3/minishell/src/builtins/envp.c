@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isalpha.c                                       :+:    :+:            */
+/*   envp.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/04 14:57:13 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/05 13:11:42 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/11 17:56:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalpha(int c)
+#include "builtins.h"
+
+void	create_envp(char **envp)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	else
-		return (0);
-	return (0);
+	char	**temp;
+	t_env	**envp_table;
+
+	while (*envp)
+	{
+		temp = ft_split(*envp, '=');
+		printf("%s -->  %s\n\n", temp[0], temp[1]);
+		free(temp);
+		temp = NULL;
+		envp++;
+	}
 }

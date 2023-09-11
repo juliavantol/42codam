@@ -6,21 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/15 10:56:31 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/11 15:03:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	index;
-
-	index = 0;
-	while (s[index] != '\0')
-		index++;
-	return (index);
-}
 
 int	search_newline(char *s)
 {

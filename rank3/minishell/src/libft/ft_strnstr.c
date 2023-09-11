@@ -6,21 +6,21 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 12:08:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/08 12:33:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/11 15:02:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 /* Locates the first occurrence of the needle in the stack. No more than 
 len characters are searched. If needle is an empty, stack is returned; 
 if needle is not in stack, NULL is returned.  Otherwise a pointer to the 
 first character of the first occurrence of needle is returned */
 
-char	*ft_strnstr(const char *stack, const char *needle, size_t len)
+char	*ft_strnstr(const char *stack, const char *needle, int len)
 {
-	size_t	i;
-	size_t	n_len;
+	int		i;
+	int		n_len;
 	char	*sub;
 
 	i = 0;

@@ -6,19 +6,19 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 13:36:07 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/31 17:09:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/11 15:01:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 /* Return value is the substring. NULL if the allocation fails. 
 Allocates (with malloc(3)) and returns a substring from the string ’s’.
 The substring begins at index ’start’ and is of maximum size ’len’. */
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, int start, int len)
 {
-	size_t	index;
+	int	index;
 	char	*sub;
 
 	index = 0;

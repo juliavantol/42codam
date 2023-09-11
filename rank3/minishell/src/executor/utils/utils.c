@@ -6,29 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/09 22:59:50 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/11 11:50:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-bool	ft_strcmp(char *s1, char *s2)
-{
-	int	index;
-
-	index = 0;
-	if (!s1 || !s2)
-		return (false);
-	if (ft_strlen(s1) != ft_strlen(s2))
-		return (false);
-	while (s1[index] && s2[index])
-	{
-		if (s1[index] != s2[index])
-			return (false);
-		index++;
-	}
-	return (true);
-}
 
 int	check_input(char **argv, int argc)
 {

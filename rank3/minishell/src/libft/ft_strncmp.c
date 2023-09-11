@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strchr.c                                        :+:    :+:            */
+/*   ft_strncmp.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/13 09:54:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/31 15:00:23 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 10:35:36 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/11 15:03:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-/* This function finds the first occurence of character c and returns 
-a pointer to the first occurence of c. */
+/* This function compares no more than n bytes. It returns 0 if equal.
+It interpretes the strings as unsigned char */
 
-char	*ft_strchr(const char *str, int c)
+int	ft_strncmp(const char *s1, const char *s2, int n)
 {
-	size_t	index;
+	int	index;
+	int	r;
 
 	index = 0;
-	if (str[index] == (char)c)
-		return (&((char *) str)[index]);
-	while (index < (ft_strlen(str) + 1))
+	r = 0;
+	while (index < n && (*(s1 + index) || *(s2 + index)))
 	{
-		if (str[index] == (char)c)
-			return (&((char *) str)[index]);
+		if (*(s1 + index) != *(s2 + index))
+		{
+			r = *((unsigned char *)s1 + index) - *((unsigned char *)s2 + index);
+			break ;
+		}
 		index++;
 	}
-	return (NULL);
+	return (r);
 }

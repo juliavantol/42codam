@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_putstr_fd.c                                     :+:    :+:            */
+/*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/24 15:02:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/01 11:12:03 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 14:04:33 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/11 14:56:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-/* Outputs the string ’s’ to the given file descriptor */
+/* Returns a pointer to a null-terminated byte string 
+which is a duplicate of string s */
 
-void	ft_putstr_fd(char *s, int fd)
+char	*ft_strdup(const char *s)
 {
-	size_t	index;
+	char	*new;
+	int		index;
 
 	index = 0;
-	if (s && fd)
+	while (s[index] != '\0')
+		index++;
+	new = malloc(index + 1);
+	if (new == NULL)
+		return (NULL);
+	index = 0;
+	while (s[index] != '\0')
 	{
-		while (index < ft_strlen(s))
-		{
-			write(fd, &s[index], 1);
-			index++;
-		}
+		new[index] = s[index];
+		index++;
 	}
+	new[index] = '\0';
+	return (new);
 }

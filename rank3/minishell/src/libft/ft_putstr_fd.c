@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strncmp.c                                       :+:    :+:            */
+/*   ft_putstr_fd.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/13 10:35:36 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/31 16:02:59 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/24 15:02:20 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/11 15:01:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-/* This function compares no more than n bytes. It returns 0 if equal.
-It interpretes the strings as unsigned char */
+/* Outputs the string ’s’ to the given file descriptor */
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	index;
-	int		r;
+	int	index;
 
 	index = 0;
-	r = 0;
-	while (index < n && (*(s1 + index) || *(s2 + index)))
+	if (s && fd)
 	{
-		if (*(s1 + index) != *(s2 + index))
+		while (index < ft_strlen(s))
 		{
-			r = *((unsigned char *)s1 + index) - *((unsigned char *)s2 + index);
-			break ;
+			write(fd, &s[index], 1);
+			index++;
 		}
-		index++;
 	}
-	return (r);
 }

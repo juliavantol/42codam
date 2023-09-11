@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_putchar_fd.c                                    :+:    :+:            */
+/*   builtins.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/24 14:52:00 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/10/24 15:00:03 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/09/11 17:11:28 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/11 17:59:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-/* Outputs the character ’c’ to the given file descriptor. */
+# include "minishell.h"
 
-void	ft_putchar_fd(char c, int fd)
+typedef struct s_envp
 {
-	write(fd, &c, 1);
-}
+	char			*name;
+	char			*value;
+	struct s_envp	*next;
+}	t_envp;
+
+void	create_envp(char **envp);
+void	print_env(char **envp);
+void	print_directory(void);
+void	exit_shell(void);
+
+#endif

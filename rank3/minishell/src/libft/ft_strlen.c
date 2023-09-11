@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstclear.c                                      :+:    :+:            */
+/*   ft_strlen.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/28 11:49:14 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/11/01 11:26:04 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/05 13:44:57 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/11 15:01:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-/* Deletes and frees the given node and every successor of that node, 
-using the function lstdelone. The pointer to the list is set to NULL. */
+/* Returns length of string */
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+int	is_empty_str(const char *s)
 {
-	t_list	*temp;
-	t_list	*next;
+	int	index;
 
-	if (*lst != 0 && del != 0)
+	index = 0;
+	while (s[index])
 	{
-		temp = *lst;
-		while (temp)
-		{
-			next = temp -> next;
-			ft_lstdelone(temp, del);
-			temp = next;
-		}
-		*lst = 0;
+		if (s[index] != ' ')
+			return (0);
+		index++;
 	}
+	return (1);
+}
+
+int	ft_strlen(const char *s)
+{
+	int	index;
+
+	index = 0;
+	if (!s)
+		return (0);
+	if (is_empty_str(s) == 1)
+		return (0);
+	while (s[index] != '\0')
+		index++;
+	return (index);
 }

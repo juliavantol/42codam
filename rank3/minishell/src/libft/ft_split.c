@@ -6,19 +6,19 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/03/22 17:08:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/11 15:01:59 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 /* Returns the array of new strings resulting from the split, NULL if 
 the allocation fails. */
 
-static char		**arr(char const *s, char	**split, size_t count, char c);
-static char		*word(char const *s, unsigned int start, size_t len);
-static void		*free_arr(char	**split, size_t count);
-static size_t	count_words(char const *s, char c);
+static char		**arr(char const *s, char	**split, int count, char c);
+static char		*word(char const *s, unsigned int start, int len);
+static void		*free_arr(char	**split, int count);
+static int	count_words(char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
@@ -34,10 +34,10 @@ char	**ft_split(char const *s, char c)
 }
 
 /* Loops through s and fills the array with the found words */
-static char	**arr(char const *s, char	**split, size_t count, char c)
+static char	**arr(char const *s, char	**split, int count, char c)
 {
-	size_t	found;
-	size_t	i;
+	int	found;
+	int	i;
 	char	*w;
 
 	found = 0;
@@ -63,9 +63,9 @@ static char	**arr(char const *s, char	**split, size_t count, char c)
 }
 
 /* Returns the substring using the starting index of s and its len */
-static char	*word(char const *s, unsigned int start, size_t len)
+static char	*word(char const *s, unsigned int start, int len)
 {
-	size_t	index;
+	int	index;
 	char	*word;
 
 	index = 0;
@@ -79,11 +79,11 @@ static char	*word(char const *s, unsigned int start, size_t len)
 }
 
 /* Counts how many words can be made after splitting */
-static size_t	count_words(char const *s, char c)
+static int	count_words(char const *s, char c)
 {
-	size_t	count;
-	size_t	index;
-	size_t	found;
+	int	count;
+	int	index;
+	int	found;
 
 	found = 0;
 	count = 0;
@@ -105,9 +105,9 @@ static size_t	count_words(char const *s, char c)
 }
 
 /* Frees the array in case of errors */
-static void	*free_arr(char	**split, size_t count)
+static void	*free_arr(char	**split, int count)
 {
-	size_t	index;
+	int	index;
 
 	index = 0;
 	while (index < count)
