@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/11 15:03:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/12 13:48:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ int	search_newline(char *s)
 	return (0);
 }
 
+
 char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
 {
 	char	*new_str;
 
 	if (!stash)
 	{
-		stash = ft_calloc(1, 1);
+		stash = calloc_gnl(1, 1);
 		if (stash == NULL)
 			return (NULL);
 	}
-	new_str = ft_calloc(ft_strlen(stash) + ft_strlen(str) + 1, sizeof(char));
+	new_str = calloc_gnl(ft_strlen(stash) + ft_strlen(str) + 1, sizeof(char));
 	if (!new_str)
 		return (free(stash), NULL);
 	while (stash[index])
@@ -52,7 +53,7 @@ char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
 	return (new_str);
 }
 
-void	*ft_calloc(size_t nelem, size_t elsize)
+void	*calloc_gnl(size_t nelem, size_t elsize)
 {
 	char	*str;
 	size_t	index;

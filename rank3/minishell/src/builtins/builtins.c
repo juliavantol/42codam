@@ -6,21 +6,20 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/11 17:46:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/12 13:28:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	check_command(char *input, char **envp)
+void	check_command(t_data *data, char *input)
 {
-	create_envp(envp);
 	if (ft_strcmp(input, "pwd"))
 		print_directory();
 	else if (ft_strcmp(input, "exit"))
 		exit_shell();
 	else if (ft_strcmp(input, "env"))
-		print_env(envp);
+		print_env(data);
 }
 
 void	print_directory(void)
@@ -38,11 +37,11 @@ void	exit_shell(void)
 	exit(1);
 }
 
-void	print_env(char **envp)
+void	print_env(t_data *data)
 {
-	while (*envp)
-	{
-		printf("%s\n", *envp);
-		envp++;
-	}
+	int	index;
+
+	index = 0;
+	while (data->envp[index])
+		printf("%s\n", data->envp[index++]);
 }

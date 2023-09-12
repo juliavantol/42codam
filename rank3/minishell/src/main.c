@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/09/11 17:24:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/12 13:57:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,17 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
+	t_data	data;
 
 	if (!proper_start(argc, argv))
 		return (EXIT_FAILURE);
+	data.envp = dup_envp(envp);
 	while (1)
 	{
 		input = init_prompt("minishell$ ");
 		if (!input)
 			return (EXIT_SUCCESS);
-		check_command(input, envp);
+		check_command(&data, input);
 		free(input);
 	}
 }

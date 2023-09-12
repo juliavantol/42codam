@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2022/12/15 10:48:57 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/12 13:47:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*new_stash(char *line)
 		end += 1;
 	if (!line[end])
 		return (free(line), NULL);
-	stash = ft_calloc((ft_strlen(line) - end + 1), sizeof(char));
+	stash = calloc_gnl((ft_strlen(line) - end + 1), sizeof(char));
 	if (!stash)
 		return (free(line), NULL);
 	index = 0;
@@ -49,7 +49,7 @@ char	*extract_line(char *stash)
 		end += 1;
 	if (stash[end] == '\n')
 		end++;
-	line = ft_calloc(1 + end, sizeof(char));
+	line = calloc_gnl(1 + end, sizeof(char));
 	if (!line)
 		return (NULL);
 	index = 0;
@@ -69,7 +69,7 @@ char	*fill_stash(int fd, char *stash)
 	char		*buffer;
 	int			check;
 
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	buffer = calloc_gnl(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (free(stash), NULL);
 	check = read(fd, buffer, BUFFER_SIZE);

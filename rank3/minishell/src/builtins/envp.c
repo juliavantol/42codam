@@ -6,23 +6,31 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/11 17:56:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/12 14:00:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	create_envp(char **envp)
+char	**dup_envp(char **envp)
 {
-	char	**temp;
-	t_env	**envp_table;
+	char	**dup_envp;
+	int		index;
 
-	while (*envp)
+	index = 0;
+	while (envp[index])
+		index++;
+	dup_envp = ft_calloc(sizeof(char *), index + 1);
+	if (!dup_envp)
+		return (NULL);
+	index = 0;
+	while (envp[index])
 	{
-		temp = ft_split(*envp, '=');
-		printf("%s -->  %s\n\n", temp[0], temp[1]);
-		free(temp);
-		temp = NULL;
-		envp++;
+		dup_envp[index] = ft_strdup(envp[index]);
+		if (!dup_envp)
+			return (NULL);
+		index++;
 	}
+	dup_envp[index] = NULL;
+	return (dup_envp);
 }

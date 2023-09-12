@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   builtins.h                                         :+:    :+:            */
+/*   ft_calloc.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/11 17:11:28 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/12 13:27:49 by juvan-to      ########   odam.nl         */
+/*   Created: 2022/10/13 13:36:42 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/12 13:45:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "minishell.h"
 
-# include "minishell.h"
+/* Allocates specified amount of memory and initializes it to zero */
 
-typedef struct s_envp
+void	ft_bzero(void *s, int n)
 {
-	char			*name;
-	char			*value;
-	struct s_envp	*next;
-}	t_envp;
+	unsigned char	*p;
+	int			index;
 
-void	print_env(t_data *data);
-void	print_directory(void);
-void	exit_shell(void);
+	p = s;
+	index = 0;
+	while (index < n)
+	{
+		p[index] = '\0';
+		index++;
+	}
+}
 
-#endif
+void	*ft_calloc(int nelem, int elsize)
+{
+	void	*m;
+
+	m = malloc(nelem * elsize);
+	if (m == NULL)
+		return (NULL);
+	ft_bzero(m, nelem * elsize);
+	return (m);
+}
