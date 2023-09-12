@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/12 13:28:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/12 14:03:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	check_command(t_data *data, char *input)
 {
 	if (ft_strcmp(input, "pwd"))
-		print_directory();
+		pwd();
 	else if (ft_strcmp(input, "exit"))
 		exit_shell();
 	else if (ft_strcmp(input, "env"))
-		print_env(data);
+		env(data);
 }
 
-void	print_directory(void)
+void	pwd(void)
 {
 	char	*path;
 
@@ -35,13 +35,4 @@ void	print_directory(void)
 void	exit_shell(void)
 {
 	exit(1);
-}
-
-void	print_env(t_data *data)
-{
-	int	index;
-
-	index = 0;
-	while (data->envp[index])
-		printf("%s\n", data->envp[index++]);
 }

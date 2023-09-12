@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/12 13:46:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/12 14:28:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@
 # include <limits.h>
 # include "libft.h"
 
+typedef struct s_envp
+{
+	char			*variable_name;
+	char			*line;
+}	t_envp;
+
 typedef struct s_data
 {
-	char	**envp;
+	t_envp	**envp;
 }	t_data;
 
 bool	proper_start(int argc, char **argv);
@@ -34,7 +40,8 @@ bool	valid_input(const char *input);
 char	*init_prompt(const char *prompt);
 void	execute(char *input, char **envp);
 
-char	**dup_envp(char **envp);
+
+t_envp	**dup_envp(char **envp);
 void	check_command(t_data *data, char *input);
 
 #endif
