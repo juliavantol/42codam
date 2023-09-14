@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/12 13:48:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/14 14:25:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	search_newline(char *s)
 }
 
 
-char	*ft_strjoin(char *stash, char *str, size_t index, size_t start)
+char	*gnl_strjoin(char *stash, char *str, size_t index, size_t start)
 {
 	char	*new_str;
 

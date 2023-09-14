@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:16:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/12 13:44:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/14 14:25:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <fcntl.h>
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char *stash, char *str, size_t index, size_t start);
+char	*gnl_strjoin(char *stash, char *str, size_t index, size_t start);
 void	*calloc_gnl(size_t nelem, size_t elsize);
 size_t	ft_strlen(const char *s);
 int		search_newline(char *s);

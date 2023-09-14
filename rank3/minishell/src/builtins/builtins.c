@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/12 14:03:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/14 14:50:35 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	check_command(t_data *data, char *input)
 		exit_shell();
 	else if (ft_strcmp(input, "env"))
 		env(data);
+	else if (ft_strcmp(input, "export"))
+		export(data, "naam", "waarde");
 }
 
 void	pwd(void)
@@ -30,6 +32,17 @@ void	pwd(void)
 	getcwd(path, PATH_MAX + 1);
 	printf("%s\n", path);
 	free(path);
+}
+
+void	env(t_data *data)
+{
+	int	index;
+
+	index = 0;
+	if (!data->envp)
+		return ;
+	while (data->envp[index] && data->envp[index])
+		printf("%s\n", data->envp[index++]);
 }
 
 void	exit_shell(void)

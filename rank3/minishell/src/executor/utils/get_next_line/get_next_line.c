@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/12 13:47:54 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/14 14:25:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*fill_stash(int fd, char *stash)
 	while (check > 0)
 	{
 		buffer[check] = '\0';
-		stash = ft_strjoin(stash, buffer, 0, 0);
+		stash = gnl_strjoin(stash, buffer, 0, 0);
 		if (!stash)
 			return (free(buffer), NULL);
 		if (search_newline(buffer) > 0)
