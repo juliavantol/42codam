@@ -6,33 +6,28 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/14 15:12:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/14 15:32:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char	**dup_envp(char **envp)
+char	**new_envp(char **old_envp, int size)
 {
-	char	**dup_envp;
+	char	**new_envp;
 	int		index;
 
-	index = 0;
-	while (envp[index])
-		index++;
-	dup_envp = ft_calloc(sizeof(char *), index + 1);
-	if (!dup_envp)
+	new_envp = ft_calloc(sizeof(char *), size + 1);
+	if (!new_envp)
 		return (NULL);
-	index = 0;
-	while (envp[index])
+	while (old_envp[index])
 	{
-		dup_envp[index] = ft_strdup(envp[index]);
-		if (!dup_envp[index])
+		new_envp[index] = ft_strdup(old_envp[index]);
+		if (!new_envp[index])
 			return (NULL);
 		index++;
 	}
-	dup_envp[index] = NULL;
-	return (dup_envp);
+	return (new_envp);
 }
 
 void	empty_envp(t_data *data)
