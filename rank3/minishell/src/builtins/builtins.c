@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/15 14:19:08 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 14:40:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 void	check_command(t_data *data, char *input)
 {
-	if (ft_strcmp(input, "pwd"))
+	char	**split_input;
+
+	split_input = ft_split(input, ' ');
+	if (ft_strcmp(split_input[0], "pwd"))
 		pwd();
-	else if (ft_strcmp(input, "exit"))
+	else if (ft_strcmp(split_input[0], "exit"))
 		exit_shell();
-	else if (ft_strcmp(input, "env"))
+	else if (ft_strcmp(split_input[0], "env"))
 		env(data);
-	else if (ft_strcmp(input, "export"))
-		export(data, "naam", "waarde");
-	else if (ft_strcmp(input, "unset"))
-		unset(data, "naam");
+	else if (ft_strcmp(split_input[0], "export"))
+		export(data, split_input[1], split_input[2]);
+	else if (ft_strcmp(split_input[0], "unset"))
+		unset(data, split_input[1]);
 }
 
 void	pwd(void)

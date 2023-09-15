@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   envp.c                                             :+:    :+:            */
+/*   env.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 14:17:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 14:44:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ void	export(t_data *data, char *name, char *value)
 	char	**envp;
 	char	*line;
 
+	index = find_envp_entry(data, name);
+	if (index != -1)
+		unset(data, name);
 	index = 0;
-	if (find_envp_entry(data, name) != -1)
-		return ;
 	line = join_three_strs(name, "=", value);
 	while (data->envp[index])
 		index++;
