@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   join_str.c                                         :+:    :+:            */
+/*   ft_strjoin_3.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/01 13:13:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 16:03:41 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/09/15 15:56:06 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/15 15:56:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "minishell.h"
 
-char	*join_str(char const *s1, char const *s2)
+char	*join_three_strs(char *s1, char *s2, char *s3)
 {
-	char	*output;
 	int		i;
 	int		j;
+	char	*output;
 
-	if (!s1 || !s2)
-		return (NULL);
-	output = ft_malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	i = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
+	output = ft_malloc(sizeof(char) * (i + 1));
 	i = 0;
+	j = 0;
 	while (s1[i])
 	{
 		output[i] = s1[i];
 		i++;
 	}
-	j = 0;
 	while (s2[j])
 		output[i++] = s2[j++];
+	j = 0;
+	while (s3[j])
+		output[i++] = s3[j++];
 	output[i] = '\0';
 	return (output);
 }

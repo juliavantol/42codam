@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 13:37:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 12:58:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 16:29:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define LIBFT_H
 
 char	*ft_strnstr(const char *stack, const char *needle, int len);
+char	*join_three_strs(char *s1, char *s2, char *s3);
 char	*ft_substr(char const *s, int start, int len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_multiple(char **strs);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char *s);
 
