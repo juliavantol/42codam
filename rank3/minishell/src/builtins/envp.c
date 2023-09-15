@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/14 15:32:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 02:04:28 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	**new_envp(char **old_envp, int size)
 	new_envp = ft_calloc(sizeof(char *), size + 1);
 	if (!new_envp)
 		return (NULL);
+	index = 0;
 	while (old_envp[index])
 	{
 		new_envp[index] = ft_strdup(old_envp[index]);
@@ -48,28 +49,18 @@ void	empty_envp(t_data *data)
 void	replace_envp(t_data *data, char *line)
 {
 	int		index;
-	char	**new_envp;
+	char	**envp;
 
 	index = 0;
 	while (data->envp[index])
 		index++;
 	if (data->envp)
 	{
-		new_envp = ft_calloc(sizeof(char *), index + 2);
-		if (!new_envp)
-			return ;
-		index = 0;
-		while (data->envp[index])
-		{
-			new_envp[index] = ft_strdup(data->envp[index]);
-			if (!new_envp[index])
-				return ;
-			index++;
-		}
-		new_envp[index++] = ft_strdup(line);
-		new_envp[index] = NULL;
+		envp = new_envp(data->envp, index + 1);
+		envp[index++] = ft_strdup(line);
+		envp[index] = NULL;
 		empty_envp(data);
-		data->envp = new_envp;
+		data->envp = envp;
 	}
 }
 
