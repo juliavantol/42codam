@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/15 14:40:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 15:22:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	check_command(t_data *data, char *input)
 		export(data, split_input[1], split_input[2]);
 	else if (ft_strcmp(split_input[0], "unset"))
 		unset(data, split_input[1]);
+	else if (ft_strcmp(split_input[0], "cd"))
+		cd(split_input[1]);
+	else if (ft_strcmp(split_input[0], "echo"))
+		echo(split_input[1]);
 }
 
 void	pwd(void)
@@ -39,18 +43,17 @@ void	pwd(void)
 	free(path);
 }
 
-void	env(t_data *data)
+void	cd(char *path)
 {
-	int	index;
-
-	index = 0;
-	if (!data->envp)
-		return ;
-	while (data->envp[index] && data->envp[index])
-		printf("%s\n", data->envp[index++]);
+	chdir(path);
 }
 
 void	exit_shell(void)
 {
 	exit(1);
+}
+
+void	echo(char *str)
+{
+	printf("%s\n", str);
 }
