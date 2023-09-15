@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/15 13:03:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 14:19:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	check_command(t_data *data, char *input)
 		env(data);
 	else if (ft_strcmp(input, "export"))
 		export(data, "naam", "waarde");
+	else if (ft_strcmp(input, "unset"))
+		unset(data, "naam");
 }
 
 void	pwd(void)

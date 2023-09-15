@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 13:20:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 14:17:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char	**new_envp(char **old_envp, int size)
+char	**new_envp(char **old_envp, int size, int skip_index)
 {
 	char	**new_envp;
 	int		index;
@@ -23,40 +23,50 @@ char	**new_envp(char **old_envp, int size)
 	index = 0;
 	while (old_envp[index])
 	{
-		new_envp[index] = ft_strdup(old_envp[index]);
-		if (!new_envp[index])
-			return (NULL);
-		index++;
+		if (skip_index == index && skip_index != -1)
+			index++;
+		else
+		{
+			new_envp[index] = ft_strdup(old_envp[index]);
+			index++;
+		}
 	}
 	return (new_envp);
 }
 
-void	empty_envp(t_data *data)
+int	find_envp_entry(t_data *data, char *name)
 {
-	int	index;
+	int	i;
+	int	j;
 
-	index = 0;
-	while (data->envp[index])
+	i = 0;
+	while (data->envp[i])
 	{
-		free(data->envp[index]);
-		data->envp[index] = NULL;
-		index++;
+		j = 0;
+		while (data->envp[i][j] == name[j])
+			j++;
+		if (data->envp[i][j] == '=')
+			return (i);
+		i++;
 	}
-	free(data->envp);
-	data->envp = NULL;
+	return (-1);
 }
 
-void	replace_envp(t_data *data, char *line)
+void	export(t_data *data, char *name, char *value)
 {
 	int		index;
 	char	**envp;
+	char	*line;
 
 	index = 0;
+	if (find_envp_entry(data, name) != -1)
+		return ;
+	line = join_three_strs(name, "=", value);
 	while (data->envp[index])
 		index++;
 	if (data->envp)
 	{
-		envp = new_envp(data->envp, index + 1);
+		envp = new_envp(data->envp, index + 1, -1);
 		envp[index++] = ft_strdup(line);
 		envp[index] = NULL;
 		empty_envp(data);
@@ -64,10 +74,23 @@ void	replace_envp(t_data *data, char *line)
 	}
 }
 
-void	export(t_data *data, char *name, char *value)
+void	unset(t_data *data, char *name)
 {
-	char	*line;
+	int		index;
+	int		len;
+	char	**envp;
 
-	line = join_three_strs(name, "=", value);
-	replace_envp(data, line);
+	index = find_envp_entry(data, name);
+	if (index == -1)
+		return ;
+	len = -1;
+	while (data->envp[len])
+		len++;
+	if (data->envp)
+	{
+		envp = new_envp(data->envp, len + 1, index);
+		envp[len] = NULL;
+		empty_envp(data);
+		data->envp = envp;
+	}
 }

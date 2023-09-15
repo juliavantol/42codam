@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/15 12:58:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 14:12:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*init_prompt(const char *prompt);
 void	execute(char *input, char **envp);
 void	check_command(t_data *data, char *input);
 
-char	**new_envp(char **old_envp, int size);
+char	**new_envp(char **old_envp, int size, int skip_index);
 void	init_data(t_data *data, char **envp);
 void	ft_error(char *msg, int err_code);
 

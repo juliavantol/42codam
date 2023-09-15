@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 02:06:06 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/15 13:19:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 14:07:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,19 @@ char	*join_three_strs(char *s1, char *s2, char *s3)
 		output[i++] = s3[j++];
 	output[i] = '\0';
 	return (output);
+}
+
+void	empty_envp(t_data *data)
+{
+	int	index;
+
+	index = 0;
+	while (data->envp[index])
+	{
+		free(data->envp[index]);
+		data->envp[index] = NULL;
+		index++;
+	}
+	free(data->envp);
+	data->envp = NULL;
 }
