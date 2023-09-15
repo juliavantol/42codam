@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 02:04:28 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/15 13:20:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,6 @@ void	export(t_data *data, char *name, char *value)
 {
 	char	*line;
 
-	line = ft_strjoin(name, "=");
-	if (!line)
-		return ;
-	line = ft_strjoin(line, value);
-	if (!line)
-		return ;
+	line = join_three_strs(name, "=", value);
 	replace_envp(data, line);
 }
