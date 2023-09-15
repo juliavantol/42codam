@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/15 15:51:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 17:24:11 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	pipes(t_pipex pipex);
 void	cmd_error(char *cmd);
 
 char	*get_cmd_path(char **paths, char	*cmd);
-char	*join_str(char const *s1, char const *s2);
 char	**ft_split_paths(char *whole_str);
 char	**ft_split_args(char *s);
 char	**manual_envp(void);
