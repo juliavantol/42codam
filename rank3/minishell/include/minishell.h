@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/14 15:30:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 12:58:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	check_command(t_data *data, char *input);
 
 char	**new_envp(char **old_envp, int size);
 void	init_data(t_data *data, char **envp);
+void	ft_error(char *msg, int err_code);
 
 #endif

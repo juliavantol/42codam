@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 13:59:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/09 22:59:32 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/15 13:12:19 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,7 @@ char	**ft_split_args(char *s)
 		return (NULL);
 	else
 		word_count = count_words(s, len);
-	split = malloc((word_count + 1) * sizeof(char *));
-	if (split == NULL)
-		error_exit("Malloc error");
+	split = ft_malloc((word_count + 1) * sizeof(char *));
 	split = ft_fill_split(s, split);
 	return (split);
 }

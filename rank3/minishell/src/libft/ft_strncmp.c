@@ -6,14 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 10:35:36 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/11 15:03:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 13:04:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* This function compares no more than n bytes. It returns 0 if equal.
-It interpretes the strings as unsigned char */
 
 int	ft_strncmp(const char *s1, const char *s2, int n)
 {

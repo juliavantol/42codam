@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/11 15:01:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 13:13:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ the allocation fails. */
 static char		**arr(char const *s, char	**split, int count, char c);
 static char		*word(char const *s, unsigned int start, int len);
 static void		*free_arr(char	**split, int count);
-static int	count_words(char const *s, char c);
+static int		count_words(char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
@@ -26,9 +26,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	split = malloc((count_words(s, c) + 1) * sizeof(char *));
-	if (split == NULL)
-		return (NULL);
+	split = ft_malloc((count_words(s, c) + 1) * sizeof(char *));
 	split = arr(s, split, 0, c);
 	return (split);
 }
@@ -36,8 +34,8 @@ char	**ft_split(char const *s, char c)
 /* Loops through s and fills the array with the found words */
 static char	**arr(char const *s, char	**split, int count, char c)
 {
-	int	found;
-	int	i;
+	int		found;
+	int		i;
 	char	*w;
 
 	found = 0;
@@ -65,13 +63,11 @@ static char	**arr(char const *s, char	**split, int count, char c)
 /* Returns the substring using the starting index of s and its len */
 static char	*word(char const *s, unsigned int start, int len)
 {
-	int	index;
+	int		index;
 	char	*word;
 
 	index = 0;
-	word = (char *)malloc((len + 1) * sizeof(char));
-	if (word == NULL)
-		return (NULL);
+	word = (char *)ft_malloc((len + 1) * sizeof(char));
 	while (index < len && s[start] != '\0')
 		word[index++] = s[start++];
 	word[index] = '\0';

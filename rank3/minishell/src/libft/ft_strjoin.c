@@ -6,14 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 07:25:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/14 14:07:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 13:13:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* Allocates with malloc and returns a new string, which is 
-the result of the concatenation of ’s1’ and ’s2’. */
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -23,10 +20,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		second;
 
 	str_len = ft_strlen(s1) + ft_strlen(s2);
-	new_str = (char *)malloc((str_len + 1) * sizeof(char));
+	new_str = (char *)ft_malloc((str_len + 1) * sizeof(char));
 	index = 0;
-	if (new_str == NULL)
-		return (NULL);
 	while (s1[index] != '\0')
 	{
 		new_str[index] = s1[index];

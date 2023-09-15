@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/01 13:19:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/09 22:59:27 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/15 13:11:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_envp(t_pipex *pipex, char **envp)
 			envp++;
 		temp = ft_substr(*envp, 5, ft_strlen(*envp) - 5);
 		if (!temp)
-			error_exit("Malloc error");
+			error_exit("ft_malloc error");
 		pipex->paths = ft_split_paths(temp);
 	}
 }
@@ -38,14 +38,12 @@ char	**manual_envp(void)
 	int			index;
 
 	index = 0;
-	paths = malloc(7 * sizeof(char *));
-	if (paths == NULL)
-		error_exit("Malloc error");
+	paths = ft_malloc(7 * sizeof(char *));
 	while (index < 6)
 	{
 		paths[index] = ft_strdup(temp[index]);
 		if (paths[index] == NULL)
-			error_exit("Malloc error");
+			error_exit("ft_malloc error");
 		index++;
 	}
 	paths[index] = NULL;

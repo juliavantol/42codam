@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/01 13:13:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/09 22:59:38 by Julia         ########   odam.nl         */
+/*   Updated: 2023/09/15 13:12:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ char	*join_str2(char const *s1, char const *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	str_len = ft_strlen(s1) + ft_strlen(s2);
-	new_str = (char *)malloc((str_len + 1) * sizeof(char));
-	if (!new_str)
-		return (NULL);
+	new_str = (char *)ft_malloc((str_len + 1) * sizeof(char));
 	index = 0;
 	while (s1[index] != '\0')
 	{
@@ -47,9 +45,7 @@ char	*join_str(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	output = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (!output)
-		error_exit("Malloc error");
+	output = ft_malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	i = 0;
 	while (s1[i])
 	{

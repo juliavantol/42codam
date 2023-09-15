@@ -6,13 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/05 13:44:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/11 15:01:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/15 13:04:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* Returns length of string */
 
 int	is_empty_str(const char *s)
 {
