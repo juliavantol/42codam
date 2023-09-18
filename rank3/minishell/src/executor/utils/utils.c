@@ -6,26 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 17:23:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 14:39:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-int	check_input(char **argv, int argc)
-{
-	if (argc < 5)
-	{
-		ft_putstr_fd("Not enough arguments\n", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
-	if (argv[1])
-	{
-		if (ft_strcmp(argv[1], "here_doc") == true)
-			return (1);
-	}
-	return (0);
-}
 
 char	*get_cmd_path(char **paths, char *cmd)
 {
