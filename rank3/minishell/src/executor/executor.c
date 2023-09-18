@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/18 15:31:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 15:32:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,5 @@ void	execute(t_exe *executor, char **cmd)
 		exit(EXIT_SUCCESS);
 	}
 	else
-	{
 		waitpid(pid, &status, 0);
-	}
 }
