@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/11 12:42:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 13:40:35 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	loop_args(t_pipex *pipex, char **argv, int argc, int index)
 	return (0);
 }
 
-int	execute_cmd(int argc, char *argv[], char **envp)
+int	executor(int argc, char *argv[], char **envp)
 {
 	int		status;
 	int		index;

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 02:06:06 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/15 15:56:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 13:58:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,35 @@ char	**new_envp(char **old_envp, int size, int skip_index)
 	return (new_envp);
 }
 
-int	find_envp_entry(t_data *data, char *name)
+int	find_envp_entry(t_executor *executor, char *name)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (data->envp[i])
+	while (executor->minishell_envp[i])
 	{
 		j = 0;
-		while (data->envp[i][j] == name[j])
+		while (executor->minishell_envp[i][j] == name[j])
 			j++;
-		if (data->envp[i][j] == '=')
+		if (executor->minishell_envp[i][j] == '=')
 			return (i);
 		i++;
 	}
 	return (-1);
 }
 
-void	empty_envp(t_data *data)
+void	empty_envp(t_executor *executor)
 {
 	int	index;
 
 	index = 0;
-	while (data->envp[index])
+	while (executor->minishell_envp[index])
 	{
-		free(data->envp[index]);
-		data->envp[index] = NULL;
+		free(executor->minishell_envp[index]);
+		executor->minishell_envp[index] = NULL;
 		index++;
 	}
-	free(data->envp);
-	data->envp = NULL;
+	free(executor->minishell_envp);
+	executor->minishell_envp = NULL;
 }

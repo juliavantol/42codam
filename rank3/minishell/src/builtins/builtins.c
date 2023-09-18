@@ -6,13 +6,32 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/15 16:55:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 14:14:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	check_command(t_data *data, char *input)
+void	run_cmd(char *cmd, t_executor *executor)
+{
+	char	*path;
+	char	**cmd_split;
+
+	cmd_split = ft_split_args(cmd);
+	if (cmd_split)
+	{
+		path = get_cmd_path(executor->paths, cmd);
+		if (!path)
+			error_exit("Command not found");
+		if (execve(path, cmd_split, executor->minishell_envp) == -1)
+		{
+			ft_putstr_fd("Execve error", 2);
+			error_exit("Execve error");
+		}
+	}
+}
+
+void	check_command(t_executor *executor, char *input)
 {
 	char	**split_input;
 
@@ -22,15 +41,17 @@ void	check_command(t_data *data, char *input)
 	else if (ft_strcmp(split_input[0], "exit"))
 		exit_shell();
 	else if (ft_strcmp(split_input[0], "env"))
-		env(data);
+		env(executor);
 	else if (ft_strcmp(split_input[0], "export"))
-		export(data, split_input[1], split_input[2]);
+		export(executor, split_input[1], split_input[2]);
 	else if (ft_strcmp(split_input[0], "unset"))
-		unset(data, split_input[1]);
+		unset(executor, split_input[1]);
 	else if (ft_strcmp(split_input[0], "cd"))
 		cd(split_input[1]);
 	else if (ft_strcmp(split_input[0], "echo"))
 		echo(split_input[1]);
+	else
+		run_cmd(split_input[0], executor);
 }
 
 void	pwd(void)
