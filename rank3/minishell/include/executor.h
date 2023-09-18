@@ -6,13 +6,15 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/18 14:47:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 15:31:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 
+# include <sys/types.h>
+# include <sys/wait.h>
 # include "minishell.h"
 # include "libft.h"
 
@@ -26,15 +28,16 @@ typedef struct s_pipex
 	char	**full_envp;
 }	t_pipex;
 
-typedef struct s_executor
+typedef struct s_exe
 {
 	char	**paths;
 	char	**minishell_envp;
-}	t_executor;
+}	t_exe;
 
-void	check_command(t_executor *executor, char *input);
-void	init_executor(t_executor *executor, char **envp);
-void	run_cmd(char **split_cmd, t_executor *executor);
+void	run_command(t_exe *executor, char **split_cmd);
+void	execute(t_exe *executor, char **cmd);
+void	check_command(t_exe *executor, char *input);
+void	init_executor(t_exe *executor, char **envp);
 void	get_envp(t_pipex *pipex, char **envp);
 void	free_cmd_split(t_pipex *pipex);
 void	here_doc(char *delimiter);

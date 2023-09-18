@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/09/18 13:42:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 14:59:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		*input;
-	t_executor	executor;
+	char	*input;
+	t_exe	executor;
 
 	if (!proper_start(argc, argv))
 		return (EXIT_FAILURE);

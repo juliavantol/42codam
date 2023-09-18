@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 02:06:06 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/18 13:58:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 14:51:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**new_envp(char **old_envp, int size, int skip_index)
 	return (new_envp);
 }
 
-int	find_envp_entry(t_executor *executor, char *name)
+int	find_envp_entry(t_exe *executor, char *name)
 {
 	int	i;
 	int	j;
@@ -52,7 +52,7 @@ int	find_envp_entry(t_executor *executor, char *name)
 	return (-1);
 }
 
-void	empty_envp(t_executor *executor)
+void	empty_envp(t_exe *executor)
 {
 	int	index;
 

@@ -6,13 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/18 14:47:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 15:31:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-void	run_cmd(char **split_cmd, t_executor *executor)
+void	run_command(t_exe *executor, char **split_cmd)
 {
 	char	*path;
 
@@ -23,5 +23,27 @@ void	run_cmd(char **split_cmd, t_executor *executor)
 	{
 		ft_putstr_fd("Execve error", 2);
 		error_exit("Execve error");
+	}
+}
+
+void	execute(t_exe *executor, char **cmd)
+{
+	int		fds[2];
+	int		status;
+	pid_t	pid;
+
+	if (pipe(fds) < 0)
+		error_exit("Error with opening the pipe");
+	pid = fork();
+	if (pid < 0)
+		error_exit("Error with fork");
+	if (pid == 0)
+	{
+		run_command(executor, cmd);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
 	}
 }

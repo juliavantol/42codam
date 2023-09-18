@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/18 13:58:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 14:51:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	env(t_executor *executor)
+void	env(t_exe *executor)
 {
 	int	index;
 
@@ -23,7 +23,7 @@ void	env(t_executor *executor)
 		printf("%s\n", executor->minishell_envp[index++]);
 }
 
-void	export(t_executor *executor, char *name, char *value)
+void	export(t_exe *executor, char *name, char *value)
 {
 	int		index;
 	char	**envp;
@@ -46,7 +46,7 @@ void	export(t_executor *executor, char *name, char *value)
 	}
 }
 
-void	unset(t_executor *executor, char *name)
+void	unset(t_exe *executor, char *name)
 {
 	int		index;
 	int		len;

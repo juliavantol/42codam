@@ -6,13 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/18 14:46:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/18 15:29:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	check_command(t_executor *executor, char *input)
+void	check_command(t_exe *executor, char *input)
 {
 	char	**split_input;
 
@@ -32,7 +32,7 @@ void	check_command(t_executor *executor, char *input)
 	else if (ft_strcmp(split_input[0], "echo"))
 		echo(split_input[1]);
 	else
-		run_cmd(split_input, executor);
+		execute(executor, split_input);
 }
 
 void	pwd(void)
