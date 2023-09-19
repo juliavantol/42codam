@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/19 13:11:31 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/19 14:25:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	check_command(t_exe *executor, char *input)
 	else if (ft_strcmp(split_input[0], "cd"))
 		cd(split_input[1]);
 	else if (ft_strcmp(split_input[0], "echo"))
-		echo(++split_input);
+		echo(executor, ++split_input);
 	else
 		execute(executor, split_input);
 }
@@ -55,26 +55,11 @@ void	exit_shell(void)
 	exit(1);
 }
 
-bool	detact_newline_flag(char *str)
+void	echo(t_exe *executor, char **str)
 {
-	int	i;
-
-	i = 0;
-	if (str[i++] != '-')
-		return (false);
-	while (str[i])
-	{
-		if (str[i] != 'n')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-void	echo(char **str)
-{
-	int		i;
+	char	*value;
 	bool	newline;
+	int		i;
 
 	i = 0;
 	newline = true;
@@ -84,7 +69,12 @@ void	echo(char **str)
 		newline = false;
 	while (str[i])
 	{
-		printf("%s", str[i++]);
+		value = get_variable(executor, str[i]);
+		if (value)
+			printf("%s", value);
+		else
+			printf("%s", str[i]);
+		i++;
 		if (str[i])
 			printf(" ");
 	}

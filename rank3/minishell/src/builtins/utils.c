@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 02:06:06 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/18 14:51:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/19 13:18:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,20 @@ void	empty_envp(t_exe *executor)
 	}
 	free(executor->minishell_envp);
 	executor->minishell_envp = NULL;
+}
+
+bool	detact_newline_flag(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i++] != '-')
+		return (false);
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
 }
