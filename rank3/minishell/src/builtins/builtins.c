@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/18 15:29:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/19 13:11:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	check_command(t_exe *executor, char *input)
 	else if (ft_strcmp(split_input[0], "cd"))
 		cd(split_input[1]);
 	else if (ft_strcmp(split_input[0], "echo"))
-		echo(split_input[1]);
+		echo(++split_input);
 	else
 		execute(executor, split_input);
 }
@@ -55,7 +55,39 @@ void	exit_shell(void)
 	exit(1);
 }
 
-void	echo(char *str)
+bool	detact_newline_flag(char *str)
 {
-	printf("%s\n", str);
+	int	i;
+
+	i = 0;
+	if (str[i++] != '-')
+		return (false);
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+void	echo(char **str)
+{
+	int		i;
+	bool	newline;
+
+	i = 0;
+	newline = true;
+	while (detact_newline_flag(str[i]))
+		i++;
+	if (i != 0)
+		newline = false;
+	while (str[i])
+	{
+		printf("%s", str[i++]);
+		if (str[i])
+			printf(" ");
+	}
+	if (newline == true)
+		printf("\n");
 }
