@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
+/*   signals.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/12 13:16:39 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/21 15:49:54 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/09/21 15:48:55 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/21 15:49:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-void	init_executor(t_exe *executor, char **envp)
-{
-	int	size;
+# include "minishell.h"
 
-	size = 0;
-	while (envp[size])
-		size++;
-	executor->minishell_envp = new_envp(envp, size, -1);
-	executor->paths = get_paths(envp);
-}
+#endif
