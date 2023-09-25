@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/25 15:48:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/25 17:32:35 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ typedef struct s_exe
 }	t_exe;
 
 void	run_command(t_exe *executor, char **split_cmd);
+void	empty_executor(t_exe *executor);
 void	execute(t_exe *executor, char *str);
 void	check_command(t_exe *executor, char *input);
 void	init_executor(t_exe *executor, char **envp);
 void	get_envp(t_pipex *pipex, char **envp);
 void	free_cmd_split(t_pipex *pipex);
+void	empty_array(char **arr);
 void	here_doc(char *delimiter);
 void	error_exit(char *msg);
 void	cmd_error(char *cmd);

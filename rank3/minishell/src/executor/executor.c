@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/25 16:50:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/25 17:37:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,24 @@ void	execute(t_exe *executor, char *str)
 {
 	char	**commands;
 	char	**cmd;
+	int		index;
+	int		j;
 
+	index = 0;
 	commands = ft_split(str, '|');
-	cmd = NULL;
-	while (*commands)
+	while (commands[index])
 	{
-		cmd = ft_split(*commands, ' ');
-		while (*cmd)
+		j = 0;
+		cmd = ft_split(commands[index], ' ');
+		while (cmd[j])
 		{
-			printf("%s\n", *cmd);
-			cmd++;
+			printf("%s\n", cmd[j]);
+			j++;
 		}
-		commands++;
-		cmd = NULL;
+		empty_array(cmd);
+		index++;
 	}
-	executor->paths = NULL;
+	empty_array(commands);
+	cmd = executor->paths;
 }
 

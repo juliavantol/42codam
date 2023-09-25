@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/09/25 14:41:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/25 17:31:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv, char **envp)
 		check_command(&executor, input);
 		free(input);
 	}
+	empty_executor(&executor);
 }
 
 bool	proper_start(int argc, char **argv)
