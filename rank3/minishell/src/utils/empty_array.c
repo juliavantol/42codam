@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   signals.h                                          :+:    :+:            */
+/*   empty_array.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/21 15:48:55 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/25 14:23:25 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/09/25 16:58:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#include "minishell.h"
 
-# include "minishell.h"
-# include <signal.h>
+void	empty_array(char **arr)
+{
+	int	i;
 
-void	init_signal_handler(void);
-
-#endif
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}

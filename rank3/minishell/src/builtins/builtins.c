@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/19 14:25:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/25 15:48:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	check_command(t_exe *executor, char *input)
 	else if (ft_strcmp(split_input[0], "echo"))
 		echo(executor, ++split_input);
 	else
-		execute(executor, split_input);
+		execute(executor, input);
 }
 
 void	pwd(void)
