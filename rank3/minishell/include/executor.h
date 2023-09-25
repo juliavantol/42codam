@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/25 17:32:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/25 17:55:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_pipex
 
 typedef struct s_exe
 {
+	int		infile;
 	char	**paths;
 	char	**minishell_envp;
 }	t_exe;

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/25 17:37:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/25 17:57:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	run_command(t_exe *executor, char **split_cmd)
 		error_exit("Command not found");
 	if (execve(path, split_cmd, executor->minishell_envp) == -1)
 	{
-		ft_putstr_fd("Execve error", 2);
 		error_exit("Execve error");
 	}
 }
@@ -29,7 +28,6 @@ void	run_command(t_exe *executor, char **split_cmd)
 void	start_pipe(t_exe *executor, char **cmd)
 {
 	int		fds[2];
-	int		status;
 	pid_t	pid;
 
 	if (pipe(fds) < 0)
@@ -39,11 +37,21 @@ void	start_pipe(t_exe *executor, char **cmd)
 		error_exit("Error with fork");
 	if (pid == 0)
 	{
-		run_command(executor, cmd);
-		exit(EXIT_SUCCESS);
+		if (executor->infile < 0)
+		{
+			ft_putstr_fd("input: No such file or directory\n", 2);
+			exit(0);
+		}
+		close(fds[0]);
+		dup2(fds[1], 1);
+		if (cmd != NULL)
+			run_command(executor, cmd);
 	}
 	else
-		waitpid(pid, &status, 0);
+	{
+		close(fds[1]);
+		dup2(fds[0], 0);
+	}
 }
 
 void	execute(t_exe *executor, char *str)
@@ -51,23 +59,16 @@ void	execute(t_exe *executor, char *str)
 	char	**commands;
 	char	**cmd;
 	int		index;
-	int		j;
 
 	index = 0;
 	commands = ft_split(str, '|');
 	while (commands[index])
 	{
-		j = 0;
 		cmd = ft_split(commands[index], ' ');
-		while (cmd[j])
-		{
-			printf("%s\n", cmd[j]);
-			j++;
-		}
+		start_pipe(executor, cmd);
 		empty_array(cmd);
 		index++;
 	}
 	empty_array(commands);
-	cmd = executor->paths;
 }
 

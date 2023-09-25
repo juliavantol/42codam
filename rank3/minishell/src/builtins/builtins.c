@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/25 17:26:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/25 17:37:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	check_command(t_exe *executor, char *input)
 {
 	char	**split_input;
-	int	i;
 
-	i = 0;
 	split_input = ft_split(input, ' ');
 	if (ft_strcmp(split_input[0], "pwd"))
 		pwd();
@@ -35,9 +33,7 @@ void	check_command(t_exe *executor, char *input)
 		echo(executor, ++split_input);
 	else
 		execute(executor, input);
-	while (split_input[i])
-		free(split_input[i++]);
-	free(split_input);
+	empty_array(split_input);
 }
 
 void	pwd(void)
