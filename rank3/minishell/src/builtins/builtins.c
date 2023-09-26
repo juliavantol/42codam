@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/25 17:37:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/26 12:49:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	check_command(t_exe *executor, char *input)
 	else if (ft_strcmp(split_input[0], "cd"))
 		cd(split_input[1]);
 	else if (ft_strcmp(split_input[0], "echo"))
-		echo(executor, ++split_input);
+		echo(executor, split_input + 1);
 	else
-		execute(executor, input);
+		execute(executor, split_input);
 	empty_array(split_input);
 }
 
