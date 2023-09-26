@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/26 12:28:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/26 14:21:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,26 @@ void	run_command(t_exe *executor, char **split_cmd)
 	}
 }
 
-void	execute(t_exe *executor, char **cmd)
+void	open_command_pipe(t_exe *executor, char **command)
+{
+	int		fds[2];
+	pid_t	pid;
+
+	if (pipe(fds) < 0)
+		error_exit("Error with opening the pipe");
+	pid = fork();
+	if (pid < 0)
+		error_exit("Error with fork");
+	if (pid == 0)
+		child_process(fds, pipex);
+	else
+	{
+		close(fds[1]);
+		dup2(fds[0], 0);
+	}
+}
+
+void	open_shell_pipe(void)
 {
 	int		fds[2];
 	int		status;
@@ -39,9 +58,28 @@ void	execute(t_exe *executor, char **cmd)
 		error_exit("Error with fork");
 	if (pid == 0)
 	{
-		run_command(executor, cmd);
+		// loop through commands
 		exit(EXIT_SUCCESS);
 	}
 	else
 		waitpid(pid, &status, 0);
+}
+
+int	loop_through_commands(char *str)
+{
+	char	**commands;
+	char	**cmd;
+	int		index;
+
+	index = 0;
+	commands = ft_split(str, '|');
+	while (commands[index + 1] != NULL)
+	{
+		cmd = ft_split(commands[index], ' ');
+		// start pipe for command
+		empty_array(cmd);
+		index++;
+	}
+	empty_array(commands);
+	return (0);
 }

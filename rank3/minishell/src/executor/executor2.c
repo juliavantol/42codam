@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/26 12:31:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/26 14:20:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,3 +72,22 @@
 // 	empty_array(commands);
 // }
 
+// void	execute(t_exe *executor, char **cmd)
+// {
+// 	int		fds[2];
+// 	int		status;
+// 	pid_t	pid;
+
+// 	if (pipe(fds) < 0)
+// 		error_exit("Error with opening the pipe");
+// 	pid = fork();
+// 	if (pid < 0)
+// 		error_exit("Error with fork");
+// 	if (pid == 0)
+// 	{
+// 		run_command(executor, cmd);
+// 		exit(EXIT_SUCCESS);
+// 	}
+// 	else
+// 		waitpid(pid, &status, 0);
+// }
