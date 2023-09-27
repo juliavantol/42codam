@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 13:13:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/27 14:23:59 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	**arr(char const *s, char	**split, int count, char c)
 		}
 		found = i;
 	}
-	split[count] = 0;
+	split[count] = NULL;
 	return (split);
 }
 

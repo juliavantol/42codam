@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/18 14:39:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/27 16:13:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	**ft_split_paths(char *whole_str)
 		split_paths[index] = temp;
 		index++;
 	}
+	split_paths[index] = NULL;
 	free(whole_str);
 	return (split_paths);
 }
