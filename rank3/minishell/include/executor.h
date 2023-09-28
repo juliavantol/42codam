@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/27 15:53:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/28 13:09:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_pipex
 
 typedef struct s_exe
 {
+	char	**commands;
+	int		command_count;
 	int		infile;
 	char	**envp;
 	char	**paths;
@@ -38,7 +40,8 @@ typedef struct s_exe
 
 void	run_command(t_exe *executor, char **split_cmd);
 void	empty_executor(t_exe *executor);
-void	execute(t_exe *executor, char *str);
+void	start_executor(t_exe *executor);
+void	temp_parser(t_exe *executor, char *input);
 void	check_command(t_exe *executor, char *input);
 void	init_executor(t_exe *executor, char **envp);
 void	get_envp(t_pipex *pipex, char **envp);
