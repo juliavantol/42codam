@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/28 13:56:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/29 14:48:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 char	*get_cmd_path(char **paths, char *cmd)
 {
+	int		index;
 	char	*path;
 
-	while (*paths)
+	index = 0;
+	while (paths[index])
 	{
-		path = join_three_strs(*paths, NULL, cmd);
+		path = join_three_strs(paths[index], NULL, cmd);
 		if (access(path, F_OK) == 0)
 			return (path);
 		free(path);
-		paths++;
+		index++;
 	}
 	if (access(cmd, F_OK) == 0)
 		return (cmd);

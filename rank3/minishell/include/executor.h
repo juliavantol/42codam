@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/28 13:09:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/29 14:25:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 # include <sys/wait.h>
 # include "minishell.h"
 # include "libft.h"
+
+# define READ 0
+# define WRITE 1
+# define INPUT 0
+# define OUTPUT 1
 
 typedef struct s_pipex
 {
@@ -32,6 +37,7 @@ typedef struct s_exe
 {
 	char	**commands;
 	int		command_count;
+	int		prev_pipe;
 	int		infile;
 	char	**envp;
 	char	**paths;
