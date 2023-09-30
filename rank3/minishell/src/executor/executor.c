@@ -6,11 +6,17 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/29 15:19:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/09/30 19:28:43 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+
+void	redirect_last_command(t_exe *executor, char **cmd)
+{
+	dup2(OUTPUT, 1);
+	run_command(executor, cmd);
+}
 
 void	run_command(t_exe *executor, char **split_cmd)
 {
@@ -19,7 +25,7 @@ void	run_command(t_exe *executor, char **split_cmd)
 	path = get_cmd_path(executor->paths, split_cmd[0]);
 	if (!path)
 		error_exit("Command not found");
-	if (execve("/usr/bin/ls", split_cmd, executor->minishell_envp) == -1)
+	if (execve("/bin/ls", split_cmd, executor->minishell_envp) == -1)
 	{
 		error_exit("Execve error");
 	}
@@ -94,7 +100,10 @@ void	start_executor(t_exe *executor)
 		while (executor->commands[index])
 		{
 			cmd = ft_split(executor->commands[index], ' ');
-			execute_multiple_command(executor, cmd);
+			if (index == executor->command_count - 1)
+				redirect_last_command(executor, cmd);
+			else
+				execute_multiple_command(executor, cmd);
 			empty_array(cmd);
 			index++;
 		}
