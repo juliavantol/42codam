@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/30 19:28:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/02 00:06:32 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,25 @@
 
 void	redirect_last_command(t_exe *executor, char **cmd)
 {
-	dup2(OUTPUT, 1);
-	run_command(executor, cmd);
+	int		fds[2];
+	int		status;
+	pid_t	pid;
+
+	if (pipe(fds) < 0)
+		error_exit("Error with opening the pipe");
+	pid = fork();
+	if (pid < 0)
+		error_exit("Error with fork");
+	if (pid == 0)
+	{
+		dup2(OUTPUT, 1);
+		run_command(executor, cmd);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+	}
 }
 
 void	run_command(t_exe *executor, char **split_cmd)
@@ -31,7 +48,7 @@ void	run_command(t_exe *executor, char **split_cmd)
 	}
 }
 
-void	execute_multiple_command(t_exe *executor, char **cmd)
+void	execute_multiple_command(t_exe *executor, char **cmd, int index)
 {
 	int		fds[2];
 	int		status;
@@ -52,12 +69,6 @@ void	execute_multiple_command(t_exe *executor, char **cmd)
 	}
 	else
 	{
-		if (executor->prev_pipe != -1)
-		{
-			//Close the read end of the previous pipe
-			close(executor->prev_pipe);
-		}
-		executor->prev_pipe = fds[READ];
 		close(fds[WRITE]);
 		dup2(fds[READ], INPUT);
 		waitpid(pid, &status, 0);
@@ -103,7 +114,7 @@ void	start_executor(t_exe *executor)
 			if (index == executor->command_count - 1)
 				redirect_last_command(executor, cmd);
 			else
-				execute_multiple_command(executor, cmd);
+				execute_multiple_command(executor, cmd, index);
 			empty_array(cmd);
 			index++;
 		}
