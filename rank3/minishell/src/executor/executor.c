@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/02 13:52:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/02 14:27:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	execute_multiple_command(t_exe *executor, char **cmd, int index)
 			close(fds[WRITE]);
 		}
 		run_command(executor, cmd);
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
