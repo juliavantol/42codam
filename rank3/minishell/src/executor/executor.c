@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/02 00:06:32 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/02 13:00:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,30 +48,47 @@ void	run_command(t_exe *executor, char **split_cmd)
 	}
 }
 
-void	execute_multiple_command(t_exe *executor, char **cmd, int index)
+void	execute_multiple_command(t_exe *executor)
 {
 	int		fds[2];
 	int		status;
+	int		index;
+	char	**cmd;
 	pid_t	pid;
 
-	if (pipe(fds) < 0)
-		error_exit("Error with opening the pipe");
-	pid = fork();
-	if (pid < 0)
-		error_exit("Error with fork");
-	if (pid == 0)
+	index = 0;
+	while (executor->commands[index])
 	{
-		close(fds[READ]);
-		dup2(fds[WRITE], OUTPUT);
-		if (cmd)
+		cmd = ft_split(executor->commands[index], ' ');
+		if (index < (executor->command_count - 1))
+			pipe(fds);
+		pid = fork();
+		// child
+		if (pid == 0)
+		{
+			if (index > 0)
+			{
+				dup2(fds[READ], INPUT);
+				close(fds[READ]);
+			}
+			if (index < (executor->command_count - 1))
+			{
+				dup2(fds[WRITE], OUTPUT);
+				close(fds[WRITE]);
+			}
 			run_command(executor, cmd);
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		close(fds[WRITE]);
-		dup2(fds[READ], INPUT);
-		waitpid(pid, &status, 0);
+			empty_array(cmd);
+		}
+		// parent
+		else
+		{
+			if (index > 0)
+				close(fds[READ]);
+			if (index < (executor->command_count - 1))
+				close(fds[WRITE]);
+			waitpid(pid, &status, 0);
+		}
+		index++;
 	}
 }
 
@@ -108,13 +125,15 @@ void	start_executor(t_exe *executor)
 		execute_single_command(executor);
 	else
 	{
+		execute_multiple_command(executor);
+		return ;
 		while (executor->commands[index])
 		{
 			cmd = ft_split(executor->commands[index], ' ');
 			if (index == executor->command_count - 1)
 				redirect_last_command(executor, cmd);
 			else
-				execute_multiple_command(executor, cmd, index);
+				execute_multiple_command(executor);
 			empty_array(cmd);
 			index++;
 		}
