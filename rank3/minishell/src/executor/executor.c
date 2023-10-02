@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/02 13:00:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/02 13:05:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	run_command(t_exe *executor, char **split_cmd)
 	path = get_cmd_path(executor->paths, split_cmd[0]);
 	if (!path)
 		error_exit("Command not found");
-	if (execve("/bin/ls", split_cmd, executor->minishell_envp) == -1)
+	if (execve(path, split_cmd, executor->minishell_envp) == -1)
 	{
 		error_exit("Execve error");
 	}
