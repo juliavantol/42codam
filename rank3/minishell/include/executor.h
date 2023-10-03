@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/29 14:25:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/03 14:59:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_exe
 	int		command_count;
 	int		prev_pipe;
 	int		infile;
+	int		*pids;
+	int		**pipes;
 	char	**envp;
 	char	**paths;
 	char	**minishell_envp;
