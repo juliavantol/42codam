@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/03 15:22:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/03 15:35:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/03 16:12:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,26 @@ void	run_command(t_exe *executor, char **split_cmd)
 	}
 }
 
-void	child_process(t_exe *executor, char **cmd, int *fds)
+void	last_command(t_exe *executor, char **cmd)
 {
-	close(fds[0]);
-	dup2(fds[1], 1);
-	run_command(executor, cmd);
+	int		status;
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+		error_exit("Error with fork");
+	if (pid == 0)
+	{
+		if (executor->fd_in != STDIN_FILENO)
+		{
+			dup2(executor->fd_in, STDIN_FILENO);
+			close(executor->fd_in);
+		}
+		run_command(executor, cmd);
+		exit(EXIT_SUCCESS);
+	}
+	else
+		waitpid(pid, &status, 0);
 }
 
 void	execute_multiple_command(t_exe *executor, char **cmd)
@@ -43,11 +58,21 @@ void	execute_multiple_command(t_exe *executor, char **cmd)
 	if (pid < 0)
 		ft_error("Error with fork", errno);
 	if (pid == 0)
-		child_process(executor, cmd, fds);
+	{
+		if (executor->fd_in != STDIN_FILENO)
+		{
+			dup2(executor->fd_in, STDIN_FILENO);
+			close(executor->fd_in);
+		}
+		close(fds[0]);
+		dup2(fds[1], STDOUT_FILENO);
+		close(fds[1]);
+		run_command(executor, cmd);
+	}
 	else
 	{
 		close(fds[1]);
-		dup2(fds[0], 0);
+		executor->fd_in = fds[0];
 	}
 }
 
@@ -80,6 +105,7 @@ void	start_executor(t_exe *executor)
 	int		index;
 
 	index = 0;
+	executor->fd_in = STDIN_FILENO;
 	if (executor->command_count == 1)
 		execute_single_command(executor);
 	else
@@ -97,8 +123,8 @@ void	start_executor(t_exe *executor)
 			index++;
 		}
 		cmd = ft_split(executor->commands[index], ' ');
-		dup2(STDOUT_FILENO, 1);
-		run_command(executor, cmd);
+		last_command(executor, cmd);
 		empty_array(cmd);
+		executor->fd_in = STDIN_FILENO;
 	}
 }
