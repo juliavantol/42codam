@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/04 13:38:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/04 14:30:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,37 +38,49 @@ void	check_command(t_exe *executor, char *input)
 	empty_array(split_input);
 }
 
-void	temp_parser(t_exe *executor, char *input)
+void	fill_cmd_table(t_exe *executor)
 {
-	char	**commands;
-	t_cmd	*cmd_node;
 	char	**split_on_redirection;
+	t_cmd	*cmd_node;
 	int		index;
 	int		j;
 
 	index = 0;
+	while (executor->commands[index] != NULL)
+	{
+		cmd_node = ft_malloc(sizeof(t_cmd *));
+		split_on_redirection = ft_split(executor->commands[index], '>');
+		cmd_node->command = split_on_redirection[0];
+		j = 1;
+		while (split_on_redirection[j])
+			j++;
+		cmd_node->output_fds = ft_malloc(sizeof (int) * j + 2);
+		// j = 1;
+		// while (split_on_redirection[j])
+		// {
+		// 	cmd_node->output_fds[j - 1] = split_on_redirection[j];
+		// 	j++;
+		// }
+		// cmd_node->output_fds[j - 1] = NULL;
+		executor->all_commands[index] = cmd_node;
+		empty_array(split_on_redirection);
+		free(cmd_node);
+		index++;
+	}
+}
+
+void	temp_parser(t_exe *executor, char *input)
+{
+	char	**commands;
+	int		index;
+
+	index = 0;
 	commands = ft_split(input, '|');
 	while (commands[index] != NULL)
-	{
-		split_on_redirection = ft_split(commands[index], '>');
-		printf("%s\n", commands[index]);
 		index++;
-	}
-	executor->commands = commands;
 	executor->command_count = index;
-	return ;
-	index = 0;
-	while (commands[index] != NULL)
-	{
-		split_on_redirection = ft_split(commands[index], '>');
-		j = 0;
-		while (split_on_redirection[j] != NULL)
-		{
-			printf("%s\n", split_on_redirection[j]);
-			j++;
-		}
-		// split_on_redirection = ft_split(input, ' ');
-		index++;
-	}
+	executor->all_commands = ft_malloc(sizeof(t_cmd *) * index + 1);
+	executor->commands = commands;
+	fill_cmd_table(executor);
 	exit(1);
 }
