@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/03 15:52:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/04 13:35:19 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,28 @@
 # define INPUT 0
 # define OUTPUT 1
 
-typedef struct s_pipex
+typedef struct s_cmd
 {
-	int		outfile;
-	int		infile;
-	char	**paths;
-	char	*cmd;
-	char	**cmd_split;
-	char	**full_envp;
-}	t_pipex;
+	char	*command;
+	int		*input_fds;
+	int		*output_fds;
+}	t_cmd;
 
 typedef struct s_exe
 {
-	char	**commands;
-	int		command_count;
-	int		prev_pipe;
-	int		infile;
-	int		*pids;
-	int		fd_in;
-	int		**pipes;
-	char	**envp;
-	char	**paths;
-	char	**minishell_envp;
+	char			**commands;
+	struct s_cmd	**all_commands;
+	int				command_count;
+	int				prev_pipe;
+	int				infile;
+	int				*pids;
+	int				fd_in;
+	int				*output_fds;
+	int				*input_fds;
+	int				**pipes;
+	char			**envp;
+	char			**paths;
+	char			**minishell_envp;
 }	t_exe;
 
 void	run_command(t_exe *executor, char **split_cmd);
@@ -53,8 +53,6 @@ void	start_executor(t_exe *executor);
 void	temp_parser(t_exe *executor, char *input);
 void	check_command(t_exe *executor, char *input);
 void	init_executor(t_exe *executor, char **envp);
-void	get_envp(t_pipex *pipex, char **envp);
-void	free_cmd_split(t_pipex *pipex);
 void	empty_array(char **arr);
 void	here_doc(char *delimiter);
 void	error_exit(char *msg);
