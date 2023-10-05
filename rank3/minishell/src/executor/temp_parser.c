@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/04 14:30:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/05 16:32:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,35 @@ void	fill_cmd_table(t_exe *executor)
 	char	**split_on_redirection;
 	t_cmd	*cmd_node;
 	int		index;
+	int		k;
 	int		j;
 
 	index = 0;
 	while (executor->commands[index] != NULL)
 	{
-		cmd_node = ft_malloc(sizeof(t_cmd *));
+		cmd_node = ft_malloc(sizeof(t_cmd));
 		split_on_redirection = ft_split(executor->commands[index], '>');
 		cmd_node->command = split_on_redirection[0];
-		j = 1;
+		j = 0;
 		while (split_on_redirection[j])
 			j++;
-		cmd_node->output_fds = ft_malloc(sizeof (int) * j + 2);
-		// j = 1;
-		// while (split_on_redirection[j])
-		// {
-		// 	cmd_node->output_fds[j - 1] = split_on_redirection[j];
-		// 	j++;
-		// }
-		// cmd_node->output_fds[j - 1] = NULL;
-		executor->all_commands[index] = cmd_node;
+		j--;
+		cmd_node->output_fds = ft_malloc(sizeof(int) * (j + 1));
+		if (j != 0)
+		{
+			j = 1;
+			k = 0;
+			while (split_on_redirection[j])
+				cmd_node->output_fds[k++] = atoi(split_on_redirection[j++]);
+		}
 		empty_array(split_on_redirection);
+		empty_int_array(cmd_node->output_fds);
 		free(cmd_node);
+		cmd_node = NULL;
 		index++;
 	}
+	free(cmd_node);
+	cmd_node = NULL;
 }
 
 void	temp_parser(t_exe *executor, char *input)
@@ -79,7 +84,7 @@ void	temp_parser(t_exe *executor, char *input)
 	while (commands[index] != NULL)
 		index++;
 	executor->command_count = index;
-	executor->all_commands = ft_malloc(sizeof(t_cmd *) * index + 1);
+	executor->all_commands = ft_malloc(sizeof(t_cmd *) * (index + 1));
 	executor->commands = commands;
 	fill_cmd_table(executor);
 	exit(1);

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/26 12:47:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/05 16:32:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,14 @@ void	empty_array(char **arr)
 			free(arr[i++]);
 		free(arr);
 		arr = NULL;
+	}
+}
+
+void	empty_int_array(int *arr)
+{
+	if (arr)
+	{
+		free(arr);
+        arr = NULL;
 	}
 }
