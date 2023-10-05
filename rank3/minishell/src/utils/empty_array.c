@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/05 16:32:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/05 16:41:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ void	empty_executor(t_exe *executor)
 			free(executor->minishell_envp[i++]);
 		free(executor->minishell_envp);
 		executor->minishell_envp = NULL;
+	}
+	i = 0;
+	while (executor->all_commands[i])
+	{
+		free(executor->all_commands[i]->command);
+		empty_int_array(executor->all_commands[i]->output_fds);	
+		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/05 16:32:54 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/05 16:41:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	fill_cmd_table(t_exe *executor)
 	{
 		cmd_node = ft_malloc(sizeof(t_cmd));
 		split_on_redirection = ft_split(executor->commands[index], '>');
-		cmd_node->command = split_on_redirection[0];
+		cmd_node->command = ft_strdup(split_on_redirection[0]);
 		j = 0;
 		while (split_on_redirection[j])
 			j++;
@@ -64,14 +64,11 @@ void	fill_cmd_table(t_exe *executor)
 			while (split_on_redirection[j])
 				cmd_node->output_fds[k++] = atoi(split_on_redirection[j++]);
 		}
+		executor->all_commands[index] = cmd_node;
 		empty_array(split_on_redirection);
-		empty_int_array(cmd_node->output_fds);
-		free(cmd_node);
-		cmd_node = NULL;
 		index++;
 	}
-	free(cmd_node);
-	cmd_node = NULL;
+	executor->all_commands[index] = NULL;
 }
 
 void	temp_parser(t_exe *executor, char *input)
@@ -87,5 +84,6 @@ void	temp_parser(t_exe *executor, char *input)
 	executor->all_commands = ft_malloc(sizeof(t_cmd *) * (index + 1));
 	executor->commands = commands;
 	fill_cmd_table(executor);
+	empty_executor(executor);
 	exit(1);
 }
