@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/05 16:31:09 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/05 17:02:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	start_executor(t_exe *executor);
 void	temp_parser(t_exe *executor, char *input);
 void	check_command(t_exe *executor, char *input);
 void	init_executor(t_exe *executor, char **envp);
+void	open_output_fd(int *fds, char **files, int j);
 void	empty_int_array(int *arr);
 void	empty_array(char **arr);
 void	here_doc(char *delimiter);
