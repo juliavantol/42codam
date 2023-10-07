@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/05 17:02:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/07 23:58:35 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_exe
 	int				prev_pipe;
 	int				infile;
 	int				*pids;
+	int				index;
 	int				fd_in;
 	int				*output_fds;
 	int				*input_fds;
@@ -47,7 +48,7 @@ typedef struct s_exe
 	char			**minishell_envp;
 }	t_exe;
 
-void	run_command(t_exe *executor, char **split_cmd);
+void	last_command(t_exe *executor, t_cmd *command);
 void	empty_executor(t_exe *executor);
 void	start_executor(t_exe *executor);
 void	temp_parser(t_exe *executor, char *input);
