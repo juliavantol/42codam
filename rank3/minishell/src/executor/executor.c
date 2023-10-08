@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/08 18:51:19 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/09 01:29:28 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ void	run_command(t_exe *executor, t_cmd *command)
 	path = get_cmd_path(executor->paths, cmd[0]);
 	if (!path)
 		error_exit("Command not found");
+	executor->fd_out = STDOUT_FILENO;
+	check_output_redirections(executor, command);
+	if (executor->fd_out != STDOUT_FILENO)
+	{
+		dup2(executor->fd_out, STDOUT_FILENO);
+		close(executor->fd_out);
+	}
 	if (execve(path, cmd, executor->minishell_envp) == -1)
 		error_exit("Execve error");
 }
