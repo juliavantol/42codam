@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/08 00:04:11 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/08 18:51:19 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,11 @@ void	run_command(t_exe *executor, t_cmd *command)
 {
 	char	*path;
 	char	**cmd;
-	int		index;
 
 	cmd = ft_split(command->command, ' ');
 	path = get_cmd_path(executor->paths, cmd[0]);
 	if (!path)
 		error_exit("Command not found");
-	index = 0;
-	while (command->output_fds[index])
-	{
-		dup2(command->output_fds[index], OUTPUT);
-		index++;
-	}
 	if (execve(path, cmd, executor->minishell_envp) == -1)
 		error_exit("Execve error");
 }
@@ -52,6 +45,7 @@ void	last_command(t_exe *executor, t_cmd *command)
 	}
 	else
 		waitpid(pid, &status, 0);
+	waitpid(pid, &status, 0);
 }
 
 void	handle_multiple_command(t_exe *executor, t_cmd *command)
@@ -105,9 +99,6 @@ void	handle_single_command(t_exe *executor)
 
 void	start_executor(t_exe *executor)
 {
-	int		index;
-
-	index = 0;
 	executor->fd_in = STDIN_FILENO;
 	if (executor->command_count == 1)
 		handle_single_command(executor);
@@ -115,10 +106,10 @@ void	start_executor(t_exe *executor)
 	{
 		while (executor->index < executor->command_count - 1)
 		{
-			handle_multiple_command(executor, executor->all_commands[index]);
+			handle_multiple_command(executor, executor->all_commands[executor->index]);
 			(executor->index)++;
 		}
-		last_command(executor, executor->all_commands[index]);
+		last_command(executor, executor->all_commands[executor->index]);
 		executor->fd_in = STDIN_FILENO;
 	}
 }
