@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/09 01:29:28 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/10 02:36:29 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,50 +21,18 @@ void	run_command(t_exe *executor, t_cmd *command)
 	path = get_cmd_path(executor->paths, cmd[0]);
 	if (!path)
 		error_exit("Command not found");
-	executor->fd_out = STDOUT_FILENO;
-	check_output_redirections(executor, command);
-	if (executor->fd_out != STDOUT_FILENO)
-	{
-		dup2(executor->fd_out, STDOUT_FILENO);
-		close(executor->fd_out);
-	}
 	if (execve(path, cmd, executor->minishell_envp) == -1)
 		error_exit("Execve error");
 }
 
-void	last_command(t_exe *executor, t_cmd *command)
+void	handle_command(t_exe *executor, t_cmd *command, int *fds)
 {
-	int		status;
 	pid_t	pid;
 
-	pid = fork();
-	if (pid < 0)
-		error_exit("Error with fork");
-	if (pid == 0)
-	{
-		if (executor->fd_in != STDIN_FILENO)
-		{
-			dup2(executor->fd_in, STDIN_FILENO);
-			close(executor->fd_in);
-		}
-		run_command(executor, command);
-		exit(EXIT_SUCCESS);
-	}
-	else
-		waitpid(pid, &status, 0);
-	waitpid(pid, &status, 0);
-}
-
-void	handle_multiple_command(t_exe *executor, t_cmd *command)
-{
-	int		fds[2];
-	pid_t	pid;
-
-	if (pipe(fds) < 0)
-		ft_error("Error with opening the pipe", errno);
 	pid = fork();
 	if (pid < 0)
 		ft_error("Error with fork", errno);
+	check_output_redirections(executor, command);
 	if (pid == 0)
 	{
 		if (executor->fd_in != STDIN_FILENO)
@@ -72,51 +40,41 @@ void	handle_multiple_command(t_exe *executor, t_cmd *command)
 			dup2(executor->fd_in, STDIN_FILENO);
 			close(executor->fd_in);
 		}
-		close(fds[0]);
-		dup2(fds[1], STDOUT_FILENO);
-		close(fds[1]);
+		if (executor->fd_out != STDOUT_FILENO)
+		{
+			dup2(executor->fd_out, STDOUT_FILENO);
+			close(executor->fd_out);
+		}
+		dup2(fds[WRITE], STDOUT_FILENO);
+		close(fds[WRITE]);
 		run_command(executor, command);
-	}
-	else
-	{
-		close(fds[1]);
-		executor->fd_in = fds[0];
-	}
-}
-
-void	handle_single_command(t_exe *executor)
-{
-	int		fds[2];
-	int		status;
-	pid_t	pid;
-
-	if (pipe(fds) < 0)
-		error_exit("Error with opening the pipe");
-	pid = fork();
-	if (pid < 0)
-		error_exit("Error with fork");
-	if (pid == 0)
-	{
-		run_command(executor, executor->all_commands[0]);
 		exit(EXIT_SUCCESS);
 	}
-	else
-		waitpid(pid, &status, 0);
 }
 
 void	start_executor(t_exe *executor)
 {
+	int fds[2];
+	int status;
+	int	index;
+	
 	executor->fd_in = STDIN_FILENO;
-	if (executor->command_count == 1)
-		handle_single_command(executor);
-	else
+	while (executor->index < executor->command_count - 1)
 	{
-		while (executor->index < executor->command_count - 1)
-		{
-			handle_multiple_command(executor, executor->all_commands[executor->index]);
-			(executor->index)++;
-		}
-		last_command(executor, executor->all_commands[executor->index]);
-		executor->fd_in = STDIN_FILENO;
+		if (pipe(fds) < 0)
+			error_exit("Error with opening the pipe");
+		executor->fd_out = fds[WRITE];
+		handle_command(executor, executor->all_commands[executor->index], fds);
+		close(fds[WRITE]);
+		executor->fd_in = fds[READ];
+		(executor->index)++;
+	}
+	executor->fd_out = STDOUT_FILENO;
+	handle_command(executor, executor->all_commands[executor->index], fds);
+	index = 0;
+	while (index < executor->command_count)
+	{
+		wait(&status);
+		index++;
 	}
 }

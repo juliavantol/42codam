@@ -6,80 +6,90 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/02 14:10:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/09 14:14:52 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-// void	redirect_last_command(t_exe *executor, char **cmd)
-// {
-// 	int		fds[2];
-// 	int		status;
-// 	pid_t	pid;
-
-// 	if (pipe(fds) < 0)
-// 		error_exit("Error with opening the pipe");
-// 	pid = fork();
-// 	if (pid < 0)
-// 		error_exit("Error with fork");
-// 	if (pid == 0)
-// 	{
-// 		dup2(OUTPUT, 1);
-// 		run_command(executor, cmd);
-// 		exit(EXIT_SUCCESS);
-// 	}
-// 	else
-// 	{
-// 		waitpid(pid, &status, 0);
-// 	}
-// }
-
-// void	run_command(t_exe *executor, char **split_cmd)
+// void	run_command(t_exe *executor, t_cmd *command)
 // {
 // 	char	*path;
+// 	char	**cmd;
 
-// 	path = get_cmd_path(executor->paths, split_cmd[0]);
+// 	cmd = ft_split(command->command, ' ');
+// 	path = get_cmd_path(executor->paths, cmd[0]);
 // 	if (!path)
 // 		error_exit("Command not found");
-// 	if (execve("/bin/ls", split_cmd, executor->minishell_envp) == -1)
+// 	executor->fd_out = STDOUT_FILENO;
+// 	check_output_redirections(executor, command);
+// 	if (executor->fd_out != STDOUT_FILENO)
 // 	{
-// 		error_exit("Execve error");
+// 		dup2(executor->fd_out, STDOUT_FILENO);
+// 		close(executor->fd_out);
 // 	}
+// 	if (execve(path, cmd, executor->minishell_envp) == -1)
+// 		error_exit("Execve error");
 // }
 
-// void	execute_multiple_command(t_exe *executor, char **cmd, int index)
+// void	last_command(t_exe *executor, t_cmd *command)
 // {
-// 	int		fds[2];
 // 	int		status;
 // 	pid_t	pid;
 
-// 	if (pipe(fds) < 0)
-// 		error_exit("Error with opening the pipe");
 // 	pid = fork();
 // 	if (pid < 0)
 // 		error_exit("Error with fork");
 // 	if (pid == 0)
 // 	{
-// 		close(fds[READ]);
-// 		dup2(fds[WRITE], OUTPUT);
-// 		if (cmd)
-// 			run_command(executor, cmd);
+// 		if (executor->fd_in != STDIN_FILENO)
+// 		{
+// 			dup2(executor->fd_in, STDIN_FILENO);
+// 			close(executor->fd_in);
+// 		}
+// 		run_command(executor, command);
 // 		exit(EXIT_SUCCESS);
 // 	}
 // 	else
 // 	{
-// 		close(fds[WRITE]);
-// 		dup2(fds[READ], INPUT);
 // 		waitpid(pid, &status, 0);
 // 	}
 // }
 
-// void	execute_single_command(t_exe *executor)
+// void	handle_multiple_command(t_exe *executor, t_cmd *command)
+// {
+// 	int		fds[2];
+// 	pid_t	pid;
+
+// 	if (pipe(fds) < 0)
+// 		ft_error("Error with opening the pipe", errno);
+// 	pid = fork();
+// 	if (pid < 0)
+// 		ft_error("Error with fork", errno);
+// 	if (pid == 0)
+// 	{
+// 		if (executor->fd_in != STDIN_FILENO)
+// 		{
+// 			dup2(executor->fd_in, STDIN_FILENO);
+// 			close(executor->fd_in);
+// 		}
+// 		close(fds[0]);
+// 		dup2(fds[1], STDOUT_FILENO);
+// 		close(fds[1]);
+// 		run_command(executor, command);
+// 		exit(EXIT_SUCCESS);
+// 	}
+// 	else
+// 	{
+// 		close(fds[1]);
+// 		executor->fd_in = fds[0];
+// 	}
+// }
+
+// void	handle_single_command(t_exe *executor)
 // {
 // 	int		fds[2];
 // 	int		status;
-// 	char	**cmd;
 // 	pid_t	pid;
 
 // 	if (pipe(fds) < 0)
@@ -89,9 +99,7 @@
 // 		error_exit("Error with fork");
 // 	if (pid == 0)
 // 	{
-// 		cmd = ft_split(executor->commands[0], ' ');
-// 		run_command(executor, cmd);
-// 		empty_array(cmd);
+// 		run_command(executor, executor->all_commands[0]);
 // 		exit(EXIT_SUCCESS);
 // 	}
 // 	else
@@ -100,23 +108,17 @@
 
 // void	start_executor(t_exe *executor)
 // {
-// 	char	**cmd;
-// 	int		index;
-
-// 	index = 0;
+// 	executor->fd_in = STDIN_FILENO;
 // 	if (executor->command_count == 1)
-// 		execute_single_command(executor);
+// 		handle_single_command(executor);
 // 	else
 // 	{
-// 		while (executor->commands[index])
+// 		while (executor->index < executor->command_count - 1)
 // 		{
-// 			cmd = ft_split(executor->commands[index], ' ');
-// 			if (index == executor->command_count - 1)
-// 				redirect_last_command(executor, cmd);
-// 			else
-// 				execute_multiple_command(executor, cmd, index);
-// 			empty_array(cmd);
-// 			index++;
+// 			handle_multiple_command(executor, executor->all_commands[executor->index]);
+// 			(executor->index)++;
 // 		}
+// 		last_command(executor, executor->all_commands[executor->index]);
+// 		executor->fd_in = STDIN_FILENO;
 // 	}
 // }
