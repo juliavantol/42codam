@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/10 14:05:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/10 15:49:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	handle_command(t_exe *executor, t_cmd *command, int *fds)
 	pid = fork();
 	if (pid < 0)
 		ft_error("Error with fork", errno);
-	check_output_redirections(executor, command);
 	if (pid == 0)
 	{
 		if (executor->fd_in != STDIN_FILENO)
@@ -63,12 +62,14 @@ void	start_executor(t_exe *executor)
 		if (pipe(fds) < 0)
 			error_exit("Error with opening the pipe");
 		executor->fd_out = fds[WRITE];
+		check_output_redirections(executor, executor->all_commands[executor->index]);
 		handle_command(executor, executor->all_commands[executor->index], fds);
 		close(fds[WRITE]);
 		executor->fd_in = fds[READ];
 		(executor->index)++;
 	}
 	executor->fd_out = STDOUT_FILENO;
+	check_output_redirections(executor, executor->all_commands[executor->index]);
 	handle_command(executor, executor->all_commands[executor->index], fds);
 	index = 0;
 	while (index < executor->command_count)
