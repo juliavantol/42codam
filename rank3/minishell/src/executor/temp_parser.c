@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/09 01:25:42 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/10 16:23:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ void	fill_cmd_table(t_exe *executor)
 		while (split_on_redirection[j])
 			j++;
 		j--;
+		cmd_node->output_redirection = false;
 		cmd_node->output_fds = ft_malloc(sizeof(int) * (j + 1));
-		open_output_fd(cmd_node->output_fds, split_on_redirection, 1);
+		open_output_fd(cmd_node, split_on_redirection, 1);
 		executor->all_commands[index] = cmd_node;
 		empty_array(split_on_redirection);
 		index++;
