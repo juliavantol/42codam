@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/10 16:23:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/12 14:02:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	check_output_redirections(t_exe *executor, t_cmd *command)
 	while (command->output_fds[index])
 	{
 		executor->fd_out = command->output_fds[index];
+		return ;
 		index++;
 	}
 }
