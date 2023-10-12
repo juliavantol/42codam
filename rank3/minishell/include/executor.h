@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/10 16:22:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/13 00:42:51 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ typedef struct s_exe
 	char			**commands;
 	struct s_cmd	**all_commands;
 	int				command_count;
+	int				exit_status;
 	int				prev_pipe;
 	int				infile;
 	int				*pids;
 	int				index;
+	int				old_fds[2];
+	int				fds[2];
 	int				fd_in;
 	int				fd_out;
 	int				*output_fds;

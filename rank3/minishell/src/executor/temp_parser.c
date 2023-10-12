@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/10 16:23:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/13 00:53:50 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	temp_parser(t_exe *executor, char *input)
 	executor->command_count = index;
 	executor->all_commands = ft_malloc(sizeof(t_cmd *) * (index + 1));
 	executor->commands = commands;
+	executor->old_fds[0] = dup(READ);
+	executor->old_fds[1] = dup(WRITE);
 	executor->index = 0;
 	fill_cmd_table(executor);
 }
