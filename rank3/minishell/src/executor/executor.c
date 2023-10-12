@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/10 17:49:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/12 02:35:22 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,31 @@ void	run_command(t_exe *executor, t_cmd *command)
 		error_exit("Command not found");
 	if (execve(path, cmd, executor->minishell_envp) == -1)
 		error_exit("Execve error");
+}
+
+void	handle_single_command(t_exe *executor, t_cmd *command)
+{
+	int		fds[2];
+	int		status;
+	pid_t	pid;
+
+	check_output_redirections(executor, command);
+	if (pipe(fds) < 0)
+		error_exit("Error with opening the pipe");
+	pid = fork();
+	if (pid < 0)
+		error_exit("Error with fork");
+	if (pid == 0)
+	{
+		if (executor->fd_out != STDOUT_FILENO)
+		{
+			dup2(executor->fd_out, STDOUT_FILENO);
+		}
+		run_command(executor, command);
+		exit(EXIT_SUCCESS);
+	}
+	else
+		waitpid(pid, &status, 0);
 }
 
 void	handle_command(t_exe *executor, t_cmd *command, int *fds)
@@ -65,7 +90,12 @@ void	start_executor(t_exe *executor)
 	int fds[2];
 	int status;
 	int	index;
-	
+
+	if (executor->command_count == 1)
+	{
+		handle_single_command(executor, executor->all_commands[0]);
+		return ;
+	}
 	executor->fd_in = STDIN_FILENO;
 	while (executor->index < executor->command_count - 1)
 	{
