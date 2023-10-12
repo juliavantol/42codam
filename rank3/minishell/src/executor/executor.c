@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/31 02:27:35 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/12 02:35:22 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/12 03:04:05 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ void	handle_command(t_exe *executor, t_cmd *command, int *fds)
 		}
 		if (command->output_redirection == true)
 		{
-			if (executor->index == 0 || executor->index == executor->command_count - 1)
+			if (executor->index == executor->command_count - 1)
 			{
 				dup2(executor->fd_out, STDOUT_FILENO);
 				close(executor->fd_out);
 			}
 			else
 			{
-				dup2(fds[WRITE], STDOUT_FILENO);
+				dup2(executor->fd_out, STDOUT_FILENO);
 			}
 		}
 		else

@@ -1,8 +1,1 @@
-total 128
--rw-r--r--   1 Julia  staff   1964 Oct  8 18:49 Makefile
--rw-r--r--   1 Julia  staff      0 Oct 12 02:35 a
--rw-r--r--   1 Julia  staff     42 Oct 11 18:43 grep
-drwxr-xr-x   8 Julia  staff    256 Oct 11 18:43 include
--rwxr-xr-x   1 Julia  staff  53856 Oct 12 02:35 minishell
-drwxr-xr-x  10 Julia  staff    320 Oct  9 14:15 obj
-drwxr-xr-x  10 Julia  staff    320 Sep 29 02:22 src
+src
