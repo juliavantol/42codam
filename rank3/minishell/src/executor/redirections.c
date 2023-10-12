@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/12 14:02:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/13 01:09:54 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,35 @@ void	open_output_fd(t_cmd *cmd_node, char **files, int j)
 	{
 		cmd_node->output_redirection = true;
 		filename = ft_split(files[j], ' ')[0];
+		cmd_node->output_files[index] = filename;
 		cmd_node->output_fds[index] = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		free(filename);
 		index++;
 		j++;
 	}
 	cmd_node->output_fds[index] = '\0';
 }
 
-void	check_output_redirections(t_exe *executor, t_cmd *command)
+bool	check_output_redirections(t_cmd *command)
 {
 	int	index;
 
 	index = 0;
-	executor->fd_out = STDOUT_FILENO;
 	while (command->output_fds[index])
-	{
-		executor->fd_out = command->output_fds[index];
-		return ;
 		index++;
+	if (index == 0)
+		return (false);
+	else
+		return (true);
+}
+
+void	redirect_output(t_cmd *command)
+{
+	int	temp_fd;
+
+	if (check_output_redirections(command) == true)
+	{
+		temp_fd = open(command->output_files[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		dup2(temp_fd, WRITE);
+		close(temp_fd);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/13 00:42:51 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/13 01:07:27 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_cmd
 	bool	output_redirection;
 	int		*input_fds;
 	int		*output_fds;
+	char	**output_files;
 }	t_cmd;
 
 typedef struct s_exe
@@ -60,7 +61,7 @@ void	temp_parser(t_exe *executor, char *input);
 void	check_command(t_exe *executor, char *input);
 void	init_executor(t_exe *executor, char **envp);
 void	open_output_fd(t_cmd *cmd_node, char **files, int j);
-void	check_output_redirections(t_exe *executor, t_cmd *command);
+void	redirect_output(t_cmd *command);
 void	empty_int_array(int *arr);
 void	empty_array(char **arr);
 void	here_doc(char *delimiter);
