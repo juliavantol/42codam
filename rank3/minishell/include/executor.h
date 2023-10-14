@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/13 01:07:27 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/14 15:48:44 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,21 @@
 # define INPUT 0
 # define OUTPUT 1
 
+typedef struct s_filenames
+{
+	char				*filename;
+	struct s_filenames	*next;
+}	t_filenames;
+
 typedef struct s_cmd
 {
-	char	*command;
-	bool	output_redirection;
-	int		*input_fds;
-	int		*output_fds;
-	char	**output_files;
+	char			*command;
+	bool			output_redirection;
+	t_filenames		*outputs;
+	t_filenames		*inputs;
+	int				*input_fds;
+	int				*output_fds;
+	char			**output_files;
 }	t_cmd;
 
 typedef struct s_exe

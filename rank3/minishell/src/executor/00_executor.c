@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/13 01:15:11 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/14 14:03:35 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	handle_last_command(t_exe *executor, t_cmd *command)
 	}	
 }
 
-void	handle_middle_command(t_exe *executor, t_cmd *command)
+void	handle_command(t_exe *executor, t_cmd *command)
 {
 	pid_t	pid;
 
@@ -75,7 +75,7 @@ void	start_executor(t_exe *executor)
 	while (executor->index < executor->command_count)
 	{
 		if (executor->index < executor->command_count - 1)
-			handle_middle_command(executor, executor->all_commands[executor->index]);
+			handle_command(executor, executor->all_commands[executor->index]);
 		else
 			handle_last_command(executor, executor->all_commands[executor->index]);
 		(executor->index)++;
