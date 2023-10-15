@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/15 16:28:14 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 16:30:17 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	run_command(t_exe *executor, t_cmd *command)
 		error_exit("Execve error");
 }
 
-void	handle_last_command(t_exe *executor, t_cmd *command)
+void	last_command(t_exe *executor, t_cmd *command)
 {
 	pid_t	pid;
 
@@ -80,7 +80,7 @@ void	start_executor(t_exe *executor)
 		if (executor->index < executor->command_count - 1)
 			handle_command(executor, executor->all_commands[executor->index]);
 		else
-			handle_last_command(executor, executor->all_commands[executor->index]);
+			last_command(executor, executor->all_commands[executor->index]);
 		(executor->index)++;
 	}
 }

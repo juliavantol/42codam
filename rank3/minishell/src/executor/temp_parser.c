@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/15 16:26:10 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 16:36:08 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,19 @@ void	divide_command_in_redirections(t_cmd *node, char *command, int i)
 		if (ft_strcmp(cmd[i], ">"))
 		{
 			node->output_redirection = true;
-			add_node(&node->outputs, cmd[i + 1]);
+			add_node(&node->outputs, cmd[i + 1], TRUNCATE);
+			i++;
+		}
+		else if (ft_strcmp(cmd[i], ">>"))
+		{
+			node->output_redirection = true;
+			add_node(&node->outputs, cmd[i + 1], APPEND);
 			i++;
 		}
 		else if (ft_strcmp(cmd[i], "<"))
 		{
 			node->input_redirection = true;
-			add_node(&node->inputs, cmd[i + 1]);
+			add_node(&node->inputs, cmd[i + 1], READ);
 			i++;
 		}
 		else

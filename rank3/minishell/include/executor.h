@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/15 16:22:53 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 16:37:17 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@
 # define WRITE 1
 # define INPUT 0
 # define OUTPUT 1
+# define APPEND 0
+# define TRUNCATE 1
 
 typedef struct s_filenames
 {
 	char				*filename;
+	int					mode;
 	struct s_filenames	*next;
 }	t_filenames;
 
@@ -76,6 +79,6 @@ char	*get_next_line(int fd);
 int		search_newline(char *s);
 
 bool	ft_strcmp(char *s1, char *s2);
-void	add_node(t_filenames **filenames, char *name);
+void	add_node(t_filenames **filenames, char *name, int mode);
 
 #endif
