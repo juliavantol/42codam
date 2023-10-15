@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/15 16:37:17 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 16:41:03 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define OUTPUT 1
 # define APPEND 0
 # define TRUNCATE 1
+# define HEREDOC 2
 
 typedef struct s_filenames
 {
