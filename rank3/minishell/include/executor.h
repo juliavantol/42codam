@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/15 16:08:28 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 16:22:53 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ char	*get_next_line(int fd);
 int		search_newline(char *s);
 
 bool	ft_strcmp(char *s1, char *s2);
-
-t_filenames	*new_node(char *name);
-void		add_node(t_filenames **filenames, t_filenames *new);
+void	add_node(t_filenames **filenames, char *name);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   00_executor.c                                      :+:    :+:            */
+/*   executor.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/15 16:08:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 16:28:14 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	handle_command(t_exe *executor, t_cmd *command)
 		redirect_input(command);
 		redirect_output(command);
 		close(executor->fds[READ]);
-		dup2(executor->fds[WRITE], WRITE);
+		if (!command->output_redirection)
+			dup2(executor->fds[WRITE], WRITE);
 		run_command(executor, command);
 		exit(EXIT_SUCCESS);
 	}
