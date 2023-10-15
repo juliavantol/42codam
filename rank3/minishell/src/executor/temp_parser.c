@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/15 15:50:26 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 15:54:05 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,31 +79,30 @@ t_filenames	*new_node(char *name)
 	return (node);
 }
 
-void	divide_command_in_redirections(t_cmd *cmd_node, char *command)
+void	divide_command_in_redirections(t_cmd *cmd_node, char *command, int index)
 {
-	int			index;
 	t_filenames	*node;
 	char		**split_on_spaces;
 
-	index = 0;
 	split_on_spaces = ft_split(command, ' ');
-	cmd_node->command = ft_calloc(0, 0);
 	while (split_on_spaces[index])
 	{
 		if (ft_strcmp(split_on_spaces[index], ">"))
 		{
 			node = new_node(split_on_spaces[index + 1]);
+			cmd_node->output_redirection = true;
 			add_node(&cmd_node->outputs, node);
 			index++;
 		}
 		else if (ft_strcmp(split_on_spaces[index], "<"))
 		{
 			node = new_node(split_on_spaces[index + 1]);
+			cmd_node->input_redirection = true;
 			add_node(&cmd_node->inputs, node);
 			index++;
 		}
 		else
-			cmd_node->command = join_three_strs(cmd_node->command, " ", split_on_spaces[index]);
+			cmd_node->command_name = join_three_strs(cmd_node->command_name, " ", split_on_spaces[index]);
 		index++;
 	}
 	empty_array(split_on_spaces);
@@ -127,10 +126,12 @@ void	fill_cmd_table(t_exe *executor)
 	while (executor->commands[index] != NULL)
 	{
 		cmd_node = ft_malloc(sizeof(t_cmd));
+		cmd_node->command_name = ft_calloc(0, 0);
 		cmd_node->outputs = NULL;
 		cmd_node->inputs = NULL;
-		divide_command_in_redirections(cmd_node, executor->commands[index]);
 		cmd_node->output_redirection = false;
+		cmd_node->input_redirection = false;
+		divide_command_in_redirections(cmd_node, executor->commands[index], 0);
 		executor->all_commands[index] = cmd_node;
 		index++;
 	}
@@ -153,5 +154,4 @@ void	temp_parser(t_exe *executor, char *input)
 	executor->old_fds[1] = dup(WRITE);
 	executor->index = 0;
 	fill_cmd_table(executor);
-	exit(1);
 }

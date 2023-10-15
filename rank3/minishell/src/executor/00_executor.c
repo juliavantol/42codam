@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/14 14:03:35 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 15:54:57 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	run_command(t_exe *executor, t_cmd *command)
 	char	*path;
 	char	**cmd;
 
-	cmd = ft_split(command->command, ' ');
+	cmd = ft_split(command->command_name, ' ');
 	path = get_cmd_path(executor->paths, cmd[0]);
 	if (!path)
 		error_exit("Command not found");
