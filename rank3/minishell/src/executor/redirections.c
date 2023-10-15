@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/15 15:59:21 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 16:06:59 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,25 @@ void	redirect_output(t_cmd *command)
 			dup2(temp_fd, WRITE);
 			close(temp_fd);
 			head = head->next;
+		}
+	}
+}
+
+void	redirect_input(t_cmd *command)
+{
+	int			temp_fd;
+	t_filenames	*head;
+
+	if (check_input_redirections(command) == true)
+	{
+		head = command->inputs;
+		while (head != NULL)
+		{
+			temp_fd = open(head->filename, O_RDONLY);
+			dup2(temp_fd, READ);
+			head = head->next;
+			if (head != NULL)
+				close(temp_fd);
 		}
 	}
 }

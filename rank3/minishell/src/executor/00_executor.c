@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/15 15:54:57 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 16:08:43 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	handle_last_command(t_exe *executor, t_cmd *command)
 		error_exit("Error with fork");
 	if (pid == 0)
 	{
+		redirect_input(command);
 		redirect_output(command);
 		run_command(executor, command);
 		exit(EXIT_SUCCESS);
@@ -56,6 +57,7 @@ void	handle_command(t_exe *executor, t_cmd *command)
 		error_exit("Error with fork");
 	if (pid == 0)
 	{
+		redirect_input(command);
 		redirect_output(command);
 		close(executor->fds[READ]);
 		dup2(executor->fds[WRITE], WRITE);
