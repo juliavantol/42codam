@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 07:25:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 17:19:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/15 14:59:12 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*join_three_strs(char *s1, char *s2, char *s3)
 		output[i] = s1[i];
 		i++;
 	}
-	if (s2)
+	if (s2 && i > 0)
 	{
 		while (s2[j])
 			output[i++] = s2[j++];

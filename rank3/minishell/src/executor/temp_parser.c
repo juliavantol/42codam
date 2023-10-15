@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/14 15:57:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/15 15:50:26 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,54 @@ t_filenames	*new_node(char *name)
 	if (name == NULL)
 		node->filename = NULL;
 	else
-		node->filename = name;
+		node->filename = ft_strdup(name);
 	node->next = NULL;
 	return (node);
 }
 
+void	divide_command_in_redirections(t_cmd *cmd_node, char *command)
+{
+	int			index;
+	t_filenames	*node;
+	char		**split_on_spaces;
+
+	index = 0;
+	split_on_spaces = ft_split(command, ' ');
+	cmd_node->command = ft_calloc(0, 0);
+	while (split_on_spaces[index])
+	{
+		if (ft_strcmp(split_on_spaces[index], ">"))
+		{
+			node = new_node(split_on_spaces[index + 1]);
+			add_node(&cmd_node->outputs, node);
+			index++;
+		}
+		else if (ft_strcmp(split_on_spaces[index], "<"))
+		{
+			node = new_node(split_on_spaces[index + 1]);
+			add_node(&cmd_node->inputs, node);
+			index++;
+		}
+		else
+			cmd_node->command = join_three_strs(cmd_node->command, " ", split_on_spaces[index]);
+		index++;
+	}
+	empty_array(split_on_spaces);
+}
+
+void	print_lists(t_filenames *head)
+{
+	while (head != NULL)
+	{
+		printf("%s\n", head->filename);
+		head = head->next;
+	}
+}
+
 void	fill_cmd_table(t_exe *executor)
 {
-	char	**split_on_redirection;
 	t_cmd	*cmd_node;
 	int		index;
-	int		j;
 
 	index = 0;
 	while (executor->commands[index] != NULL)
@@ -92,18 +129,9 @@ void	fill_cmd_table(t_exe *executor)
 		cmd_node = ft_malloc(sizeof(t_cmd));
 		cmd_node->outputs = NULL;
 		cmd_node->inputs = NULL;
-		split_on_redirection = ft_split(executor->commands[index], '>');
-		cmd_node->command = ft_strdup(split_on_redirection[0]);
-		j = 0;
-		while (split_on_redirection[j])
-			j++;
-		j--;
+		divide_command_in_redirections(cmd_node, executor->commands[index]);
 		cmd_node->output_redirection = false;
-		cmd_node->output_fds = ft_malloc(sizeof(int) * (j + 1));
-		cmd_node->output_files = ft_malloc(sizeof(int) * (j + 1));
-		open_output_fd(cmd_node, split_on_redirection, 1);
 		executor->all_commands[index] = cmd_node;
-		empty_array(split_on_redirection);
 		index++;
 	}
 	executor->all_commands[index] = NULL;
@@ -125,4 +153,5 @@ void	temp_parser(t_exe *executor, char *input)
 	executor->old_fds[1] = dup(WRITE);
 	executor->index = 0;
 	fill_cmd_table(executor);
+	exit(1);
 }
