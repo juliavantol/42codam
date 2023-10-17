@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/15 16:11:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/15 16:37:05 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/17 13:21:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ t_filenames	*last_node(t_filenames *filename)
 	temp = filename;
 	if (filename != NULL)
 	{
-		while (temp -> next != NULL)
-			temp = temp -> next;
+		while (temp->next != NULL)
+			temp = temp->next;
 	}
 	return (temp);
 }
 
-t_filenames	*new_node(char *name, int mode)
+t_filenames	*new_node(char *name, int mode, int index)
 {
 	t_filenames	*node;
 
@@ -37,20 +37,21 @@ t_filenames	*new_node(char *name, int mode)
 	else
 		node->filename = ft_strdup(name);
 	node->mode = mode;
+	node->index = index;
 	node->next = NULL;
 	return (node);
 }
 
-void	add_node(t_filenames **filenames, char *name, int mode)
+void	add_node(t_filenames **filenames, char *name, int mode, int index)
 {
 	t_filenames	*last;
 	t_filenames	*new;
 
-	new = new_node(name, mode);
+	new = new_node(name, mode, index);
 	if (*filenames != NULL && new != NULL)
 	{
 		last = last_node(*filenames);
-		last -> next = new;
+		last->next = new;
 	}
 	else
 		*filenames = new;

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 13:37:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 17:20:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 13:26:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*join_three_strs(char *s1, char *s2, char *s3);
 char	*ft_substr(char const *s, int start, int len);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char *s);
+char	*ft_itoa(int n);
 
 void	*ft_calloc(int nelem, int elsize);
 void	ft_putstr_fd(char *s, int fd);

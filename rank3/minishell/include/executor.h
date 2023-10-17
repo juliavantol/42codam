@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/15 16:41:03 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/17 13:23:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 typedef struct s_filenames
 {
 	char				*filename;
+	int					index;
 	int					mode;
 	struct s_filenames	*next;
 }	t_filenames;
@@ -66,7 +67,6 @@ void	redirect_output(t_cmd *command);
 void	redirect_input(t_cmd *command);
 void	empty_int_array(int *arr);
 void	empty_array(char **arr);
-void	here_doc(char *delimiter);
 void	error_exit(char *msg);
 void	cmd_error(char *cmd);
 
@@ -80,6 +80,6 @@ char	*get_next_line(int fd);
 int		search_newline(char *s);
 
 bool	ft_strcmp(char *s1, char *s2);
-void	add_node(t_filenames **filenames, char *name, int mode);
+void	add_node(t_filenames **filenames, char *name, int mode, int index);
 
 #endif
