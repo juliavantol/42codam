@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 15:39:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 16:54:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	check_command(t_exe *executor, char *input)
 	else if (ft_strcmp(split_input[0], "unset"))
 		unset(executor, split_input[1]);
 	else if (ft_strcmp(split_input[0], "cd"))
-		cd(split_input[1]);
+		cd(executor, split_input[1]);
 	else if (ft_strcmp(split_input[0], "echo"))
 		echo(executor, split_input + 1);
 	else

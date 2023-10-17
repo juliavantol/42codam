@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/18 14:51:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 16:37:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,27 @@ void	env(t_exe *executor)
 		return ;
 	while (executor->minishell_envp[index] && executor->minishell_envp[index])
 		printf("%s\n", executor->minishell_envp[index++]);
+}
+
+void	unset(t_exe *executor, char *name)
+{
+	int		index;
+	int		len;
+	char	**envp;
+
+	index = find_envp_entry(executor, name);
+	if (index == -1)
+		return ;
+	len = -1;
+	while (executor->minishell_envp[len])
+		len++;
+	if (executor->minishell_envp)
+	{
+		envp = new_envp(executor->minishell_envp, len + 1, index);
+		envp[len] = NULL;
+		empty_envp(executor);
+		executor->minishell_envp = envp;
+	}
 }
 
 void	export(t_exe *executor, char *name, char *value)
@@ -46,23 +67,3 @@ void	export(t_exe *executor, char *name, char *value)
 	}
 }
 
-void	unset(t_exe *executor, char *name)
-{
-	int		index;
-	int		len;
-	char	**envp;
-
-	index = find_envp_entry(executor, name);
-	if (index == -1)
-		return ;
-	len = -1;
-	while (executor->minishell_envp[len])
-		len++;
-	if (executor->minishell_envp)
-	{
-		envp = new_envp(executor->minishell_envp, len + 1, index);
-		envp[len] = NULL;
-		empty_envp(executor);
-		executor->minishell_envp = envp;
-	}
-}

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/17 16:33:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 16:59:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	pwd(void)
 	free(path);
 }
 
-void	cd(char *path)
+void	cd(t_exe *executor, char *path)
 {
-	int	return_value;
+	int		return_value;
+	char	*pwd;
 
 	return_value = chdir(path);
 	if (return_value != 0)
@@ -33,6 +34,13 @@ void	cd(char *path)
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 		perror("");
+	}
+	else
+	{
+		pwd = ft_malloc(PATH_MAX + 1);
+		getcwd(pwd, PATH_MAX + 1);
+		export(executor, "PWD", pwd);
+		free(pwd);
 	}
 }
 
