@@ -1,7 +1,18 @@
-total 40
--rw-r--r-- 1 juvan-to piscine     0 Oct 17 14:34 a
-drwxr-xr-x 2 juvan-to piscine   111 Oct 17 12:21 include
--rw-r--r-- 1 juvan-to piscine  1963 Oct 17 14:33 Makefile
--rwxr-xr-x 1 juvan-to piscine 33344 Oct 17 14:33 minishell
-drwxr-xr-x 8 juvan-to piscine   125 Oct 17 14:33 obj
-drwxr-xr-x 8 juvan-to piscine   125 Oct 17 13:03 src
+a
+include
+Makefile
+minishell
+obj
+src
+a
+include
+Makefile
+minishell
+obj
+src
+a
+include
+Makefile
+minishell
+obj
+src

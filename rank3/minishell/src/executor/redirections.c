@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 14:40:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 14:58:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	fill_heredoc_file(char *content)
 {
 	int		heredoc_file;
 
-	heredoc_file = open(".here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	heredoc_file = ft_open(".here_doc", TRUNCATE);
 	write(heredoc_file, content, ft_strlen(content));
 	close(heredoc_file);
-	heredoc_file = open(".here_doc", O_RDONLY);
+	heredoc_file = ft_open(".here_doc", READ);
 	dup2(heredoc_file, READ);
 	close(heredoc_file);
 	unlink(".here_doc");
@@ -49,45 +49,43 @@ void	here_doc(t_filenames *head, char *delimiter)
 
 void	redirect_output(t_cmd *command)
 {
-	int			fd;
+	int			file;
 	t_filenames	*head;
 
-	if (command->output_redirection == true)
+	if (command->output_redirection == false)
+		return ;
+	head = command->outputs;
+	while (head != NULL)
 	{
-		head = command->outputs;
-		while (head != NULL)
-		{
-			if (head->mode == TRUNCATE)
-				fd = open(head->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			else
-				fd = open(head->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			dup2(fd, WRITE);
-			close(fd);
-			head = head->next;
-		}
+		if (head->mode == TRUNCATE)
+			file = ft_open(head->filename, TRUNCATE);
+		else
+			file = ft_open(head->filename, APPEND);
+		dup2(file, WRITE);
+		close(file);
+		head = head->next;
 	}
 }
 
 void	redirect_input(t_cmd *command)
 {
-	int			fd;
+	int			file;
 	t_filenames	*head;
 
-	if (command->input_redirection == true)
+	if (command->input_redirection == false)
+		return ;
+	head = command->inputs;
+	while (head != NULL)
 	{
-		head = command->inputs;
-		while (head != NULL)
+		if (head->mode == HEREDOC)
+			here_doc(head, head->filename);
+		else
 		{
-			if (head->mode == HEREDOC)
-				here_doc(head, head->filename);
-			else
-			{
-				fd = open(head->filename, O_RDONLY);
-				dup2(fd, READ);
-				if (head->next != NULL)
-					close(fd);
-			}
-			head = head->next;
+			file = ft_open(head->filename, READ);
+			dup2(file, READ);
+			if (head->next != NULL)
+				close(file);
 		}
+		head = head->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/17 13:23:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 14:56:35 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # define WRITE 1
 # define INPUT 0
 # define OUTPUT 1
-# define APPEND 0
-# define TRUNCATE 1
-# define HEREDOC 2
+# define APPEND 1
+# define TRUNCATE 2
+# define HEREDOC 3
 
 typedef struct s_filenames
 {
@@ -77,6 +77,7 @@ char	**ft_split_args(char *s);
 char	**manual_envp(void);
 char	*get_next_line(int fd);
 
+int		ft_open(char *filename, int mode);
 int		search_newline(char *s);
 
 bool	ft_strcmp(char *s1, char *s2);
