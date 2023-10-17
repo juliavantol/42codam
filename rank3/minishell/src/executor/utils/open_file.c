@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 14:49:07 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 14:58:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 15:01:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-int	ft_open(char *filename, int mode)
+int	open_file(char *filename, int mode)
 {
 	int	file;
 

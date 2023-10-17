@@ -4,15 +4,3 @@ Makefile
 minishell
 obj
 src
-a
-include
-Makefile
-minishell
-obj
-src
-a
-include
-Makefile
-minishell
-obj
-src

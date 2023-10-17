@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/15 16:11:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/17 13:21:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 15:17:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_filenames	*last_node(t_filenames *filename)
 	return (temp);
 }
 
-t_filenames	*new_node(char *name, int mode, int index)
+t_filenames	*new_node(char *name, int mode)
 {
 	t_filenames	*node;
 
@@ -37,17 +37,16 @@ t_filenames	*new_node(char *name, int mode, int index)
 	else
 		node->filename = ft_strdup(name);
 	node->mode = mode;
-	node->index = index;
 	node->next = NULL;
 	return (node);
 }
 
-void	add_node(t_filenames **filenames, char *name, int mode, int index)
+void	add_node(t_filenames **filenames, char *name, int mode)
 {
 	t_filenames	*last;
 	t_filenames	*new;
 
-	new = new_node(name, mode, index);
+	new = new_node(name, mode);
 	if (*filenames != NULL && new != NULL)
 	{
 		last = last_node(*filenames);

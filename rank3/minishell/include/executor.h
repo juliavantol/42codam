@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/17 14:56:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 15:10:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 typedef struct s_filenames
 {
 	char				*filename;
-	int					index;
 	int					mode;
 	struct s_filenames	*next;
 }	t_filenames;
@@ -49,7 +48,6 @@ typedef struct s_exe
 	struct s_cmd	**all_commands;
 	int				command_count;
 	int				exit_status;
-	int				*pids;
 	int				index;
 	int				old_fds[2];
 	int				fds[2];
@@ -77,10 +75,10 @@ char	**ft_split_args(char *s);
 char	**manual_envp(void);
 char	*get_next_line(int fd);
 
-int		ft_open(char *filename, int mode);
+int		open_file(char *filename, int mode);
 int		search_newline(char *s);
 
 bool	ft_strcmp(char *s1, char *s2);
-void	add_node(t_filenames **filenames, char *name, int mode, int index);
+void	add_node(t_filenames **filenames, char *name, int mode);
 
 #endif

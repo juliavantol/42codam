@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 14:58:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 15:01:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	fill_heredoc_file(char *content)
 {
 	int		heredoc_file;
 
-	heredoc_file = ft_open(".here_doc", TRUNCATE);
+	heredoc_file = open_file(".here_doc", TRUNCATE);
 	write(heredoc_file, content, ft_strlen(content));
 	close(heredoc_file);
-	heredoc_file = ft_open(".here_doc", READ);
+	heredoc_file = open_file(".here_doc", READ);
 	dup2(heredoc_file, READ);
 	close(heredoc_file);
 	unlink(".here_doc");
@@ -58,9 +58,9 @@ void	redirect_output(t_cmd *command)
 	while (head != NULL)
 	{
 		if (head->mode == TRUNCATE)
-			file = ft_open(head->filename, TRUNCATE);
+			file = open_file(head->filename, TRUNCATE);
 		else
-			file = ft_open(head->filename, APPEND);
+			file = open_file(head->filename, APPEND);
 		dup2(file, WRITE);
 		close(file);
 		head = head->next;
@@ -81,7 +81,7 @@ void	redirect_input(t_cmd *command)
 			here_doc(head, head->filename);
 		else
 		{
-			file = ft_open(head->filename, READ);
+			file = open_file(head->filename, READ);
 			dup2(file, READ);
 			if (head->next != NULL)
 				close(file);
