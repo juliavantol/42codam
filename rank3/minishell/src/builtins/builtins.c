@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/17 16:02:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 16:33:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	cd(char *path)
 	return_value = chdir(path);
 	if (return_value != 0)
 	{
-		printf("couldn't find path\n");
+		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		perror("");
 	}
 }
 
