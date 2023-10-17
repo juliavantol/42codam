@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 14:10:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 14:40:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,12 @@ void	here_doc(t_filenames *head, char *delimiter)
 	free(content);
 }
 
-bool	check_output_redirections(t_cmd *command)
-{
-	if (command->output_redirection == true)
-		return (true);
-	else
-		return (false);
-}
-
-bool	check_input_redirections(t_cmd *command)
-{
-	if (command->input_redirection == true)
-		return (true);
-	else
-		return (false);
-}
-
 void	redirect_output(t_cmd *command)
 {
 	int			fd;
 	t_filenames	*head;
 
-	if (check_output_redirections(command) == true)
+	if (command->output_redirection == true)
 	{
 		head = command->outputs;
 		while (head != NULL)
@@ -89,7 +73,7 @@ void	redirect_input(t_cmd *command)
 	int			fd;
 	t_filenames	*head;
 
-	if (check_input_redirections(command) == true)
+	if (command->input_redirection == true)
 	{
 		head = command->inputs;
 		while (head != NULL)
