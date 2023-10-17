@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/10/17 15:18:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 15:45:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (!proper_start(argc, argv))
 		return (EXIT_FAILURE);
-	init_signal_handler();
+	// init_signal_handler();
 	init_executor(&executor, envp);
 	while (1)
 	{

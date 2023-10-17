@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/04 12:19:37 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 16:02:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ void	pwd(void)
 
 void	cd(char *path)
 {
-	chdir(path);
+	int	return_value;
+
+	return_value = chdir(path);
+	if (return_value != 0)
+	{
+		printf("couldn't find path\n");
+	}
 }
 
 void	exit_shell(void)

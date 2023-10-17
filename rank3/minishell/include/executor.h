@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/17 15:10:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/17 15:40:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_cmd
 
 typedef struct s_exe
 {
-	char			**commands;
 	struct s_cmd	**all_commands;
 	int				command_count;
 	int				exit_status;
