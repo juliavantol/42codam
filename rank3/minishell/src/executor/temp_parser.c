@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/15 16:41:15 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/17 12:40:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	fill_cmd_table(t_exe *executor)
 	while (executor->commands[i] != NULL)
 	{
 		node = ft_malloc(sizeof(t_cmd));
-		node->command_name = ft_calloc(0, 0);
+		node->command_name = "";
 		node->outputs = NULL;
 		node->inputs = NULL;
 		node->output_redirection = false;
