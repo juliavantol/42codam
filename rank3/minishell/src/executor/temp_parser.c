@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 16:54:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 00:10:22 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_command(t_exe *executor, char *input)
 	else if (ft_strcmp(split_input[0], "exit"))
 		exit_shell();
 	else if (ft_strcmp(split_input[0], "env"))
-		env(executor);
+		print_env(executor);
 	else if (ft_strcmp(split_input[0], "export"))
 		export(executor, split_input[1], split_input[2]);
 	else if (ft_strcmp(split_input[0], "unset"))

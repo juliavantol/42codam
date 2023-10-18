@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/17 15:40:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/18 23:56:48 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ typedef struct s_cmd
 	t_filenames		*inputs;
 }	t_cmd;
 
+typedef struct s_envp
+{
+	char			*key;
+	char			*value;
+	struct s_envp	*next;
+}	t_envp;
+
 typedef struct s_exe
 {
 	struct s_cmd	**all_commands;
@@ -53,6 +60,7 @@ typedef struct s_exe
 	char			**envp;
 	char			**paths;
 	char			**minishell_envp;
+	t_envp			*envp_list;
 }	t_exe;
 
 void	empty_executor(t_exe *executor);
