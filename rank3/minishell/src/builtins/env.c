@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:37:29 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 16:37:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 00:36:41 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	env(t_exe *executor)
 		printf("%s\n", executor->minishell_envp[index++]);
 }
 
-void	unset(t_exe *executor, char *name)
+void	unset_old(t_exe *executor, char *name)
 {
 	int		index;
 	int		len;
@@ -44,7 +44,7 @@ void	unset(t_exe *executor, char *name)
 	}
 }
 
-void	export(t_exe *executor, char *name, char *value)
+void	export_old(t_exe *executor, char *name, char *value)
 {
 	int		index;
 	char	**envp;
