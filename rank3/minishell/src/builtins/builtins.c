@@ -6,20 +6,47 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/17 16:59:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 14:06:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	pwd(void)
+bool	check_builtin(t_exe *executor, t_cmd *command)
+{
+	char	**name;
+
+	name = ft_split(command->command_name, ' ');
+	if (ft_strcmp(name[0], "pwd") == true)
+		printf("%s\n", executor->current_directory);
+	else if (ft_strcmp(name[0], "echo") == true)
+		exit(1);
+	else if (ft_strcmp(name[0], "env") == true)
+		print_env(executor);
+	else if (ft_strcmp(name[0], "cd") == true)
+		cd(executor, name[1]);
+	else if (ft_strcmp(name[0], "export") == true)
+		export(executor, name[1], name[2]);
+	else if (ft_strcmp(name[0], "unset") == true)
+		unset(executor, name[1]);
+	else if (ft_strcmp(name[0], "exit") == true)
+		exit_shell();
+	else
+	{
+		empty_array(name);
+		return (false);
+	}
+	empty_array(name);
+	return (true);
+}
+
+char	*get_pwd(void)
 {
 	char	*path;
 
 	path = ft_malloc(PATH_MAX + 1);
 	getcwd(path, PATH_MAX + 1);
-	printf("%s\n", path);
-	free(path);
+	return (path);
 }
 
 void	cd(t_exe *executor, char *path)
@@ -39,6 +66,7 @@ void	cd(t_exe *executor, char *path)
 	{
 		pwd = ft_malloc(PATH_MAX + 1);
 		getcwd(pwd, PATH_MAX + 1);
+		executor->current_directory = pwd;
 		export(executor, "PWD", pwd);
 		free(pwd);
 	}

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/19 11:59:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 14:07:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,17 @@ void	handle_command(t_exe *executor, t_cmd *command)
 	}
 }
 
-void	start_executor(t_exe *executor)
+void	start_executor(t_exe *executor, int i)
 {
-	while (executor->index < executor->command_count)
+	while (i < executor->command_count)
 	{
-		if (executor->index < executor->command_count - 1)
-			handle_command(executor, executor->all_commands[executor->index]);
-		else
-			last_command(executor, executor->all_commands[executor->index]);
-		(executor->index)++;
+		if (!check_builtin(executor, executor->commands[i]))
+		{
+			if (i < executor->command_count - 1)
+				handle_command(executor, executor->commands[i]);
+			else
+				last_command(executor, executor->commands[i]);
+		}
+		i++;
 	}
 }

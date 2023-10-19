@@ -1,0 +1,7 @@
+total 44
+-rw-r--r-- 1 juvan-to piscine     0 Oct 19 12:46 a
+drwxr-xr-x 2 juvan-to piscine   111 Oct 19 11:10 include
+-rw-r--r-- 1 juvan-to piscine  1963 Oct 17 14:33 Makefile
+-rwxr-xr-x 1 juvan-to piscine 37640 Oct 19 12:45 minishell
+drwxr-xr-x 8 juvan-to piscine   125 Oct 19 11:57 obj
+drwxr-xr-x 8 juvan-to piscine   125 Oct 17 13:03 src

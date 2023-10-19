@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/19 11:57:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 14:06:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ typedef struct s_envp
 
 typedef struct s_exe
 {
-	struct s_cmd	**all_commands;
+	struct s_cmd	**commands;
 	int				command_count;
 	int				status;
 	int				exit_code;
 	int				index;
 	int				old_fds[2];
 	int				fds[2];
+	char			*current_directory;
 	char			**envp;
 	char			**paths;
 	char			**minishell_envp;
@@ -65,9 +66,8 @@ typedef struct s_exe
 }	t_exe;
 
 void	empty_executor(t_exe *executor);
-void	start_executor(t_exe *executor);
+void	start_executor(t_exe *executor, int i);
 void	temp_parser(t_exe *executor, char *input);
-void	check_command(t_exe *executor, char *input);
 void	init_executor(t_exe *executor, char **envp);
 void	redirect_output(t_cmd *command);
 void	redirect_input(t_cmd *command);
@@ -75,6 +75,7 @@ void	empty_int_array(int *arr);
 void	empty_array(char **arr);
 void	error_exit(char *msg);
 void	cmd_error(char *cmd);
+bool	check_builtin(t_exe *executor, t_cmd *command);
 
 char	*get_cmd_path(char **paths, char *cmd);
 char	**ft_split_paths(char *whole_str);
@@ -88,5 +89,7 @@ int		search_newline(char *s);
 
 bool	ft_strcmp(char *s1, char *s2);
 void	add_node(t_filenames **filenames, char *name, int mode);
+
+char	*get_pwd(void);
 
 #endif
