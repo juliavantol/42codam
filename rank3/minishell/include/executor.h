@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/18 23:56:48 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/19 11:57:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct s_exe
 {
 	struct s_cmd	**all_commands;
 	int				command_count;
-	int				exit_status;
+	int				status;
+	int				exit_code;
 	int				index;
 	int				old_fds[2];
 	int				fds[2];
@@ -75,7 +76,7 @@ void	empty_array(char **arr);
 void	error_exit(char *msg);
 void	cmd_error(char *cmd);
 
-char	*get_cmd_path(char **paths, char	*cmd);
+char	*get_cmd_path(char **paths, char *cmd);
 char	**ft_split_paths(char *whole_str);
 char	**get_paths(char **envp);
 char	**ft_split_args(char *s);

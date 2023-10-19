@@ -6,22 +6,28 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:47:12 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/19 14:23:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 11:59:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-char	*get_variable(t_exe *executor, char *name)
+char	*get_variable(t_exe *executor, char *key)
 {
-	int		name_len;
-	int		index;
+	t_envp	*head;
+	char	*exit_code;
 
-	index = find_envp_entry(executor, name);
-	if (index != -1)
+	if (ft_strcmp("?", key))
 	{
-		name_len = 1 + ft_strlen(name);
-		return (name_len + executor->minishell_envp[index]);
+		exit_code = ft_itoa(executor->exit_code);
+		return (exit_code);
+	}
+	head = executor->envp_list;
+	while (head != NULL)
+	{
+		if (ft_strcmp(head->key, key))
+			return (head->value);
+		head = head->next;
 	}
 	return (NULL);
 }

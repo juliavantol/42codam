@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/17 15:05:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 11:59:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	last_command(t_exe *executor, t_cmd *command)
 	else
 	{
 		dup2(executor->old_fds[WRITE], WRITE);
-		waitpid(pid, &executor->exit_status, 0);
+		waitpid(pid, &executor->status, 0);
+		if (WIFEXITED(executor->status))
+			executor->exit_code = WEXITSTATUS(executor->status);
 	}
 }
 
@@ -67,7 +69,9 @@ void	handle_command(t_exe *executor, t_cmd *command)
 	}
 	else
 	{
-		waitpid(pid, &executor->exit_status, 0);
+		waitpid(pid, &executor->status, 0);
+		if (WIFEXITED(executor->status))
+			executor->exit_code = WEXITSTATUS(executor->status);
 		close(executor->fds[WRITE]);
 		dup2(executor->fds[READ], READ);
 	}
