@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/19 14:06:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 14:18:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_exe
 	char			*current_directory;
 	char			**envp;
 	char			**paths;
-	char			**minishell_envp;
 	t_envp			*envp_list;
 }	t_exe;
 
@@ -76,6 +75,7 @@ void	empty_array(char **arr);
 void	error_exit(char *msg);
 void	cmd_error(char *cmd);
 bool	check_builtin(t_exe *executor, t_cmd *command);
+char	**convert_envp(t_exe *executor);
 
 char	*get_cmd_path(char **paths, char *cmd);
 char	**ft_split_paths(char *whole_str);

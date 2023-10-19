@@ -6,66 +6,11 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 02:06:06 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/20 13:24:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 14:18:59 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-char	**new_envp(char **old_envp, int size, int skip_index)
-{
-	char	**new_envp;
-	int		index;
-
-	new_envp = ft_calloc(sizeof(char *), size + 1);
-	if (!new_envp)
-		return (NULL);
-	index = 0;
-	while (old_envp[index])
-	{
-		if (skip_index == index && skip_index != -1)
-			index++;
-		else
-		{
-			new_envp[index] = ft_strdup(old_envp[index]);
-			index++;
-		}
-	}
-	return (new_envp);
-}
-
-int	find_envp_entry(t_exe *executor, char *name)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (executor->minishell_envp[i])
-	{
-		j = 0;
-		while (executor->minishell_envp[i][j] == name[j])
-			j++;
-		if (executor->minishell_envp[i][j] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-void	empty_envp(t_exe *executor)
-{
-	int	index;
-
-	index = 0;
-	while (executor->minishell_envp[index])
-	{
-		free(executor->minishell_envp[index]);
-		executor->minishell_envp[index] = NULL;
-		index++;
-	}
-	free(executor->minishell_envp);
-	executor->minishell_envp = NULL;
-}
 
 bool	detact_newline_flag(char *str)
 {
@@ -81,4 +26,28 @@ bool	detact_newline_flag(char *str)
 		i++;
 	}
 	return (true);
+}
+
+char	**convert_envp(t_exe *executor)
+{
+	char	**envp;
+	char	*temp;
+	t_envp	*head;
+	int		i;
+
+	head = executor->envp_list;
+	envp = ft_malloc(2000);
+	if (head != NULL)
+	{
+		i = 0;
+		while (head != NULL)
+		{
+			temp = join_three_strs(head->key, "=", head->value);
+			envp[i++] = temp;
+			free(temp);
+			head = head->next;
+		}
+		envp[i] = NULL;
+	}
+	return (envp);
 }
