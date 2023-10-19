@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 02:06:06 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/19 14:18:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/19 14:25:16 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@ bool	detact_newline_flag(char *str)
 	return (true);
 }
 
+int	envp_size(t_exe *executor)
+{
+	t_envp	*head;
+	int		len;
+
+	head = executor->envp_list;
+	len = 0;
+	while (head != NULL)
+	{
+		len++;
+		head = head->next;
+	}
+	return (len);
+}
+
 char	**convert_envp(t_exe *executor)
 {
 	char	**envp;
@@ -36,18 +51,15 @@ char	**convert_envp(t_exe *executor)
 	int		i;
 
 	head = executor->envp_list;
-	envp = ft_malloc(2000);
-	if (head != NULL)
+	envp = ft_malloc((envp_size(executor) * sizeof(char *)) + 1);
+	i = 0;
+	while (head != NULL)
 	{
-		i = 0;
-		while (head != NULL)
-		{
-			temp = join_three_strs(head->key, "=", head->value);
-			envp[i++] = temp;
-			free(temp);
-			head = head->next;
-		}
-		envp[i] = NULL;
+		temp = join_three_strs(head->key, "=", head->value);
+		envp[i++] = temp;
+		free(temp);
+		head = head->next;
 	}
+	envp[i] = NULL;
 	return (envp);
 }
