@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/19 14:06:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/20 13:56:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 	else if (ft_strcmp(name[0], "unset") == true)
 		unset(executor, name[1]);
 	else if (ft_strcmp(name[0], "exit") == true)
-		exit_shell();
+	{
+		empty_array(name);
+		exit_shell(executor);
+	}
 	else
 	{
 		empty_array(name);
@@ -72,8 +75,9 @@ void	cd(t_exe *executor, char *path)
 	}
 }
 
-void	exit_shell(void)
+void	exit_shell(t_exe *executor)
 {
+	empty_executor(executor);
 	exit(1);
 }
 

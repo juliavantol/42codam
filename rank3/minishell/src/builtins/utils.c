@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 02:06:06 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/19 14:25:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/20 13:04:51 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ char	**convert_envp(t_exe *executor)
 	int		i;
 
 	head = executor->envp_list;
-	envp = ft_malloc((envp_size(executor) * sizeof(char *)) + 1);
+	envp = ft_malloc((envp_size(executor) + 1) * sizeof(char *));
 	i = 0;
 	while (head != NULL)
 	{
 		temp = join_three_strs(head->key, "=", head->value);
-		envp[i++] = temp;
+		envp[i++] = ft_strdup(temp);
 		free(temp);
 		head = head->next;
 	}

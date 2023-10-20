@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 23:06:59 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/18 23:59:54 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/20 12:36:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,40 @@ void	add_node_envp(t_envp **envp, char *key, char *value)
 	}
 	else
 		*envp = new;
+}
+
+char	**ft_split_paths(char *whole_str)
+{
+	char	**split_paths;
+	int		index;
+	char	*temp;
+
+	index = 0;
+	split_paths = ft_split(whole_str, ':');
+	if (!split_paths)
+		error_exit("Malloc error");
+	while (split_paths[index])
+	{
+		temp = join_three_strs(split_paths[index], NULL, "/");
+		free(split_paths[index]);
+		split_paths[index] = temp;
+		index++;
+	}
+	split_paths[index] = NULL;
+	free(whole_str);
+	return (split_paths);
+}
+
+char	**get_paths(char **envp)
+{
+	char	*paths;
+	char	**split_paths;
+
+	while (*envp && !ft_strnstr(*envp, "PATH=", 5))
+		envp++;
+	paths = ft_substr(*envp, 5, ft_strlen(*envp) - 5);
+	if (!paths)
+		return (NULL);
+	split_paths = ft_split_paths(paths);
+	return (split_paths);
 }

@@ -6,13 +6,13 @@
 #    By: fras <fras@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
-#    Updated: 2023/10/17 14:33:33 by juvan-to      ########   odam.nl          #
+#    Updated: 2023/10/20 13:01:37 by juvan-to      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -fsanitize=address
 INCLUDE = -I include
 SRC_DIR = src
 OBJ_DIR = obj

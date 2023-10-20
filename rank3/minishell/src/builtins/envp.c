@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:54:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/19 13:41:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/20 13:10:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ void	init_envp(t_exe *executor, char **envp)
 		key = ft_substr(envp[i], 0, j);
 		value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j);
 		add_node_envp(&executor->envp_list, key, value);
+		free(key);
+		free(value);
 		i++;
 	}
+	executor->paths = get_paths(envp);
 }
 
 void	print_env(t_exe *executor)

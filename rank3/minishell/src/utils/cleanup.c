@@ -6,25 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/19 14:13:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/20 14:21:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-void	empty_executor(t_exe *executor)
-{
-	int	i;
-
-	i = 0;
-	if (executor->paths)
-	{
-		while (executor->paths[i])
-			free(executor->paths[i++]);
-		free(executor->paths);
-		executor->paths = NULL;
-	}
-}
 
 void	empty_array(char **arr)
 {
@@ -40,20 +26,72 @@ void	empty_array(char **arr)
 	}
 }
 
-void	empty_int_array(int *arr)
+void	free_filenames(t_filenames *list)
 {
-	int	index;
+	t_filenames	*temp;
 
-	if (arr)
+	while (list != NULL)
 	{
-		index = 0;
-		while (arr[index])
-		{
-			if (arr[index] >= 0)
-				close(arr[index]);
-			index++;
-		}
-		free(arr);
-		arr = NULL;
+		temp = list;
+		list = list->next;
+		free(temp->filename);
+		free(temp);
+	}
+}
+
+void	free_cmds(t_exe *executor)
+{
+	int	i;
+
+	i = 0;
+	while (executor->commands[i])
+	{
+		if (executor->commands[i]->command_name != NULL)
+			free(executor->commands[i]->command_name);
+		if (executor->commands[i]->outputs != NULL)
+			free_filenames(executor->commands[i]->outputs);
+		if (executor->commands[i]->inputs != NULL)
+			free_filenames(executor->commands[i]->inputs);
+		free(executor->commands[i]);
+		i++;
+	}
+}
+
+void	free_envp(t_envp *list)
+{
+	t_envp	*temp;
+
+	while (list != NULL)
+	{
+		temp = list;
+		list = list->next;
+		free(temp->key);
+		free(temp->value);
+		free(temp);
+	}
+}
+
+void	empty_executor(t_exe *executor)
+{
+	int	i;
+
+	free_cmds(executor);
+	free(executor->commands);
+	free_envp(executor->envp_list);
+	i = 0;
+	if (executor->envp)
+	{
+		while (executor->envp[i])
+			free(executor->envp[i++]);
+		free(executor->envp);
+		executor->envp = NULL;
+	}
+	i = 0;
+	if (executor->paths)
+	{
+		while (executor->paths[i])
+			free(executor->paths[i++]);
+		free(executor->paths);
+		executor->paths = NULL;
 	}
 }

@@ -6,25 +6,27 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/19 11:57:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/20 13:00:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-char	*get_cmd_path(char **paths, char *cmd)
+char	*get_cmd_path(t_exe *executor, char *cmd, int i)
 {
-	int		index;
+	char	**envp;
+	char	**paths;
 	char	*path;
 
-	index = 0;
-	while (paths[index])
+	envp = convert_envp(executor);
+	paths = get_paths(envp);
+	while (paths[i])
 	{
-		path = join_three_strs(paths[index], NULL, cmd);
+		path = join_three_strs(paths[i], NULL, cmd);
 		if (access(path, F_OK) == 0)
 			return (path);
 		free(path);
-		index++;
+		i++;
 	}
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
@@ -33,24 +35,18 @@ char	*get_cmd_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-char	**ft_split_paths(char *whole_str)
+int	open_file(char *filename, int mode)
 {
-	char	**split_paths;
-	int		index;
-	char	*temp;
+	int	file;
 
-	index = 0;
-	split_paths = ft_split(whole_str, ':');
-	if (!split_paths)
-		error_exit("Malloc error");
-	while (split_paths[index])
-	{
-		temp = join_three_strs(split_paths[index], NULL, "/");
-		free(split_paths[index]);
-		split_paths[index] = temp;
-		index++;
-	}
-	split_paths[index] = NULL;
-	free(whole_str);
-	return (split_paths);
+	file = -1;
+	if (mode == APPEND)
+		file = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (mode == TRUNCATE)
+		file = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (mode == READ)
+		file = open(filename, O_RDONLY);
+	if (file < 0)
+		ft_error("File couldn't be opened\n", errno);
+	return (file);
 }

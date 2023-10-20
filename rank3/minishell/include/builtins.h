@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:11:28 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/19 13:52:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/20 13:45:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	echo(t_exe *executor, char **str);
 void	cd(t_exe *executor, char *path);
 void	empty_envp(t_exe *executor);
 void	print_env(t_exe *executor);
-void	exit_shell(void);
+void	exit_shell(t_exe *executor);
 void	init_envp(t_exe *executor, char **envp);
 
 int		find_envp_entry(t_exe *executor, char *name);
