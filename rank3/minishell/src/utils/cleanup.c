@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/24 14:00:09 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/25 00:02:30 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	free_cmds(t_exe *executor)
 		free(executor->commands[i]);
 		i++;
 	}
+	free(executor->commands);
 }
 
 void	free_envp(t_exe *executor)

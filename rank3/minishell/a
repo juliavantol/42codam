@@ -1,1 +1,8 @@
-drwxr-xr-x 7 juvan-to piscine     112 Oct 20 12:23 src
+total 248
+-rw-r--r--  1 Julia  staff    1982 Oct 24 19:03 Makefile
+-rw-r--r--  1 Julia  staff       0 Oct 24 19:04 a
+-rw-r--r--  1 Julia  staff    5096 Oct 24 17:56 chat
+drwxr-xr-x  8 Julia  staff     256 Oct 24 17:56 include
+-rwxr-xr-x  1 Julia  staff  113272 Oct 24 19:03 minishell
+drwxr-xr-x  9 Julia  staff     288 Oct 24 19:03 obj
+drwxr-xr-x  9 Julia  staff     288 Oct 24 17:56 src

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 13:38:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 18:56:56 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 	else if (ft_strcmp(name[0], "exit") == true)
 	{
 		empty_array(name);
-		exit_shell(executor, EXIT_FAILURE);
+		exit_shell(executor, EXIT_SUCCESS);
 	}
 	else
 	{

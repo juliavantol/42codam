@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/10/24 13:48:31 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/25 00:01:25 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,16 @@ void	reset_fd(t_exe *executor)
 	dup2(executor->old_fds[WRITE], WRITE);
 }
 
+void	leaks(void)
+{
+	system("leaks -s minishell");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_exe	executor;
 
+	atexit(leaks);
 	if (!proper_start(argc, argv))
 		return (EXIT_FAILURE);
 	// init_signal_handler();
