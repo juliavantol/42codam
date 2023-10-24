@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 11:16:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 13:02:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 {
 	char	**name;
 
+	return 
 	name = ft_split(command->command_name, ' ');
 	if (ft_strcmp(name[0], "pwd") == true)
 		printf("%s\n", executor->current_directory);
@@ -59,7 +60,7 @@ void	cd(t_exe *executor, char *path)
 
 	return_value = chdir(path);
 	if (return_value != 0)
-	{
+	{		check_builtin(executor, executor->commands[i]);
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
@@ -78,7 +79,7 @@ void	cd(t_exe *executor, char *path)
 void	exit_shell(t_exe *executor)
 {
 	empty_executor(executor);
-	exit(1);
+	exit(EXIT_SUCCESS);
 }
 
 void	echo(t_exe *executor, char **str)
@@ -100,7 +101,7 @@ void	echo(t_exe *executor, char **str)
 			printf("%s", value);
 		else
 			printf("%s", str[i]);
-		i++;
+		i++;		check_builtin(executor, executor->commands[i]);
 		if (str[i])
 			printf(" ");
 	}

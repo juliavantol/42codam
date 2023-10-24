@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/10/19 13:39:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 12:51:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	reset_fd(t_exe *executor)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
 	t_exe	executor;
 
 	if (!proper_start(argc, argv))
@@ -44,11 +43,11 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		reset_fd(&executor);
-		input = init_prompt("minishell$ ");
-		if (!input)
+		executor.input = init_prompt("minishell$ ");
+		if (!executor.input)
 			return (EXIT_SUCCESS);
-		temp_parser(&executor, input);
-		free(input);
+		temp_parser(&executor, executor.input);
+		free(executor.input);
 	}
 	empty_executor(&executor);
 }

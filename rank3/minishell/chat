@@ -1,3 +1,68 @@
+void	divide_command_in_redirections(t_cmd *node, char *command, int i)
+{
+	char		**cmd;
+	char		*temp;
+
+	cmd = ft_split(command, ' ');
+	while (cmd[i])
+	{
+		if (ft_strcmp(cmd[i], ">") && cmd[i + 1])
+		{
+			node->output_redirection = true;
+			add_node(&node->outputs, cmd[i + 1], TRUNCATE);
+			i++;
+		}
+		else if (ft_strcmp(cmd[i], ">>") && cmd[i + 1])
+		{
+			node->output_redirection = true;
+			add_node(&node->outputs, cmd[i + 1], APPEND);
+			i++;
+		}
+		else if (ft_strcmp(cmd[i], "<") && cmd[i + 1])
+		{
+			node->input_redirection = true;
+			add_node(&node->inputs, cmd[i + 1], READ);
+			i++;
+		}
+		else if (ft_strcmp(cmd[i], "<<") && cmd[i + 1])
+		{
+			node->input_redirection = true;
+			add_node(&node->inputs, cmd[i + 1], HEREDOC);
+			i++;
+		}
+		else
+		{
+			temp = ft_strdup(node->command_name);
+			free(node->command_name);
+			node->command_name = join_three_strs(temp, " ", cmd[i]);
+			free(temp);
+		}
+		i++;
+	}
+	empty_array(cmd);
+}
+
+void	make_command_structs(t_exe *executor, char **command_line_split)
+{
+	t_cmd	*node;
+	int		i;
+
+	i = 0;
+	while (command_line_split[i])
+	{
+		node = ft_malloc(sizeof(t_cmd));
+		node->command_name = ft_strdup("");
+		node->outputs = NULL;
+		node->inputs = NULL;
+		node->output_redirection = false;
+		node->input_redirection = false;
+		divide_command_in_redirections(node, command_line_split[i], 0);
+		executor->commands[i] = node;
+		i++;
+	}
+	executor->commands[i] = NULL;
+}
+
 void	temp_parser(t_exe *executor, char *input)
 {
 	char	**command_line_split;
@@ -8,35 +73,106 @@ void	temp_parser(t_exe *executor, char *input)
 	while (command_line_split[i] != NULL)
 		i++;
 	executor->command_count = i;
-	executor->current_directory = get_pwd();
+	executor->current_directory = NULL;
 	executor->commands = ft_malloc(sizeof(t_cmd *) * (i + 1));
 	executor->old_fds[0] = dup(READ);
-	executor->exit_code = 0;
 	executor->old_fds[1] = dup(WRITE);
+	executor->exit_code = 0;
 	make_command_structs(executor, command_line_split);
 	empty_array(command_line_split);
 	start_executor(executor, 0);
 }
 
-int	main(int argc, char **argv, char **envp)
+t_filenames	*last_node(t_filenames *filename)
 {
-	char	*input;
-	t_exe	executor;
+	t_filenames	*temp;
 
-	if (!proper_start(argc, argv))
-		return (EXIT_FAILURE);
-	// init_signal_handler();
-	init_executor(&executor, envp);
-	while (1)
+	temp = filename;
+	if (filename != NULL)
 	{
-		reset_fd(&executor);
-		input = init_prompt("minishell$ ");
-		if (!input)
-			return (EXIT_SUCCESS);
-		temp_parser(&executor, input);
-		free(input);
+		while (temp->next != NULL)
+			temp = temp->next;
 	}
-	empty_executor(&executor);
+	return (temp);
+}
+
+t_filenames	*new_node(char *name, int mode)
+{
+	t_filenames	*node;
+
+	node = malloc(sizeof(t_filenames));
+	if (node == NULL)
+		return (NULL);
+	if (name == NULL)
+		node->filename = NULL;
+	else
+		node->filename = ft_strdup(name);
+	node->mode = mode;
+	node->next = NULL;
+	return (node);
+}
+
+void	add_node(t_filenames **filenames, char *name, int mode)
+{
+	t_filenames	*last;
+	t_filenames	*new;
+
+	new = new_node(name, mode);
+	if (*filenames != NULL && new != NULL)
+	{
+		last = last_node(*filenames);
+		last->next = new;
+	}
+	else
+		*filenames = new;
+}
+
+void	start_executor(t_exe *executor, int i)
+{
+	while (i < executor->command_count)
+	{
+		check_builtin(executor, executor->commands[i]);
+		// if (!check_builtin(executor, executor->commands[i]))
+		// {
+		// 	if (i < executor->command_count - 1)
+		// 		handle_command(executor, executor->commands[i]);
+		// 	else
+		// 		last_command(executor, executor->commands[i]);
+		// }
+		i++;
+	}
+	free_cmds(executor);
+}
+
+bool	check_builtin(t_exe *executor, t_cmd *command)
+{
+	char	**name;
+
+	name = ft_split(command->command_name, ' ');
+	if (ft_strcmp(name[0], "pwd") == true)
+		printf("%s\n", executor->current_directory);
+	else if (ft_strcmp(name[0], "echo") == true)
+		exit(1);
+	else if (ft_strcmp(name[0], "env") == true)
+		print_env(executor);
+	else if (ft_strcmp(name[0], "cd") == true)
+		cd(executor, name[1]);
+	else if (ft_strcmp(name[0], "export") == true)
+		export(executor, name[1], name[2]);
+	else if (ft_strcmp(name[0], "unset") == true)
+		unset(executor, name[1]);
+	else if (ft_strcmp(name[0], "exit") == true)
+	{
+		empty_array(name);
+		exit_shell(executor);
+	}
+	else
+	{
+		empty_array(name);
+		return (false);
+	}
+	empty_array(name);
+	return (true);
 }
 
 void	empty_array(char **arr)
@@ -102,11 +238,7 @@ void	empty_executor(t_exe *executor)
 {
 	int	i;
 
-	return ;
-	free(executor->current_directory);
-	free_cmds(executor);
-	free(executor->commands);
-	free_envp(executor->envp_list);
+	// // free(executor->current_directory);
 	i = 0;
 	if (executor->envp)
 	{
@@ -119,128 +251,11 @@ void	empty_executor(t_exe *executor)
 	if (executor->paths)
 	{
 		while (executor->paths[i])
-			free(executor->paths[i++]);
+		{
+			free(executor->paths[i]);
+			i++;
+		}
 		free(executor->paths);
 		executor->paths = NULL;
-	}
-}
-
-bool	check_builtin(t_exe *executor, t_cmd *command)
-{
-	char	**name;
-
-	name = ft_split(command->command_name, ' ');
-	if (ft_strcmp(name[0], "pwd") == true)
-		printf("%s\n", executor->current_directory);
-	else if (ft_strcmp(name[0], "echo") == true)
-		exit(1);
-	else if (ft_strcmp(name[0], "env") == true)
-		print_env(executor);
-	else if (ft_strcmp(name[0], "cd") == true)
-		cd(executor, name[1]);
-	else if (ft_strcmp(name[0], "export") == true)
-		export(executor, name[1], name[2]);
-	else if (ft_strcmp(name[0], "unset") == true)
-		unset(executor, name[1]);
-	else if (ft_strcmp(name[0], "exit") == true)
-	{
-		empty_array(name);
-		exit_shell(executor);
-	}
-	else
-	{
-		empty_array(name);
-		return (false);
-	}
-	empty_array(name);
-	return (true);
-}
-
-char	*get_pwd(void)
-{
-	char	*path;
-
-	path = ft_malloc(PATH_MAX + 1);
-	getcwd(path, PATH_MAX + 1);
-	return (path);
-}
-
-void	run_command(t_exe *executor, t_cmd *command)
-{
-	char	*path;
-	char	**cmd;
-
-	cmd = ft_split(command->command_name, ' ');
-	path = get_cmd_path(executor, cmd[0], 0);
-	if (!path)
-		error_exit("Command not found");
-	if (execve(path, cmd, convert_envp(executor)) == -1)
-		error_exit("Execve error");
-}
-
-void	last_command(t_exe *executor, t_cmd *command)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid < 0)
-		error_exit("Error with fork");
-	if (pid == 0)
-	{
-		redirect_input(command);
-		redirect_output(command);
-		run_command(executor, command);
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		dup2(executor->old_fds[WRITE], WRITE);
-		waitpid(pid, &executor->status, 0);
-		if (WIFEXITED(executor->status))
-			executor->exit_code = WEXITSTATUS(executor->status);
-	}
-}
-
-void	handle_command(t_exe *executor, t_cmd *command)
-{
-	pid_t	pid;
-
-	if (pipe(executor->fds) < 0)
-		error_exit("Error with opening the pipe");
-	pid = fork();
-	if (pid < 0)
-		error_exit("Error with fork");
-	if (pid == 0)
-	{
-		redirect_input(command);
-		redirect_output(command);
-		close(executor->fds[READ]);
-		if (!command->output_redirection)
-			dup2(executor->fds[WRITE], WRITE);
-		run_command(executor, command);
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		waitpid(pid, &executor->status, 0);
-		if (WIFEXITED(executor->status))
-			executor->exit_code = WEXITSTATUS(executor->status);
-		close(executor->fds[WRITE]);
-		dup2(executor->fds[READ], READ);
-	}
-}
-
-void	start_executor(t_exe *executor, int i)
-{
-	while (i < executor->command_count)
-	{
-		if (!check_builtin(executor, executor->commands[i]))
-		{
-			if (i < executor->command_count - 1)
-				handle_command(executor, executor->commands[i]);
-			else
-				last_command(executor, executor->commands[i]);
-		}
-		i++;
 	}
 }

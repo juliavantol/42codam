@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 11:29:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 12:59:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_exe
 	int				old_fds[2];
 	int				fds[2];
 	char			*current_directory;
+	char			*input;
 	char			**envp;
 	char			**paths;
 	t_envp			*envp_list;
@@ -90,6 +91,8 @@ int		search_newline(char *s);
 bool	ft_strcmp(char *s1, char *s2);
 void	add_node(t_filenames **filenames, char *name, int mode);
 void	free_cmds(t_exe *executor);
+void	exit_shell(t_exe *executor);
+void	free_command(t_cmd	*command);
 char	*get_pwd(void);
 
 #endif
