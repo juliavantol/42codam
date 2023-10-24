@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/25 00:02:30 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/25 00:06:45 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,6 @@ void	free_filenames(t_filenames *list)
 		free(temp->filename);
 		free(temp);
 	}
-}
-
-void	free_command(t_cmd	*command)
-{
-	free(command->command_name);
-	// free_filenames(command->inputs);
-	// free_filenames(command->outputs);
 }
 
 void	free_cmds(t_exe *executor)
@@ -95,5 +88,4 @@ void	empty_executor(t_exe *executor)
 	free_envp(executor);
 	print_env(executor);
 	empty_array(executor->paths);
-	// empty_array(executor->envp);
 }
