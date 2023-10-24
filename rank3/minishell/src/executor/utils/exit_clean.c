@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/23 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/20 12:25:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 13:39:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	cmd_error(char *cmd)
 	if (!error_msg)
 		error_exit("Malloc error");
 	ft_putstr_fd(error_msg, 2);
+	free(error_msg);
 }
 
 void	error_exit(char *msg)

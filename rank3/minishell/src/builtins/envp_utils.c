@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 23:06:59 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/20 12:36:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 13:33:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ char	**ft_split_paths(char *whole_str)
 
 char	**get_paths(char **envp)
 {
-	char	*paths;
+	char	*temp;
 	char	**split_paths;
 
 	while (*envp && !ft_strnstr(*envp, "PATH=", 5))
 		envp++;
-	paths = ft_substr(*envp, 5, ft_strlen(*envp) - 5);
-	if (!paths)
+	temp = ft_substr(*envp, 5, ft_strlen(*envp) - 5);
+	if (!temp)
 		return (NULL);
-	split_paths = ft_split_paths(paths);
+	split_paths = ft_split_paths(temp);
 	return (split_paths);
 }

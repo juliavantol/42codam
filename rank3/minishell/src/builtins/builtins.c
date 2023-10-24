@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 13:02:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 13:38:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 {
 	char	**name;
 
-	return 
 	name = ft_split(command->command_name, ' ');
 	if (ft_strcmp(name[0], "pwd") == true)
 		printf("%s\n", executor->current_directory);
@@ -33,7 +32,7 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 	else if (ft_strcmp(name[0], "exit") == true)
 	{
 		empty_array(name);
-		exit_shell(executor);
+		exit_shell(executor, EXIT_FAILURE);
 	}
 	else
 	{
@@ -60,7 +59,7 @@ void	cd(t_exe *executor, char *path)
 
 	return_value = chdir(path);
 	if (return_value != 0)
-	{		check_builtin(executor, executor->commands[i]);
+	{
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
@@ -76,10 +75,10 @@ void	cd(t_exe *executor, char *path)
 	}
 }
 
-void	exit_shell(t_exe *executor)
+void	exit_shell(t_exe *executor, int code)
 {
 	empty_executor(executor);
-	exit(EXIT_SUCCESS);
+	exit(code);
 }
 
 void	echo(t_exe *executor, char **str)
