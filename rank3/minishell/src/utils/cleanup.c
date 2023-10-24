@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/20 14:21:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 11:38:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,23 @@ void	empty_executor(t_exe *executor)
 {
 	int	i;
 
-	free_cmds(executor);
-	free(executor->commands);
-	free_envp(executor->envp_list);
-	i = 0;
-	if (executor->envp)
-	{
-		while (executor->envp[i])
-			free(executor->envp[i++]);
-		free(executor->envp);
-		executor->envp = NULL;
-	}
+	// // free(executor->current_directory);
+	// i = 0;
+	// if (executor->envp)
+	// {
+	// 	while (executor->envp[i])
+	// 		free(executor->envp[i++]);
+	// 	free(executor->envp);
+	// 	executor->envp = NULL;
+	// }
 	i = 0;
 	if (executor->paths)
 	{
 		while (executor->paths[i])
-			free(executor->paths[i++]);
+		{
+			free(executor->paths[i]);
+			i++;
+		}
 		free(executor->paths);
 		executor->paths = NULL;
 	}

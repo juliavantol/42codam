@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/20 13:00:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 11:38:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,5 @@ void	start_executor(t_exe *executor, int i)
 		}
 		i++;
 	}
+	free_cmds(executor);
 }

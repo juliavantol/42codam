@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/20 13:00:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 11:29:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		search_newline(char *s);
 
 bool	ft_strcmp(char *s1, char *s2);
 void	add_node(t_filenames **filenames, char *name, int mode);
-
+void	free_cmds(t_exe *executor);
 char	*get_pwd(void);
 
 #endif

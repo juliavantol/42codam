@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 07:25:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/15 14:59:12 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/24 11:37:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*join_three_strs(char *s1, char *s2, char *s3)
 	char	*output;
 
 	i = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	output = ft_malloc(sizeof(char) * (i + 1));
+	output = ft_malloc(sizeof(char) * (i + 2));
 	i = 0;
 	j = 0;
 	while (s1[i])
