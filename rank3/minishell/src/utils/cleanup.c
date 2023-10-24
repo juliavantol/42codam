@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/24 13:36:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 14:00:09 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,35 @@ void	free_cmds(t_exe *executor)
 	}
 }
 
-void	free_envp(t_envp *list)
+void	free_envp(t_exe *executor)
 {
+	t_envp	*head;
 	t_envp	*temp;
 
-	while (list != NULL)
+	if (executor->envp_list == NULL)
+		return ;
+	head = executor->envp_list;
+	while (head != NULL)
 	{
-		temp = list;
-		list = list->next;
+		temp = head;
+		head = head->next;
 		free(temp->key);
 		free(temp->value);
+		temp->key = NULL;
+		temp->value = NULL;
 		free(temp);
+		temp = NULL;
 	}
+	free(head);
+	executor->envp_list = NULL;
 }
 
 void	empty_executor(t_exe *executor)
 {
 	free(executor->input);
 	free_cmds(executor);
-	free_envp(executor->envp_list);
+	free_envp(executor);
+	print_env(executor);
 	empty_array(executor->paths);
 	// empty_array(executor->envp);
 }

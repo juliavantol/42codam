@@ -6,28 +6,30 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/24 13:39:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 13:45:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-char	*get_cmd_path(t_exe *executor, char *cmd, int i)
+char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 {
-	char	**envp;
 	char	**paths;
 	char	*path;
 
-	envp = convert_envp(executor);
 	paths = get_paths(envp);
 	while (paths[i])
 	{
 		path = join_three_strs(paths[i], NULL, cmd);
 		if (access(path, F_OK) == 0)
+		{
+			empty_array(paths);
 			return (path);
+		}
 		free(path);
 		i++;
 	}
+	empty_array(paths);
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	cmd_error(cmd);

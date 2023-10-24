@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:54:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 13:34:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 13:53:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	print_env(t_exe *executor)
 {
 	t_envp	*head;
 
+	if (executor->envp_list == NULL)
+		return ;
 	head = executor->envp_list;
 	while (head != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 13:38:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/24 13:49:59 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	cmd_error(char *cmd);
 bool	check_builtin(t_exe *executor, t_cmd *command);
 char	**convert_envp(t_exe *executor);
 
-char	*get_cmd_path(t_exe *executor, char *cmd, int i);
+char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i);
 char	**ft_split_paths(char *whole_str);
 char	**get_paths(char **envp);
 char	**ft_split_args(char *s);
@@ -92,5 +92,7 @@ void	free_cmds(t_exe *executor);
 void	exit_shell(t_exe *executor, int code);
 void	free_command(t_cmd	*command);
 char	*get_pwd(void);
+
+void	print_env(t_exe *executor);
 
 #endif
