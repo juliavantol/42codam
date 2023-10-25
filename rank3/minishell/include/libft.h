@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 13:37:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 13:26:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/25 17:03:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	*ft_calloc(int nelem, int elsize);
 void	ft_putstr_fd(char *s, int fd);
 void	*ft_malloc(size_t size);
 
-int		execute_cmd(int argc, char *argv[], char **envp);
 int		ft_strncmp(const char *s1, const char *s2, int n);
 int		ft_strlen(const char *s);
 

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 18:56:56 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/25 17:44:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 	return (true);
 }
 
-char	*get_pwd(void)
+char	*get_current_directory(void)
 {
 	char	*path;
 
@@ -67,11 +67,10 @@ void	cd(t_exe *executor, char *path)
 	}
 	else
 	{
-		pwd = ft_malloc(PATH_MAX + 1);
-		getcwd(pwd, PATH_MAX + 1);
+		free(executor->current_directory);
+		pwd = get_current_directory();
 		executor->current_directory = pwd;
 		export(executor, "PWD", pwd);
-		free(pwd);
 	}
 }
 
@@ -100,7 +99,7 @@ void	echo(t_exe *executor, char **str)
 			printf("%s", value);
 		else
 			printf("%s", str[i]);
-		i++;		check_builtin(executor, executor->commands[i]);
+		i++;
 		if (str[i])
 			printf(" ");
 	}

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:54:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 13:53:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/25 17:48:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	export(t_exe *executor, char *key, char *value)
 	{
 		if (ft_strcmp(head->key, key))
 		{
+			free(head->value);
 			head->value = ft_strdup(value);
 			return ;
 		}

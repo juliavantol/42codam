@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/25 17:24:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/25 17:04:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,9 @@
 # include "executor.h"
 # include "signals.h"
 
-bool	proper_start(int argc, char **argv);
-bool	valid_input(const char *input);
 char	*init_prompt(const char *prompt);
 
-char	**new_envp(char **old_envp, int size, int skip_index);
-void	ft_error(char *msg, int err_code);
+bool	proper_start(int argc, char **argv);
+bool	valid_input(const char *input);
 
 #endif
