@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 18:52:53 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/25 16:25:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,8 @@ void	start_executor(t_exe *executor, int i)
 		}
 		i++;
 	}
+	dup2(executor->old_fds[READ], READ);
+	dup2(executor->old_fds[WRITE], WRITE);
 	free_cmds(executor);
+	
 }

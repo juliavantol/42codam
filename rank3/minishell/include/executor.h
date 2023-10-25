@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/24 13:49:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/25 14:42:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ void	free_command(t_cmd	*command);
 char	*get_pwd(void);
 
 void	print_env(t_exe *executor);
+void	reset_fd(t_exe *executor);
 
 #endif

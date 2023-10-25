@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/24 12:37:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/25 15:55:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,7 @@ void	temp_parser(t_exe *executor, char *input)
 	while (command_line_split[i] != NULL)
 		i++;
 	executor->command_count = i;
-	executor->current_directory = NULL;
 	executor->commands = ft_malloc(sizeof(t_cmd *) * (i + 1));
-	executor->old_fds[0] = dup(READ);
-	executor->old_fds[1] = dup(WRITE);
-	executor->exit_code = 0;
 	make_command_structs(executor, command_line_split);
 	empty_array(command_line_split);
 	start_executor(executor, 0);
