@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/25 17:24:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/27 02:31:40 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,26 @@ void	free_filenames(t_filenames *list)
 
 void	free_command_list(t_exe *executor)
 {
-	int	i;
+	t_cmd	*head;
+	t_cmd	*temp;
 
-	i = 0;
-	while (i < executor->command_count)
+	if (executor->commands_list == NULL)
+		return ;
+	head = executor->commands_list;
+	while (head != NULL)
 	{
-		if (executor->commands[i]->command_name != NULL)
-			free(executor->commands[i]->command_name);
-		if (executor->commands[i]->outputs != NULL)
-			free_filenames(executor->commands[i]->outputs);
-		if (executor->commands[i]->inputs != NULL)
-			free_filenames(executor->commands[i]->inputs);
-		free(executor->commands[i]);
-		i++;
+		temp = head;
+		head = head->next;
+		free(temp->command_name);
+		temp->command_name = NULL;
+		if (temp->outputs != NULL)
+			free_filenames(temp->outputs);
+		if (temp->inputs != NULL)
+			free_filenames(temp->inputs);
+		free(temp);
+		temp = NULL;
 	}
-	free(executor->commands);
+	executor->commands_list = NULL;
 }
 
 void	free_envp_list(t_exe *executor)

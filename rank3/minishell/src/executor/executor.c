@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/25 16:50:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/27 02:31:44 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,19 @@ void	handle_command(t_exe *executor, t_cmd *command)
 
 void	start_executor(t_exe *executor, int i)
 {
-	while (i < executor->command_count)
+	t_cmd	*head;
+
+	head = executor->commands_list;
+	while (head != NULL)
 	{
-		if (!check_builtin(executor, executor->commands[i]))
+		if (!check_builtin(executor, head))
 		{
 			if (i < executor->command_count - 1)
-				handle_command(executor, executor->commands[i]);
+				handle_command(executor, head);
 			else
-				last_command(executor, executor->commands[i]);
+				last_command(executor, head);
 		}
+		head = head->next;
 		i++;
 	}
 	dup2(executor->old_fds[READ], READ);
