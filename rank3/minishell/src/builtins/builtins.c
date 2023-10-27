@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/27 14:56:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/27 15:08:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 	if (ft_strcmp(name[0], "pwd") == true)
 		printf("%s\n", executor->current_directory);
 	else if (ft_strcmp(name[0], "echo") == true)
-		echo(executor, command);
+		echo(executor, command, 1);
 	else if (ft_strcmp(name[0], "env") == true)
 		print_env(executor);
 	else if (ft_strcmp(name[0], "cd") == true)
@@ -80,15 +80,13 @@ void	exit_shell(t_exe *executor, int code)
 	exit(code);
 }
 
-void	echo(t_exe *executor, t_cmd *command)
+void	echo(t_exe *executor, t_cmd *command, int i)
 {
 	char	**str;
 	char	*value;
 	bool	newline;
-	int		i;
 
 	str = ft_split(command->command_name, ' ');
-	i = 1;
 	newline = true;
 	while (detact_newline_flag(str[i]))
 		i++;

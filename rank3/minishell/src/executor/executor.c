@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/27 02:31:44 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/27 15:07:09 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	run_command(t_exe *executor, t_cmd *command)
 	char	**envp;
 	char	**cmd;
 
-	envp = convert_envp(executor);
+	envp = convert_envp_to_char(executor);
 	cmd = ft_split(command->command_name, ' ');
 	path = get_cmd_path(executor, cmd[0], envp, 0);
 	if (!path)

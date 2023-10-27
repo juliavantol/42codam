@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   builtins_utils.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 02:06:06 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/20 13:04:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/27 15:07:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	envp_size(t_exe *executor)
 	return (len);
 }
 
-char	**convert_envp(t_exe *executor)
+char	**convert_envp_to_char(t_exe *executor)
 {
 	char	**envp;
 	char	*temp;

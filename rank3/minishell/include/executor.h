@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/27 02:31:59 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/27 15:40:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ void	cmd_error(char *cmd);
 
 char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i);
 char	**ft_split_paths(char *whole_str);
-char	**convert_envp(t_exe *executor);
+char	**convert_envp_to_char(t_exe *executor);
+char	*get_current_directory(void);
 char	**get_paths(char **envp);
 char	**ft_split_args(char *s);
 char	*get_next_line(int fd);
 char	**manual_envp(void);
-char	*get_current_directory(void);
 
 int		open_file(char *filename, int mode);
 int		search_newline(char *s);
