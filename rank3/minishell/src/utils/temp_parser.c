@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/27 02:21:04 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/30 21:38:19 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	temp_parser(t_exe *executor, char *input)
 	while (command_line_split[i])
 		add_command_node(&executor->commands_list, command_line_split[i++]);
 	executor->command_count = i;
+	executor->index = 0;
 	empty_array(command_line_split);
-	start_executor(executor, 0);
+	start_executor(executor);
 }

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/27 15:40:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/30 21:35:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_exe
 	int				exit_code;
 	int				old_fds[2];
 	int				fds[2];
+	int				index;
 	int				status;
 	char			*current_directory;
 	char			*input;
@@ -69,12 +70,12 @@ void	divide_command_in_redirections(t_cmd *node, char *command, int i);
 void	add_node(t_filenames **filenames, char *name, int mode);
 void	init_executor(t_exe *executor, char **envp);
 void	temp_parser(t_exe *executor, char *input);
-void	start_executor(t_exe *executor, int i);
 void	exit_shell(t_exe *executor, int code);
 void	free_command_list(t_exe *executor);
 void	ft_error(char *msg, int err_code);
 void	redirect_output(t_cmd *command);
 void	empty_executor(t_exe *executor);
+void	start_executor(t_exe *executor);
 void	redirect_input(t_cmd *command);
 void	print_env(t_exe *executor);
 void	empty_array(char **arr);

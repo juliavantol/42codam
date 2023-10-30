@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/30 21:20:55 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/30 21:35:33 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	handle_command(t_exe *executor, t_cmd *command)
 	}
 }
 
-void	start_executor(t_exe *executor, int i)
+void	start_executor(t_exe *executor)
 {
 	t_cmd	*head;
 
@@ -90,13 +90,13 @@ void	start_executor(t_exe *executor, int i)
 	{
 		if (!check_builtin(executor, head))
 		{
-			if (i < executor->command_count - 1)
+			if (executor->index < executor->command_count - 1)
 				handle_command(executor, head);
 			else
 				last_command(executor, head);
 		}
 		head = head->next;
-		i++;
+		(executor->index)++;
 	}
 	dup2(executor->old_fds[READ], READ);
 	dup2(executor->old_fds[WRITE], WRITE);
