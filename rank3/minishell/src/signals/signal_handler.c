@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/21 15:48:34 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/27 15:09:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/27 21:51:35 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	signal_handler(int signal_num)
 {
 	printf("\n");
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	// rl_replace_line("", 0);
 	rl_redisplay();
 	(void) signal_num;
 }
