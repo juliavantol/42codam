@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/31 13:03:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/01 00:28:49 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_filenames
 typedef struct s_cmd
 {
 	char			*command_name;
+	char			**command_split;
 	bool			output_redirection;
 	bool			input_redirection;
 	t_filenames		*outputs;

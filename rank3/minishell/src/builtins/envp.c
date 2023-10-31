@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:54:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/31 14:26:57 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/01 00:29:23 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	prepare_export(t_exe *executor, t_cmd *command)
 	char	**name;
 
 	name = ft_split(command->command_name, ' ');
-	// export(executor, name[1], name[2]);
+	export(executor, name[1], name[2]);
 	empty_array(name);
 }
 

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/30 21:38:19 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/01 00:34:10 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	divide_command_in_redirections(t_cmd *node, char *command, int i)
 	char		*temp;
 
 	cmd = ft_split(command, ' ');
+	node->command_split = cmd;
 	while (cmd[i])
 	{
 		if (ft_strcmp(cmd[i], ">") && cmd[i + 1])
@@ -54,7 +55,6 @@ void	divide_command_in_redirections(t_cmd *node, char *command, int i)
 		}
 		i++;
 	}
-	empty_array(cmd);
 }
 
 void	temp_parser(t_exe *executor, char *input)
