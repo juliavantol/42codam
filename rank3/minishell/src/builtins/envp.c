@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:54:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/25 17:48:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/31 13:10:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_envp(t_exe *executor, char **envp)
 	executor->paths = get_paths(envp);
 }
 
-void	print_env(t_exe *executor)
+void	print_env(t_exe *executor, t_cmd *command)
 {
 	t_envp	*head;
 
@@ -48,6 +48,7 @@ void	print_env(t_exe *executor)
 		printf("%s=%s\n", head->key, head->value);
 		head = head->next;
 	}
+	(void)command;
 }
 
 void	export(t_exe *executor, char *key, char *value)

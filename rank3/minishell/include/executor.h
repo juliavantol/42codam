@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/30 21:35:46 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/31 13:03:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define APPEND 1
 # define TRUNCATE 2
 # define HEREDOC 3
+
+typedef struct s_builtins	t_builtins;
 
 typedef struct s_filenames
 {
@@ -61,9 +63,16 @@ typedef struct s_exe
 	char			*current_directory;
 	char			*input;
 	char			**paths;
+	t_builtins		*builtins;
 	t_cmd			*commands_list;
 	t_envp			*envp_list;
 }	t_exe;
+
+typedef struct s_builtins
+{
+	char	*command;
+	void	(*function)(t_exe *, t_cmd *);
+}	t_builtins;
 
 void	add_command_node(t_cmd **commands, char *command_line_split);
 void	divide_command_in_redirections(t_cmd *node, char *command, int i);
@@ -77,7 +86,6 @@ void	redirect_output(t_cmd *command);
 void	empty_executor(t_exe *executor);
 void	start_executor(t_exe *executor);
 void	redirect_input(t_cmd *command);
-void	print_env(t_exe *executor);
 void	empty_array(char **arr);
 void	error_exit(char *msg);
 void	cmd_error(char *cmd);

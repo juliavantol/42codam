@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/30 21:36:39 by Julia         ########   odam.nl         */
+/*   Updated: 2023/10/31 13:19:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 bool	check_builtin(t_exe *executor, t_cmd *command)
 {
 	char	**name;
+	int		index;
 
 	name = ft_split(command->command_name, ' ');
+	index = 0;
+	while (name[index])
+	{
+		if (ft_strcmp(name[index], executor->builtins[index].command))
+		{
+			executor->builtins[index].function(executor, command);
+			return (true);
+		}
+		index++;
+	}
 	if (ft_strcmp(name[0], "pwd") == true)
 		printf("%s\n", executor->current_directory);
-	else if (ft_strcmp(name[0], "echo") == true)
-		echo(executor, command, 1);
-	else if (ft_strcmp(name[0], "env") == true)
-		print_env(executor);
-	else if (ft_strcmp(name[0], "cd") == true)
-		cd(executor, name[1]);
-	else if (ft_strcmp(name[0], "export") == true)
-		export(executor, name[1], name[2]);
 	else if (ft_strcmp(name[0], "unset") == true)
 		unset(executor, name[1]);
 	else if (ft_strcmp(name[0], "exit") == true &&
@@ -53,16 +56,18 @@ char	*get_current_directory(void)
 	return (path);
 }
 
-void	cd(t_exe *executor, char *path)
+void	cd(t_exe *executor, t_cmd *command)
 {
 	int		return_value;
+	char	**path;
 	char	*pwd;
 
-	return_value = chdir(path);
+	path = ft_split(command->command_name, ' ');
+	return_value = chdir(path[1]);
 	if (return_value != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putstr_fd(path[1], STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 		perror("");
 	}
@@ -73,6 +78,13 @@ void	cd(t_exe *executor, char *path)
 		executor->current_directory = pwd;
 		export(executor, "PWD", pwd);
 	}
+	empty_array(path);
+}
+
+void	print_current_directory(t_exe *executor, t_cmd *command)
+{
+	printf("%s\n", executor->current_directory);
+	(void)command;
 }
 
 void	exit_shell(t_exe *executor, int code)
@@ -81,12 +93,14 @@ void	exit_shell(t_exe *executor, int code)
 	exit(code);
 }
 
-void	echo(t_exe *executor, t_cmd *command, int i)
+void	echo(t_exe *executor, t_cmd *command)
 {
 	char	**str;
+	int		i;
 	char	*value;
 	bool	newline;
 
+	i = 1;
 	str = ft_split(command->command_name, ' ');
 	newline = true;
 	while (detact_newline_flag(str[i]))
