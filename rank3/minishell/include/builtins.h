@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:11:28 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/31 13:11:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/31 14:05:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 # include "executor.h"
 # include "libft.h"
 
+void	print_current_directory(t_exe *executor, t_cmd *command);
 void	add_node_envp(t_envp **envp, char *key, char *value);
+void	prepare_export(t_exe *executor, t_cmd *command);
+void	prepare_unset(t_exe *executor, t_cmd *command);
 void	export(t_exe *executor, char *key, char *value);
 void	print_env(t_exe *executor, t_cmd *command);
 void	init_envp(t_exe *executor, char **envp);

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:54:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/31 13:10:21 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/10/31 14:04:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,24 @@ void	print_env(t_exe *executor, t_cmd *command)
 		head = head->next;
 	}
 	(void)command;
+}
+
+void	prepare_export(t_exe *executor, t_cmd *command)
+{
+	char	**name;
+
+	name = ft_split(command->command_name, ' ');
+	export(executor, name[1], name[2]);
+	empty_array(name);
+}
+
+void	prepare_unset(t_exe *executor, t_cmd *command)
+{
+	char	**name;
+
+	name = ft_split(command->command_name, ' ');
+	unset(executor, name[1]);
+	empty_array(name);
 }
 
 void	export(t_exe *executor, char *key, char *value)
