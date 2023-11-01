@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/01 00:34:54 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/01 14:11:16 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,21 @@
 
 bool	check_builtin(t_exe *executor, t_cmd *command)
 {
-	char	**name;
-	int		index;
+	int	i;
 
-	index = 0;
-	name = ft_split(command->command_name, ' ');
-	while (executor->builtins[index].command)
+	i = 0;
+	while (executor->builtins[i].command)
 	{
-		if (ft_strcmp(name[0], executor->builtins[index].command))
+		if (ft_strcmp(command->split[0], executor->builtins[i].command))
 		{
-			executor->builtins[index].function(executor, command);
+			executor->builtins[i].function(executor, command);
 			return (true);
 		}
-		index++;
+		i++;
 	}
-	if (ft_strcmp(name[0], "exit")
+	if (ft_strcmp(command->split[0], "exit")
 		&& executor->index == executor->command_count - 1)
-	{
-		empty_array(name);
 		exit_shell(executor, EXIT_SUCCESS);
-	}
-	empty_array(name);
 	return (false);
 }
 

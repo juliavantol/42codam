@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/27 02:31:40 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/01 14:10:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	free_command_list(t_exe *executor)
 	{
 		temp = head;
 		head = head->next;
+		empty_array(temp->split);
+		temp->split = NULL;
 		free(temp->command_name);
 		temp->command_name = NULL;
 		if (temp->outputs != NULL)

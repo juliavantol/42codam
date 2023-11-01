@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:54:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/01 00:29:23 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/01 14:09:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,17 @@ void	print_env(t_exe *executor, t_cmd *command)
 
 void	prepare_export(t_exe *executor, t_cmd *command)
 {
-	char	**name;
+	char	**split_temp;
+	int		index;
 
-	name = ft_split(command->command_name, ' ');
-	export(executor, name[1], name[2]);
-	empty_array(name);
-}
-
-void	prepare_unset(t_exe *executor, t_cmd *command)
-{
-	char	**name;
-
-	name = ft_split(command->command_name, ' ');
-	unset(executor, name[1]);
-	empty_array(name);
+	index = 1;
+	while (command->split[index])
+	{
+		split_temp = ft_split(command->split[index], '=');
+		export(executor, split_temp[0], split_temp[1]);
+		empty_array(split_temp);
+		index++;
+	}
 }
 
 void	export(t_exe *executor, char *key, char *value)
@@ -85,6 +82,15 @@ void	export(t_exe *executor, char *key, char *value)
 		head = head->next;
 	}
 	add_node_envp(&executor->envp_list, key, value);
+}
+
+void	prepare_unset(t_exe *executor, t_cmd *command)
+{
+	char	**name;
+
+	name = ft_split(command->command_name, ' ');
+	unset(executor, name[1]);
+	empty_array(name);
 }
 
 void	unset(t_exe *executor, char *key)
