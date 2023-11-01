@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 13:16:39 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/31 14:23:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/01 14:25:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_executor(t_exe *executor, char **envp)
 	builtins[2] = (t_builtins){"cd", &cd};
 	builtins[3] = (t_builtins){"pwd", &print_current_directory};
 	builtins[4] = (t_builtins){"export", &prepare_export};
-	builtins[5] = (t_builtins){"unset", &prepare_unset};
+	builtins[5] = (t_builtins){"unset", &unset};
 	builtins[6] = (t_builtins){NULL, NULL};
 	executor->builtins = builtins;
 	init_envp(executor, envp);
