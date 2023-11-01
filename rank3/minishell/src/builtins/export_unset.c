@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/01 14:27:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/01 14:28:09 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/01 18:51:54 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,19 @@ void	export(t_exe *executor, char *key, char *value)
 	add_node_envp(&executor->envp_list, key, value);
 }
 
-void	unset(t_exe *executor, t_cmd *command)
+void	prepare_unset(t_exe *executor, t_cmd *command)
+{
+	int		index;
+
+	index = 1;
+	while (command->split[index])
+	{
+		unset(executor, command->split[index]);
+		index++;
+	}
+}
+
+void	unset(t_exe *executor, char *key)
 {
 	t_envp	*head;
 	t_envp	*prev;
@@ -54,7 +66,7 @@ void	unset(t_exe *executor, t_cmd *command)
 	prev = NULL;
 	while (head != NULL)
 	{
-		if (ft_strcmp(head->key, command->split[1]))
+		if (ft_strcmp(head->key, key))
 		{
 			if (prev == NULL)
 				executor->envp_list = head->next;

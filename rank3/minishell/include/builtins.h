@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:11:28 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/01 14:24:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/01 18:51:07 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	prepare_unset(t_exe *executor, t_cmd *command);
 void	export(t_exe *executor, char *key, char *value);
 void	print_env(t_exe *executor, t_cmd *command);
 void	init_envp(t_exe *executor, char **envp);
-void	unset(t_exe *executor, t_cmd *command);
+void	unset(t_exe *executor, char *key);
 void	echo(t_exe *executor, t_cmd *command);
 void	cd(t_exe *executor, t_cmd *command);
 
