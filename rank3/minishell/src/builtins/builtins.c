@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/01 14:11:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/01 14:14:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ char	*get_current_directory(void)
 void	cd(t_exe *executor, t_cmd *command)
 {
 	int		return_value;
-	char	**path;
+	char	*path;
 	char	*pwd;
 
-	path = ft_split(command->command_name, ' ');
-	return_value = chdir(path[1]);
+	path = command->split[1];
+	return_value = chdir(path);
 	if (return_value != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-		ft_putstr_fd(path[1], STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 		perror("");
 	}
@@ -63,7 +63,6 @@ void	cd(t_exe *executor, t_cmd *command)
 		executor->current_directory = pwd;
 		export(executor, "PWD", pwd);
 	}
-	empty_array(path);
 }
 
 void	print_current_directory(t_exe *executor, t_cmd *command)
@@ -80,30 +79,27 @@ void	exit_shell(t_exe *executor, int code)
 
 void	echo(t_exe *executor, t_cmd *command)
 {
-	char	**str;
 	int		i;
 	char	*value;
 	bool	newline;
 
 	i = 1;
-	str = ft_split(command->command_name, ' ');
 	newline = true;
-	while (detact_newline_flag(str[i]))
+	while (detact_newline_flag(command->split[i]))
 		i++;
 	if (i != 1)
 		newline = false;
-	while (str[i])
+	while (command->split[i])
 	{
-		value = get_variable(executor, str[i]);
+		value = get_variable(executor, command->split[i]);
 		if (value)
 			printf("%s", value);
 		else
-			printf("%s", str[i]);
+			printf("%s", command->split[i]);
 		i++;
-		if (str[i])
+		if (command->split[i])
 			printf(" ");
 	}
 	if (newline == true)
 		printf("\n");
-	empty_array(str);
 }
