@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/25 16:06:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/03 12:37:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	cmd_error(cmd);
-	exit_shell(executor, 127);
+	exit_shell(executor, 127, NULL);
 	return (NULL);
 }
 

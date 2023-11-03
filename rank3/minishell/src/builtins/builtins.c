@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/01 14:22:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/03 12:36:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 	}
 	if (ft_strcmp(command->split[0], "exit")
 		&& executor->index == executor->command_count - 1)
-		exit_shell(executor, EXIT_SUCCESS);
+		exit_shell(executor, EXIT_SUCCESS, command);
 	return (false);
 }
 
@@ -71,8 +71,10 @@ void	print_current_directory(t_exe *executor, t_cmd *command)
 	(void)command;
 }
 
-void	exit_shell(t_exe *executor, int code)
+void	exit_shell(t_exe *executor, int code, t_cmd *command)
 {
+	redirect_input(command);
+	redirect_output(command);
 	empty_executor(executor);
 	exit(code);
 }
