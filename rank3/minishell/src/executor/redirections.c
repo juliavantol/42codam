@@ -6,46 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 15:01:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/03 14:38:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-void	fill_heredoc_file(char *content)
-{
-	int		heredoc_file;
-
-	heredoc_file = open_file(".here_doc", TRUNCATE);
-	write(heredoc_file, content, ft_strlen(content));
-	close(heredoc_file);
-	heredoc_file = open_file(".here_doc", READ);
-	dup2(heredoc_file, READ);
-	close(heredoc_file);
-	unlink(".here_doc");
-}
-
-void	here_doc(t_filenames *head, char *delimiter)
-{
-	char	*content;
-	char	*input;
-	size_t	len;
-
-	len = ft_strlen(delimiter);
-	input = NULL;
-	content = "";
-	while (1)
-	{
-		input = get_next_line(0);
-		if (ft_strnstr(input, delimiter, len) && input[len] == '\n')
-			break ;
-		content = join_three_strs(content, NULL, input);
-		free(input);
-	}
-	if (head->next == NULL)
-		fill_heredoc_file(content);
-	free(content);
-}
 
 void	redirect_output(t_cmd *command)
 {

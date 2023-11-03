@@ -1,0 +1,131 @@
+int	main(int argc, char **argv, char **envp)
+{
+	t_exe	executor;
+
+	if (!proper_start(argc, argv))
+		return (EXIT_FAILURE);
+	init_executor(&executor, envp);
+	while (1)
+	{
+		init_signal_handler();
+		executor.input = init_prompt("minishell$ ");
+		if (!executor.input)
+			return (EXIT_SUCCESS);
+		temp_parser(&executor, executor.input);
+		free(executor.input);
+	}
+	empty_executor(&executor);
+}
+
+void	handle_command(t_exe *executor, t_cmd *command)
+{
+	pid_t	pid;
+
+	if (pipe(executor->fds) < 0)
+		error_exit("Error with opening the pipe");
+	pid = fork();
+	if (pid < 0)
+		error_exit("Error with fork");
+	if (pid == 0)
+	{
+		redirect_input(command);
+		redirect_output(command);
+		close(executor->fds[READ]);
+		if (!command->output_redirection)
+			dup2(executor->fds[WRITE], WRITE);
+		run_command(executor, command);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		waitpid(pid, &executor->status, 0);
+		if (WIFEXITED(executor->status))
+			executor->exit_code = WEXITSTATUS(executor->status);
+		close(executor->fds[WRITE]);
+		dup2(executor->fds[READ], READ);
+	}
+}
+
+void	heredoc_signal_handler(int signal_num)
+{
+	signal_received = QUIT;
+	rl_done = 1;
+	(void) signal_num;
+}
+
+void	init_heredoc_signal_handler(void)
+{
+	signal(SIGINT, heredoc_signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	fill_heredoc_file(char *content)
+{
+	int		heredoc_file;
+
+	heredoc_file = open_file(".here_doc", TRUNCATE);
+	write(heredoc_file, content, ft_strlen(content));
+	close(heredoc_file);
+	heredoc_file = open_file(".here_doc", READ);
+	dup2(heredoc_file, READ);
+	close(heredoc_file);
+	unlink(".here_doc");
+}
+
+void	here_doc(t_filenames *head, char *delimiter)
+{
+	char	*content;
+	char	*input;
+	size_t	len;
+
+	len = ft_strlen(delimiter);
+	input = NULL;
+	content = "";
+	signal_received = 0;
+	ignore_signals();
+	while (1 && signal_received != QUIT)
+	{
+		input = get_next_line(0);
+		if (ft_strnstr(input, delimiter, len) && input[len] == '\n')
+			break ;
+		content = join_three_strs(content, NULL, input);
+		free(input);
+	}
+	if (head->next == NULL)
+		fill_heredoc_file(content);
+	free(content);
+	signal(SIGINT, SIG_DFL);
+}
+
+char	*init_prompt(const char *prompt)
+{
+	char	*input;
+
+	input = readline(prompt);
+	if (!input)
+	{
+		printf("\n");
+		return (NULL);
+	}
+	while (!valid_input(input))
+	{
+		free (input);
+		input = readline(prompt);
+		if (!input)
+		{
+			printf("\n");
+			return (NULL);
+		}
+	}
+	add_history(input);
+	return (input);
+}
+
+bool	valid_input(const char *input)
+{
+	while (*input == ' ')
+		input++;
+	if (!*input)
+		return (false);
+	return (true);
+}

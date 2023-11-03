@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/03 12:36:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/03 12:40:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,6 @@ void	print_current_directory(t_exe *executor, t_cmd *command)
 {
 	printf("%s\n", executor->current_directory);
 	(void)command;
-}
-
-void	exit_shell(t_exe *executor, int code, t_cmd *command)
-{
-	redirect_input(command);
-	redirect_output(command);
-	empty_executor(executor);
-	exit(code);
 }
 
 void	echo(t_exe *executor, t_cmd *command)

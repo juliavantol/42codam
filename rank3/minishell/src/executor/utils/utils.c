@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/03 12:37:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/03 12:41:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,15 @@ void	reset_fd(t_exe *executor)
 {
 	dup2(executor->old_fds[READ], READ);
 	dup2(executor->old_fds[WRITE], WRITE);
+}
+
+void	exit_shell(t_exe *executor, int code, t_cmd *command)
+{
+	if (command)
+	{
+		redirect_input(command);
+		redirect_output(command);
+	}
+	empty_executor(executor);
+	exit(code);
 }

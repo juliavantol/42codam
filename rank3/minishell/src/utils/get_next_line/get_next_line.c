@@ -6,11 +6,14 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 17:40:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/14 14:25:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/03 17:04:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "signals.h"
+
+extern int	signal_received;
 
 char	*new_stash(char *line)
 {
@@ -96,6 +99,11 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE < 1 || fd < 0 || BUFFER_SIZE >= 2147483647)
 		return (NULL);
+	if (signal_received)
+	{
+		signal_received = 0;
+		return (NULL);
+	}
 	stash = fill_stash(fd, stash);
 	if (!stash || ft_strlen(stash) == 0)
 		return (NULL);
@@ -107,6 +115,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	stash = new_stash(stash);
+	signal(SIGINT, SIG_DFL);
 	if (!stash && !line)
 		return (NULL);
 	return (line);
