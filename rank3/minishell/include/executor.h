@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/03 14:26:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/05 19:18:47 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ typedef struct s_builtins
 
 void	add_command_node(t_cmd **commands, char *command_line_split);
 void	divide_command_in_redirections(t_cmd *node, char *command, int i);
+void	here_doc(t_filenames *head, char *delimiter);
 void	add_node(t_filenames **filenames, char *name, int mode);
 void	exit_shell(t_exe *executor, int code, t_cmd *command);
-void	here_doc(t_filenames *head, char *delimiter);
 void	init_executor(t_exe *executor, char **envp);
 void	temp_parser(t_exe *executor, char *input);
 void	free_command_list(t_exe *executor);
