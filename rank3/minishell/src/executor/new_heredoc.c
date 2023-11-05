@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/05 18:08:12 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/06 00:43:28 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/06 00:46:06 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ void	handle_heredocs(t_exe *executor)
 		while (input_head != NULL)
 		{
 			if (input_head->mode == HEREDOC)
-			{
 				fill_heredoc_file(input_head, index);
-			}
 			input_head = input_head->next;
 		}
 		index++;

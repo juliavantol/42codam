@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/06 00:00:45 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/06 00:47:10 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ void	free_filenames(t_filenames *list)
 	{
 		temp = list;
 		list = list->next;
-		if (temp->filename)
-			free(temp->filename);
+		if (temp->mode == HEREDOC)
+			unlink(temp->filename);
+		free(temp->filename);
 		free(temp);
 	}
 }
