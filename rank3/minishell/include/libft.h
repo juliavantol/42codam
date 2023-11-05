@@ -6,12 +6,14 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 13:37:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/25 17:03:08 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/05 02:14:30 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# include <stdbool.h>
 
 char	*ft_strnstr(const char *stack, const char *needle, int len);
 char	*join_three_strs(char *s1, char *s2, char *s3);

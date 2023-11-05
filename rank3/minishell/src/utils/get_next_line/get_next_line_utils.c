@@ -6,15 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 16:56:18 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 15:18:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/05 02:14:47 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
 int	search_newline(char *s)
 {
-	size_t	index;
+	int	index;
 
 	index = 0;
 	if (!s)
@@ -27,7 +28,7 @@ int	search_newline(char *s)
 	return (0);
 }
 
-char	*gnl_strjoin(char *stash, char *str, size_t index, size_t start)
+char	*gnl_strjoin(char *stash, char *str, int index, int start)
 {
 	char	*new_str;
 
@@ -52,10 +53,10 @@ char	*gnl_strjoin(char *stash, char *str, size_t index, size_t start)
 	return (new_str);
 }
 
-void	*calloc_gnl(size_t nelem, size_t elsize)
+void	*calloc_gnl(int nelem, int elsize)
 {
 	char	*str;
-	size_t	index;
+	int	index;
 
 	str = malloc(nelem * elsize);
 	if (str == NULL)

@@ -6,11 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/21 15:48:34 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/03 15:30:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/05 01:50:22 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 void	signal_handler(int signal_num)
 {

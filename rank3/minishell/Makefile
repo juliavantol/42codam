@@ -6,14 +6,14 @@
 #    By: fras <fras@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
-#    Updated: 2023/10/25 14:16:48 by juvan-to      ########   odam.nl          #
+#    Updated: 2023/11/05 02:11:13 by Julia         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
-INCLUDE = -I include
+INCLUDE = -I include -I/usr/local/opt/readline/include
 SRC_DIR = src
 OBJ_DIR = obj
 SOURCES = $(shell find $(SRC_DIR) -type f -name "*.c")
@@ -36,7 +36,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lreadline $(INCLUDE)
+	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -L/usr/local/opt/readline/lib -lreadline $(INCLUDE)
 	@$(MAKE) message EXECUTABLE=$@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
