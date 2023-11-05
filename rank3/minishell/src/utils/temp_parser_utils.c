@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:05:23 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/27 02:15:36 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/06 00:24:28 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_cmd	*last_command_node(t_cmd *command)
 	return (temp);
 }
 
-t_cmd	*new_command_node(char *command_line_split)
+t_cmd	*new_command_node(char *command_line_split, int index)
 {
 	t_cmd	*node;
 
@@ -35,17 +35,18 @@ t_cmd	*new_command_node(char *command_line_split)
 	node->inputs = NULL;
 	node->output_redirection = false;
 	node->input_redirection = false;
+	node->index = index;
 	divide_command_in_redirections(node, command_line_split, 0);
 	node->next = NULL;
 	return (node);
 }
 
-void	add_command_node(t_cmd **commands, char *command_line_split)
+void	add_command_node(t_cmd **commands, char *command_line_split, int index)
 {
 	t_cmd	*last;
 	t_cmd	*new;
 
-	new = new_command_node(command_line_split);
+	new = new_command_node(command_line_split, index);
 	if (*commands != NULL && new != NULL)
 	{
 		last = last_command_node(*commands);

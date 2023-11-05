@@ -1,8 +1,0 @@
-total 160
--rw-r--r--  1 Julia  staff   2027 Nov  5 02:11 Makefile
--rw-r--r--  1 Julia  staff   2505 Nov  4 14:10 chat
--rw-r--r--  1 Julia  staff      0 Nov  5 22:59 end
-drwxr-xr-x  8 Julia  staff    256 Nov  4 14:10 include
--rwxr-xr-x  1 Julia  staff  71568 Nov  5 22:58 minishell
-drwxr-xr-x  9 Julia  staff    288 Nov  5 22:53 obj
-drwxr-xr-x  9 Julia  staff    288 Nov  4 14:10 src

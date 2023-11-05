@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/05 19:15:30 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/06 00:14:52 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,10 @@ void	redirect_input(t_cmd *command)
 	head = command->inputs;
 	while (head != NULL)
 	{
-		if (head->mode == HEREDOC)
-			here_doc(head, head->filename);
-		else
-		{
-			file = open_file(head->filename, READ);
-			dup2(file, READ);
-			if (head->next != NULL)
-				close(file);
-		}
+		file = open_file(head->filename, READ);
+		dup2(file, READ);
+		if (head->next != NULL)
+			close(file);
 		head = head->next;
 	}
 }

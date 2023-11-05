@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/05 19:15:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/06 00:44:39 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	start_executor(t_exe *executor)
 	t_cmd	*head;
 
 	head = executor->commands_list;
+	handle_heredocs(executor);
 	while (head != NULL)
 	{
 		if (!check_builtin(executor, head))

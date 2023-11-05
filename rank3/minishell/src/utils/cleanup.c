@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/01 14:10:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/06 00:00:45 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	free_filenames(t_filenames *list)
 	{
 		temp = list;
 		list = list->next;
-		free(temp->filename);
+		if (temp->filename)
+			free(temp->filename);
 		free(temp);
 	}
 }
