@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/05 18:08:12 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/06 02:17:40 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/06 14:28:18 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void heredoc_signal_handler(int signal)
     if (signal == SIGINT)
     {
 		signal_received = 1;
+		printf("\n");
 		exit(1);
 	}
 }
