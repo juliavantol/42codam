@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/05 18:08:12 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/07 00:34:08 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/07 00:38:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static void heredoc_signal_handler(int signal)
 	}
 }
 
-void init_heredoc_signal_handler(void) {
+void init_heredoc_signal_handler(void)
+{
     signal(SIGINT, heredoc_signal_handler);
 }
 
@@ -36,9 +37,9 @@ void	fill_heredoc_file(char *filename, t_filenames *input_file)
 	file = open_file(filename, TRUNCATE);
 	input_file->filename = ft_strdup(filename);
 	input = NULL;
+	signal(SIGINT, heredoc_signal_handler);
 	while (signal_received == 0)
 	{
-		signal(SIGINT, heredoc_signal_handler);
 		input = readline("> ");
 		if (ft_strcmp(input, input_file->delimiter))
 			break ;

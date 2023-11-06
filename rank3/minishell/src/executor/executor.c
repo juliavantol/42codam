@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/06 02:18:07 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/07 00:35:16 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	start_executor(t_exe *executor)
 	handle_heredocs(executor);
 	if (signal_received == 1)
 	{
+			rl_catch_signals = 0;
 		free_command_list(executor);
 		return ;
 	}
