@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/15 16:11:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/06 00:28:15 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/06 02:04:11 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,17 @@ t_filenames	*new_node(char *name, int mode)
 	node = malloc(sizeof(t_filenames));
 	if (node == NULL)
 		return (NULL);
-	if (name == NULL)
-		node->filename = NULL;
-	else
-		node->filename = ft_strdup(name);
 	node->mode = mode;
+	if (node->mode == HEREDOC)
+	{
+		node->delimiter = ft_strdup(name);
+		node->filename = ft_strdup(".heredoc");
+	}
+	else
+	{
+		if (name == NULL)
+			node->filename = ft_strdup(name);
+	}
 	node->next = NULL;
 	return (node);
 }

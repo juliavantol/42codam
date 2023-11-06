@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/06 00:32:20 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/06 01:59:23 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_filenames
 {
 	char				*filename;
 	int					mode;
+	char				*delimiter;
 	struct s_filenames	*next;
 }	t_filenames;
 

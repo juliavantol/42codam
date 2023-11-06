@@ -6,70 +6,63 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/05 18:08:12 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/06 00:46:06 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/06 02:17:40 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-static void	ft_here_sig(int signal)
+int	signal_received;
+
+static void heredoc_signal_handler(int signal)
 {
-	if (signal == SIGINT)
-	{
+    if (signal == SIGINT)
+    {
+		signal_received = 1;
 		exit(1);
 	}
 }
 
-static void	ft_child_sig(int signal)
-{
-	if (signal == SIGINT)
-	{
-		printf("\n");
-	}
+void init_heredoc_signal_handler(void) {
+    signal(SIGINT, heredoc_signal_handler);
 }
 
-void	here_doc(t_filenames *head, char *delimiter)
+void	fill_heredoc_file(char *filename, t_filenames *input_file)
 {
-	char	*input;
-
-	ignore_signals();
-	signal(SIGQUIT, &ft_child_sig);
-	signal(SIGINT, &ft_child_sig);
-	while (1)
-	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, &ft_here_sig);
-		input = readline("> ");
-		if (ft_strcmp(input, delimiter))
-			break ;
-		free(input);
-	}
-	head--;
-	restore_signals();
-}
-
-void	fill_heredoc_file(t_filenames *input_file, int index)
-{
-	char	*filename;
-	char	*delimiter;
 	char	*input;
 	int		file;
 
-	delimiter = input_file->filename;
-	filename = join_three_strs(".heredoc", NULL, ft_itoa(index));
 	file = open_file(filename, TRUNCATE);
+	input_file->filename = ft_strdup(filename);
 	input = NULL;
-	while (1)
+	while (signal_received == 0)
 	{
+		signal(SIGINT, heredoc_signal_handler);
 		input = readline("> ");
-		if (ft_strcmp(input, delimiter))
+		if (ft_strcmp(input, input_file->delimiter))
 			break ;
 		input = join_three_strs(input, NULL, "\n");
 		write(file, input, ft_strlen(input));
 		free(input);
 	}
 	close(file);
-	input_file->filename = ft_strdup(filename);
+	signal(SIGINT, SIG_DFL);
+}
+
+void	start_heredoc(t_filenames *input_file)
+{
+	int		pid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		fill_heredoc_file(input_file->filename, input_file);
+		exit(0);	
+	}
+	waitpid(pid, &status, 0);
+	if (status != 0)
+		signal_received = 1;
 }
 
 void	handle_heredocs(t_exe *executor)
@@ -80,16 +73,18 @@ void	handle_heredocs(t_exe *executor)
 
 	head = executor->commands_list;
 	index = 0;
-	while (head != NULL)
+	ignore_signals();
+	while (head != NULL && signal_received == 0)
 	{
 		input_head = head->inputs;
-		while (input_head != NULL)
+		while (input_head != NULL && signal_received == 0)
 		{
 			if (input_head->mode == HEREDOC)
-				fill_heredoc_file(input_head, index);
+				start_heredoc(input_head);
 			input_head = input_head->next;
 		}
 		index++;
 		head = head->next;
 	}
+	restore_signals();
 }
