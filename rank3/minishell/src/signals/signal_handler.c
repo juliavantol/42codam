@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/21 15:48:34 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/07 00:15:55 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/07 00:17:33 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,9 @@ void	signal_handler(int signal_num)
 
 void	init_signal_handler(void)
 {
-	struct sigaction sa;
-    sa.sa_handler = signal_handler;
-    sa.sa_flags = SA_RESTART;  // Restart readline() if interrupted
-    sigaction(SIGINT, &sa, NULL);
-    signal(SIGQUIT, SIG_IGN);
-    rl_catch_signals = 0;
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+	rl_catch_signals = 0;
 }
 
 void	ignore_signals(void)
