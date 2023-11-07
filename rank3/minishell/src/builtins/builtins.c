@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/03 12:40:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/07 14:17:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 		if (ft_strcmp(command->split[0], executor->builtins[i].command))
 		{
 			executor->builtins[i].function(executor, command);
+			executor->exit_code = 0;
 			return (true);
 		}
 		i++;
