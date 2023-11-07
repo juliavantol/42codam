@@ -6,19 +6,16 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/07 11:30:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/07 13:52:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-int	signal_received;
-
 static void	heredoc_signal_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		signal_received = 1;
 		printf("\n");
 		exit(1);
 	}
@@ -38,7 +35,7 @@ void	fill_heredoc_file(char *filename, t_filenames *input_file)
 	input_file->filename = ft_strdup(filename);
 	input = NULL;
 	signal(SIGINT, heredoc_signal_handler);
-	while (signal_received == 0)
+	while (1)
 	{
 		input = readline("> ");
 		if (ft_strcmp(input, input_file->delimiter) || !input)
@@ -63,8 +60,6 @@ void	start_heredoc(t_filenames *input_file)
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
-	if (status != 0)
-		signal_received = 1;
 }
 
 void	handle_heredocs(t_exe *executor)
@@ -76,10 +71,10 @@ void	handle_heredocs(t_exe *executor)
 	head = executor->commands_list;
 	index = 0;
 	ignore_signals();
-	while (head != NULL && signal_received == 0)
+	while (head != NULL)
 	{
 		input_head = head->inputs;
-		while (input_head != NULL && signal_received == 0)
+		while (input_head != NULL)
 		{
 			if (input_head->mode == HEREDOC)
 				start_heredoc(input_head);

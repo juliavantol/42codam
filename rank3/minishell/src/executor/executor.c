@@ -6,13 +6,11 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/07 13:26:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/07 13:52:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-extern int	signal_received;
 
 void	child_signal_handler(int signal_num)
 {
@@ -108,15 +106,8 @@ void	start_executor(t_exe *executor)
 	t_cmd	*head;
 
 	head = executor->commands_list;
-	signal_received = 0;
 	handle_heredocs(executor);
-	if (signal_received == 1)
-	{
-		rl_catch_signals = 0;
-		free_command_list(executor);
-		return ;
-	}
-	while (head != NULL && signal_received == 0)
+	while (head != NULL)
 	{
 		if (!check_builtin(executor, head))
 		{
