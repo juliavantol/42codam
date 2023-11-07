@@ -6,13 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/15 16:11:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/06 02:04:11 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/07 11:34:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-t_filenames	*last_node(t_filenames *filename)
+t_filenames	*last_redirection_node(t_filenames *filename)
 {
 	t_filenames	*temp;
 
@@ -25,7 +25,7 @@ t_filenames	*last_node(t_filenames *filename)
 	return (temp);
 }
 
-t_filenames	*new_node(char *name, int mode)
+t_filenames	*new_redirection(char *name, int mode)
 {
 	t_filenames	*node;
 
@@ -47,15 +47,15 @@ t_filenames	*new_node(char *name, int mode)
 	return (node);
 }
 
-void	add_node(t_filenames **filenames, char *name, int mode)
+void	add_redirection(t_filenames **filenames, char *name, int mode)
 {
 	t_filenames	*last;
 	t_filenames	*new;
 
-	new = new_node(name, mode);
+	new = new_redirection(name, mode);
 	if (*filenames != NULL && new != NULL)
 	{
-		last = last_node(*filenames);
+		last = last_redirection_node(*filenames);
 		last->next = new;
 	}
 	else

@@ -6,70 +6,87 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/06 00:26:18 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/07 11:30:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-// int	signal_received;
+int	signal_received;
 
-// static void	ft_here_sig(int signal)
-// {
-// 	if (signal == SIGINT)
-// 		exit(1);
-// }
+static void	heredoc_signal_handler(int signal)
+{
+	if (signal == SIGINT)
+	{
+		signal_received = 1;
+		printf("\n");
+		exit(1);
+	}
+}
 
-// static void	ft_child_sig(int signal)
-// {
-// 	if (signal == SIGINT)
-// 		printf("\n");
-// }
+void	init_heredoc_signal_handler(void)
+{
+	signal(SIGINT, heredoc_signal_handler);
+}
 
-// void	heredoc_signal_handler(int signal_num)
-// {
-// 	signal_received = QUIT;
-// 	(void) signal_num;
-// }
+void	fill_heredoc_file(char *filename, t_filenames *input_file)
+{
+	char	*input;
+	int		file;
 
-// void	init_heredoc_signal_handler(void)
-// {
-// 	signal(SIGINT, heredoc_signal_handler);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
+	file = open_file(filename, TRUNCATE);
+	input_file->filename = ft_strdup(filename);
+	input = NULL;
+	signal(SIGINT, heredoc_signal_handler);
+	while (signal_received == 0)
+	{
+		input = readline("> ");
+		if (ft_strcmp(input, input_file->delimiter) || !input)
+			break ;
+		input = join_three_strs(input, NULL, "\n");
+		write(file, input, ft_strlen(input));
+		free(input);
+	}
+	close(file);
+	signal(SIGINT, SIG_DFL);
+}
 
-// void	make_heredoc_stdin(char *filename)
-// {
-// 	int		heredoc_file;
+void	start_heredoc(t_filenames *input_file)
+{
+	int		pid;
+	int		status;
 
-// 	heredoc_file = open_file(filename, READ);
-// 	dup2(heredoc_file, READ);
-// 	close(heredoc_file);
-// }
+	pid = fork();
+	if (pid == 0)
+	{
+		fill_heredoc_file(input_file->filename, input_file);
+		exit(0);
+	}
+	waitpid(pid, &status, 0);
+	if (status != 0)
+		signal_received = 1;
+}
 
-// void	here_doc(t_filenames *head, char *delimiter, int index)
-// {
-// 	char	*input;
-// 	int		heredoc_file;
+void	handle_heredocs(t_exe *executor)
+{
+	t_cmd		*head;
+	t_filenames	*input_head;
+	int			index;
 
-// 	input = NULL;
-// 	signal(SIGQUIT, &ft_child_sig);
-// 	signal(SIGINT, &ft_child_sig);
-// 	heredoc_file = open_file(".here_doc", TRUNCATE);
-// 	while (1)
-// 	{
-// 		signal(SIGQUIT, SIG_IGN);
-// 		signal(SIGINT, &ft_here_sig);
-// 		input = readline("> ");
-// 		if (ft_strcmp(input, delimiter))
-// 			break ;
-// 		input = join_three_strs(input, NULL, "\n");
-// 		write(heredoc_file, input, ft_strlen(input));
-// 		free(input);
-// 	}
-// 	close(heredoc_file);
-// 	if (head->next == NULL)
-// 		make_heredoc_stdin(".here_doc");
-// 	index--;
-// 	unlink(".here_doc");
-// }
+	head = executor->commands_list;
+	index = 0;
+	ignore_signals();
+	while (head != NULL && signal_received == 0)
+	{
+		input_head = head->inputs;
+		while (input_head != NULL && signal_received == 0)
+		{
+			if (input_head->mode == HEREDOC)
+				start_heredoc(input_head);
+			input_head = input_head->next;
+		}
+		index++;
+		head = head->next;
+	}
+	restore_signals();
+}

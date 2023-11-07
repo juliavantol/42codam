@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/05 23:54:56 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/07 11:33:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,25 @@ void	divide_command_in_redirections(t_cmd *node, char *command, int i)
 		if (ft_strcmp(cmd[i], ">") && cmd[i + 1])
 		{
 			node->output_redirection = true;
-			add_node(&node->outputs, cmd[i + 1], TRUNCATE);
+			add_redirection(&node->outputs, cmd[i + 1], TRUNCATE);
 			i++;
 		}
 		else if (ft_strcmp(cmd[i], ">>") && cmd[i + 1])
 		{
 			node->output_redirection = true;
-			add_node(&node->outputs, cmd[i + 1], APPEND);
+			add_redirection(&node->outputs, cmd[i + 1], APPEND);
 			i++;
 		}
 		else if (ft_strcmp(cmd[i], "<") && cmd[i + 1])
 		{
 			node->input_redirection = true;
-			add_node(&node->inputs, cmd[i + 1], READ);
+			add_redirection(&node->inputs, cmd[i + 1], READ);
 			i++;
 		}
 		else if (ft_strcmp(cmd[i], "<<") && cmd[i + 1])
 		{
 			node->input_redirection = true;
-			add_node(&node->inputs, cmd[i + 1], HEREDOC);
+			add_redirection(&node->inputs, cmd[i + 1], HEREDOC);
 			i++;
 		}
 		else
