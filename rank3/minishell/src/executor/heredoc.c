@@ -6,13 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/07 13:58:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/07 14:19:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-extern int	signal_code;
 
 static void	heredoc_signal_handler(int signal)
 {
