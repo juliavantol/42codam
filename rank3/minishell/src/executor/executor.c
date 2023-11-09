@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/09 13:39:54 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/09 14:28:51 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,15 @@ void	handle_command(t_exe *executor, t_cmd *command)
 void	start_executor(t_exe *executor)
 {
 	t_cmd	*head;
+	int		status;
+	int		fd_in;
 
 	head = executor->commands_list;
+	fd_in = 0;
 	handle_heredocs(executor);
 	while (head != NULL)
 	{
+		pipe(executor->fds);
 		if (!check_builtin(executor, head))
 		{
 			if (executor->index < executor->command_count - 1)
@@ -115,8 +119,10 @@ void	start_executor(t_exe *executor)
 		}
 		head = head->next;
 		(executor->index)++;
+		fd_in = executor->fds[READ];
 	}
-    while (wait(NULL) > 0)
+	close(executor->fds[WRITE]);
+    while (wait(&status) > 0)
     {
         dup2(executor->old_fds[READ], READ);
         dup2(executor->old_fds[WRITE], WRITE);
