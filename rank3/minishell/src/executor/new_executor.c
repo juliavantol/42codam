@@ -1,28 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_putstr_fd.c                                     :+:    :+:            */
+/*   new_executor.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/24 15:02:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/09 11:40:53 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/11/09 12:20:08 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/11/09 13:31:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executor.h"
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	index;
 
-	index = 0;
-	if (s && fd)
-	{
-		while (index < ft_strlen(s))
-		{
-			write(fd, &s[index], 1);
-			index++;
-		}
-	}
-}

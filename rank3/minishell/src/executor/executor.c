@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/07 13:52:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/09 13:38:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	last_command(t_exe *executor, t_cmd *command)
 	{
 		init_child_signal_handler();
 		dup2(executor->old_fds[WRITE], WRITE);
-		waitpid(pid, &executor->status, 0);
 		if (WIFEXITED(executor->status))
 			executor->exit_code = WEXITSTATUS(executor->status);
 		else if (WIFSIGNALED(executor->status))
@@ -91,7 +90,6 @@ void	handle_command(t_exe *executor, t_cmd *command)
 	else
 	{
 		init_child_signal_handler();
-		waitpid(pid, &executor->status, 0);
 		if (WIFEXITED(executor->status))
 			executor->exit_code = WEXITSTATUS(executor->status);
 		else if (WIFSIGNALED(executor->status))
@@ -119,7 +117,10 @@ void	start_executor(t_exe *executor)
 		head = head->next;
 		(executor->index)++;
 	}
-	dup2(executor->old_fds[READ], READ);
-	dup2(executor->old_fds[WRITE], WRITE);
-	free_command_list(executor);
+    while (wait(NULL) > 0)
+    {
+        dup2(executor->old_fds[READ], READ);
+        dup2(executor->old_fds[WRITE], WRITE);
+        free_command_list(executor);
+    }
 }
