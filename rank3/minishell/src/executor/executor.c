@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/09 13:38:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/09 13:39:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	child_signal_handler(int signal_num)
 {
 	printf("\n");
-	// printf("test: %d\n", 128 + signal_num);
 	(void) signal_num;
 }
 
