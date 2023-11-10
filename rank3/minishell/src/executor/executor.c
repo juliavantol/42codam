@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/09 14:28:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/10 03:04:18 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 void	child_signal_handler(int signal_num)
 {
-	printf("\n");
+	if (signal_num == SIGPIPE)
+	{
+		printf("heyyy\n");
+	}
+	else
+		printf("\n");
 	(void) signal_num;
 }
 
@@ -22,6 +27,7 @@ void	init_child_signal_handler(void)
 {
 	signal(SIGINT, child_signal_handler);
 	signal(SIGQUIT, child_signal_handler);
+	signal(SIGPIPE, child_signal_handler);
 }
 
 void	run_command(t_exe *executor, t_cmd *command)
@@ -44,12 +50,10 @@ void	run_command(t_exe *executor, t_cmd *command)
 
 void	last_command(t_exe *executor, t_cmd *command)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid < 0)
+	executor->pids[executor->index] = fork();
+	if (executor->pids[executor->index] < 0)
 		error_exit("Error with fork");
-	if (pid == 0)
+	if (executor->pids[executor->index] == 0)
 	{
 		redirect_input(command);
 		redirect_output(command);
@@ -69,14 +73,12 @@ void	last_command(t_exe *executor, t_cmd *command)
 
 void	handle_command(t_exe *executor, t_cmd *command)
 {
-	pid_t	pid;
-
 	if (pipe(executor->fds) < 0)
 		error_exit("Error with opening the pipe");
-	pid = fork();
-	if (pid < 0)
+	executor->pids[executor->index] = fork();
+	if (executor->pids[executor->index] < 0)
 		error_exit("Error with fork");
-	if (pid == 0)
+	if (executor->pids[executor->index] == 0)
 	{
 		redirect_input(command);
 		redirect_output(command);
@@ -98,14 +100,24 @@ void	handle_command(t_exe *executor, t_cmd *command)
 	}
 }
 
+void	wait_for_all_child_processes(t_exe *executor)
+{
+	int	index;
+	int	status;
+
+	index = 0;
+	while (executor->pids[index])
+	{
+		waitpid(executor->pids[index], &status, 0);
+		index++;
+	}
+}
+
 void	start_executor(t_exe *executor)
 {
 	t_cmd	*head;
-	int		status;
-	int		fd_in;
 
 	head = executor->commands_list;
-	fd_in = 0;
 	handle_heredocs(executor);
 	while (head != NULL)
 	{
@@ -119,13 +131,11 @@ void	start_executor(t_exe *executor)
 		}
 		head = head->next;
 		(executor->index)++;
-		fd_in = executor->fds[READ];
 	}
 	close(executor->fds[WRITE]);
-    while (wait(&status) > 0)
-    {
-        dup2(executor->old_fds[READ], READ);
-        dup2(executor->old_fds[WRITE], WRITE);
-        free_command_list(executor);
-    }
+	executor->pids[executor->index] = '\0';
+	wait_for_all_child_processes(executor);
+	dup2(executor->old_fds[READ], READ);
+	dup2(executor->old_fds[WRITE], WRITE);
+	free_command_list(executor);
 }

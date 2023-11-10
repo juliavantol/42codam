@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 13:16:39 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/05 19:19:01 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/10 02:57:57 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_executor(t_exe *executor, char **envp)
 	executor->exit_code = 0;
 	executor->old_fds[READ] = dup(READ);
 	executor->old_fds[WRITE] = dup(WRITE);
+	executor->pids = ft_malloc(executor->command_count * sizeof(pid_t));
 	executor->current_directory = get_current_directory();
 	builtins = ft_malloc(7 * sizeof(t_builtins));
 	builtins[0] = (t_builtins){"env", &print_env};

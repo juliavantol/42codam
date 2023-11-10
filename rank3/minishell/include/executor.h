@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/07 11:34:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/10 02:57:30 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_exe
 	char			*input;
 	char			**paths;
 	t_builtins		*builtins;
+	pid_t			*pids;
 	t_cmd			*commands_list;
 	t_envp			*envp_list;
 }	t_exe;
