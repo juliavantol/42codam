@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/10 03:04:18 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/10 03:11:10 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,23 @@ void	handle_command(t_exe *executor, t_cmd *command)
 		redirect_output(command);
 		close(executor->fds[READ]);
 		if (!command->output_redirection)
+		{
 			dup2(executor->fds[WRITE], WRITE);
+			close(executor->fds[WRITE]);
+		}
 		run_command(executor, command);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
+		close(executor->fds[WRITE]);
+		dup2(executor->fds[READ], READ);
+		close(executor->fds[READ]);
 		init_child_signal_handler();
 		if (WIFEXITED(executor->status))
 			executor->exit_code = WEXITSTATUS(executor->status);
 		else if (WIFSIGNALED(executor->status))
 			executor->exit_code = WTERMSIG(executor->status);
-		close(executor->fds[WRITE]);
-		dup2(executor->fds[READ], READ);
 	}
 }
 
@@ -132,7 +136,6 @@ void	start_executor(t_exe *executor)
 		head = head->next;
 		(executor->index)++;
 	}
-	close(executor->fds[WRITE]);
 	executor->pids[executor->index] = '\0';
 	wait_for_all_child_processes(executor);
 	dup2(executor->old_fds[READ], READ);
