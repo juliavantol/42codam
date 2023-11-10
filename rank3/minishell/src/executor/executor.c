@@ -6,11 +6,29 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/10 17:18:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/10 17:24:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+
+void	child_signal_handler(int signal_num)
+{
+	if (signal_num == SIGPIPE)
+	{
+		printf("heyyy\n");
+	}
+	else
+		printf("\n");
+	(void) signal_num;
+}
+
+void	init_child_signal_handler(void)
+{
+	signal(SIGINT, child_signal_handler);
+	signal(SIGQUIT, child_signal_handler);
+
+}
 
 void	run_command(t_exe *executor, t_cmd *command)
 {
@@ -49,6 +67,7 @@ void	single_command(t_exe *executor, t_cmd *command)
 	executor->pids[executor->index] = fork();
 	if (executor->pids[executor->index] == 0)
 	{
+		init_child_signal_handler();
 		redirect_input(command);
 		redirect_output(command);
 		if (check_builtin(executor, command))
@@ -69,6 +88,7 @@ void	ft_fork(t_exe *executor, int fd_in, int end[2], t_cmd *command)
 		close(end[0]);
 		dup2(end[1], STDOUT_FILENO);
 		close(end[1]);
+		init_child_signal_handler();
 		if (executor->index > 0)
 			close(fd_in);
 		if (check_builtin(executor, command))

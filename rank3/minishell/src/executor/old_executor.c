@@ -6,29 +6,29 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/09 12:20:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/10 14:36:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/10 17:23:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-void	child_signal_handler(int signal_num)
-{
-	if (signal_num == SIGPIPE)
-	{
-		printf("heyyy\n");
-	}
-	else
-		printf("\n");
-	(void) signal_num;
-}
+// void	child_signal_handler(int signal_num)
+// {
+// 	if (signal_num == SIGPIPE)
+// 	{
+// 		printf("heyyy\n");
+// 	}
+// 	else
+// 		printf("\n");
+// 	(void) signal_num;
+// }
 
-void	init_child_signal_handler(void)
-{
-	signal(SIGINT, child_signal_handler);
-	signal(SIGQUIT, child_signal_handler);
-	signal(SIGPIPE, child_signal_handler);
-}
+// void	init_child_signal_handler(void)
+// {
+// 	signal(SIGINT, child_signal_handler);
+// 	signal(SIGQUIT, child_signal_handler);
+// 	signal(SIGPIPE, child_signal_handler);
+// }
 
 // void	run_command(t_exe *executor, t_cmd *command)
 // {
