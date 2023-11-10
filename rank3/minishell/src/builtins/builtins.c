@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/10 16:54:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/10 17:15:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 		}
 		i++;
 	}
-	if (ft_strcmp(command->split[0], "exit")
-		&& executor->index == executor->command_count - 1)
-		exit_shell(executor, EXIT_SUCCESS, command);
 	return (false);
 }
 
