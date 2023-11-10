@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/10 15:31:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/10 17:05:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ void	wait_for_all_child_processes(t_exe *executor)
 
 	index = 0;
 	while (executor->pids[index])
-	{
-		waitpid(executor->pids[index], &status, 0);
-		index++;
-	}
+		waitpid(executor->pids[index++], &status, 0);
 }
 
 void	single_command(t_exe *executor, t_cmd *command)
@@ -52,6 +49,8 @@ void	single_command(t_exe *executor, t_cmd *command)
 	{
 		redirect_input(command);
 		redirect_output(command);
+		if (check_builtin(executor, command))
+			return ;
 		run_command(executor, command);
 	}
 	waitpid(executor->pids[executor->index], &status, 0);
@@ -70,6 +69,8 @@ void	ft_fork(t_exe *executor, int fd_in, int end[2], t_cmd *command)
 		close(end[1]);
 		if (executor->index > 0)
 			close(fd_in);
+		if (check_builtin(executor, command))
+			return ;
 		run_command(executor, command);
 	}
 }
