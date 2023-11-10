@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/09 12:20:08 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/10 14:14:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/10 14:24:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ void	wait_for_all_child_processes(t_exe *executor)
 	}
 }
 
+void	single_command(t_exe *executor, t_cmd *command)
+{
+	int	status;
+
+	executor->pids[executor->index] = fork();
+	if (executor->pids[executor->index] == 0)
+		run_command(executor, command);
+	waitpid(executor->pids[executor->index], &status, 0);
+}
+
 void	ft_fork(t_exe *executor, int fd_in, int end[2], t_cmd *command)
 {
 	executor->pids[executor->index] = fork();
@@ -66,6 +76,11 @@ void	start_executor(t_exe *executor)
 
 	head = executor->commands_list;
 	handle_heredocs(executor);
+	if (executor->command_count == 1)
+	{
+		single_command(executor, head);
+		return ;
+	}
 	fd_in = STDIN_FILENO;
 	while (head != NULL)
 	{
