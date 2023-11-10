@@ -1,7 +1,8 @@
-a
-chat
-include
-Makefile
-minishell
-obj
-src
+total 48
+-rw-r--r-- 1 juvan-to piscine     0 Nov 10 15:42 a
+-rw-r--r-- 1 juvan-to piscine  3020 Nov  7 11:58 chat
+drwxr-xr-x 2 juvan-to piscine   111 Nov 10 13:18 include
+-rw-r--r-- 1 juvan-to piscine  2027 Nov  7 11:16 Makefile
+-rwxr-xr-x 1 juvan-to piscine 37912 Nov 10 15:42 minishell
+drwxr-xr-x 7 juvan-to piscine   112 Nov 10 14:46 obj
+drwxr-xr-x 7 juvan-to piscine   112 Nov  7 11:16 src
