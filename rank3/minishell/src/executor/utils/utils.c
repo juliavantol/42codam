@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/10 15:42:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/12 19:22:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,6 @@ int	open_file(char *filename, int mode)
 	if (file < 0)
 		ft_error("File couldn't be opened\n", errno);
 	return (file);
-}
-
-void	reset_fd(t_exe *executor)
-{
-	dup2(executor->old_fds[READ], READ);
-	dup2(executor->old_fds[WRITE], WRITE);
 }
 
 void	exit_shell(t_exe *executor, int code, t_cmd *command)

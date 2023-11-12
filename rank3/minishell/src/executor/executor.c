@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/12 18:58:23 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/12 19:21:40 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	single_command(t_exe *executor, t_cmd *command)
 		executor->exit_code = WTERMSIG(status);
 }
 
-void	ft_fork(t_exe *executor, int fd_in, int end[2], t_cmd *command)
+void	ft_fork(t_exe *executor, int fd_in, t_cmd *command)
 {
 	executor->pids[executor->index] = fork();
 	if (executor->pids[executor->index] == 0)
@@ -75,9 +75,9 @@ void	ft_fork(t_exe *executor, int fd_in, int end[2], t_cmd *command)
 		redirect_input(command);
 		redirect_output(command);
 		dup2(fd_in, STDIN_FILENO);
-		close(end[0]);
-		dup2(end[1], STDOUT_FILENO);
-		close(end[1]);
+		close(executor->fds[READ]);
+		dup2(executor->fds[WRITE], STDOUT_FILENO);
+		close(executor->fds[WRITE]);
 		init_child_signal_handler();
 		if (executor->index > 0)
 			close(fd_in);
@@ -91,7 +91,6 @@ void	ft_fork(t_exe *executor, int fd_in, int end[2], t_cmd *command)
 void	start_executor(t_exe *executor)
 {
 	t_cmd	*head;
-	int		end[2];
 	int		fd_in;
 
 	head = executor->commands_list;
@@ -107,12 +106,12 @@ void	start_executor(t_exe *executor)
 		while (head != NULL)
 		{
 			if (head->next)
-				pipe(end);
-			ft_fork(executor, fd_in, end, head);
-			close(end[1]);
+				pipe(executor->fds);
+			ft_fork(executor, fd_in, head);
+			close(executor->fds[WRITE]);
 			if (executor->index > 0)
 				close(fd_in);
-			fd_in = end[0];
+			fd_in = executor->fds[READ];
 			head = head->next;
 			(executor->index)++;
 		}

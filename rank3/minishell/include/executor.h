@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/10 02:57:30 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/12 19:29:13 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_exe
 {
 	int				command_count;
 	int				exit_code;
-	int				old_fds[2];
 	int				fds[2];
 	int				index;
 	int				status;

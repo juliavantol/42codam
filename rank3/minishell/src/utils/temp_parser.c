@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/07 11:33:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/12 19:43:51 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	temp_parser(t_exe *executor, char *input)
 		i++;
 	}
 	executor->command_count = i;
+	executor->pids = ft_malloc(executor->command_count * sizeof(pid_t));
 	executor->index = 0;
 	empty_array(command_line_split);
 	start_executor(executor);
