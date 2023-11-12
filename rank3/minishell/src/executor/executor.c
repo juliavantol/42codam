@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/12 19:21:40 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/12 23:52:56 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	single_command(t_exe *executor, t_cmd *command)
 		redirect_input(command);
 		redirect_output(command);
 		if (check_builtin(executor, command))
-			return ;
+			exit(1);
 		run_command(executor, command);
 	}
 	init_child_signal_handler();
@@ -67,22 +67,22 @@ void	single_command(t_exe *executor, t_cmd *command)
 		executor->exit_code = WTERMSIG(status);
 }
 
-void	ft_fork(t_exe *executor, int fd_in, t_cmd *command)
+void	ft_fork(t_exe *executor, t_cmd *command)
 {
 	executor->pids[executor->index] = fork();
 	if (executor->pids[executor->index] == 0)
 	{
 		redirect_input(command);
 		redirect_output(command);
-		dup2(fd_in, STDIN_FILENO);
+		dup2(executor->input_fd, STDIN_FILENO);
 		close(executor->fds[READ]);
 		dup2(executor->fds[WRITE], STDOUT_FILENO);
 		close(executor->fds[WRITE]);
 		init_child_signal_handler();
 		if (executor->index > 0)
-			close(fd_in);
+			close(executor->input_fd);
 		if (check_builtin(executor, command))
-			return ;
+			exit(1);
 		run_command(executor, command);
 	}
 	init_child_signal_handler();
@@ -91,7 +91,6 @@ void	ft_fork(t_exe *executor, int fd_in, t_cmd *command)
 void	start_executor(t_exe *executor)
 {
 	t_cmd	*head;
-	int		fd_in;
 
 	head = executor->commands_list;
 	handle_heredocs(executor);
@@ -102,16 +101,16 @@ void	start_executor(t_exe *executor)
 	}
 	else
 	{
-		fd_in = STDIN_FILENO;
+		executor->input_fd = STDIN_FILENO;
 		while (head != NULL)
 		{
 			if (head->next)
 				pipe(executor->fds);
-			ft_fork(executor, fd_in, head);
+			ft_fork(executor, head);
 			close(executor->fds[WRITE]);
 			if (executor->index > 0)
-				close(fd_in);
-			fd_in = executor->fds[READ];
+				close(executor->input_fd);
+			executor->input_fd = executor->fds[READ];
 			head = head->next;
 			(executor->index)++;
 		}
