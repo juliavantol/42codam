@@ -6,29 +6,11 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/12 00:26:40 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/12 18:58:23 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-void	child_signal_handler(int signal_num)
-{
-	if (signal_num == SIGPIPE)
-	{
-		printf("heyyy\n");
-	}
-	else
-		printf("\n");
-	(void) signal_num;
-}
-
-void	init_child_signal_handler(void)
-{
-	signal(SIGINT, child_signal_handler);
-	signal(SIGQUIT, child_signal_handler);
-
-}
 
 void	run_command(t_exe *executor, t_cmd *command)
 {
@@ -56,6 +38,10 @@ void	wait_for_all_child_processes(t_exe *executor)
 	index = 0;
 	while (executor->pids[index])
 		waitpid(executor->pids[index++], &status, 0);
+	if (WIFEXITED(status))
+		executor->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(executor->status))
+		executor->exit_code = WTERMSIG(status);
 }
 
 void	single_command(t_exe *executor, t_cmd *command)
@@ -75,6 +61,10 @@ void	single_command(t_exe *executor, t_cmd *command)
 	}
 	init_child_signal_handler();
 	waitpid(executor->pids[executor->index], &status, 0);
+	if (WIFEXITED(status))
+		executor->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(executor->status))
+		executor->exit_code = WTERMSIG(status);
 }
 
 void	ft_fork(t_exe *executor, int fd_in, int end[2], t_cmd *command)
@@ -107,7 +97,10 @@ void	start_executor(t_exe *executor)
 	head = executor->commands_list;
 	handle_heredocs(executor);
 	if (executor->command_count == 1)
+	{
 		single_command(executor, head);
+		return ;
+	}
 	else
 	{
 		fd_in = STDIN_FILENO;
