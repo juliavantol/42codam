@@ -6,11 +6,29 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 13:40:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/13 14:09:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/13 14:51:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
+bool	try_absolute_path(t_exe *executor, char *str)
+{
+	char	*home_path;
+	char	*absolute_path;
+
+	home_path = get_variable(executor, "HOME");
+	while (*str)
+	{
+		if (*str == '/')
+			break ;
+		str++;
+	}
+	absolute_path = join_three_strs(home_path, NULL, str);
+	if (chdir(absolute_path) == 0)
+		return (true);
+	return (false);
+}
 
 char	*find_cd_path(t_exe *executor, char *str)
 {
@@ -29,28 +47,36 @@ char	*find_cd_path(t_exe *executor, char *str)
 	return (path);
 }
 
+void	update_directory_variables(t_exe *executor)
+{
+	char	*pwd;
+
+	export(executor, "OLDPWD", executor->current_directory);
+	free(executor->current_directory);
+	pwd = get_current_directory();
+	executor->current_directory = pwd;
+	export(executor, "PWD", pwd);
+}
+
 void	cd(t_exe *executor, t_cmd *command)
 {
 	int		return_value;
 	char	*path;
-	char	*pwd;
 
 	path = command->split[1];
-	path = find_cd_path(executor, path);
-	return_value = chdir(path);
+	return_value = chdir(find_cd_path(executor, path));
 	if (return_value != 0)
 	{
-		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
-		perror("");
+		if (!try_absolute_path(executor, path))
+		{
+			ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+			ft_putstr_fd(path, STDERR_FILENO);
+			ft_putstr_fd(": ", STDERR_FILENO);
+			perror("");
+		}
+		else
+			update_directory_variables(executor);
 	}
 	else
-	{
-		export(executor, "OLDPWD", executor->current_directory);
-		free(executor->current_directory);
-		pwd = get_current_directory();
-		executor->current_directory = pwd;
-		export(executor, "PWD", pwd);
-	}
+		update_directory_variables(executor);
 }
