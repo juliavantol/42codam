@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/13 12:32:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/13 13:34:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	single_command(t_exe *executor, t_cmd *command)
 		redirect_input(command);
 		redirect_output(command);
 		if (check_builtin(executor, command))
-			exit(1);
+			return ;
 		run_command(executor, command);
 	}
 	init_child_signal_handler();
@@ -82,7 +82,7 @@ void	ft_fork(t_exe *executor, t_cmd *command)
 		if (executor->index > 0)
 			close(executor->input_fd);
 		if (check_builtin(executor, command))
-			exit(1);
+			return ;
 		run_command(executor, command);
 	}
 	init_child_signal_handler();

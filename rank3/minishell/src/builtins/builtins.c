@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/10 17:15:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/13 13:40:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,6 @@ char	*get_current_directory(void)
 	path = ft_malloc(PATH_MAX + 1);
 	getcwd(path, PATH_MAX + 1);
 	return (path);
-}
-
-void	cd(t_exe *executor, t_cmd *command)
-{
-	int		return_value;
-	char	*path;
-	char	*pwd;
-
-	path = command->split[1];
-	return_value = chdir(path);
-	if (return_value != 0)
-	{
-		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
-		perror("");
-	}
-	else
-	{
-		free(executor->current_directory);
-		pwd = get_current_directory();
-		executor->current_directory = pwd;
-		export(executor, "PWD", pwd);
-	}
 }
 
 void	print_current_directory(t_exe *executor, t_cmd *command)

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/07 14:19:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/13 13:03:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ static void	heredoc_signal_handler(int signal)
 	if (signal == SIGINT)
 	{
 		printf("\n");
-		exit(1);
+		exit(130);
 	}
+	else if (signal == SIGQUIT)
+		exit(131);
 }
 
 void	init_heredoc_signal_handler(void)
@@ -48,7 +50,7 @@ void	fill_heredoc_file(char *filename, t_filenames *input_file)
 	signal(SIGINT, SIG_DFL);
 }
 
-void	start_heredoc(t_filenames *input_file)
+void	start_heredoc(t_exe *executor, t_filenames *input_file)
 {
 	int		pid;
 	int		status;
@@ -60,6 +62,10 @@ void	start_heredoc(t_filenames *input_file)
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		executor->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		executor->exit_code = 128 + WTERMSIG(status);
 }
 
 void	handle_heredocs(t_exe *executor)
@@ -77,7 +83,7 @@ void	handle_heredocs(t_exe *executor)
 		while (input_head != NULL)
 		{
 			if (input_head->mode == HEREDOC)
-				start_heredoc(input_head);
+				start_heredoc(executor, input_head);
 			input_head = input_head->next;
 		}
 		index++;
