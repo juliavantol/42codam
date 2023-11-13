@@ -6,27 +6,11 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 02:06:06 by Julia         #+#    #+#                 */
-/*   Updated: 2023/10/27 15:07:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/13 16:21:15 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-bool	detact_newline_flag(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i++] != '-')
-		return (false);
-	while (str[i])
-	{
-		if (str[i] != 'n')
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 int	envp_size(t_exe *executor)
 {

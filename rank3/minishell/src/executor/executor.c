@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/13 13:34:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/14 00:04:20 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,14 @@ void	run_command(t_exe *executor, t_cmd *command)
 
 	if (ft_strcmp(command->command_name, "exit") == true)
 		exit_shell(executor, EXIT_SUCCESS, command);
+	restore_signals();
 	envp = convert_envp_to_char(executor);
 	cmd = ft_split(command->command_name, ' ');
 	path = get_cmd_path(executor, cmd[0], envp, 0);
 	if (!path)
 		error_exit("Command not found");
-	restore_signals();
 	if (execve(path, cmd, envp) == -1)
 		error_exit("Execve error");
-}
-
-void	wait_for_all_child_processes(t_exe *executor)
-{
-	int	index;
-	int	status;
-
-	index = 0;
-	while (executor->pids[index])
-		waitpid(executor->pids[index++], &status, 0);
-	if (WIFEXITED(status))
-		executor->exit_code = WEXITSTATUS(status);
-	else if (WIFSIGNALED(executor->status))
-		executor->exit_code = 128 + WTERMSIG(status);
 }
 
 void	single_command(t_exe *executor, t_cmd *command)
@@ -50,21 +36,24 @@ void	single_command(t_exe *executor, t_cmd *command)
 
 	if (ft_strcmp(command->split[0], "exit") == true)
 		exit_shell(executor, EXIT_SUCCESS, command);
-	executor->pids[executor->index] = fork();
-	if (executor->pids[executor->index] == 0)
+	if (!check_builtin(executor, command))
 	{
-		redirect_input(command);
-		redirect_output(command);
-		if (check_builtin(executor, command))
-			return ;
-		run_command(executor, command);
+		executor->pids[executor->index] = fork();
+		if (executor->pids[executor->index] == 0)
+		{
+			redirect_input(command);
+			redirect_output(command);
+			if (check_builtin(executor, command))
+				exit (EXIT_SUCCESS);
+			run_command(executor, command);
+		}
+		init_child_signal_handler();
+		waitpid(executor->pids[executor->index], &status, 0);
+		if (WIFEXITED(status))
+			executor->exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(executor->status))
+			executor->exit_code = 128 + WTERMSIG(status);
 	}
-	init_child_signal_handler();
-	waitpid(executor->pids[executor->index], &status, 0);
-	if (WIFEXITED(status))
-		executor->exit_code = WEXITSTATUS(status);
-	else if (WIFSIGNALED(executor->status))
-		executor->exit_code = 128 + WTERMSIG(status);
 }
 
 void	ft_fork(t_exe *executor, t_cmd *command)
@@ -82,10 +71,32 @@ void	ft_fork(t_exe *executor, t_cmd *command)
 		if (executor->index > 0)
 			close(executor->input_fd);
 		if (check_builtin(executor, command))
-			return ;
+			exit (EXIT_SUCCESS);
 		run_command(executor, command);
 	}
 	init_child_signal_handler();
+}
+
+void	run_pipeline(t_exe *executor)
+{
+	t_cmd	*head;
+
+	head = executor->commands_list;
+	executor->input_fd = STDIN_FILENO;
+	while (head != NULL)
+	{
+		if (head->next)
+			pipe(executor->fds);
+		ft_fork(executor, head);
+		close(executor->fds[WRITE]);
+		if (executor->index > 0)
+			close(executor->input_fd);
+		executor->input_fd = executor->fds[READ];
+		head = head->next;
+		(executor->index)++;
+	}
+	executor->pids[executor->index] = '\0';
+	wait_for_all_child_processes(executor);
 }
 
 void	start_executor(t_exe *executor)
@@ -95,26 +106,7 @@ void	start_executor(t_exe *executor)
 	head = executor->commands_list;
 	handle_heredocs(executor);
 	if (executor->command_count == 1)
-	{
 		single_command(executor, head);
-		return ;
-	}
 	else
-	{
-		executor->input_fd = STDIN_FILENO;
-		while (head != NULL)
-		{
-			if (head->next)
-				pipe(executor->fds);
-			ft_fork(executor, head);
-			close(executor->fds[WRITE]);
-			if (executor->index > 0)
-				close(executor->input_fd);
-			executor->input_fd = executor->fds[READ];
-			head = head->next;
-			(executor->index)++;
-		}
-	}
-	executor->pids[executor->index] = '\0';
-	wait_for_all_child_processes(executor);
+		run_pipeline(executor);
 }
