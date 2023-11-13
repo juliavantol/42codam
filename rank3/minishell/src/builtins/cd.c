@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 13:40:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/13 13:58:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/13 14:09:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*find_cd_path(t_exe *executor, char *str)
 		path = get_variable(executor, "OLDPWD");
 		printf("%s\n", path);
 	}
+	else if (ft_strcmp(str, "~") || !str)
+		path = get_variable(executor, "HOME");
 	if (path == NULL)
 		return (str);
 	return (path);
