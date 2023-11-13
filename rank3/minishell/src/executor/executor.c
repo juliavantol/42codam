@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/12 23:52:56 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/13 12:32:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	wait_for_all_child_processes(t_exe *executor)
 	if (WIFEXITED(status))
 		executor->exit_code = WEXITSTATUS(status);
 	else if (WIFSIGNALED(executor->status))
-		executor->exit_code = WTERMSIG(status);
+		executor->exit_code = 128 + WTERMSIG(status);
 }
 
 void	single_command(t_exe *executor, t_cmd *command)
@@ -64,7 +64,7 @@ void	single_command(t_exe *executor, t_cmd *command)
 	if (WIFEXITED(status))
 		executor->exit_code = WEXITSTATUS(status);
 	else if (WIFSIGNALED(executor->status))
-		executor->exit_code = WTERMSIG(status);
+		executor->exit_code = 128 + WTERMSIG(status);
 }
 
 void	ft_fork(t_exe *executor, t_cmd *command)
