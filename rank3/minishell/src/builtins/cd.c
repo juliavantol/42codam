@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 13:40:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/13 14:51:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/13 15:04:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@ bool	try_absolute_path(t_exe *executor, char *str)
 	char	*home_path;
 	char	*absolute_path;
 
+	absolute_path = NULL;
 	home_path = get_variable(executor, "HOME");
 	while (*str)
 	{
 		if (*str == '/')
+		{
+			absolute_path = join_three_strs(home_path, NULL, str);
+			if (chdir(absolute_path) == 0)
+				return (true);
 			break ;
+		}
 		str++;
 	}
-	absolute_path = join_three_strs(home_path, NULL, str);
-	if (chdir(absolute_path) == 0)
-		return (true);
 	return (false);
 }
 
@@ -67,15 +70,15 @@ void	cd(t_exe *executor, t_cmd *command)
 	return_value = chdir(find_cd_path(executor, path));
 	if (return_value != 0)
 	{
-		if (!try_absolute_path(executor, path))
+		if (try_absolute_path(executor, path))
+			update_directory_variables(executor);
+		else
 		{
 			ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
 			ft_putstr_fd(path, STDERR_FILENO);
 			ft_putstr_fd(": ", STDERR_FILENO);
 			perror("");
 		}
-		else
-			update_directory_variables(executor);
 	}
 	else
 		update_directory_variables(executor);
