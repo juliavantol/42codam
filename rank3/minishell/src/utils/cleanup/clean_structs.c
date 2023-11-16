@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:44:31 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/16 13:12:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/16 15:16:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ void	free_redirection(t_filenames *node)
 			free(node->delimiter);
 		free(node);
 	}
+}
+
+void	reset_executor(t_exe *executor)
+{
+	free(executor->pids);
+	executor->pids = NULL;
+	free_command_list(executor);
 }
 
 int	ctrl_d(t_exe *executor)

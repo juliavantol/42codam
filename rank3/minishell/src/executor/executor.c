@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/14 00:04:20 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/16 15:16:19 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,15 @@ void	run_command(t_exe *executor, t_cmd *command)
 {
 	char	*path;
 	char	**envp;
-	char	**cmd;
 
 	if (ft_strcmp(command->command_name, "exit") == true)
 		exit_shell(executor, EXIT_SUCCESS, command);
 	restore_signals();
 	envp = convert_envp_to_char(executor);
-	cmd = ft_split(command->command_name, ' ');
-	path = get_cmd_path(executor, cmd[0], envp, 0);
+	path = get_cmd_path(executor, command->split[0], envp, 0);
 	if (!path)
 		error_exit("Command not found");
-	if (execve(path, cmd, envp) == -1)
+	if (execve(path, command->split, envp) == -1)
 		error_exit("Execve error");
 }
 
@@ -109,4 +107,5 @@ void	start_executor(t_exe *executor)
 		single_command(executor, head);
 	else
 		run_pipeline(executor);
+	reset_executor(executor);
 }

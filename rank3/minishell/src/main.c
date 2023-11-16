@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/07 14:15:57 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/16 13:23:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 		rl_catch_signals = 1;
 		restore_signals();
 		if (!executor.input)
-			return (EXIT_SUCCESS);
+			return (ctrl_d(&executor));
 		temp_parser(&executor, executor.input);
 		free(executor.input);
 	}

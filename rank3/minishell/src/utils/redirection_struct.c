@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/15 16:11:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/16 12:33:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/16 13:34:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_filenames	*new_redirection(char *name, int mode)
 	if (node == NULL)
 		return (NULL);
 	node->mode = mode;
+	node->delimiter = NULL;
+	node->filename = NULL;
 	if (node->mode == HEREDOC)
 	{
 		node->delimiter = ft_strdup(name);

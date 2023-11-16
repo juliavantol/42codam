@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/13 19:40:39 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/16 15:13:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,12 @@ void	add_redirection(t_filenames **filenames, char *name, int mode);
 void	exit_shell(t_exe *executor, int code, t_cmd *command);
 void	init_executor(t_exe *executor, char **envp);
 void	temp_parser(t_exe *executor, char *input);
+void	free_redirection(t_filenames *node);
 void	free_command_list(t_exe *executor);
 void	ft_error(char *msg, int err_code);
 void	handle_heredocs(t_exe *executor);
 void	redirect_output(t_cmd *command);
+void	reset_executor(t_exe *executor);
 void	empty_executor(t_exe *executor);
 void	start_executor(t_exe *executor);
 void	redirect_input(t_cmd *command);
@@ -109,6 +111,7 @@ char	**manual_envp(void);
 
 int		open_file(char *filename, int mode);
 int		search_newline(char *s);
+int		ctrl_d(t_exe *executor);
 
 bool	check_builtin(t_exe *executor, t_cmd *command);
 bool	ft_strcmp(char *s1, char *s2);

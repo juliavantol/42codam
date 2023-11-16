@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cleanup.c                                          :+:    :+:            */
+/*   free.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/16 13:17:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/16 15:09:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	empty_array(char **arr)
 		while (arr[i])
 			free(arr[i++]);
 		free(arr);
-		arr = NULL;
 	}
 }
 
@@ -37,8 +36,10 @@ void	free_filenames(t_filenames *list)
 		if (temp->mode == HEREDOC)
 			unlink(temp->filename);
 		free(temp->filename);
+		free(temp->delimiter);
 		free(temp);
 	}
+	free(list);
 }
 
 void	free_command_list(t_exe *executor)
@@ -94,6 +95,9 @@ void	empty_executor(t_exe *executor)
 {
 	free(executor->input);
 	free(executor->pids);
+	executor->pids = NULL;
 	free_command_list(executor);
 	free_envp_list(executor);
+	free(executor->builtins);
+	empty_array(executor->paths);
 }
