@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/25 16:56:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/07 14:16:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/16 13:17:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ void	free_envp_list(t_exe *executor)
 void	empty_executor(t_exe *executor)
 {
 	free(executor->input);
+	free(executor->pids);
 	free_command_list(executor);
 	free_envp_list(executor);
-	empty_array(executor->paths);
-	free(executor->current_directory);
 }
