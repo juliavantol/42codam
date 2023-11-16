@@ -6,7 +6,7 @@
 #    By: fras <fras@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
-#    Updated: 2023/11/05 02:11:13 by Julia         ########   odam.nl          #
+#    Updated: 2023/11/16 12:33:25 by juvan-to      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,12 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 # Directories
 directories:
 	@find $(SRC_DIR) -type d | sed 's/$(SRC_DIR)/$(OBJ_DIR)/' | xargs mkdir -p
+	@mkdir -p build
 
 # Cleaning
 clean:
 	@$(RM) -r obj
+	@$(RM) -r build
 
 fclean: clean
 	@$(RM) $(NAME)
