@@ -6,11 +6,26 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/13 19:40:28 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/19 14:42:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+
+bool	check_if_script(char *cmd)
+{
+	char	*script_title;
+
+	script_title = join_three_strs("./", NULL, cmd);
+	if (access(script_title, F_OK | X_OK) == 0)
+	{
+		printf("ja\n");
+		free(script_title);
+		return (true);
+	}
+	free(script_title);
+	return (false);
+}
 
 char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 {
@@ -21,7 +36,7 @@ char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 	while (paths[i])
 	{
 		path = join_three_strs(paths[i], NULL, cmd);
-		if (access(path, F_OK) == 0)
+		if (access(path, F_OK | X_OK) == 0)
 		{
 			empty_array(paths);
 			return (path);
@@ -30,7 +45,8 @@ char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 		i++;
 	}
 	empty_array(paths);
-	if (access(cmd, F_OK) == 0)
+	check_if_script(cmd);
+	if (access(cmd, F_OK | X_OK) == 0)
 		return (cmd);
 	cmd_error(cmd);
 	exit_shell(executor, 127, NULL);
