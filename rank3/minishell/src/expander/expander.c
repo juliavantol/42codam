@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:47:12 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 01:03:26 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/20 01:08:52 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,8 @@ char	*expand_variable(t_exe *executor, t_cmd *command, char *key)
 	expanded_command = get_variable(executor, key);
 	if (expanded_command == NULL)
 		expanded_command = ft_strdup("");
-	else
-	{
-		free(command->command_name);
-		command->command_name = expanded_command;
-	}
+	free(command->command_name);
+	command->command_name = expanded_command;
 	return (expanded_command);
 }
 
