@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:11:28 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 13:21:19 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 17:27:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "expander.h"
 # include "libft.h"
 
+bool	parentprocess_builtins(t_exe *executor, t_cmd *command);
+bool	childprocess_builtins(t_exe *executor, t_cmd *command);
 void	print_current_directory(t_exe *executor, t_cmd *command);
 void	add_node_envp(t_envp **envp, char *key, char *value);
 void	prepare_export(t_exe *executor, t_cmd *command);

@@ -6,13 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/20 15:10:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 17:26:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-bool	check_builtin(t_exe *executor, t_cmd *command)
+void	run_builtin(t_exe *executor, t_cmd *command)
 {
 	int	i;
 
@@ -20,11 +20,34 @@ bool	check_builtin(t_exe *executor, t_cmd *command)
 	while (executor->builtins[i].command)
 	{
 		if (ft_strcmp(command->split[0], executor->builtins[i].command))
-		{
 			executor->builtins[i].function(executor, command);
-			return (true);
-		}
 		i++;
+	}
+}
+
+bool	parentprocess_builtins(t_exe *executor, t_cmd *command)
+{
+	if (ft_strcmp(command->split[0], "cd")
+		|| ft_strcmp(command->split[0], "export")
+		|| ft_strcmp(command->split[0], "unset")
+		|| ft_strcmp(command->split[0], "exit")
+	)
+	{
+		run_builtin(executor, command);
+		return (true);
+	}
+	return (false);
+}
+
+bool	childprocess_builtins(t_exe *executor, t_cmd *command)
+{
+	if (ft_strcmp(command->split[0], "pwd")
+		|| ft_strcmp(command->split[0], "env")
+		|| ft_strcmp(command->split[0], "echo")
+	)
+	{
+		run_builtin(executor, command);
+		return (true);
 	}
 	return (false);
 }

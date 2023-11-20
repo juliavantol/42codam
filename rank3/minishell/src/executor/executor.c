@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/20 15:48:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 17:38:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ void	single_command(t_exe *executor, t_cmd *command)
 
 	if (ft_strcmp(command->split[0], "exit") == true)
 		exit_shell(executor, EXIT_SUCCESS, command);
+	if (parentprocess_builtins(executor, command))
+		return ;
 	executor->pids[executor->index] = fork();
 	if (executor->pids[executor->index] == 0)
 	{
 		redirect_input(command);
 		redirect_output(command);
-		if (check_builtin(executor, command))
+		if (childprocess_builtins(executor, command))
 			exit (EXIT_SUCCESS);
 		run_command(executor, command);
 	}
@@ -57,6 +59,8 @@ void	single_command(t_exe *executor, t_cmd *command)
 
 void	ft_fork(t_exe *executor, t_cmd *command)
 {
+	if (parentprocess_builtins(executor, command))
+		return ;
 	executor->pids[executor->index] = fork();
 	if (executor->pids[executor->index] == 0)
 	{
@@ -69,7 +73,7 @@ void	ft_fork(t_exe *executor, t_cmd *command)
 		init_child_signal_handler();
 		if (executor->index > 0)
 			close(executor->input_fd);
-		if (check_builtin(executor, command))
+		if (childprocess_builtins(executor, command))
 			exit (EXIT_SUCCESS);
 		run_command(executor, command);
 	}
