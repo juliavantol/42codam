@@ -6,11 +6,27 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 15:04:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 15:52:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+
+bool	check_executable(char *command)
+{
+	if (ft_strnstr(command, "/", ft_strlen(command)))
+	{
+		if (access(command, F_OK | X_OK) == 0)
+			return (true);
+		else
+		{
+			ft_putstr_fd("niet te executen minishell: ", 2);
+			perror(command);
+			exit(126);
+		}
+	}
+	return (true);
+}
 
 char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 {
@@ -30,9 +46,10 @@ char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 		i++;
 	}
 	empty_array(paths);
+	if (!check_executable(cmd))
+		return (NULL);
 	if (access(cmd, F_OK | X_OK) == 0 && ft_strnstr(cmd, "/", ft_strlen(cmd)))
 		return (cmd);
-	perror(cmd);
 	cmd_error(cmd, ": command not found\n");
 	exit_shell(executor, 127, NULL);
 	return (NULL);
