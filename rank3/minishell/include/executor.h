@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/20 13:22:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 14:46:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define HEREDOC 3
 # define QUIT 1
 
+extern int					g_signal_code;
 typedef struct s_builtins	t_builtins;
 
 typedef struct s_filenames
