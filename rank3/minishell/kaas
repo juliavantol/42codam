@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "Hey"
+echo "Dit is een script\n"
