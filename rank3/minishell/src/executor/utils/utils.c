@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 12:59:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 15:04:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 	empty_array(paths);
 	if (access(cmd, F_OK | X_OK) == 0 && ft_strnstr(cmd, "/", ft_strlen(cmd)))
 		return (cmd);
-	cmd_error(cmd);
+	perror(cmd);
+	cmd_error(cmd, ": command not found\n");
 	exit_shell(executor, 127, NULL);
 	return (NULL);
 }
@@ -49,7 +50,7 @@ int	open_file(char *filename, int mode)
 	else if (mode == READ)
 		file = open(filename, O_RDONLY);
 	if (file < 0)
-		ft_error("File couldn't be opened\n", errno);
+		file_error(filename);
 	return (file);
 }
 

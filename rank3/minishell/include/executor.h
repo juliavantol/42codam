@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/20 14:46:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 15:03:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	add_redirection(t_filenames **filenames, char *name, int mode);
 void	exit_shell(t_exe *executor, int code, t_cmd *command);
 void	init_executor(t_exe *executor, char **envp);
 void	temp_parser(t_exe *executor, char *input);
+void	cmd_error(char *cmd, char *error_message);
+void	file_error(char *filename);
 void	free_redirection(t_filenames *node);
 void	free_command_list(t_exe *executor);
 void	ft_error(char *msg, int err_code);
@@ -106,11 +108,10 @@ void	start_executor(t_exe *executor);
 void	redirect_input(t_cmd *command);
 void	empty_array(char **arr);
 void	error_exit(char *msg);
-void	cmd_error(char *cmd);
 
 char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i);
-char	**ft_split_paths(char *whole_str);
 char	**convert_envp_to_char(t_exe *executor);
+char	**ft_split_paths(char *whole_str);
 char	*get_current_directory(void);
 char	**get_paths(char **envp);
 char	**ft_split_args(char *s);
