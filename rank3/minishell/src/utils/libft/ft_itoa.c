@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 13:26:10 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/17 13:29:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 13:26:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 static int	count_digits(int n)
 {

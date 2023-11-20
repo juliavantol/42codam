@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 12:08:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 13:04:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 13:26:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 char	*ft_strnstr(const char *stack, const char *needle, int len)
 {

@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 11:49:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/11 14:24:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 13:26:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 bool	ft_strcmp(char *s1, char *s2)
 {

@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 07:25:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/10/24 11:37:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 13:26:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 char	*join_three_strs(char *s1, char *s2, char *s3)
 {

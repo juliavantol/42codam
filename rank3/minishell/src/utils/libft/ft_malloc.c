@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 12:52:46 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 13:02:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 13:27:45 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	*ft_malloc(size_t size)
+void	*ft_malloc(int size)
 {
 	void	*output;
 

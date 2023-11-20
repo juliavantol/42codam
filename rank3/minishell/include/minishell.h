@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/03 13:37:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 13:25:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 
 # include <unistd.h>
 # include <stdbool.h>
-# include <fcntl.h>
-# include <errno.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <limits.h>
 # include "libft.h"
-# include "executor.h"
 # include "signals.h"
+# include "executor.h"
 
 char	*init_prompt(const char *prompt);
 

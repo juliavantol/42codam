@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 13:36:07 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/15 13:13:57 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 13:26:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 char	*ft_substr(char const *s, int start, int len)
 {

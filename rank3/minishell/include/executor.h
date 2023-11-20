@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/20 00:28:52 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/20 13:22:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,15 @@
 
 # include <sys/types.h>
 # include <sys/wait.h>
-# include "minishell.h"
+# include <stdio.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "libft.h"
+# include "signals.h"
 
 # define READ 0
 # define WRITE 1

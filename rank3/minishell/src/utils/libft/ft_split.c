@@ -6,11 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:49:21 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/09/27 14:23:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 13:26:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 /* Returns the array of new strings resulting from the split, NULL if 
 the allocation fails. */

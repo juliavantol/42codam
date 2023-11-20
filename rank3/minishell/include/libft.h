@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 13:37:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/05 02:14:30 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/20 13:28:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define LIBFT_H
 
 # include <stdbool.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <errno.h>
 
 char	*ft_strnstr(const char *stack, const char *needle, int len);
 char	*join_three_strs(char *s1, char *s2, char *s3);
@@ -23,8 +27,9 @@ char	*ft_strdup(const char *s);
 char	*ft_itoa(int n);
 
 void	*ft_calloc(int nelem, int elsize);
+void	ft_error(char *msg, int err_code);
 void	ft_putstr_fd(char *s, int fd);
-void	*ft_malloc(size_t size);
+void	*ft_malloc(int size);
 
 int		ft_strncmp(const char *s1, const char *s2, int n);
 int		ft_strlen(const char *s);
