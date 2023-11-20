@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 23:06:59 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/10 16:54:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 12:54:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	add_node_envp(t_envp **envp, char *key, char *value)
 	t_envp	*last;
 	t_envp	*new;
 
+	if (!key || !value)
+		return ;
 	new = new_node_envp(key, value);
 	if (*envp != NULL && new != NULL)
 	{
