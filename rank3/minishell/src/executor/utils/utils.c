@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 15:52:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 15:53:45 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	check_executable(char *command)
 			return (true);
 		else
 		{
-			ft_putstr_fd("niet te executen minishell: ", 2);
+			ft_putstr_fd("minishell: ", 2);
 			perror(command);
 			exit(126);
 		}
