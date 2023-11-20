@@ -6,26 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/19 14:42:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 00:00:10 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-bool	check_if_script(char *cmd)
-{
-	char	*script_title;
-
-	script_title = join_three_strs("./", NULL, cmd);
-	if (access(script_title, F_OK | X_OK) == 0)
-	{
-		printf("ja\n");
-		free(script_title);
-		return (true);
-	}
-	free(script_title);
-	return (false);
-}
 
 char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 {
@@ -45,8 +30,7 @@ char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i)
 		i++;
 	}
 	empty_array(paths);
-	check_if_script(cmd);
-	if (access(cmd, F_OK | X_OK) == 0)
+	if (access(cmd, F_OK | X_OK) == 0 && ft_strnstr(cmd, "/", ft_strlen(cmd)))
 		return (cmd);
 	cmd_error(cmd);
 	exit_shell(executor, 127, NULL);
