@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/16 13:23:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/20 12:34:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		init_signal_handler();
 		executor.input = init_prompt("minishell$ ");
-		rl_catch_signals = 1;
 		restore_signals();
 		if (!executor.input)
 			return (ctrl_d(&executor));
