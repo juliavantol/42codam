@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   expander_utils.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/21 22:57:09 by Julia         ########   odam.nl         */
+/*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
+/*   Updated: 2023/11/22 00:05:24 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "expander.h"
 
-# include <unistd.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include "signals.h"
-# include "executor.h"
+bool	needs_expansion(char *str, int index)
+{
+	int	start_position;
 
-char	*init_prompt(const char *prompt);
-
-bool	proper_start(int argc, char **argv);
-bool	valid_input(const char *input);
-
-#endif
+	start_position = 0;
+	while (str[index])
+	{
+		if (str[index] == '$')
+		{
+			start_position = index + 1;
+			break ;
+		}
+		index++;
+	}
+	if (index == ft_strlen(str))
+		return (false);
+	if (str[index + 1] == '\0')
+		return (false);
+	if (str[index - 1] == '\'')
+		return (false);
+	return (true);
+}

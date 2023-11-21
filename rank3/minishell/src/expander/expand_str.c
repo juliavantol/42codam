@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   expand_str.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/21 22:57:09 by Julia         ########   odam.nl         */
+/*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
+/*   Updated: 2023/11/22 00:00:33 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "expander.h"
 
-# include <unistd.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include "signals.h"
-# include "executor.h"
+char	*expand_string(t_exe *executor, char *input_str)
+{
+	char	*output;
 
-char	*init_prompt(const char *prompt);
-
-bool	proper_start(int argc, char **argv);
-bool	valid_input(const char *input);
-
-#endif
+	output = ft_strdup("");
+	needs_expansion(input_str, 0);
+	printf("after: [%s]\n", output);
+	return (output);
+	printf("%s\n", executor->paths[0]);
+}
