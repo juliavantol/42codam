@@ -6,13 +6,13 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/22 00:05:24 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/22 00:06:13 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-bool	needs_expansion(char *str, int index)
+int	needs_expansion(char *str, int index)
 {
 	int	start_position;
 
@@ -27,10 +27,10 @@ bool	needs_expansion(char *str, int index)
 		index++;
 	}
 	if (index == ft_strlen(str))
-		return (false);
+		return (0);
 	if (str[index + 1] == '\0')
-		return (false);
+		return (0);
 	if (str[index - 1] == '\'')
-		return (false);
-	return (true);
+		return (0);
+	return (start_position);
 }
