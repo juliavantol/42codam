@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/22 16:22:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/22 16:50:11 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*expand_str(t_exe *executor, char *str, int index)
 	key = find_variable_name(str, index);
 	remainder = ft_substr(str, index + ft_strlen(key), ft_strlen(str));
 	variable = get_variable(executor, key);
+	if (!variable)
+		variable = ft_strdup("");
 	str = join_expanded_str(temp, variable, remainder);
 	free(temp);
 	free(key);

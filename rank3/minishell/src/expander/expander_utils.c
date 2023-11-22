@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/22 16:16:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/22 16:52:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,21 @@ char	*find_variable_name(char *str, int index)
 int	needs_expansion(char *str, int index)
 {
 	int	start_position;
+	int	in_single_quotes;
 
 	start_position = 0;
 	while (str[index])
 	{
-		if (str[index] == '$')
+		if (str[index] == '\'')
+			in_single_quotes = !in_single_quotes;
+		else if (str[index] == '$' && !in_single_quotes)
 		{
 			start_position = index + 1;
 			break ;
 		}
 		index++;
 	}
-	if (index == ft_strlen(str))
-		return (0);
-	if (str[index + 1] == '\0')
-		return (0);
-	if (str[index - 1] == '\'')
+	if (start_position == 0 || str[start_position] == '\0')
 		return (0);
 	return (start_position);
 }
