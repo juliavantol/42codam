@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/22 16:50:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/22 17:34:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*start_expander(t_exe *executor, char *input)
 		output = temp_output;
 		index = needs_expansion(output, 0);
 	}
+	remove_quotes(output, '\'', 0, 0);
+	remove_quotes(output, '"', 0, 0);
 	printf("after: [%s]\n", output);
 	return (output);
 }

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/22 15:48:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/22 17:20:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	single_command(t_exe *executor, t_cmd *command)
 {
 	int	status;
 
-	printf("before: [%s]\n", command->command_name);
+	// printf("before: [%s]\n", command->command_name);
 	start_expander(executor, command->command_name);
 	exit(1);
 	if (ft_strcmp(command->split[0], "exit") == true)
