@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:31:33 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/22 13:49:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/22 14:54:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	expand_command(t_exe *executor, t_cmd *command);
 
-char	*expand_string(t_exe *executor, char *input_str);
+char	*expand_string(t_exe *executor, char *input);
 char	*ft_substr_until_end(char *s, int start);
 char	*find_variable_name(char *str, int index);
 char	*get_variable(t_exe *executor, char *key);
