@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/22 16:19:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/22 16:22:16 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,17 @@ char	*expand_str(t_exe *executor, char *str, int index)
 
 char	*start_expander(t_exe *executor, char *input)
 {
+	char	*temp_output;
 	char	*output;
-	// char	*temp;
 	int		index;
 
 	output = ft_strdup(input);
 	index = needs_expansion(output, 0);
 	while (index != 0)
 	{
-		output = expand_str(executor, output, index);
+		temp_output = expand_str(executor, output, index);
+		free(output);
+		output = temp_output;
 		index = needs_expansion(output, 0);
 	}
 	printf("after: [%s]\n", output);
