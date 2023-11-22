@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/22 15:32:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/22 15:45:06 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 char	*find_variable_name(char *str, int index)
 {
 	char	*key;
-	int		end;
 	int		start;
+	int		len;
 
 	start = index;
+	len = 0;
 	while (str[index] && str[index] != ' ' && str[index] != '\0'
 		&& str[index] != '"')
+	{
+		len++;
 		index++;
-	end = ft_strlen(str) - index - 1;
-	key = ft_substr(str, start, end);
+	}
+	key = ft_substr(str, start, len);
 	return (key);
 }
 
