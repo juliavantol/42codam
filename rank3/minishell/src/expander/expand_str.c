@@ -6,42 +6,48 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/22 15:40:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/22 16:19:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-char	*start_expander(t_exe *executor, char *input, char *output, int index)
+// echo $USER lalala $PWD
+
+char	*expand_str(t_exe *executor, char *str, int index)
 {
 	char	*temp;
 	char	*key;
 	char	*variable;
 	char	*remainder;
 
-	temp = ft_substr(input, 0, index - 1);
-	key = find_variable_name(input, index);
-	remainder = ft_substr(input, index + ft_strlen(key), ft_strlen(input));
+	if (index > 1)
+		temp = ft_substr(str, 0, index - 1);
+	else
+		temp = ft_strdup("");
+	key = find_variable_name(str, index);
+	remainder = ft_substr(str, index + ft_strlen(key), ft_strlen(str));
 	variable = get_variable(executor, key);
-	
-	output = join_three_strs(temp, variable, remainder);
+	str = join_expanded_str(temp, variable, remainder);
 	free(temp);
 	free(key);
 	free(remainder);
-	return (output);
+	return (str);
 }
 
-char	*expand_string(t_exe *executor, char *input)
+char	*start_expander(t_exe *executor, char *input)
 {
 	char	*output;
+	// char	*temp;
 	int		index;
 
-	output = NULL;
-	index = needs_expansion(input, 0);
-	if (index == 0)
-		output = ft_strdup(input);
-	else
-		output = start_expander(executor, input, output, index);
+	output = ft_strdup(input);
+	index = needs_expansion(output, 0);
+	while (index != 0)
+	{
+		output = expand_str(executor, output, index);
+		index = needs_expansion(output, 0);
+	}
 	printf("after: [%s]\n", output);
 	return (output);
 }
