@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/23 13:53:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/23 14:11:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,19 @@ void	run_command(t_exe *executor, t_cmd *command)
 {
 	char	*path;
 	char	**envp;
+	char	**cmd_split;
 
 	if (ft_strcmp(command->command_name, "exit") == true)
 		exit_shell(executor, EXIT_SUCCESS, command);
 	restore_signals();
 	envp = convert_envp_to_char(executor);
-	expand_command(executor, command);
 	if (ft_strcmp(command->command_name, ""))
 		exit(EXIT_SUCCESS);
-	path = get_cmd_path(executor, command->split[0], envp, 0);
+	cmd_split = ft_split(command->command_name, ' ');
+	path = get_cmd_path(executor, cmd_split[0], envp, 0);
 	if (!path)
 		return ;
-	if (execve(path, command->split, envp) == -1)
+	if (execve(path, cmd_split, envp) == -1)
 		error_exit("Execve error");
 }
 
@@ -36,9 +37,7 @@ void	single_command(t_exe *executor, t_cmd *command)
 {
 	int	status;
 
-	// printf("before: [%s]\n", command->command_name);
-	// start_expander(executor, command->command_name);
-	// exit(1);
+	start_expander(executor, command);
 	if (ft_strcmp(command->split[0], "exit") == true)
 		exit_shell(executor, EXIT_SUCCESS, command);
 	if (parentprocess_builtins(executor, command))

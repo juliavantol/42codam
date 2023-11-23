@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/23 13:57:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/23 14:09:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ bool	is_str_enclosed_by_quotes(char *str, char quote)
 	return (false);
 }
 
-char	*start_expander(t_exe *executor, char *input)
+char	*start_expander(t_exe *executor, t_cmd *command)
 {
 	char	*temp_output;
 	char	*output;
+	char	*input;
 	int		index;
 
+	input = command->command_name;
 	output = ft_strdup(input);
 	index = needs_expansion(output, 0);
 	while (index != 0)
@@ -75,6 +77,6 @@ char	*start_expander(t_exe *executor, char *input)
 	// handle_quotes(output);
 	remove_quotes(output, '\'', 0, 0);
 	remove_quotes(output, '"', 0, 0);
-	printf("after: [%s]\n", output);
+	command->command_name = output;
 	return (output);
 }
