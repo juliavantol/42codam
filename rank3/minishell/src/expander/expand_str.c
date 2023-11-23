@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/23 14:09:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/23 14:25:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ char	*start_expander(t_exe *executor, t_cmd *command)
 	remove_quotes(output, '\'', 0, 0);
 	remove_quotes(output, '"', 0, 0);
 	command->command_name = output;
+	printf("after: [%s]\n", command->command_name);
+	exit(1);
 	return (output);
 }
