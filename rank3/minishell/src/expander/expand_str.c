@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/22 17:34:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/23 13:57:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,26 @@ char	*expand_str(t_exe *executor, char *str, int index)
 	return (str);
 }
 
+bool	is_str_enclosed_by_quotes(char *str, char quote)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = ft_strlen(str);
+	if (len < 2)
+		return (false);
+	if (str[0] != quote || str[len - 1] != quote)
+		return (false);
+	while (i < len - 1)
+	{
+		if (str[i] == quote && str[i + 1] != quote)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 char	*start_expander(t_exe *executor, char *input)
 {
 	char	*temp_output;
@@ -52,6 +72,7 @@ char	*start_expander(t_exe *executor, char *input)
 		output = temp_output;
 		index = needs_expansion(output, 0);
 	}
+	// handle_quotes(output);
 	remove_quotes(output, '\'', 0, 0);
 	remove_quotes(output, '"', 0, 0);
 	printf("after: [%s]\n", output);
