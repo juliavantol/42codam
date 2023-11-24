@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/23 13:43:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/24 18:09:35 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,4 @@ int	needs_expansion(char *str, int index)
 	if (start_position == 0 || str[start_position] == '\0')
 		return (0);
 	return (start_position);
-}
-
-char	*remove_quotes(char *str, char quote, int i, int j)
-{
-	int	k;
-
-	while (str[i])
-	{
-		if (str[i] == quote)
-		{
-			j = i;
-			k = i;
-			while (str[j] == quote)
-				j++;
-			while (str[j])
-			{
-				str[k] = str[j];
-				k++;
-				j++;
-			}
-			str[k] = '\0';
-		}
-		else
-			i++;
-	}
-	return (str);
 }
