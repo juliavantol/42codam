@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/24 18:09:35 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/24 18:50:16 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,18 @@ int	needs_expansion(char *str, int index)
 	if (start_position == 0 || str[start_position] == '\0')
 		return (0);
 	return (start_position);
+}
+
+char	*char_to_str(char c)
+{
+	char	*str;
+
+	str = ft_malloc(2 * sizeof(char));
+	if (str)
+	{
+		str[0] = c;
+		str[1] = '\0';
+		return (str);
+	}
+	return (NULL);
 }

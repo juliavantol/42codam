@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/24 18:09:16 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/24 18:10:38 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/24 18:56:54 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,41 @@ bool	is_str_enclosed_by_quotes(char *str, char quote)
 	return (false);
 }
 
-// void	find_quoted_substrings(char *str, char quote)
-// {
-	
-// }
+int	quote_len(char *str, int index, int quote)
+{
+	int	len;
+
+	len = 0;
+	while (str[index] && str[index] == quote)
+	{
+		len++;
+		index++;
+	}
+	return (len);
+}
+
+// keep copying into new output until double quoted found, then go to a function
+void	handle_quotes(char *str, char quote)
+{
+	int		index;
+	char	*output;
+	char	*temp_str;
+	char	*temp;
+
+	output = ft_strdup("");
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == quote)
+			index += quote_len(str, index, quote);
+		temp = output;
+		temp_str = char_to_str(str[index]);
+		output = join_three_strs(temp, NULL, temp_str);
+		free(temp);
+		free(temp_str);
+		index++;
+	}
+	printf("%s\n", output);
+	free(output);
+	quote--;
+}
