@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/26 00:23:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/26 00:32:26 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	*start_expander(t_exe *executor, t_cmd *command)
 	char	*input;
 	int		index;
 
-	// atexit(leaks);
 	input = command->command_name;
 	output = ft_strdup(input);
 	index = needs_expansion(output, 0);
@@ -60,11 +59,10 @@ char	*start_expander(t_exe *executor, t_cmd *command)
 		output = temp_output;
 		index = needs_expansion(output, 0);
 	}
-	handle_quotes(output, NULL);
-	// remove_quotes(output, '\'', 0, 0);
-	// remove_quotes(output, '"', 0, 0);
+	temp_output = output;
+	output = handle_quotes(temp_output, NULL, 0, 0);
 	command->command_name = output;
-	//printf("after: [%s]\n", command->command_name);
+	printf("%s\n", command->command_name);
 	exit(1);
 	return (output);
 }

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/24 18:09:16 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/26 00:23:28 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/26 00:25:59 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,16 +160,12 @@ char *handle_quotes2(char *str)
     return (output);
 }
 
-void	handle_quotes(char *str, char *output)
+char	*handle_quotes(char *str, char *output, int i, int j)
 {
 	char	inside_quote;
 	int		len;
-	int		i;
-	int		j;
 
 	len = ft_strlen(str);
-	i = 0;
-	j = 0;
 	inside_quote = '\0';
 	output = ft_malloc((len * sizeof(char)) + 1);
 	while (i < len)
@@ -188,5 +184,5 @@ void	handle_quotes(char *str, char *output)
 		i++;
 	}
 	output[j] = '\0';
-	printf("%s\n", output);
+	return (output);
 }
