@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/24 18:53:14 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/25 20:07:38 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*start_expander(t_exe *executor, t_cmd *command)
 		output = temp_output;
 		index = needs_expansion(output, 0);
 	}
-	handle_quotes(output, '"');
+	handle_quotes(output);
 	// remove_quotes(output, '\'', 0, 0);
 	// remove_quotes(output, '"', 0, 0);
 	command->command_name = output;
