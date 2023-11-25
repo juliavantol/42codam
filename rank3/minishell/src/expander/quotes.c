@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/24 18:09:16 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/25 23:52:05 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/26 00:23:28 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,41 +157,36 @@ char *handle_quotes2(char *str)
         i++;
     }
     output[j] = '\0';  // 결과 문자열의 끝을 표시합니다.
-	printf("%s\n", output);
     return (output);
 }
 
-void	handle_quotes(char *str)
+void	handle_quotes(char *str, char *output)
 {
-	int		index;
-	int		temp_index;
-	char	*output;
-	char	*temp_str;
-	char	*temp;
+	char	inside_quote;
+	int		len;
+	int		i;
+	int		j;
 
-	handle_quotes2(str);
-	exit(1);
-	output = ft_strdup("");
-	index = 0;
-	while (str[index])
+	len = ft_strlen(str);
+	i = 0;
+	j = 0;
+	inside_quote = '\0';
+	output = ft_malloc((len * sizeof(char)) + 1);
+	while (i < len)
 	{
-		if (str[index] == '"' || str[index] == '\'')
+		if (str[i] == '"' || str[i] == '\'')
 		{
-			temp_index = quote_len(str, index, str[index]);
-			copy_until_quote(str, index, temp_index, str[index]);
-			exit(1);
-			index += temp_index;
+			if (inside_quote == '\0')
+				inside_quote = str[i];
+			else if (inside_quote == str[i])
+				inside_quote = '\0';
+			else
+				output[j++] = str[i];
 		}
 		else
-		{
-			temp = output;
-			temp_str = char_to_str(str[index]);
-			output = join_three_strs(temp, NULL, temp_str);
-			free(temp);
-			free(temp_str);
-			index++;
-		}
+			output[j++] = str[i];
+		i++;
 	}
+	output[j] = '\0';
 	printf("%s\n", output);
-	free(output);
 }
