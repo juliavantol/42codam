@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/24 18:50:16 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/27 00:34:19 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*find_variable_name(char *str, int index)
 	start = index;
 	len = 0;
 	while (str[index] && str[index] != ' ' && str[index] != '\0'
-		&& str[index] != '"')
+		&& str[index] != '"' && str[index] != '\'')
 	{
 		len++;
 		index++;
@@ -58,14 +58,24 @@ int	needs_expansion(char *str, int index)
 {
 	int		start_position;
 	bool	in_single_quotes;
+	bool	in_double_quotes;
+	bool	single_in_double;
 
 	start_position = 0;
 	in_single_quotes = false;
+	in_double_quotes = false;
+	single_in_double = false;
 	while (str[index])
 	{
 		if (str[index] == '\'')
+		{
 			in_single_quotes = !in_single_quotes;
-		else if (str[index] == '$' && !in_single_quotes)
+			if (in_double_quotes)
+				single_in_double = in_single_quotes;
+		}
+		else if (str[index] == '\"')
+			in_double_quotes = !in_double_quotes;
+		else if (str[index] == '$' && (!in_single_quotes || single_in_double))
 		{
 			start_position = index + 1;
 			break ;
