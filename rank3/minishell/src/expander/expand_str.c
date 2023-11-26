@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 00:20:26 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/27 00:55:10 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ char	*start_expander(t_exe *executor, t_cmd *command)
 
 	input = command->command_name;
 	output = ft_strdup(input);
-	index = needs_expansion(output, 0);
+	index = needs_expansion(output, 0, 0);
 	while (index != 0)
 	{
 		temp_output = expand_str(executor, output, index);
 		free(output);
 		output = temp_output;
-		index = needs_expansion(output, 0);
+		index = needs_expansion(output, 0, 0);
 	}
 	temp_output = output;
 	output = handle_quotes(temp_output, NULL, 0, 0);

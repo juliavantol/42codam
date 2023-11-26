@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 00:34:19 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/27 00:56:27 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,55 +36,58 @@ char	*join_expanded_str(char *s1, char *s2, char *s3)
 	return (output);
 }
 
-char	*find_variable_name(char *str, int index)
+char	*find_variable_name(char *str, int i)
 {
 	char	*key;
 	int		start;
 	int		len;
 
-	start = index;
+	start = i;
 	len = 0;
-	while (str[index] && str[index] != ' ' && str[index] != '\0'
-		&& str[index] != '"' && str[index] != '\'')
+	while (str[i] && str[i] != ' ' && str[i] != '\0'
+		&& str[i] != '"' && str[i] != '\'')
 	{
 		len++;
-		index++;
+		i++;
 	}
 	key = ft_substr(str, start, len);
 	return (key);
 }
 
-int	needs_expansion(char *str, int index)
+void	track_quotes(char c, bool *single_quotes, bool *double_quotes, bool *single_in_double)
 {
-	int		start_position;
-	bool	in_single_quotes;
-	bool	in_double_quotes;
+	if (c == '\'')
+	{
+		*single_quotes = !(*single_quotes);
+		if (*double_quotes)
+			*single_in_double = *single_quotes;
+	}
+	else if (c == '"')
+		*double_quotes = !(*double_quotes);
+}
+
+int	needs_expansion(char *str, int i, int key_start_position)
+{
+	bool	single_quotes;
+	bool	double_quotes;
 	bool	single_in_double;
 
-	start_position = 0;
-	in_single_quotes = false;
-	in_double_quotes = false;
+	single_quotes = false;
+	double_quotes = false;
 	single_in_double = false;
-	while (str[index])
+	while (str[i])
 	{
-		if (str[index] == '\'')
+		track_quotes(str[i], &single_quotes, &double_quotes, &single_in_double);
+		if (str[i] == '$' && (!single_quotes || single_in_double))
 		{
-			in_single_quotes = !in_single_quotes;
-			if (in_double_quotes)
-				single_in_double = in_single_quotes;
-		}
-		else if (str[index] == '\"')
-			in_double_quotes = !in_double_quotes;
-		else if (str[index] == '$' && (!in_single_quotes || single_in_double))
-		{
-			start_position = index + 1;
+			key_start_position = i + 1;
 			break ;
 		}
-		index++;
+		i++;
 	}
-	if (start_position == 0 || str[start_position] == '\0')
+	if (key_start_position == 0 || str[key_start_position] == '\0')
 		return (0);
-	return (start_position);
+	return (key_start_position);
 }
 
 char	*char_to_str(char c)
