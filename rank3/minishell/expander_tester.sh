@@ -1,8 +1,12 @@
 #!/bin/bash
 
 # Initialize variables
-inputs=('"Hello, world!"' '"My name is $USER"')
-bash_inputs=('echo "Hello, world!"' 'echo "My name is $USER"')
+inputs=('"Hello, world!"' '"My name is $USER"' "'hey'" "\"'$USER'\""
+"'\"$USER\"'" "'\$USER'"
+)
+bash_inputs=('echo "Hello, world!"' 'echo "My name is $USER"' "echo 'hey'" " echo \"'$USER'\""
+" echo '\"$USER\"'" 'echo $USER'
+)
 
 # Run commands in your shell and store their output
 declare -a your_outputs
