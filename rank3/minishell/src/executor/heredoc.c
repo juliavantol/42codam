@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/16 13:44:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 17:10:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static void	heredoc_signal_handler(int signal)
 		printf("\n");
 		exit(130);
 	}
-	else if (signal == SIGQUIT)
-		exit(131);
 }
 
 void	init_heredoc_signal_handler(void)
@@ -36,7 +34,7 @@ void	fill_heredoc_file(char *filename, t_filenames *input_file)
 
 	file = open_file(filename, TRUNCATE);
 	input = NULL;
-	signal(SIGINT, heredoc_signal_handler);
+	init_heredoc_signal_handler();
 	while (1)
 	{
 		input = readline("> ");
@@ -63,7 +61,7 @@ void	start_heredoc(t_exe *executor, t_filenames *input_file)
 	if (pid == 0)
 	{
 		fill_heredoc_file(input_file->filename, input_file);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
