@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 13:40:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/13 15:04:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 14:26:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	cd(t_exe *executor, t_cmd *command)
 			update_directory_variables(executor);
 		else
 		{
+			executor->exit_code = 1;
 			ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
 			ft_putstr_fd(path, STDERR_FILENO);
 			ft_putstr_fd(": ", STDERR_FILENO);
