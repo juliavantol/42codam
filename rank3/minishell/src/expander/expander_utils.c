@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 00:56:27 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/27 00:58:06 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	*find_variable_name(char *str, int i)
 	return (key);
 }
 
-void	track_quotes(char c, bool *single_quotes, bool *double_quotes, bool *single_in_double)
+void	track_quotes(char c, bool *single_quotes
+	, bool *double_quotes, bool *single_in_double)
 {
 	if (c == '\'')
 	{
@@ -88,18 +89,4 @@ int	needs_expansion(char *str, int i, int key_start_position)
 	if (key_start_position == 0 || str[key_start_position] == '\0')
 		return (0);
 	return (key_start_position);
-}
-
-char	*char_to_str(char c)
-{
-	char	*str;
-
-	str = ft_malloc(2 * sizeof(char));
-	if (str)
-	{
-		str[0] = c;
-		str[1] = '\0';
-		return (str);
-	}
-	return (NULL);
 }

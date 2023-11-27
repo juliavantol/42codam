@@ -6,13 +6,11 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 00:55:10 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/27 00:59:30 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-
-// echo $USER lalala $PWD
 
 char	*expand_str(t_exe *executor, char *str, int index)
 {

@@ -6,12 +6,14 @@ inputs=('"Hello, world!"' '"My name is $USER"' "'Single quotes'"
 "\"\$USER\""
 "\"'\$USER'\""
 "'\"\$USER\"'"
+"'\"\"\"\$USER\"\"\"' and \"'''\$USER'''\""
 )
 bash_inputs=('echo "Hello, world!"' 'echo "My name is $USER"' "echo 'Single quotes'"
 "echo '\$USER'" 
 "echo \"\$USER\""
 "echo \"'\$USER'\"
 " "echo '\"\$USER\"'"
+"echo '\"\"\"\$USER\"\"\"' and \"'''\$USER'''\""
 )
 
 # Run commands in your shell and store their output
