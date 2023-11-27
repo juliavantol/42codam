@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/23 14:11:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 13:35:28 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	single_command(t_exe *executor, t_cmd *command)
 {
 	int	status;
 
-	start_expander(executor, command);
 	if (ft_strcmp(command->split[0], "exit") == true)
 		exit_shell(executor, EXIT_SUCCESS, command);
 	if (parentprocess_builtins(executor, command))
@@ -108,6 +107,7 @@ void	start_executor(t_exe *executor)
 	t_cmd	*head;
 
 	head = executor->commands_list;
+	run_expander(executor);
 	handle_heredocs(executor);
 	if (executor->command_count == 1)
 		single_command(executor, head);

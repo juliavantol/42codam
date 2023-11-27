@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 00:59:30 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/27 13:32:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,7 @@ char	*expand_str(t_exe *executor, char *str, int index)
 	return (str);
 }
 
-void	leaks(void)
-{
-	system("leaks -s minishell");
-}
-
-char	*start_expander(t_exe *executor, t_cmd *command)
+void	expand_command(t_exe *executor, t_cmd *command)
 {
 	char	*temp_output;
 	char	*output;
@@ -60,7 +55,16 @@ char	*start_expander(t_exe *executor, t_cmd *command)
 	temp_output = output;
 	output = handle_quotes(temp_output, NULL, 0, 0);
 	command->command_name = output;
-	printf("%s\n", command->command_name);
-	exit(1);
-	return (output);
+}
+
+void	run_expander(t_exe *executor)
+{
+	t_cmd	*head;
+
+	head = executor->commands_list;
+	while (head != NULL)
+	{
+		expand_command(executor, head);
+		head = head->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:47:12 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 12:30:09 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 13:33:11 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,24 @@ char	*expand_variable(t_exe *executor, t_cmd *command, char *key)
 	return (expanded_command);
 }
 
-// Look for $var, extract var name, replace with value from environment
-void	expand_command(t_exe *executor, t_cmd *command)
-{
-	int		index;
-	char	*key;
+// // Look for $var, extract var name, replace with value from environment
+// void	expand_command(t_exe *executor, t_cmd *command)
+// {
+// 	int		index;
+// 	char	*key;
 
-	index = 0;
-	while (command->split[index])
-	{
-		if (command->split[index][0] == '$')
-		{
-			key = ft_substr(command->split[index], 1,
-					ft_strlen(command->split[index]) - 1);
-			free(command->split[index]);
-			command->split[index] = expand_variable(executor, command, key);
-			free(key);
-		}
-		index++;
-	}
-	return ;
-}
+// 	index = 0;
+// 	while (command->split[index])
+// 	{
+// 		if (command->split[index][0] == '$')
+// 		{
+// 			key = ft_substr(command->split[index], 1,
+// 					ft_strlen(command->split[index]) - 1);
+// 			free(command->split[index]);
+// 			command->split[index] = expand_variable(executor, command, key);
+// 			free(key);
+// 		}
+// 		index++;
+// 	}
+// 	return ;
+// }
