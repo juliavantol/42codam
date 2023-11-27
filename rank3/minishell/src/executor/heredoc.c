@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/27 17:26:21 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 17:58:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,5 @@ void	handle_heredocs(t_exe *executor)
 		head = head->next;
 	}
 	restore_signals();
+	executor->exit_code = g_signal_received;
 }
