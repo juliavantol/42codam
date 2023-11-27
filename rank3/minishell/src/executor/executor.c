@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 13:35:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/28 00:48:50 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,10 @@ void	start_executor(t_exe *executor)
 	t_cmd	*head;
 
 	head = executor->commands_list;
-	run_expander(executor);
 	handle_heredocs(executor);
+	if (executor->here_doc_signaled != 0)
+		return ;
+	run_expander(executor);
 	if (executor->command_count == 1)
 		single_command(executor, head);
 	else

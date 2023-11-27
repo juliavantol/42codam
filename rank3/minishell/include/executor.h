@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 15:29:07 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/28 00:47:00 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_exe
 	int				input_fd;
 	int				index;
 	int				status;
+	int				here_doc_signaled;
 	char			*current_directory;
 	char			*input;
 	char			**paths;
@@ -100,7 +101,6 @@ void	file_error(char *filename);
 void	free_redirection(t_filenames *node);
 void	free_command_list(t_exe *executor);
 void	ft_error(char *msg, int err_code);
-void	handle_heredocs(t_exe *executor);
 void	redirect_output(t_cmd *command);
 void	reset_executor(t_exe *executor);
 void	empty_executor(t_exe *executor);
@@ -119,6 +119,7 @@ char	*get_next_line(int fd);
 char	**manual_envp(void);
 
 int		open_file(char *filename, int mode);
+int		handle_heredocs(t_exe *executor);
 int		search_newline(char *s);
 int		ctrl_d(t_exe *executor);
 

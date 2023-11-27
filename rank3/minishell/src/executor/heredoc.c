@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/27 17:58:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/28 00:49:24 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ void	start_heredoc(t_exe *executor, t_filenames *input_file)
 		executor->exit_code = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		executor->exit_code = 128 + WTERMSIG(status);
+	if (executor->exit_code != 0)
+		executor->here_doc_signaled = 1;
 }
 
-void	handle_heredocs(t_exe *executor)
+int	handle_heredocs(t_exe *executor)
 {
 	t_cmd		*head;
 	t_filenames	*input_head;
@@ -95,5 +97,5 @@ void	handle_heredocs(t_exe *executor)
 		head = head->next;
 	}
 	restore_signals();
-	executor->exit_code = g_signal_received;
+	return (0);
 }
