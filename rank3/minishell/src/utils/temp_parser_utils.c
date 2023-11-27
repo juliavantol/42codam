@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:05:23 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/20 15:25:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 13:40:09 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_cmd	*new_command_node(char *command_line_split, int index)
 	node->input_redirection = false;
 	node->index = index;
 	divide_command_in_redirections(node, command_line_split, 0);
-	node->split = ft_split(node->command_name, ' ');
 	node->next = NULL;
 	return (node);
 }

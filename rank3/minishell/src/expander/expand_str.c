@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 22:46:55 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 13:32:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 13:40:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,14 @@ void	expand_command(t_exe *executor, t_cmd *command)
 void	run_expander(t_exe *executor)
 {
 	t_cmd	*head;
+	char	**cmd_split;
 
 	head = executor->commands_list;
 	while (head != NULL)
 	{
 		expand_command(executor, head);
+		cmd_split = ft_split(head->command_name, ' ');
+		head->split = cmd_split;
 		head = head->next;
 	}
 }
