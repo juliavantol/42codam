@@ -6,17 +6,20 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/27 17:10:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 17:26:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+
+static int g_signal_received = 0;
 
 static void	heredoc_signal_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
 		printf("\n");
+		g_signal_received = 130;
 		exit(130);
 	}
 }
