@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/27 14:55:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 16:24:16 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void	wait_for_all_child_processes(t_exe *executor)
 				executor->exit_code = WEXITSTATUS(status);
 		}
 		else if (WIFSIGNALED(executor->status))
-			executor->exit_code = 128 + WTERMSIG(status);
+			executor->exit_code = 0;
 	}
 }
