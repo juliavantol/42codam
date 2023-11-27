@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 15:53:45 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 14:52:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,20 @@ void	wait_for_all_child_processes(t_exe *executor)
 
 	index = 0;
 	while (executor->pids[index])
-		waitpid(executor->pids[index++], &status, 0);
-	if (WIFEXITED(status))
-		executor->exit_code = WEXITSTATUS(status);
-	else if (WIFSIGNALED(executor->status))
-		executor->exit_code = 128 + WTERMSIG(status);
+	{
+		waitpid(executor->pids[index], &status, 0);
+		if (WIFEXITED(status))
+		{
+			int exit_status = WEXITSTATUS(status);
+			if (exit_status != 0)
+			{
+				executor->exit_code = exit_status;
+			}
+		}
+		else if (WIFSIGNALED(executor->status))
+		{
+			executor->exit_code = 128 + WTERMSIG(status);
+		}
+		index++;
+	}
 }
