@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 00:58:06 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/27 14:21:40 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,6 @@ char	*join_expanded_str(char *s1, char *s2, char *s3)
 		output[i++] = s3[j++];
 	output[i] = '\0';
 	return (output);
-}
-
-char	*find_variable_name(char *str, int i)
-{
-	char	*key;
-	int		start;
-	int		len;
-
-	start = i;
-	len = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '\0'
-		&& str[i] != '"' && str[i] != '\'')
-	{
-		len++;
-		i++;
-	}
-	key = ft_substr(str, start, len);
-	return (key);
 }
 
 void	track_quotes(char c, bool *single_quotes

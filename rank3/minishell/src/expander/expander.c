@@ -6,62 +6,68 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:47:12 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/27 13:38:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/27 14:21:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-char	*get_variable(t_exe *executor, char *key)
+char	*expand_str(t_exe *executor, char *str, int index)
 {
-	t_envp	*head;
-	char	*exit_code;
+	char	*temp;
+	char	*key;
+	char	*variable;
+	char	*remainder;
 
-	if (ft_strcmp("?", key))
+	if (index > 1)
+		temp = ft_substr(str, 0, index - 1);
+	else
+		temp = ft_strdup("");
+	key = find_variable_name(str, index);
+	remainder = ft_substr(str, index + ft_strlen(key), ft_strlen(str));
+	variable = get_variable(executor, key);
+	if (!variable)
+		variable = ft_strdup("");
+	str = join_expanded_str(temp, variable, remainder);
+	free(temp);
+	free(key);
+	free(remainder);
+	return (str);
+}
+
+void	expand_command(t_exe *executor, t_cmd *command)
+{
+	char	*temp_output;
+	char	*output;
+	char	*input;
+	int		index;
+
+	input = command->command_name;
+	output = ft_strdup(input);
+	index = needs_expansion(output, 0, 0);
+	while (index != 0)
 	{
-		exit_code = ft_itoa(executor->exit_code);
-		return (exit_code);
+		temp_output = expand_str(executor, output, index);
+		free(output);
+		output = temp_output;
+		index = needs_expansion(output, 0, 0);
 	}
-	head = executor->envp_list;
+	temp_output = output;
+	output = handle_quotes(temp_output, NULL, 0, 0);
+	command->command_name = output;
+}
+
+void	run_expander(t_exe *executor)
+{
+	t_cmd	*head;
+	char	**cmd_split;
+
+	head = executor->commands_list;
 	while (head != NULL)
 	{
-		if (ft_strcmp(head->key, key))
-			return (head->value);
+		expand_command(executor, head);
+		cmd_split = ft_split(head->command_name, ' ');
+		head->split = cmd_split;
 		head = head->next;
 	}
-	return (NULL);
 }
-
-char	*expand_variable(t_exe *executor, t_cmd *command, char *key)
-{
-	char	*expanded_command;
-
-	expanded_command = get_variable(executor, key);
-	if (expanded_command == NULL)
-		expanded_command = ft_strdup("");
-	free(command->command_name);
-	command->command_name = expanded_command;
-	return (expanded_command);
-}
-
-// // Look for $var, extract var name, replace with value from environment
-// void	expand_command(t_exe *executor, t_cmd *command)
-// {
-// 	int		index;
-// 	char	*key;
-
-// 	index = 0;
-// 	while (command->split[index])
-// 	{
-// 		if (command->split[index][0] == '$')
-// 		{
-// 			key = ft_substr(command->split[index], 1,
-// 					ft_strlen(command->split[index]) - 1);
-// 			free(command->split[index]);
-// 			command->split[index] = expand_variable(executor, command, key);
-// 			free(key);
-// 		}
-// 		index++;
-// 	}
-// 	return ;
-// }
