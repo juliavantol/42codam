@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 14:21:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/28 12:41:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,22 @@ int	needs_expansion(char *str, int i, int key_start_position)
 	{
 		track_quotes(str[i], &single_quotes, &double_quotes, &single_in_double);
 		if (str[i] == '$' && (!single_quotes || single_in_double))
+		{
+			key_start_position = i + 1;
+			break ;
+		}
+		i++;
+	}
+	if (key_start_position == 0 || str[key_start_position] == '\0')
+		return (0);
+	return (key_start_position);
+}
+
+int	needs_expansion_heredoc(char *str, int i, int key_start_position)
+{
+	while (str[i])
+	{
+		if (str[i] == '$')
 		{
 			key_start_position = i + 1;
 			break ;

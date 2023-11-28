@@ -6,20 +6,17 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/28 00:49:24 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/28 12:42:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-static int g_signal_received = 0;
 
 static void	heredoc_signal_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
 		printf("\n");
-		g_signal_received = 130;
 		exit(130);
 	}
 }
@@ -29,7 +26,18 @@ void	init_heredoc_signal_handler(void)
 	signal(SIGINT, heredoc_signal_handler);
 }
 
-void	fill_heredoc_file(char *filename, t_filenames *input_file)
+char	*read_heredoc_line(t_exe *executor)
+{
+	char	*input;
+	char	*temp_input;
+
+	input = readline("> ");
+	temp_input = expand_string(executor, input);
+	free(input);
+	return (temp_input);
+}
+
+void	fill_heredoc_file(t_exe *executor, char *filename, t_filenames *input_file)
 {
 	char	*input;
 	char	*line;
@@ -40,7 +48,7 @@ void	fill_heredoc_file(char *filename, t_filenames *input_file)
 	init_heredoc_signal_handler();
 	while (1)
 	{
-		input = readline("> ");
+		input = read_heredoc_line(executor);
 		if (ft_strcmp(input, input_file->delimiter) || !input)
 		{
 			free(input);
@@ -63,7 +71,7 @@ void	start_heredoc(t_exe *executor, t_filenames *input_file)
 	pid = fork();
 	if (pid == 0)
 	{
-		fill_heredoc_file(input_file->filename, input_file);
+		fill_heredoc_file(executor, input_file->filename, input_file);
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, &status, 0);

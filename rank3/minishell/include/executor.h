@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/28 00:47:00 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/28 12:34:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ char	**convert_envp_to_char(t_exe *executor);
 char	**ft_split_paths(char *whole_str);
 char	*get_current_directory(void);
 char	**get_paths(char **envp);
+char	*expand_string(t_exe *executor, char *str);
 char	**ft_split_args(char *s);
 char	*get_next_line(int fd);
 char	**manual_envp(void);

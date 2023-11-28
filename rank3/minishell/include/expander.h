@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:31:33 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/27 13:31:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/28 12:40:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*find_variable_name(char *str, int index);
 char	*get_variable(t_exe *executor, char *key);
 char	*char_to_str(char c);
 
+int		needs_expansion_heredoc(char *str, int i, int key_start_position);
 int		needs_expansion(char *str, int i, int key_start_position);
 
 #endif

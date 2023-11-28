@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:47:12 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/27 14:21:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/28 12:41:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-char	*expand_str(t_exe *executor, char *str, int index)
+char	*expanded_variable(t_exe *executor, char *str, int index)
 {
 	char	*temp;
 	char	*key;
@@ -35,6 +35,24 @@ char	*expand_str(t_exe *executor, char *str, int index)
 	return (str);
 }
 
+char	*expand_string(t_exe *executor, char *str)
+{
+	char	*temp_output;
+	char	*output;
+	int		index;
+
+	output = ft_strdup(str);
+	index = needs_expansion_heredoc(output, 0, 0);
+	while (index != 0)
+	{
+		temp_output = expanded_variable(executor, output, index);
+		free(output);
+		output = temp_output;
+		index = needs_expansion_heredoc(output, 0, 0);
+	}
+	return (output);
+}
+
 void	expand_command(t_exe *executor, t_cmd *command)
 {
 	char	*temp_output;
@@ -47,7 +65,7 @@ void	expand_command(t_exe *executor, t_cmd *command)
 	index = needs_expansion(output, 0, 0);
 	while (index != 0)
 	{
-		temp_output = expand_str(executor, output, index);
+		temp_output = expanded_variable(executor, output, index);
 		free(output);
 		output = temp_output;
 		index = needs_expansion(output, 0, 0);
@@ -56,6 +74,8 @@ void	expand_command(t_exe *executor, t_cmd *command)
 	output = handle_quotes(temp_output, NULL, 0, 0);
 	command->command_name = output;
 }
+
+
 
 void	run_expander(t_exe *executor)
 {
