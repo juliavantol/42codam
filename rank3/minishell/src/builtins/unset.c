@@ -6,46 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/01 14:27:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 12:54:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/28 13:38:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-void	prepare_export(t_exe *executor, t_cmd *command)
-{
-	char	**split_temp;
-	int		index;
-
-	index = 1;
-	while (command->split[index])
-	{
-		split_temp = ft_split(command->split[index], '=');
-		export(executor, split_temp[0], split_temp[1]);
-		empty_array(split_temp);
-		index++;
-	}
-	return ;
-	export(executor, split_temp[0], split_temp[1]);
-}
-
-void	export(t_exe *executor, char *key, char *value)
-{
-	t_envp	*head;
-
-	head = executor->envp_list;
-	while (head != NULL)
-	{
-		if (ft_strcmp(head->key, key))
-		{
-			free(head->value);
-			head->value = ft_strdup(value);
-			return ;
-		}
-		head = head->next;
-	}
-	add_node_envp(&executor->envp_list, key, value);
-}
 
 void	prepare_unset(t_exe *executor, t_cmd *command)
 {
