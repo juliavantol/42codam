@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/28 13:38:26 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 01:47:47 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/29 01:52:10 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,6 @@ char	*extract_command(char *str)
 		i++;
 	output = ft_substr(str, i + 1, ft_strlen(str));
 	return (output);
-}
-
-
-char	*extract_key(char *str, int *i)
-{
-	char	*key;
-	int		index;
-
-	key = NULL;
-	index = *i - 2;
-	while (str[index] && str[index] != ' ')
-	{
-		printf("%c", str[index]);
-		index--;
-	}
-	return (key);
-}
-
-void	loop_until_specific_char(char *str, char c, int *i)
-{
-	while (str[*i] && str[*i] != c)
-	{
-		printf("%c", str[*i]);
-		(*i)++;
-	}
-	(*i)++;
 }
 
 void	extract_key_value_pairs(t_exe *executor, char *str)
@@ -92,22 +66,6 @@ void	prepare_export(t_exe *executor, t_cmd *command)
 	extract_key_value_pairs(executor, command_name);
 	return ;
 	(void)executor;
-}
-
-void	prepare_export_save(t_exe *executor, t_cmd *command)
-{
-	char	**split_temp;
-	int		i;
-
-	i = 1;
-	while (command->split[i])
-	{
-		split_temp = ft_split(command->split[i], '=');
-		export(executor, split_temp[0], split_temp[1]);
-		empty_array(split_temp);
-		i++;
-	}
-	return ;
 }
 
 void	export(t_exe *executor, char *key, char *value)
