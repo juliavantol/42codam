@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/29 16:41:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 17:53:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void	ft_fork(t_exe *executor, t_cmd *command)
 	executor->pids[executor->index] = fork();
 	if (executor->pids[executor->index] == 0)
 	{
-		redirect_input(command);
-		redirect_output(command);
 		dup2(executor->input_fd, STDIN_FILENO);
 		close(executor->fds[READ]);
 		dup2(executor->fds[WRITE], STDOUT_FILENO);
@@ -87,6 +85,8 @@ void	run_pipeline(t_exe *executor)
 	executor->input_fd = STDIN_FILENO;
 	while (head != NULL)
 	{
+		redirect_input(head);
+		redirect_output(head);
 		if (head->next)
 			pipe(executor->fds);
 		if (!parentprocess_builtins(executor, head))

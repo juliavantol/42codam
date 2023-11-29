@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 16:36:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 17:57:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	redirect_output(t_cmd *command)
 			file = open_file(head->filename, TRUNCATE);
 		else
 			file = open_file(head->filename, APPEND);
-		dup2(file, WRITE);
+		dup2(file, STDOUT_FILENO);
 		close(file);
 		head = head->next;
 	}

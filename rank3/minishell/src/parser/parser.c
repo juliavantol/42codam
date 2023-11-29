@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 14:25:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 17:06:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 17:07:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	update_command_name(t_tokens *token, t_cmd *cmd_node)
 {
 	char	*temp;
 
-	// printf("before [%s]\n", cmd_node->command_name);
 	temp = ft_strdup(cmd_node->command_name);
 	free(cmd_node->command_name);
 	cmd_node->command_name = join_three_strs(temp, " ", token->value);
