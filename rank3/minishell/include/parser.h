@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 14:25:51 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 15:15:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:00:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "libft.h"
 # include "lexer.h"
 # include "definitions.h"
+
+typedef struct s_exe	t_exe;
 
 typedef struct s_file
 {
@@ -45,8 +47,8 @@ typedef struct s_cmd
 }	t_cmd;
 
 void	add_redir(t_file **redirections, char *name, int mode);
+void	run_parser(t_exe *executor, t_tokens *tokens);
 void	add_command(t_cmd **commands, int index);
-void	run_parser(t_tokens *tokens);
 
 t_cmd	*last_command(t_cmd *command);
 t_cmd	*init_command(int index);

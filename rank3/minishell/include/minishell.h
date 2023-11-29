@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/29 14:37:34 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:04:18 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
+# include "definitions.h"
 # include "signals.h"
 # include "executor.h"
-# include "definitions.h"
 # include "lexer.h"
 # include "parser.h"
 

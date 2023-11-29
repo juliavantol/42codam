@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/29 14:42:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:04:02 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "minishell.h"
 
+
 // Lexer
 
-char		*node_types(t_node_type type, char *dst);
 t_tokens	*lexer(char *line);
 t_tokens	*init_tokens(char *line);
 t_tokens	*check_syntax(t_tokens *tokens);

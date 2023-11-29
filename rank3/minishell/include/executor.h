@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/29 15:21:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:06:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,19 @@ typedef struct s_builtins
 }	t_builtins;
 
 void	add_command_node(t_cmd **commands, char *command_line_split, int index);
+void	init_executor(t_exe *executor, char **envp);
 void	divide_command_in_redirections(t_cmd *node, char *command, int i);
 void	wait_for_all_child_processes(t_exe *executor);
 void	here_doc(t_filenames *head, char *delimiter);
 void	add_redirection(t_filenames **filenames, char *name, int mode);
 void	exit_shell(t_exe *executor, int code, t_cmd *command);
-void	init_executor(t_exe *executor, char **envp);
 void	temp_parser(t_exe *executor, char *input);
 void	cmd_error(char *cmd, char *error_message);
 void	file_error(char *filename);
 void	free_redirection(t_filenames *node);
 void	free_command_list(t_exe *executor);
 void	ft_error(char *msg, int err_code);
+void	prepare_executor(t_exe *executor);
 void	redirect_output(t_cmd *command);
 void	reset_executor(t_exe *executor);
 void	empty_executor(t_exe *executor);

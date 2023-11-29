@@ -1,17 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
+/*   init_executor.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/12 13:16:39 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/12 19:43:28 by Julia         ########   odam.nl         */
+/*   Created: 2023/11/29 15:56:22 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/11/29 16:07:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executor.h"
 #include "builtins.h"
+
+void	prepare_executor(t_exe *executor)
+{
+	executor->pids = ft_malloc((executor->command_count + 1) * sizeof(pid_t));
+	executor->index = 0;
+	executor->here_doc_signaled = 0;
+}
 
 void	init_executor(t_exe *executor, char **envp)
 {
