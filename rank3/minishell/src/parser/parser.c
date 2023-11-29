@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 14:25:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 16:08:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:21:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,49 +43,18 @@ void	update_command_name(t_tokens *token, t_cmd *cmd_node)
 	free(temp);
 }
 
-void	check_redir_struct(t_file *redirs)
-{
-	t_file	*head;
-
-	head = redirs;
-	while (head != NULL)
-	{
-		printf("file: [%s]\n", head->filename);
-		printf("mode: %d\n", head->mode);
-		head = head->next;
-	}
-}
-
-void	check_command_struct(t_cmd *commands)
-{
-	t_cmd	*head;
-
-	head = commands;
-	while (head != NULL)
-	{
-		printf("index: %d\n", head->index);
-		printf("command_name [%s]\n", head->command_name);
-		check_redir_struct(head->outputs);
-		check_redir_struct(head->inputs);
-		printf("\n-----------------\n");
-		head = head->next;
-	}
-}
-
-void	run_parser(t_exe *executor, t_tokens *tokens)
+void	run_parser(t_exe *executor, t_tokens *tokens, int index)
 {
 	t_cmd	*commands_list;
 	t_cmd	*current_cmd;
-	int		index;
 
 	commands_list = NULL;
-	index = 1;
 	add_command(&commands_list, index);
 	current_cmd = last_command(commands_list);
 	while (tokens)
 	{
 		if (parse_redirection(tokens, current_cmd) == true)
-			tokens = tokens->next->next;
+			tokens = tokens->next;
 		if (tokens)
 		{
 			if (tokens->type == PIPE)

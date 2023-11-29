@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/29 16:06:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:12:08 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ int	main(int argc, char **argv, char **envp)
 		tokens = lexer(executor.input);
 		if (!tokens)
 			continue ;
-		run_parser(&executor, tokens);
-		start_executor(&executor);
+		run_parser(&executor, tokens, 1);
+		run_executor(&executor);
 		clear_tokens(&tokens);
-		// temp_parser(&executor, executor.input);
 		free(executor.input);
 	}
 	empty_executor(&executor);

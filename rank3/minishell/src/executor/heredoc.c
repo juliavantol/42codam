@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 14:17:19 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:13:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*read_heredoc_line(t_exe *executor)
 	return (temp_input);
 }
 
-void	fill_heredoc_file(t_exe *executor, char *filename, t_filenames *input_file)
+void	fill_heredoc_file(t_exe *executor, char *filename, t_file *input_file)
 {
 	char	*input;
 	char	*line;
@@ -63,7 +63,7 @@ void	fill_heredoc_file(t_exe *executor, char *filename, t_filenames *input_file)
 	signal(SIGINT, SIG_DFL);
 }
 
-void	start_heredoc(t_exe *executor, t_filenames *input_file)
+void	start_heredoc(t_exe *executor, t_file *input_file)
 {
 	int		pid;
 	int		status;
@@ -86,7 +86,7 @@ void	start_heredoc(t_exe *executor, t_filenames *input_file)
 int	handle_heredocs(t_exe *executor)
 {
 	t_cmd		*head;
-	t_filenames	*input_head;
+	t_file		*input_head;
 	int			index;
 
 	head = executor->commands_list;

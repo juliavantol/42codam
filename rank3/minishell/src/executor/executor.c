@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/29 16:08:12 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:12:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	run_pipeline(t_exe *executor)
 	wait_for_all_child_processes(executor);
 }
 
-void	start_executor(t_exe *executor)
+void	run_executor(t_exe *executor)
 {
 	t_cmd	*head;
 

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 15:27:16 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:13:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	redirect_output(t_cmd *command)
 {
-	int			file;
-	t_filenames	*head;
+	int		file;
+	t_file	*head;
 
 	if (command->output_redirection == false)
 		return ;
@@ -34,8 +34,8 @@ void	redirect_output(t_cmd *command)
 
 void	redirect_input(t_cmd *command)
 {
-	int			file;
-	t_filenames	*head;
+	int		file;
+	t_file	*head;
 
 	if (command->input_redirection == false)
 		return ;

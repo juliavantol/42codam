@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/29 16:06:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:20:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,8 @@
 
 extern int					g_signal_code;
 typedef struct s_builtins	t_builtins;
+typedef struct s_file		t_file;
 typedef struct s_cmd		t_cmd;
-
-typedef struct s_filenames
-{
-	char				*filename;
-	int					mode;
-	char				*delimiter;
-	struct s_filenames	*next;
-}	t_filenames;
-
-// typedef struct s_cmd
-// {
-// 	char			*command_name;
-// 	char			**split;
-// 	bool			output_redirection;
-// 	bool			input_redirection;
-// 	t_filenames		*outputs;
-// 	t_filenames		*inputs;
-// 	int				index;
-// 	struct s_cmd	*next;
-// }	t_cmd;
 
 typedef struct s_envp
 {
@@ -94,20 +75,20 @@ void	add_command_node(t_cmd **commands, char *command_line_split, int index);
 void	init_executor(t_exe *executor, char **envp);
 void	divide_command_in_redirections(t_cmd *node, char *command, int i);
 void	wait_for_all_child_processes(t_exe *executor);
-void	here_doc(t_filenames *head, char *delimiter);
-void	add_redirection(t_filenames **filenames, char *name, int mode);
+void	here_doc(t_file *head, char *delimiter);
+void	add_redirection(t_file **filenames, char *name, int mode);
 void	exit_shell(t_exe *executor, int code, t_cmd *command);
 void	temp_parser(t_exe *executor, char *input);
 void	cmd_error(char *cmd, char *error_message);
 void	file_error(char *filename);
-void	free_redirection(t_filenames *node);
+void	free_redirection(t_file *node);
 void	free_command_list(t_exe *executor);
 void	ft_error(char *msg, int err_code);
 void	prepare_executor(t_exe *executor);
 void	redirect_output(t_cmd *command);
 void	reset_executor(t_exe *executor);
 void	empty_executor(t_exe *executor);
-void	start_executor(t_exe *executor);
+void	run_executor(t_exe *executor);
 void	redirect_input(t_cmd *command);
 void	empty_array(char **arr);
 void	error_exit(char *msg);

@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:44:31 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 13:54:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:14:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-void	free_redirection(t_filenames *node)
+void	free_redirection(t_file *node)
 {
 	if (node != NULL)
 	{
