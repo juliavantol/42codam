@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 14:25:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 15:36:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 15:43:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,35 @@ void	update_command_name(t_tokens *token, t_cmd *cmd_node)
 	free(temp);
 }
 
+void	check_redir_struct(t_file *redirs)
+{
+	t_file	*head;
+
+	head = redirs;
+	while (head != NULL)
+	{
+		printf("file: [%s]\n", head->filename);
+		printf("mode: %d\n", head->mode);
+		head = head->next;
+	}
+}
+
+void	check_command_struct(t_cmd *commands)
+{
+	t_cmd	*head;
+
+	head = commands;
+	while (head != NULL)
+	{
+		printf("index: %d\n", head->index);
+		printf("command_name [%s]\n", head->command_name);
+		check_redir_struct(head->outputs);
+		check_redir_struct(head->inputs);
+		printf("\n-----------------\n");
+		head = head->next;
+	}
+}
+
 void	run_parser(t_tokens *tokens)
 {
 	t_cmd	*commands_list;
@@ -69,4 +98,6 @@ void	run_parser(t_tokens *tokens)
 			tokens = tokens->next;
 		}
 	}
+	check_command_struct(commands_list);
 }
+
