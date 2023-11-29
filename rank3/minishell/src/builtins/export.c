@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/28 13:38:26 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/28 14:28:54 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 01:44:22 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,79 @@ char	*extract_command(char *str)
 	return (output);
 }
 
+
+char	*extract_key(char *str, int *i)
+{
+	char	*key;
+	int		index;
+
+	key = NULL;
+	index = *i - 2;
+	while (str[index] && str[index] != ' ')
+	{
+		printf("%c", str[index]);
+		index--;
+	}
+	return (key);
+}
+
+void	loop_until_specific_char(char *str, char c, int *i)
+{
+	while (str[*i] && str[*i] != c)
+	{
+		printf("%c", str[*i]);
+		(*i)++;
+	}
+	(*i)++;
+}
+
+void	extract_key_value_pairs(char *str)
+{
+	char	**temp_split;
+	char	**split_key;
+	char	*value;
+	int		i;
+
+	i = 0;
+	temp_split = ft_split(str, ' ');
+	value = ft_strdup("");
+	while (temp_split[i])
+	{
+		if (ft_strnstr(temp_split[i], "=", ft_strlen(temp_split[i])))
+		{
+			if (ft_strlen(value) > 0)
+			{
+				printf("value: %s\n", value);
+				free(value);
+				value = ft_strdup("");
+			}
+			split_key = ft_split(temp_split[i], '=');
+			printf("key: [%s]\n", split_key[0]);
+			value = join_three_strs(value, " ", split_key[1]);
+		}
+		else
+			value = join_three_strs(value, " ", temp_split[i]);
+		i++;
+	}
+	if (ft_strlen(value) > 0)
+	{
+		printf("value: %s\n", value);
+		free(value);
+	}
+}
+
 void	prepare_export(t_exe *executor, t_cmd *command)
 {
 	char	*command_name;
-	char	*key;
-	char	*value;
 	int		i;
-	int		j;
 
-	i = 0;
 	command_name = extract_command(command->command_name);
-	while (command_name[i] != '\0')
-	{
-		j = i;
-		while (command_name[j] != '=' && command_name[j] != '\0')
-			j++;
-		key = ft_substr(command_name, i, j - i);
-		i = j + 1;
-		j = i;
-		while (command_name[j] != ' ' && command_name[j] != '\0')
-			j++;
-		value = ft_substr(command_name, i, j - i); // +1 and -2 to remove quotes
-		i = j + 1;
-		printf("key: %s\nvalue: %s\n", key, value);
-		free(key);
-		free(value);
-	}
+	printf("start: %s\n\n", command_name);
+	extract_key_value_pairs(command_name);
+	return ;
+	i = 0;
+	loop_until_specific_char(command_name, '=', &i);
+	printf("%d\n", i);
 	(void)executor;
 	return ;
 }
