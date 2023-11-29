@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 12:41:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 13:44:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 13:52:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	handle_key(t_exe *executor, char **split_key, char **value)
 		export(executor, split_key[0], *value);
 		free(*value);
 		*value = ft_strdup("");
+		empty_array(split_key);
 	}
 }
 
@@ -39,6 +40,7 @@ void	export_all_keys(t_exe *executor, char **cmd_split, int i)
 	char	*value;
 
 	value = ft_strdup("");
+	split_key = NULL;
 	while (cmd_split[i])
 	{
 		if (ft_strnstr(cmd_split[i], "=", ft_strlen(cmd_split[i])))
@@ -57,4 +59,5 @@ void	export_all_keys(t_exe *executor, char **cmd_split, int i)
 		export(executor, split_key[0], value);
 		free(value);
 	}
+	empty_array(split_key);
 }

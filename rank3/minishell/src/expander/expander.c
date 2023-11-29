@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:47:12 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/28 12:41:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 14:06:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	expand_command(t_exe *executor, t_cmd *command)
 	}
 	temp_output = output;
 	output = handle_quotes(temp_output, NULL, 0, 0);
+	free(command->command_name);
 	command->command_name = output;
+	free(temp_output);
 }
 
 
