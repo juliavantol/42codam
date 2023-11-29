@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 14:25:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 16:49:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 17:06:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,14 @@ void	run_parser(t_exe *executor, t_tokens *tokens, int index)
 			tokens = tokens->next;
 		else
 		{
-			if (tokens->type != FILENAME)
+			if (tokens->type == PIPE)
 			{
-				if (tokens->type == PIPE)
-				{
-					add_command(&commands_list, index++);
-					current_cmd = last_command(commands_list);
-				}
-				else
-					update_command_name(tokens, current_cmd);
-				tokens = tokens->next;
+				add_command(&commands_list, index++);
+				current_cmd = last_command(commands_list);
 			}
-			else
-				tokens = tokens->next;
+			else if (tokens->type != FILENAME)
+				update_command_name(tokens, current_cmd);
+			tokens = tokens->next;
 		}
 	}
 	executor->command_count = index;
