@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/28 13:38:26 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 01:44:22 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/29 01:47:47 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	loop_until_specific_char(char *str, char c, int *i)
 	(*i)++;
 }
 
-void	extract_key_value_pairs(char *str)
+void	extract_key_value_pairs(t_exe *executor, char *str)
 {
 	char	**temp_split;
 	char	**split_key;
@@ -66,12 +66,11 @@ void	extract_key_value_pairs(char *str)
 		{
 			if (ft_strlen(value) > 0)
 			{
-				printf("value: %s\n", value);
+				export(executor, split_key[0], value);
 				free(value);
 				value = ft_strdup("");
 			}
 			split_key = ft_split(temp_split[i], '=');
-			printf("key: [%s]\n", split_key[0]);
 			value = join_three_strs(value, " ", split_key[1]);
 		}
 		else
@@ -80,7 +79,7 @@ void	extract_key_value_pairs(char *str)
 	}
 	if (ft_strlen(value) > 0)
 	{
-		printf("value: %s\n", value);
+		export(executor, split_key[0], value);
 		free(value);
 	}
 }
@@ -88,17 +87,11 @@ void	extract_key_value_pairs(char *str)
 void	prepare_export(t_exe *executor, t_cmd *command)
 {
 	char	*command_name;
-	int		i;
 
 	command_name = extract_command(command->command_name);
-	printf("start: %s\n\n", command_name);
-	extract_key_value_pairs(command_name);
+	extract_key_value_pairs(executor, command_name);
 	return ;
-	i = 0;
-	loop_until_specific_char(command_name, '=', &i);
-	printf("%d\n", i);
 	(void)executor;
-	return ;
 }
 
 void	prepare_export_save(t_exe *executor, t_cmd *command)
