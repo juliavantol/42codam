@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/29 17:53:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 22:49:57 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	ft_fork(t_exe *executor, t_cmd *command)
 		init_child_signal_handler();
 		if (executor->index > 0)
 			close(executor->input_fd);
+		redirect_input(command);
+		redirect_output(command);
 		if (childprocess_builtins(executor, command))
 			exit (EXIT_SUCCESS);
 		run_command(executor, command);
@@ -85,8 +87,6 @@ void	run_pipeline(t_exe *executor)
 	executor->input_fd = STDIN_FILENO;
 	while (head != NULL)
 	{
-		redirect_input(head);
-		redirect_output(head);
 		if (head->next)
 			pipe(executor->fds);
 		if (!parentprocess_builtins(executor, head))
