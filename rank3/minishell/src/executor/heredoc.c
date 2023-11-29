@@ -6,25 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 16:13:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:38:57 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-static void	heredoc_signal_handler(int signal)
-{
-	if (signal == SIGINT)
-	{
-		printf("\n");
-		exit(130);
-	}
-}
-
-void	init_heredoc_signal_handler(void)
-{
-	signal(SIGINT, heredoc_signal_handler);
-}
 
 char	*read_heredoc_line(t_exe *executor)
 {

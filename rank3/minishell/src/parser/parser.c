@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 14:25:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 16:21:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:49:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	update_command_name(t_tokens *token, t_cmd *cmd_node)
 {
 	char	*temp;
 
+	// printf("before [%s]\n", cmd_node->command_name);
 	temp = ft_strdup(cmd_node->command_name);
 	free(cmd_node->command_name);
 	cmd_node->command_name = join_three_strs(temp, " ", token->value);
@@ -55,16 +56,21 @@ void	run_parser(t_exe *executor, t_tokens *tokens, int index)
 	{
 		if (parse_redirection(tokens, current_cmd) == true)
 			tokens = tokens->next;
-		if (tokens)
+		else
 		{
-			if (tokens->type == PIPE)
+			if (tokens->type != FILENAME)
 			{
-				add_command(&commands_list, index++);
-				current_cmd = last_command(commands_list);
+				if (tokens->type == PIPE)
+				{
+					add_command(&commands_list, index++);
+					current_cmd = last_command(commands_list);
+				}
+				else
+					update_command_name(tokens, current_cmd);
+				tokens = tokens->next;
 			}
 			else
-				update_command_name(tokens, current_cmd);
-			tokens = tokens->next;
+				tokens = tokens->next;
 		}
 	}
 	executor->command_count = index;

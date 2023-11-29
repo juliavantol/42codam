@@ -1,3 +1,9 @@
 a
 b
+build
 c
+include
+Makefile
+minishell
+obj
+src
