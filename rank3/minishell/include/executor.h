@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/28 12:34:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 15:21:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,20 @@
 # include <readline/history.h>
 # include "libft.h"
 # include "signals.h"
+# include "parser.h"
 
 # define READ 0
 # define WRITE 1
 # define INPUT 0
 # define OUTPUT 1
-# define APPEND 1
 # define TRUNCATE 2
-# define HEREDOC 3
+# define APPEND 3
+# define HEREDOC2 4
 # define QUIT 1
 
 extern int					g_signal_code;
 typedef struct s_builtins	t_builtins;
+typedef struct s_cmd		t_cmd;
 
 typedef struct s_filenames
 {
@@ -45,17 +47,17 @@ typedef struct s_filenames
 	struct s_filenames	*next;
 }	t_filenames;
 
-typedef struct s_cmd
-{
-	char			*command_name;
-	char			**split;
-	bool			output_redirection;
-	bool			input_redirection;
-	t_filenames		*outputs;
-	t_filenames		*inputs;
-	int				index;
-	struct s_cmd	*next;
-}	t_cmd;
+// typedef struct s_cmd
+// {
+// 	char			*command_name;
+// 	char			**split;
+// 	bool			output_redirection;
+// 	bool			input_redirection;
+// 	t_filenames		*outputs;
+// 	t_filenames		*inputs;
+// 	int				index;
+// 	struct s_cmd	*next;
+// }	t_cmd;
 
 typedef struct s_envp
 {

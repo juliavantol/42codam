@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/28 12:36:35 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/28 00:47:17 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/29 14:17:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	divide_command_in_redirections(t_cmd *node, char *command, int i)
 		else if (ft_strcmp(cmd[i], "<<") && cmd[i + 1])
 		{
 			node->input_redirection = true;
-			add_redirection(&node->inputs, cmd[i + 1], HEREDOC);
+			add_redirection(&node->inputs, cmd[i + 1], HEREDOC2);
 			i++;
 		}
 		else

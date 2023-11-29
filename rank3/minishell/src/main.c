@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/21 23:22:46 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/29 14:36:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_exe	executor;
+	t_exe		executor;
+	t_tokens	*tokens;
 
 	if (!proper_start(argc, argv))
 		return (EXIT_FAILURE);
@@ -40,7 +41,12 @@ int	main(int argc, char **argv, char **envp)
 		restore_signals();
 		if (!executor.input)
 			return (ctrl_d(&executor));
-		temp_parser(&executor, executor.input);
+		tokens = lexer(executor.input);
+		if (!tokens)
+			continue ;
+		run_parser(tokens);
+		clear_tokens(&tokens);
+		// temp_parser(&executor, executor.input);
 		free(executor.input);
 	}
 	empty_executor(&executor);

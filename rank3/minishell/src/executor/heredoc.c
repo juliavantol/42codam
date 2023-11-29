@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/28 12:42:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 14:17:19 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	handle_heredocs(t_exe *executor)
 		input_head = head->inputs;
 		while (input_head != NULL)
 		{
-			if (input_head->mode == HEREDOC)
+			if (input_head->mode == HEREDOC2)
 				start_heredoc(executor, input_head);
 			input_head = input_head->next;
 		}

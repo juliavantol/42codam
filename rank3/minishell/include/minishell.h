@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/21 22:57:09 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/29 14:37:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,14 @@
 # include "libft.h"
 # include "signals.h"
 # include "executor.h"
+# include "definitions.h"
+# include "lexer.h"
+# include "parser.h"
 
 char	*init_prompt(const char *prompt);
+
+void	print_lexer(t_tokens *tokens);
+void	print_error(t_error_type error);
 
 bool	proper_start(int argc, char **argv);
 bool	valid_input(const char *input);
