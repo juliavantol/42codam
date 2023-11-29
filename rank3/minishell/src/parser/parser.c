@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 14:25:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 15:30:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 15:36:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ bool	parse_redirection(t_tokens *token, t_cmd *cmd_node)
 	return (false);
 }
 
+void	update_command_name(t_tokens *token, t_cmd *cmd_node)
+{
+	char	*temp;
+
+	temp = ft_strdup(cmd_node->command_name);
+	free(cmd_node->command_name);
+	cmd_node->command_name = join_three_strs(temp, " ", token->value);
+	free(temp);
+}
+
 void	run_parser(t_tokens *tokens)
 {
 	t_cmd	*commands_list;
@@ -49,9 +59,13 @@ void	run_parser(t_tokens *tokens)
 			tokens = tokens->next->next;
 		if (tokens)
 		{
-			printf("value: %s\n", tokens->value);
 			if (tokens->type == PIPE)
+			{
 				add_command(&commands_list, index++);
+				current_cmd = last_command(commands_list);
+			}
+			else
+				update_command_name(tokens, current_cmd);
 			tokens = tokens->next;
 		}
 	}
