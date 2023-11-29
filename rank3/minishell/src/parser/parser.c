@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 14:25:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 16:06:17 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:08:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	run_parser(t_exe *executor, t_tokens *tokens)
 	int		index;
 
 	commands_list = NULL;
-	index = 0;
+	index = 1;
 	add_command(&commands_list, index);
 	current_cmd = last_command(commands_list);
 	while (tokens)
