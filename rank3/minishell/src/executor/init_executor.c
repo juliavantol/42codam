@@ -6,18 +6,22 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 15:56:22 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 16:07:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 00:53:34 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 #include "builtins.h"
 
+extern int	g_signal_code;
+
 void	prepare_executor(t_exe *executor)
 {
 	executor->pids = ft_malloc((executor->command_count + 1) * sizeof(pid_t));
 	executor->index = 0;
 	executor->here_doc_signaled = 0;
+	if (g_signal_code != 0)
+		executor->exit_code = g_signal_code;
 }
 
 void	init_executor(t_exe *executor, char **envp)

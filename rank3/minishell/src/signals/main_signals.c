@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/21 15:48:34 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 14:46:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 00:53:23 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	signal_handler(int signal_num)
 
 void	init_signal_handler(void)
 {
+	g_signal_code = 0;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
