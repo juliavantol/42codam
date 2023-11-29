@@ -6,13 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 12:41:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 13:52:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/29 14:09:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-// export test1="eerste zin" test2="dit is de tweede zin"
 
 void	handle_key(t_exe *executor, char **split_key, char **value)
 {
