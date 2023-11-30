@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/29 16:04:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 13:47:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 
 # include "minishell.h"
 
-
 // Lexer
 
 t_tokens	*lexer(char *line);
 t_tokens	*init_tokens(char *line);
-t_tokens	*check_syntax(t_tokens *tokens);
-void		set_token_types(t_tokens *token);
+t_tokens 	*check_syntax(t_tokens *tokens);
+t_tokens	*set_token_types(t_tokens *token);
 t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type expect);
 t_node_type	set_type(t_tokens *tokens, t_node_type expected);
 bool		is_command(char *str);
@@ -39,8 +38,6 @@ void		clear_tokens(t_tokens **node);
 // Utils
 
 void		error_output(char *string);
-// size_t		ft_strlen(const char *s);
-// int			ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // Assign
 
@@ -52,6 +49,7 @@ size_t		quote_is_closed(const char *str);
 size_t		get_quoted_string_literal(char *string, char *dest);
 int			assign_quote(char *line, char **dest);
 bool		is_quote(char c);
+void		remove_quotations(char *string);
 
 // Utils ASSIGN
 
@@ -64,7 +62,6 @@ size_t		get_string_literal(char *string, char *dest);
 int			assign_word(char *line, char **dest);
 size_t		word_copy(char *word, char *dest);
 size_t		get_word_size(char *start);
-
 
 // Special case
 

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 14:25:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 00:38:21 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/30 12:55:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,3 @@ void	run_parser(t_exe *executor, t_tokens *tokens, int index)
 	executor->command_count = index;
 	executor->commands_list = commands_list;
 }
-

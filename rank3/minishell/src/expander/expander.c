@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:47:12 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 16:37:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 12:36:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	expand_command(t_exe *executor, t_cmd *command)
 	command->command_name = output;
 	free(temp_output);
 }
-
-
 
 void	run_expander(t_exe *executor)
 {

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 12:04:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 13:23:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,22 @@ bool	check_executable(char *command)
 {
 	if (ft_strnstr(command, "/", ft_strlen(command)))
 	{
-		if (access(command, F_OK | X_OK) == 0)
-			return (true);
+		if (access(command, F_OK) == 0)
+		{
+			if (access(command, X_OK) == 0)
+				return (true);
+			else
+			{
+				ft_putstr_fd("minishell: ", 2);
+				perror(command);
+				exit(126);
+			}
+		}
 		else
 		{
 			ft_putstr_fd("minishell: ", 2);
 			perror(command);
-			exit(126);
+			exit(127);
 		}
 	}
 	return (true);

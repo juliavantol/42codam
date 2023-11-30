@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/29 14:20:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 13:47:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_tokens	*lexer(char *line)
 	if (!tokens)
 		return (NULL);
 	set_token_types(tokens);
+	if (!tokens)
+		return (NULL);
 	return (tokens);
 }
 
@@ -43,7 +45,6 @@ t_tokens	*init_tokens(char *line)
 	}
 	return (tokens);
 }
-
 
 t_tokens *check_syntax(t_tokens *tokens)
 {
@@ -70,7 +71,7 @@ t_tokens *check_syntax(t_tokens *tokens)
 	return (tokens);
 }
 
-void	set_token_types(t_tokens *token)
+t_tokens	*set_token_types(t_tokens *token)
 {
 	t_tokens	*all_tokens;
 	t_node_type	expected;
@@ -87,16 +88,16 @@ void	set_token_types(t_tokens *token)
 	{
 		clear_tokens(&all_tokens);
 		print_error(FILENAME_MISSING);
-		return ;
+		return (NULL);
 	}
+	return (all_tokens);
 }
 
 t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type expect)
 {
 	if (expect == FILENAME && is_quote(*(token->value)))
 	{
-		// remove_quotations(token->value);
-		//continue
+		remove_quotations(token->value);
 		return (UNKNOWN);
 	}
 	if (expect == FILENAME && is_special_case(*(token->value)))
@@ -115,7 +116,8 @@ t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type ex
 		|| token->type == APPEND_REDIRECTION)
 		return (FILENAME);
 	if (token->type == COMMAND || token->type == ARGUMENT \
-		|| token->type == FLAG)
+		|| token->type == FLAG || token->type == STRING_LITERAL_SINGLE_QUOTE
+		|| token->type == STRING_LITERAL_DOUBLE_QUOTE)
 		return (ARGUMENT);
 	return (UNKNOWN);
 }
