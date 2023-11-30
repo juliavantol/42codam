@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 16:17:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/27 13:38:24 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 12:35:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	echo(t_exe *executor, t_cmd *command)
 		newline = false;
 	while (command->split[i])
 	{
-		// if (command->split[i][0] == '$' || command->split[i][0] == '~')
-		// 	print_variable(executor, command->split[i]);
-		// else
-		printf("%s", command->split[i]);
+		if (command->split[i][0] == '~')
+			print_variable(executor, command->split[i]);
+		else
+			printf("%s", command->split[i]);
 		i++;
 		if (command->split[i])
 			printf(" ");
