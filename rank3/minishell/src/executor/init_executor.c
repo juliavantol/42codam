@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 15:56:22 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 00:53:34 by Julia         ########   odam.nl         */
+/*   Updated: 2023/11/30 12:11:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void	init_executor(t_exe *executor, char **envp)
 	builtins[5] = (t_builtins){"unset", &prepare_unset};
 	builtins[6] = (t_builtins){NULL, NULL};
 	executor->builtins = builtins;
+	executor->index = 0;
 	init_envp(executor, envp);
 }

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/30 11:34:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 11:48:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 12:00:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void	exit_shell(t_exe *executor, int code, t_cmd *command)
 {
 	int	i;
 
+	i = 0;
 	if (command)
 	{
 		redirect_input(command);
 		redirect_output(command);
+		while (command->split[i])
+			i++;
 	}
-	i = 0;
-	while (command->split[i])
-		i++;
 	if (i > 2)
 	{
 		cmd_error("exit", ": too many arguments\n");
