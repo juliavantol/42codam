@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/28 13:38:26 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 17:52:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 00:39:41 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	prepare_export(t_exe *executor, t_cmd *command)
 		return ;
 	}
 	split_command = ft_split(name, ' ');
-	export_all_keys(executor, split_command, 0);
+	export_all_keys(executor, split_command, NULL, 0);
 	empty_array(split_command);
 	free(name);
 	return ;
@@ -52,7 +52,6 @@ void	export(t_exe *executor, char *key, char *value)
 {
 	t_envp	*head;
 
-	printf("%s\n", key);
 	if (ft_isdigit(key[0]))
 	{
 		cmd_error("export", ": not a valid identifier\n");
