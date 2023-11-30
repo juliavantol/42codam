@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:18:10 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/30 12:14:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 12:24:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ bool	parentprocess_builtins(t_exe *executor, t_cmd *command)
 	if (ft_strcmp(command->split[0], "cd")
 		|| ft_strcmp(command->split[0], "export")
 		|| ft_strcmp(command->split[0], "unset")
-		|| ft_strcmp(command->split[0], "exit")
 	)
 	{
 		run_builtin(executor, command);

@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/30 12:17:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 12:25:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	run_command(t_exe *executor, t_cmd *command)
 	char	**envp;
 	char	**cmd_split;
 
-	if (ft_strcmp(command->command_name, "exit") == true)
-		exit_shell(executor, EXIT_SUCCESS, command);
+	if (ft_strcmp(command->split[0], "exit") == true)
+		exit_shell(executor, executor->exit_code, command);
 	restore_signals();
 	envp = convert_envp_to_char(executor);
 	if (ft_strcmp(command->command_name, ""))
