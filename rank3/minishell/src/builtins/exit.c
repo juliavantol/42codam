@@ -6,11 +6,27 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/30 11:34:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 11:44:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 11:48:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
+int	check_exit_code(int code, t_cmd *command, int len)
+{
+	if (len == 2)
+	{
+		code = ft_atoi(command->split[1]);
+		if (!code)
+		{
+			cmd_error("exit", ": numeric argument required\n");
+			code = 2;
+		}
+	}
+	if (code > 255)
+		code = code % 256;
+	return (code);
+}
 
 void	exit_shell(t_exe *executor, int code, t_cmd *command)
 {
@@ -29,15 +45,7 @@ void	exit_shell(t_exe *executor, int code, t_cmd *command)
 		cmd_error("exit", ": too many arguments\n");
 		return ;
 	}
-	else if (i == 2)
-		code = ft_atoi(command->split[1]);
-	if (!code)
-	{
-		cmd_error("exit", ": numeric argument required\n");
-		code = 2;
-	}
-	else if (code > 255)
-		code = code % 256;
+	code = check_exit_code(code, command, i);
 	empty_executor(executor);
 	exit(code);
 }
