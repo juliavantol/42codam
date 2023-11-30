@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 13:37:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 13:28:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 11:37:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	*ft_malloc(int size);
 
 int		ft_strncmp(const char *s1, const char *s2, int n);
+int		ft_atoi(const char *str);
 int		ft_strlen(const char *s);
 
 bool	ft_strcmp(char *s1, char *s2);
