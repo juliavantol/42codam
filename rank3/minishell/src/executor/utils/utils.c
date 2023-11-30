@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 13:23:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 14:41:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ bool	check_executable(char *command)
 				return (true);
 			else
 			{
-				ft_putstr_fd("minishell: ", 2);
-				perror(command);
+				cmd_error(command, ": Permission denied\n");
 				exit(126);
 			}
 		}
 		else
 		{
-			ft_putstr_fd("minishell: ", 2);
-			perror(command);
+			cmd_error(command, ": No such file or directory\n");
 			exit(127);
 		}
 	}

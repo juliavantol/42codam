@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/29 16:20:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 14:37:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	add_redirection(t_file **filenames, char *name, int mode);
 void	exit_shell(t_exe *executor, int code, t_cmd *command);
 void	temp_parser(t_exe *executor, char *input);
 void	cmd_error(char *cmd, char *error_message);
+void	error_exit(char *command, char *msg);
 void	file_error(char *filename);
 void	free_redirection(t_file *node);
 void	free_command_list(t_exe *executor);
@@ -91,7 +92,6 @@ void	empty_executor(t_exe *executor);
 void	run_executor(t_exe *executor);
 void	redirect_input(t_cmd *command);
 void	empty_array(char **arr);
-void	error_exit(char *msg);
 
 char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i);
 char	**convert_envp_to_char(t_exe *executor);

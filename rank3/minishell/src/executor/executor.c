@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/30 12:25:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 14:36:56 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	run_command(t_exe *executor, t_cmd *command)
 	if (!path)
 		return ;
 	if (execve(path, cmd_split, envp) == -1)
-		error_exit("Execve error");
+		error_exit(cmd_split[0], "Execve error");
 }
 
 void	single_command(t_exe *executor, t_cmd *command)
