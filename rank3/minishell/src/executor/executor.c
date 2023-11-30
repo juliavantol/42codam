@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/30 15:06:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:35:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	single_command(t_exe *executor, t_cmd *command)
 	int	status;
 
 	if (ft_strcmp(command->split[0], "exit") == true)
-		exit_shell(executor, executor->exit_code, command);
+	{
+		if (exit_shell(executor, executor->exit_code, command) == -1)
+			return ;
+	}
 	if (parentprocess_builtins(executor, command))
 		return ;
 	executor->pids[executor->index] = fork();

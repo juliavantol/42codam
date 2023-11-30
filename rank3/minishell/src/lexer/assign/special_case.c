@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/08 14:16:49 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 14:05:19 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/28 17:28:06 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ size_t	get_special_case_size(char *start)
 
 bool	is_special_case(char c)
 {
-	return (c == '<' || c == '>' || c == '|' || c == '\'' || c == '\"');
+	return(c == '<' || c == '>' || c == '|' || c == '\'' || c == '\"');
 }

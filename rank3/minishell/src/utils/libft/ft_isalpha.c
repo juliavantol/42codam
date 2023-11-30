@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_lexer.c                                      :+:    :+:            */
+/*   ft_isalpha.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fras <fras@student.codam.nl>                 +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/18 19:15:55 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 15:35:22 by fras          ########   odam.nl         */
+/*   Created: 2022/10/04 14:57:13 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/11/30 17:43:21 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	error_output(char *string)
+int	ft_isalpha(int c)
 {
-	write(STDERR_FILENO, string, ft_strlen(string));
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
+	return (0);
 }

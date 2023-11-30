@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 12:41:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 14:09:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 17:40:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@ void	handle_key(t_exe *executor, char **split_key, char **value)
 {
 	if (ft_strlen(*value) > 0)
 	{
+		printf("key: %s value: %s\n", split_key[0], *value);
 		export(executor, split_key[0], *value);
 		free(*value);
 		*value = ft_strdup("");
 		empty_array(split_key);
+	}
+	else
+	{
+		printf("no key?\n");
 	}
 }
 
