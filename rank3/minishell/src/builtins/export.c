@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/28 13:38:26 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/12/01 00:39:41 by Julia         ########   odam.nl         */
+/*   Updated: 2023/12/01 01:06:45 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,14 @@ void	prepare_export(t_exe *executor, t_cmd *command)
 	name = extract_command(command->command_name);
 	if (!ft_strnstr(name, "=", ft_strlen(name)))
 	{
-		cmd_error("export", ": not a valid identifier\n");
-		executor->exit_code = 1;
-		return ;
+		if (is_valid_key(name))
+			return ;
+		else
+		{
+			cmd_error("export", ": not a valid identifier\n");
+			executor->exit_code = 1;
+			return ;
+		}
 	}
 	split_command = ft_split(name, ' ');
 	export_all_keys(executor, split_command, NULL, 0);

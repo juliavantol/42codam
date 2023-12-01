@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 12:41:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/12/01 00:43:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/12/01 01:13:52 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_key(t_exe *executor, char **key_split, char **value)
 {
-	if (ft_strlen(*value) > 0)
+	if (ft_strlen(*value) > 0 && key_split)
 	{
 		export(executor, key_split[0], *value);
 		free(*value);
@@ -75,7 +75,8 @@ void	export_all_keys(t_exe *executor, char **cmd, char **key_split, int i)
 			if (key_split != NULL)
 				handle_key(executor, key_split, &value);
 			key_split = ft_split(cmd[i], '=');
-			handle_value(&value, key_split[1], 0);
+			if (key_split[0] != NULL && key_split[1])
+				handle_value(&value, key_split[1], 0);
 		}
 		else
 			handle_value(&value, cmd[i], 1);

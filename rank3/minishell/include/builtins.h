@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 17:11:28 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/12/01 00:39:29 by Julia         ########   odam.nl         */
+/*   Updated: 2023/12/01 00:50:34 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	cd(t_exe *executor, t_cmd *command);
 char	*join_three_strs(char *s1, char *s2, char *s3);
 
 bool	detact_newline_flag(char *str);
+bool	is_valid_key(char *key);
 
 #endif
