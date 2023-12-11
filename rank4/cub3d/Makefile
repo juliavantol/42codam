@@ -1,61 +1,29 @@
 NAME = cub3d
 CC = cc
-CFLAGS = -Werror -Wextra -Wall
-INCLUDE = -I include
-SRC_DIR = src
-OBJ_DIR = obj
-SOURCES = $(shell find $(SRC_DIR) -type f -name "*.c")
-OBJECTS = $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SOURCES:%.c=%.o))
-RM = rm -f
-
-ifdef DEBUG
-CFLAGS += -g -D DEBUG=-1
-MLX42_DEBUG = -DDEBUG=1
-endif
-
-ifdef FSAN
-CFLAGS += -fsanitize=address -g
-endif
-
-# Targets
-.PHONY: all mandatory bonus clean fclean re directories debug rebug fsan resan message
+INCLUDES = -I include
+CFLAGS = -Wall -Wextra -Werror
+OBJ_DIR	= obj
+SRC_DIR	= src
+SRC_FILES = $(shell find $(SRC_DIR) -type f -name "*.c")
+OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
-	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lreadline $(INCLUDE)
-	@$(MAKE) message EXECUTABLE=$@
+$(NAME): $(LIBFT) $(OBJS)
+	@echo "Now compiling $(NAME)..."
+	@$(CC) $(CFLAGS) -lreadline $(INCLUDES) -o $@ $^
+	@echo "$(NAME) succesfully compiled!"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@$(MAKE) directories
-	@$(CC) $(CFLAGS) -o $@ -c $^ $(INCLUDE)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
-# Directories
-directories:
-	@find $(SRC_DIR) -type d | sed 's/$(SRC_DIR)/$(OBJ_DIR)/' | xargs mkdir -p
-
-# Cleaning
 clean:
-	@$(RM) -r obj
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@$(RM) $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
-
-# Debugging
-debug:
-	$(MAKE) DEBUG=1 
-
-rebug: fclean debug
-
-fsan:
-	$(MAKE) FSAN=1
-
-resan: fclean fsan
-
-# Info Message
-message:
-	@echo "\033[92m$(EXECUTABLE) is ready for usage!\033[0m"
 
 .PHONY:	all clean fclean re
