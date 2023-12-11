@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../../Desktop/minishell"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"history.h": "c",
+			"readline.h": "c",
+			"array": "c",
+			"typeinfo": "c",
+			"libft.h": "c",
+			"minishell.h": "c",
+			"errno.h": "c",
+			"unistd.h": "c",
+			"builtins.h": "c",
+			"chat": "c",
+			"executor.h": "c",
+			"system_error": "c",
+			"signals.h": "c",
+			"limits.h": "c",
+			"get_next_line.h": "c",
+			"stdbool.h": "c",
+			"functional": "c"
+		}
+	}
+}
