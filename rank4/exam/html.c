@@ -99,6 +99,7 @@ int main(int argc, char **argv)
     int     i = 0;
     int     start_tag = 0;
     int     end_tag = 0;
+    int     len = 0;
 
     if (argc != 2)
         return (0);
@@ -114,8 +115,21 @@ int main(int argc, char **argv)
                 i++;
                 end_tag++;
             }
-            tag = ft_substr(argv[1], start_tag, end_tag);
-            add_to_stack(&stack, &size, tag);
+            if (argv[1][start_tag] == '/')
+            {
+                tag = ft_substr(argv[1], start_tag + 1, end_tag - 1);
+                len = ft_strlen(tag);
+                // if (strncmp(stack[size], tag, len) == 0)
+                //     pop_stack(&stack, &size);
+                printf("top: %s\n", stack[size - 1]);
+                printf("[%s] and [%s]\n", tag, stack[size - 1]);
+                printf("%d\n", strncmp(stack[size - 1], tag, len));
+            }
+            else
+            {
+                tag = ft_substr(argv[1], start_tag, end_tag);
+                add_to_stack(&stack, &size, tag);
+            }
             free(tag);
         }
         i++;
