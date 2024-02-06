@@ -96,6 +96,11 @@ int main(int argc, char **argv)
 				i++;
 				len_tag++;
 			}
+			if (len_tag == 0)
+			{
+				i++;
+				continue;
+			}
 			buffer = malloc(len_tag + 1);
 			strncpy(buffer, input + start_tag, len_tag);
 			buffer[len_tag] = '\0';
