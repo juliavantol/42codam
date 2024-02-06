@@ -151,6 +151,8 @@ int main(int argc, char **argv)
         else
             printf("KO\n");
     }
+    else
+        printf("OK\n");
     for (int j = 0; j < size; j++)
         free(stack[j]);
     free(stack);
