@@ -119,22 +119,38 @@ int main(int argc, char **argv)
             {
                 tag = ft_substr(argv[1], start_tag + 1, end_tag - 1);
                 len = ft_strlen(tag);
-                // if (strncmp(stack[size], tag, len) == 0)
-                //     pop_stack(&stack, &size);
-                printf("top: %s\n", stack[size - 1]);
-                printf("[%s] and [%s]\n", tag, stack[size - 1]);
-                printf("%d\n", strncmp(stack[size - 1], tag, len));
+                if (strncmp(stack[size - 1], tag, len) == 0)
+                    pop_stack(&stack, &size);
+                else
+                    break ;
             }
             else
             {
                 tag = ft_substr(argv[1], start_tag, end_tag);
-                add_to_stack(&stack, &size, tag);
+                if (strncmp(tag, "img ", 4) == 0)
+                {
+                    while (argv[1][i] && argv[1][i] != '>')
+                        i++;
+                    if (argv[1][i] != '>')
+                    {
+                        printf("KO\n");
+                        break ;
+                    }
+                }
+                else
+                    add_to_stack(&stack, &size, tag);
             }
             free(tag);
         }
         i++;
     }
-    print_stack(stack);
+    if (stack)
+    {
+        if (stack[0] == NULL)
+            printf("OK\n");
+        else
+            printf("KO\n");
+    }
     for (int j = 0; j < size; j++)
         free(stack[j]);
     free(stack);
