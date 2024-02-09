@@ -6,14 +6,14 @@ OBJ = $(SRC:%.cpp=%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(SRC)
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) -o $(NAME) $(SRC)
 
 clean:
-	rm -f *.o
+	@rm -f *.o
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 

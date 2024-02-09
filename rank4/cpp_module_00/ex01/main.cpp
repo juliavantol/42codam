@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   megaphone.cpp                                      :+:    :+:            */
+/*   main.cpp                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/31 17:50:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/02 13:42:39 by juvan-to      ########   odam.nl         */
+/*   Created: 2024/02/09 15:47:22 by juvan-to      #+#    #+#                 */
+/*   Updated: 2024/02/09 17:54:14 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <cstring>
+#include <string.h>
+#include "contact.hpp"
+#include "phonebook.hpp"
 
-int	main(int argc, char *argv[])
+int main(void)
 {
-	if (argc < 2)
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	else {
-		for (int i = 1; i < argc; i++)
-		{
-			for (size_t	j = 0; j < strlen(argv[i]); j++)
-				std::cout << (char)toupper(argv[i][j]);
-		}
+	PhoneBook	phonebook;
+	Contact		contact;
+	std::string	input;
+	
+	while (1)
+	{
+		std::cout << "> ";
+		std::cin >> input;
+		if (input.compare("ADD") == 0)
+			std::cout << "adding" << std::endl;
+		else if (input.compare("SEARCH") == 0)
+			std::cout << "searching" << std::endl;
+		else if (input.compare("EXIT") == 0)
+			break;
+		else
+			continue;
 	}
-	std::cout << std::endl;
-	return (0);
 }
+
