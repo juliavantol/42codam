@@ -6,33 +6,35 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/07 14:11:32 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/07 16:58:55 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/09 00:29:50 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Sample.class.hpp"
 
-Sample::Sample(float const f) : pi(f), qd(42)
+Sample::Sample(int v) : _foo(v)
 {
 	std::cout << "Constructor called" << std::endl;
+	return;
 }
 
 Sample::~Sample(void)
 {
-	std::cout << "Deconstructor called" << std::endl;
+	std::cout << "Destructor called" << std::endl;
+	return;
 }
 
-// const tells the compiler that this member function
-// won't alter the current instance;
-void	Sample::bar(void) const
+int	Sample::getFoo(void) const
 {
-	std::cout << "this->pi = " << this->pi << std::endl;
-	std::cout << "this->qd = " << this->qd << std::endl;
-
-	// the following wont work cause its defined as a const
-	// this->qd = 0;
+	return this->_foo;
 }
 
-// if you write a member function that doesnt alter the instance
-// always declare const
+int	Sample::compare(Sample *other) const
+{
+	if (this->_foo < other->getFoo())
+		return (-1);
+	else if (this->_foo > other->getFoo())
+		return (1);
+	return (0);
+}
