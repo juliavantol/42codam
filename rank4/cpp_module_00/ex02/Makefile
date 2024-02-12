@@ -1,7 +1,7 @@
 NAME = account
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 CC = c++
-SRC = main.cpp
+SRC = tests.cpp Account.cpp
 OBJ_DIR = obj
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
