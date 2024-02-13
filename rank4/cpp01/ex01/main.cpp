@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Zombie.cpp                                         :+:    :+:            */
+/*   main.cpp                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/02/13 12:07:03 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/13 12:44:53 by juvan-to      ########   odam.nl         */
+/*   Created: 2024/02/13 12:03:42 by juvan-to      #+#    #+#                 */
+/*   Updated: 2024/02/13 13:23:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
 #include "Zombie.hpp"
 
-Zombie::~Zombie(void)
+int main(void)
 {
-	std::cout << this->_name << " has died." << std::endl;
-	return;
-}
+	int		N = 5;
+	Zombie	*horde = zombieHorde(N, "Zombie");
 
-void	Zombie::announce(void)
-{
-	std::cout << this->_name << ": BraiiiiiiinnnzzzZ..." << std::endl;
-}
+	for (int i = 0; i < N; i++)
+		horde[i].announce();
 
-Zombie	*zombieHorde(int N, std::string name)
-{
-	
+	delete [] horde;
+	return 0;
 }
