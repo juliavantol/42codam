@@ -6,20 +6,23 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/13 13:54:42 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/13 13:55:36 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/13 14:28:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
 
-HumanB::HumanB(void)
+HumanB::HumanB(std::string name) : _name(name)
 {
-	std::cout << "Constructing HumanB" << std::endl;
 	return;
 }
 
 HumanB::~HumanB(void)
 {
-	std::cout << "Deconstructing HumanB" << std::endl;
 	return;
+}
+
+void	HumanB::attack(void) const
+{
+	std::cout << this->_name << " attacks with their " << this->_weapon.getType() << std::endl;
 }

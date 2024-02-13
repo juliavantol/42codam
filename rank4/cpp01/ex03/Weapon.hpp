@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/13 13:42:31 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/13 13:49:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/13 14:29:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 class	Weapon
 {
 	private:
-		std::string _weapon;
+		std::string _type;
 	
 	public:
+		Weapon(std::string type);
 		Weapon();
 		~Weapon();
-		std::string	getType(void) const;
+		const 		std::string	&getType(void) const;
 		void		setType(std::string type);
 };
 
