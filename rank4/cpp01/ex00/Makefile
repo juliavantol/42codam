@@ -1,7 +1,7 @@
-NAME = phonebook
+NAME = brains
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 CC = c++
-SRC = phonebook.cpp contact.cpp main.cpp
+SRC = main.cpp newZombie.cpp Zombie.cpp randomChump.cpp
 OBJ_DIR = obj
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
