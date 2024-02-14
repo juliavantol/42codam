@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/14 16:14:32 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/14 16:22:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/14 16:47:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 class Harl
 {
 	private:
-		void debug( void );
-		void info( void );
-		void warning( void );
-		void error( void );
+		void debug(void);
+		void info(void);
+		void warning(void);
+		void error(void);
 	public:
 		Harl() {};
 		~Harl() {};

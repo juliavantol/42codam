@@ -1,7 +1,7 @@
 NAME = main
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 CC = c++
-SRC = main.cpp
+SRC = main.cpp Harl.cpp
 OBJ_DIR = obj
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
