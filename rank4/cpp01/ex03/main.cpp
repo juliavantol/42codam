@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/13 13:43:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/13 14:18:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/14 01:28:50 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,14 @@ int main(void)
 		bob.attack();
 		club.setType("spiked club");
 		bob.attack();
+	}
+	{
+		Weapon	club = Weapon("club");
+
+		HumanB	jim = HumanB("Jim");
+		jim.setWeapon(club);
+		jim.attack();
+		club.setType("spiked club");
+		jim.attack();
 	}
 }

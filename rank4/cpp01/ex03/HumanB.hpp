@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/13 13:54:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/13 14:28:19 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/14 01:16:38 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ class	HumanB
 {
 	private:
 		std::string	_name;
-		Weapon		_weapon;
+		Weapon*		_weapon;
 	
 	public:
 		HumanB(std::string name);
 		~HumanB();
 		void	attack(void) const;
+		void	setWeapon(Weapon& weapon);
 };
 
 #endif
