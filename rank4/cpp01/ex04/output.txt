@@ -1,4 +1,4 @@
-ahis line has a's
-ahis one doesn'a
-bua ahis one has
+this line has a's
+this one doesn't
+but this one has
 
