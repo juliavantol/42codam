@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.cpp                                           :+:    :+:            */
+/*   Harl.hpp                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/02/14 01:31:21 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/14 16:23:15 by juvan-to      ########   odam.nl         */
+/*   Created: 2024/02/14 16:14:32 by juvan-to      #+#    #+#                 */
+/*   Updated: 2024/02/14 16:22:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef HARL_HPP
+# define HARL_HPP
+
 #include <iostream>
 
-int main(void)
+class Harl
 {
-	return 0;
-}
+	private:
+		void debug( void );
+		void info( void );
+		void warning( void );
+		void error( void );
+	public:
+		Harl() {};
+		~Harl() {};
+		void complain(std::string level);
+};
+
+#endif
