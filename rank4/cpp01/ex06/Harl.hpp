@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/14 16:14:32 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/14 17:20:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/15 00:44:48 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class Harl
 	public:
 		Harl() {};
 		~Harl() {};
-		void complain(std::string level, int start);
+		void complain(std::string level);
 };
 
 #endif
