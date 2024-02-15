@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/14 01:31:21 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/15 02:40:05 by Julia         ########   odam.nl         */
+/*   Updated: 2024/02/15 14:56:59 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,24 @@ std::string	replace_string(std::string s1, std::string s2, std::string line)
 	return output;
 }
 
+void	read_input(std::ifstream &input, std::ofstream &output, std::string s1, std::string s2)
+{
+	std::string		line;
+
+	while (getline(input, line))
+	{
+		output << replace_string(s1, s2, line);
+		if (s1.compare("\\n") != 0)
+			output << std::endl;
+	}
+	input.close();
+	output.close();
+}
+
 int main(int argc, char **argv)
 {
 	std::ofstream	output;
 	std::ifstream	input;
-	std::string		line;
 
 	if (argc != 4)
 	{
@@ -44,22 +57,18 @@ int main(int argc, char **argv)
 		return 0;
 	}
 	input.open(argv[1]);
-	output.open("output.txt");
-	if (input.is_open() && output.is_open())
+	if (!input.is_open())
 	{
-		while (getline(input, line))
-		{
-			output << replace_string(argv[2], argv[3], line);
-			if (std::string(argv[2]).compare("\\n") != 0)
-				output << std::endl;
-		}
-		input.close();
-		output.close();
-	}
-	else
-	{
-		std::cout << "Unable to open file" << std::endl;
+		std::cout << "Unable to open input file" << std::endl;
 		return 0;
 	}
+	output.open("output.txt");
+	if (!output.is_open())
+	{
+		std::cout << "Unable to open output file" << std::endl;
+		input.close();
+		return 0;
+	}
+	read_input(input, output, argv[2], argv[3]);
 	return 0;
 }
