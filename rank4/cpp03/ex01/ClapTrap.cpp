@@ -6,20 +6,25 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/16 13:27:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/16 15:09:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/19 00:02:15 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
+ClapTrap::ClapTrap(void)
+{
+	std::cout << "ClapTrap constructed" << std::endl;
+}
+
 ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << this->_name << " has been constructed" << std::endl;
+	std::cout << "ClapTrap " << this->_name << " constructed." << std::endl;
 }
 
 ClapTrap::~ClapTrap(void)
 {
-	std::cout << this->_name << " has been destructed" << std::endl;
+	std::cout << "ClapTrap " << this->_name << " destructed." << std::endl;
 }
 
 // Copy assignment operator
@@ -48,7 +53,7 @@ void	ClapTrap::attack(const std::string & target)
 		std::cout << this->_name << " has no energy left for attacking." << std::endl;
 		return;
 	}
-	std::cout << this->_name << " attacks " << target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
+	std::cout << "ClapTrap " << this->_name << " attacks " << target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
 	this->_energyPoints--;
 }
 

@@ -1,4 +1,4 @@
-NAME = claptrap
+NAME = scavtrap
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 CC = c++
 SRC = main.cpp ClapTrap.cpp ScavTrap.cpp
