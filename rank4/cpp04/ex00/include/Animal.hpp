@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.cpp                                           :+:    :+:            */
+/*   Animal.hpp                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/02/19 00:36:50 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/19 00:37:50 by Julia         ########   odam.nl         */
+/*   Created: 2024/02/19 13:12:10 by juvan-to      #+#    #+#                 */
+/*   Updated: 2024/02/19 14:16:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef ANIMAL_HPP
+#define ANIMAL_HPP
+
 #include <iostream>
 
-int main(void)
+class	Animal
 {
-	
-}
+	protected:
+		std::string	type;
+	public:
+		Animal();
+		~Animal();
+		Animal(const Animal &rhs);
+		Animal & operator=(const Animal &rhs);
+		std::string	getType(void);
+		
+};
+
+#endif
