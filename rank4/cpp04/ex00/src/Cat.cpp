@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/19 14:07:10 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/19 15:12:29 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/19 17:36:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 Cat::Cat(void)
 {
 	this->type = "Cat";
-	std::cout << "Cat constructor" << std::endl;
+	std::cout << "Cat constructor has been called." << std::endl;
 }
 
 Cat::~Cat(void)
 {
-	std::cout << "Cat destructor" << std::endl;
+	std::cout << "Cat destructor has been called." << std::endl;
 }
 
 Cat::Cat(const Cat &rhs)
 {
 	*this = rhs;
-	std::cout << "Cat copy constructor" << std::endl;
+	std::cout << "Cat copy constructor has been called." << std::endl;
 }
 
 Cat & Cat::operator=(const Cat & rhs)
@@ -35,7 +35,7 @@ Cat & Cat::operator=(const Cat & rhs)
 	{
 		type = rhs.type;
 	}
-	std::cout << "Cat copy assignment operator" << std::endl;
+	std::cout << "Cat copy assignment operator has been called." << std::endl;
 	return *this;
 }
 

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/19 13:12:13 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/19 15:10:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/19 17:36:05 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 Animal::Animal(void)
 {
 	this->type = "Default";
-	std::cout << "Animal constructor" << std::endl;
+	std::cout << "Animal constructor has been called." << std::endl;
 }
 
 Animal::~Animal(void)
 {
-	std::cout << "Animal destructor" << std::endl;
+	std::cout << "Animal destructor has been called." << std::endl;
 }
 
 Animal::Animal(const Animal &rhs)
 {
 	*this = rhs;
-	std::cout << "Animal copy constructor" << std::endl;
+	std::cout << "Animal copy constructor has been called." << std::endl;
 }
 
 Animal & Animal::operator=(const Animal & rhs)
@@ -35,7 +35,7 @@ Animal & Animal::operator=(const Animal & rhs)
 	{
 		type = rhs.type;
 	}
-	std::cout << "Animal copy assignment operator" << std::endl;
+	std::cout << "Animal copy assignment operator has been called." << std::endl;
 	return *this;
 }
 
@@ -46,5 +46,5 @@ std::string	Animal::getType(void)
 
 void	Animal::makeSound(void) const
 {
-	std::cout << "Silence..." << std::endl;
+	std::cout << "makeSound() for [Animal] was called." << std::endl;
 }
