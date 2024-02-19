@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/19 13:12:10 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/19 14:16:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/19 15:10:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ class	Animal
 		std::string	type;
 	public:
 		Animal();
-		~Animal();
 		Animal(const Animal &rhs);
 		Animal & operator=(const Animal &rhs);
-		std::string	getType(void);
+		virtual ~Animal();
+	
+		std::string		getType(void);
+		virtual void	makeSound(void) const;
 		
 };
 

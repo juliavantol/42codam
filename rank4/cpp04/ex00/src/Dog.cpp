@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/19 14:05:01 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/19 14:24:31 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/19 15:12:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ Dog & Dog::operator=(const Dog & rhs)
 	}
 	std::cout << "Dog copy assignment operator" << std::endl;
 	return *this;
+}
+
+void	Dog::makeSound(void) const
+{
+	std::cout << "Woof!" << std::endl;
 }

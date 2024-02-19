@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/19 14:07:12 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/19 14:23:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/19 15:12:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ class Cat : public Animal
 		~Cat();
 		Cat(const Cat &rhs);
 		Cat & operator=(const Cat &rhs);
+		void	makeSound(void) const;
 };
 
 #endif

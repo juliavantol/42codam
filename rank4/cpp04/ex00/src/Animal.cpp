@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/19 13:12:13 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/19 14:24:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/19 15:10:59 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,9 @@ Animal & Animal::operator=(const Animal & rhs)
 std::string	Animal::getType(void)
 {
 	return this->type;
+}
+
+void	Animal::makeSound(void) const
+{
+	std::cout << "Silence..." << std::endl;
 }
