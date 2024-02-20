@@ -6,13 +6,11 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/09 14:59:51 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/12 17:45:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/20 14:35:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
 #include "phonebook.hpp"
-#include <cstdlib>
 
 PhoneBook::PhoneBook(void)
 {
@@ -46,7 +44,7 @@ void	PhoneBook::search_contact(void)
 			break;
 		
 	}
-	index = atoi(input.c_str());
+	index = std::atoi(input.c_str());
 	if (index < 0 || index > 7 || input.find_first_not_of("0123456789") != std::string::npos)
 	{
 		std::cout << "Invalid ID" << std::endl;

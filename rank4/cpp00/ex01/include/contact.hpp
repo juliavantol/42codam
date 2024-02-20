@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/09 15:48:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/12 16:26:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/20 14:33:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CONTACT_HPP
 
 #include <iostream>
+#include <string.h>
 
 class	Contact
 {

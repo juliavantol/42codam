@@ -1,21 +1,23 @@
 NAME = phonebook
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
-SRC = phonebook.cpp contact.cpp main.cpp
+INCLUDES = -I include
 OBJ_DIR = obj
-OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+SRC_DIR = src
+SRC = src/phonebook.cpp src/contact.cpp src/main.cpp
+OBJ = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(SRC)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(SRC)
 
-$(OBJ_DIR)/%.o: %.cpp
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(INCLUDES) -c -o $@ $< $(CFLAGS)
 
 clean:
-	@rm -r $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@rm -rf $(NAME)

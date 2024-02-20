@@ -6,11 +6,10 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/09 15:48:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/12 17:52:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/20 14:33:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
 #include "contact.hpp"
 
 Contact::Contact(void)
