@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/12 20:10:18 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/13 11:24:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/20 14:41:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ Account::~Account(void)
 	return;
 }
 
-// This function should print a log entry indicating the status of the account
-// including the index, current balance, total number of deposits, and 
-// total number of withdrawals.
 void	Account::displayAccountsInfos(void)
 {
 	_displayTimestamp();
@@ -82,10 +79,6 @@ int		Account::checkAmount( void ) const
 	return (this->_amount);
 }
 
-//[19920104_091532] index:0;p_amount:47;withdrawal:refused
-
-//index:1;p_amount:819;withdrawal:34;amount:785;nb_withdrawals:1
-
 bool	Account::makeWithdrawal(int withdrawal)
 {
 	_displayTimestamp();
@@ -113,7 +106,6 @@ int	Account::getNbAccounts(void)
 	return (_nbAccounts);
 }
 
-// https://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
 void	Account::_displayTimestamp(void)
 {
 	std::time_t	now = std::time(0);
