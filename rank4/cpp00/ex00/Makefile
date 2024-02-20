@@ -7,10 +7,13 @@ OBJ = $(SRC:%.cpp=%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(SRC)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.cpp
+	${CC} ${CFLAGS} -c $< -o $@
 
 clean:
-	@rm -f *.o
+	@rm -rf *.o
 
 fclean: clean
 	@rm -rf $(NAME)
