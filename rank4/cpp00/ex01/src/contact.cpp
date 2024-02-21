@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/09 15:48:04 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/20 14:33:54 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/21 16:18:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,64 @@ std::string	get_input(std::string prompt)
 	{
 		std::cout << prompt << std::flush;
 		std::getline(std::cin, input);
-		if (!input.empty() && std::cin.good())
+		if (!input.empty() && std::cin.good()
+			&& input.find_first_not_of("	 ") != std::string::npos)
 			valid = true;
 		else
 			std::cin.clear();
 	}
-	if (input.length() > 10)
-	{
-		input[9] = '.';
-		input.erase(10);
-	}
 	return input;
 }
 
-void	Contact::new_contact(int index)
+void	Contact::newContact(int index)
 {
-	this->_firstname = get_input("First name: ");
-	this->_lastname = get_input("Last name: ");
+	this->_firstName = get_input("First name: ");
+	this->_lastName = get_input("Last name: ");
 	this->_nickname = get_input("Nickname: ");
-	this->_phonenumber = get_input("Phone number: ");
-	this->_darkestsecret = get_input("Darkest secret: ");
+	this->_phoneNumber = get_input("Phone number: ");
+	this->_darkestSecret = get_input("Darkest secret: ");
 	this->_index = index;
 }
 
-void	print_spaces(int len)
+bool	Contact::isEmpty(void) const
 {
-	for (int i = 0; i < (10 - len); i++)
-		std::cout << " ";
-}
-
-bool	Contact::is_empty(void) const
-{
-	if (this->_firstname.empty() || this->_lastname.empty() || this->_nickname.empty())
+	if (this->_firstName.empty() || this->_lastName.empty() || this->_nickname.empty())
 		return true;
 	return false;
 }
 
-void	Contact::view_contact(void) const
+void	Contact::printAndTruncate(std::string field) const
 {
-	if (this->is_empty() == true)
+	std::string	output;
+	
+	if (field.length() > 10)
+		output = field.substr(0, 9) + ".";
+	else
+		output = field;
+	int spaces = 10 - output.length();
+	std::cout << std::string(spaces, ' ') << output;
+}
+
+void	Contact::viewContact(void) const
+{
+	if (this->isEmpty() == true)
 		return;
-	std::cout << std::endl;
-	print_spaces(1);
-	std::cout << (this->_index) << "|";
-	print_spaces(this->_firstname.length());
-	std::cout << this->_firstname << "|";
-	print_spaces(this->_lastname.length());
-	std::cout << this->_lastname << "|";
-	print_spaces(this->_nickname.length());
-	std::cout << this->_nickname;
+	std::cout << std::endl << "         " << (this->_index) << "|";
+	this->printAndTruncate(this->_firstName);
+	std::cout << "|";
+	this->printAndTruncate(this->_lastName);
+	std::cout << "|";
+	this->printAndTruncate(this->_nickname);
+}
+
+void	Contact::displayAllFields(void) const
+{
+	if (this->isEmpty() == true)
+		return;
+	std::cout << "First name: " << this->_firstName << std::endl;
+	std::cout << "Last name: " << this->_lastName << std::endl;
+	std::cout << "Nickname: " << this->_nickname << std::endl;
+	std::cout << "Phone number: " << this->_phoneNumber << std::endl;
+	std::cout << "Darkest secret: " << this->_darkestSecret << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
 }

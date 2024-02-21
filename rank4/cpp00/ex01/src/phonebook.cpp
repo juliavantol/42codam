@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/09 14:59:51 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/20 14:35:54 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/21 16:17:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,24 @@ PhoneBook::~PhoneBook(void)
 	return;
 }
 
-void	PhoneBook::add_contact(void)
+void	PhoneBook::addContact(void)
 {
 	static int	index;
 	index = index % 8;
-	this->_contacts[index].new_contact(index);
+	this->_contacts[index].newContact(index);
+	std::cout << "--------------" << std::endl;
+	std::cout << "Contact added!" << std::endl;
 	index++;
 }
 
-void	PhoneBook::search_contact(void)
+void	PhoneBook::searchContact(void)
 {
 	int			index = -1;
 	std::string	input = "";
 
-	this->view_all_contacts();
+	this->viewAllContacts();
+	if (this->isEmpty())
+		return ;
 	while (1)
 	{
 		std::cout << "Enter contact ID: " << std::flush;
@@ -45,26 +49,32 @@ void	PhoneBook::search_contact(void)
 		
 	}
 	index = std::atoi(input.c_str());
-	if (index < 0 || index > 7 || input.find_first_not_of("0123456789") != std::string::npos)
+	if (index < 0 || index > 7 || input.find_first_not_of("0123456789") != std::string::npos
+		|| this->_contacts[index].isEmpty())
 	{
 		std::cout << "Invalid ID" << std::endl;
+		return;
+	}
+	this->_contacts[index].displayAllFields();
+}
+
+void	PhoneBook::viewAllContacts(void) const
+{
+	if (this->isEmpty())
+	{
+		std::cout << "There are currently no contacts in the phonebook." << std::endl;
 		return;
 	}
 	std::cout << "-------------------------------------------" << std::endl;
 	std::cout << "        ID|First name| Last name|  Nickname" << std::endl;
 	std::cout << "-------------------------------------------";
-	this->_contacts[index].view_contact();
+	for (int i = 0; i < 8; i++)
+		this->_contacts[i].viewContact();
 	std::cout << std::endl << "-------------------------------------------" << std::endl;
-	std::cout << std::endl;
+
 }
 
-void	PhoneBook::view_all_contacts(void) const
+bool	PhoneBook::isEmpty(void) const
 {
-	std::cout << "-------------------------------------------" << std::endl;
-	std::cout << "        ID|First name| Last name|  Nickname" << std::endl;
-	std::cout << "-------------------------------------------";
-	for (int i = 0; i < 8; i++)
-		this->_contacts[i].view_contact();
-	std::cout << std::endl << "-------------------------------------------" << std::endl;
-
+	return this->_contacts[0].isEmpty();
 }

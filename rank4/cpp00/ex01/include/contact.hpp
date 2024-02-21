@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/09 15:48:09 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/20 14:33:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/21 16:25:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,20 @@ class	Contact
 {
 	private:
 		int			_index;
-		std::string _firstname;
-		std::string _lastname;
+		std::string _firstName;
+		std::string _lastName;
 		std::string _nickname;
-		std::string _phonenumber;
-		std::string _darkestsecret;
+		std::string _phoneNumber;
+		std::string _darkestSecret;
 	
 	public:
 		Contact();
 		~Contact();
-		void	new_contact(int index);
-		void	view_contact(void) const;
-		bool	is_empty(void) const;
+		void		newContact(int index);
+		void		viewContact(void) const;
+		void		displayAllFields(void) const;
+		void		printAndTruncate(std::string field) const;
+		bool		isEmpty(void) const;
 };
 
 #endif

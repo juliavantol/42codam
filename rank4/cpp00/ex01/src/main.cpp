@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/09 15:47:22 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/20 14:34:14 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/21 16:25:19 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int main(void)
 		std::cout << "> " << std::flush;
 		std::getline(std::cin, input);
 		if (input.compare("ADD") == 0)
-			phonebook.add_contact();
+			phonebook.addContact();
 		else if (input.compare("SEARCH") == 0)
-			phonebook.search_contact();
+			phonebook.searchContact();
 		else if (input.compare("EXIT") == 0)
 			break;
 		else

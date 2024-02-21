@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/09 15:47:14 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/20 14:36:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/21 14:26:50 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@
 
 class PhoneBook
 {
+	private:
+		Contact _contacts[8];
+
 	public:
 
 		PhoneBook();
 		~PhoneBook();
-		void	add_contact(void);
-		void	search_contact(void);
-		void	view_all_contacts(void) const;
-		
-	private:
-		Contact _contacts[8];
+		void	addContact(void);
+		void	searchContact(void);
+		void	viewAllContacts(void) const;
+		bool	isEmpty(void) const;
 };
 
 #endif

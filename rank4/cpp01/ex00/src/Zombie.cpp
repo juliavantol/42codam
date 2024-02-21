@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/13 12:07:03 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/13 12:44:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/21 13:19:55 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,4 @@ Zombie::~Zombie(void)
 void	Zombie::announce(void)
 {
 	std::cout << this->_name << ": BraiiiiiiinnnzzzZ..." << std::endl;
-}
-
-Zombie	*zombieHorde(int N, std::string name)
-{
-	
 }
