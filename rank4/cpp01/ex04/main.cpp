@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/14 01:31:21 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/15 14:56:59 by Julia         ########   odam.nl         */
+/*   Updated: 2024/02/21 17:33:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int main(int argc, char **argv)
 		std::cout << "Unable to open input file" << std::endl;
 		return 0;
 	}
-	output.open("output.txt");
+	std::string filename = std::string(argv[1]) + ".replace";
+	output.open(filename.c_str());
 	if (!output.is_open())
 	{
 		std::cout << "Unable to open output file" << std::endl;
