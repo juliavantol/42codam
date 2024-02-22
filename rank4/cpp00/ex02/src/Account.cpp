@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/12 20:10:18 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/21 16:47:40 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/22 14:37:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	Account::displayAccountsInfos(void)
 	std::cout << "accounts:" << Account::_nbAccounts << ";";
 	std::cout << "total:" << Account::_totalAmount << ";";
 	std::cout << "deposits:" << Account::_totalNbDeposits << ";";
-	std::cout << "withdrawals:" << Account::_totalNbWithdrawals << std::endl;
+	std::cout << "withdrawls:" << Account::_totalNbWithdrawals << std::endl;
 }
 
 void	Account::displayStatus(void) const
@@ -59,7 +59,7 @@ void	Account::displayStatus(void) const
 	std::cout << "index:" << this->_accountIndex << ";";
 	std::cout << "amount:" << this->_amount << ";";
 	std::cout << "deposits:" << this->_nbDeposits << ";";
-	std::cout << "withdrawals:" << this->_nbWithdrawals << std::endl;
+	std::cout << "withdrawls:" << this->_nbWithdrawals << std::endl;
 }
 
 void	Account::makeDeposit(int deposit)
