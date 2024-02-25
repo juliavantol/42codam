@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.cpp                                           :+:    :+:            */
+/*   Sed.cpp                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/02/25 22:51:33 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/25 23:43:43 by Julia         ########   odam.nl         */
+/*   Created: 2024/02/25 23:55:26 by Julia         #+#    #+#                 */
+/*   Updated: 2024/02/26 00:43:36 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "Sed.hpp"
 #include <fstream>
+#include <iostream>
 
-std::string	replace_string(std::string s1, std::string s2, std::string line)
+Sed::Sed(void)
 {
-	std::string		output = line;
-	size_t			found = line.find(s1);
-
-	if (s1.empty())
-		return output;
-	while (found != std::string::npos)
-	{
-		output.erase(found, s1.length());
-		output.insert(found, s2);
-		found = output.find(s1, found + s2.length());
-	}
-	return output;
+	this->errorOccured = false;
 }
 
-void	write_output(std::string str, std::string filename)
+void	Sed::writeOutput(std::string filename, std::string str)
 {
 	std::ofstream	output;
 
@@ -37,6 +27,7 @@ void	write_output(std::string str, std::string filename)
 	if (!output.is_open())
 	{
 		std::cout << "Unable to open output file" << std::endl;
+		this->errorOccured = true;
 		return;
 	}
 	for (size_t i = 0; i < str.length(); i++)
@@ -52,23 +43,34 @@ void	write_output(std::string str, std::string filename)
 	output.close();
 }
 
-int main(int argc, char **argv)
+std::string	Sed::replaceString(std::string str, std::string s1, std::string s2)
+{
+	std::string		output = str;
+	size_t			found = str.find(s1);
+
+	if (s1.empty())
+		return output;
+	while (found != std::string::npos)
+	{
+		output.erase(found, s1.length());
+		output.insert(found, s2);
+		found = output.find(s1, found + s2.length());
+	}
+	return output;
+}
+
+std::string	Sed::readFile(std::string filename)
 {
 	std::ifstream	input;
-	std::string		whole_file;
-	std::string		line;
-	std::string		output_file;
-	
-	if (argc != 4)
-	{
-		std::cout << "Invalid input" << std::endl;
-		return 0;
-	}
-	input.open(argv[1]);
+	std::string		whole_file = "";
+	std::string		line = "";
+
+	input.open(filename);
 	if (!input.is_open())
 	{
 		std::cout << "Unable to open input file" << std::endl;
-		return 0;
+		this->errorOccured = true;
+		return whole_file;
 	}
 	while (getline(input, line))
 	{
@@ -81,8 +83,10 @@ int main(int argc, char **argv)
 		}
 	}
 	input.close();
-	output_file = replace_string(argv[2], argv[3], whole_file);
-	std::string filename = std::string(argv[1]) + ".replace";
-	write_output(output_file, filename);
-	return 0;
+	return whole_file;
+}
+
+bool	Sed::getErrorStatus(void)
+{
+	return this->errorOccured;
 }

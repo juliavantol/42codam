@@ -1,7 +1,7 @@
 NAME = brains
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-CC = c++
 INCLUDES = -I include
+CC = c++
 OBJ_DIR = obj
 SRC_DIR = src
 SRC = src/main.cpp src/newZombie.cpp src/Zombie.cpp src/randomChump.cpp
