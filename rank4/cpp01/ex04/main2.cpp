@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/02/25 22:51:33 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/25 23:43:43 by Julia         ########   odam.nl         */
+/*   Created: 2024/02/14 01:31:21 by Julia         #+#    #+#                 */
+/*   Updated: 2024/02/25 21:21:05 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,34 @@ std::string	replace_string(std::string s1, std::string s2, std::string line)
 	while (found != std::string::npos)
 	{
 		output.erase(found, s1.length());
-		output.insert(found, s2);
-		found = output.find(s1, found + s2.length());
+		if (s2.compare("\\n") == 0)
+			output.insert(found, "\n");
+		else
+			output.insert(found, s2);
+		found = output.find(s1, found + s1.length());
 	}
 	return output;
 }
 
-void	write_output(std::string str, std::string filename)
+void	read_input(std::ifstream &input, std::ofstream &output, std::string s1, std::string s2)
 {
-	std::ofstream	output;
+	std::string		line;
 
-	output.open(filename.c_str());
-	if (!output.is_open())
+	while (getline(input, line))
 	{
-		std::cout << "Unable to open output file" << std::endl;
-		return;
+		output << replace_string(s1, s2, line);
+		if (s1.compare("\\n") != 0)
+			output << std::endl;
 	}
-	for (size_t i = 0; i < str.length(); i++)
-	{
-		if (str[i] == '\\' && i + 1 < str.length() && str[i + 1] == 'n')
-		{
-			output << '\n';
-			i++;
-		}
-		else
-			output << str[i];
-	}
+	input.close();
 	output.close();
 }
 
 int main(int argc, char **argv)
 {
+	std::ofstream	output;
 	std::ifstream	input;
-	std::string		whole_file;
-	std::string		line;
-	std::string		output_file;
-	
+
 	if (argc != 4)
 	{
 		std::cout << "Invalid input" << std::endl;
@@ -70,19 +62,14 @@ int main(int argc, char **argv)
 		std::cout << "Unable to open input file" << std::endl;
 		return 0;
 	}
-	while (getline(input, line))
-	{
-		if (line.empty())
-			whole_file.append("\\n");
-		else
-		{
-			whole_file.append(line);
-			whole_file.append("\\n");
-		}
-	}
-	input.close();
-	output_file = replace_string(argv[2], argv[3], whole_file);
 	std::string filename = std::string(argv[1]) + ".replace";
-	write_output(output_file, filename);
+	output.open(filename.c_str());
+	if (!output.is_open())
+	{
+		std::cout << "Unable to open output file" << std::endl;
+		input.close();
+		return 0;
+	}
+	read_input(input, output, argv[2], argv[3]);
 	return 0;
 }
