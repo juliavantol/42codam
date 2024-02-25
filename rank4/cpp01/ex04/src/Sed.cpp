@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 23:55:26 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/26 00:43:36 by Julia         ########   odam.nl         */
+/*   Updated: 2024/02/26 00:44:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,22 @@
 Sed::Sed(void)
 {
 	this->errorOccured = false;
+}
+
+std::string	Sed::replaceString(std::string str, std::string s1, std::string s2)
+{
+	std::string		output = str;
+	size_t			found = str.find(s1);
+
+	if (s1.empty())
+		return output;
+	while (found != std::string::npos)
+	{
+		output.erase(found, s1.length());
+		output.insert(found, s2);
+		found = output.find(s1, found + s2.length());
+	}
+	return output;
 }
 
 void	Sed::writeOutput(std::string filename, std::string str)
@@ -41,22 +57,6 @@ void	Sed::writeOutput(std::string filename, std::string str)
 			output << str[i];
 	}
 	output.close();
-}
-
-std::string	Sed::replaceString(std::string str, std::string s1, std::string s2)
-{
-	std::string		output = str;
-	size_t			found = str.find(s1);
-
-	if (s1.empty())
-		return output;
-	while (found != std::string::npos)
-	{
-		output.erase(found, s1.length());
-		output.insert(found, s2);
-		found = output.find(s1, found + s2.length());
-	}
-	return output;
 }
 
 std::string	Sed::readFile(std::string filename)
