@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/13 12:06:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/26 14:23:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/26 14:39:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Zombie	*newZombie(std::string name)
 		new_zombie = new Zombie(name);
 	}
 	catch (const std::bad_alloc) {
-		std::cout << "Allocation error" << std::endl;
+		std::cerr << "Allocation error" << std::endl;
 	}
 	return new_zombie;
 }
