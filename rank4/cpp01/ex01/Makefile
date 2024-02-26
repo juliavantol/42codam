@@ -1,5 +1,5 @@
 NAME = horde
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address
 CC = c++
 SRC = main.cpp Zombie.cpp zombieHorde.cpp
 OBJ_DIR = obj

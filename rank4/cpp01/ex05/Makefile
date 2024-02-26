@@ -1,5 +1,5 @@
 NAME = main
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address
 CC = c++
 SRC = main.cpp Harl.cpp
 OBJ_DIR = obj

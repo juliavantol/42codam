@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/13 12:06:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/21 17:43:49 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/26 14:23:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,13 @@
 // Creates a Zombie instance on the heap and returns a pointer to it
 Zombie	*newZombie(std::string name)
 {
-	return new Zombie(name);
+	Zombie	*new_zombie = nullptr;
+
+	try {
+		new_zombie = new Zombie(name);
+	}
+	catch (const std::bad_alloc) {
+		std::cout << "Allocation error" << std::endl;
+	}
+	return new_zombie;
 }

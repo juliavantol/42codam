@@ -1,5 +1,5 @@
 NAME = brains
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address
 INCLUDES = -I include
 CC = c++
 OBJ_DIR = obj
