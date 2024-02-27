@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/13 13:43:44 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/14 01:28:50 by Julia         ########   odam.nl         */
+/*   Updated: 2024/02/27 14:57:10 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,17 @@ int main(void)
 
 		HumanA	bob = HumanA("Bob", club);
 		bob.attack();
-		club.setType("spiked club");
+		club.setType("some other type of club");
 		bob.attack();
 	}
+	std::cout << std::endl;
 	{
 		Weapon	club = Weapon("club");
 
 		HumanB	jim = HumanB("Jim");
 		jim.setWeapon(club);
 		jim.attack();
-		club.setType("spiked club");
+		club.setType("some other type of club");
 		jim.attack();
 	}
 }
