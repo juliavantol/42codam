@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 23:55:26 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/27 14:13:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/27 22:44:46 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 
 Sed::Sed(void)
 {
-	this->errorOccured = false;
-	this->wholeFile = "";
-	this->output = "";
+	this->_errorOccured = false;
+	this->_wholeFile = "";
+	this->_output = "";
+	this->_s1 = "";
+	this->_s2 = "";
 }
 
-void	Sed::replaceString(std::string s1, std::string s2, std::string str)
+std::string	Sed::replaceString(std::string s1, std::string s2, std::string str)
 {
 	std::string		output = str;
 	size_t			found = str.find(s1);
@@ -32,7 +34,8 @@ void	Sed::replaceString(std::string s1, std::string s2, std::string str)
 		output.insert(found, s2);
 		found = output.find(s1, found + s2.length());
 	}
-	this->output = output;
+	this->_output = output;
+	return output;
 }
 
 void	Sed::writeOutput(std::string filename)
@@ -43,34 +46,51 @@ void	Sed::writeOutput(std::string filename)
 	if (!output.is_open())
 	{
 		std::cout << "Unable to open output file" << std::endl;
-		this->errorOccured = true;
+		this->_errorOccured = true;
 		return;
 	}
-	Sed::replaceString("\\n", "\n", this->output);
-	output << this->output;
+	Sed::replaceString("\\n", "\n", this->_output);
+	output << this->_output;
 	output.close();
 }
 
-void	Sed::readFile(std::string filename)
+void	Sed::parseInput(std::string filename, std::string s1, std::string s2)
 {
 	std::ifstream	input;
 	std::string		whole_file = "";
 	std::string		line = "";
 
+	this->_s1 = Sed::replaceString("\n", "\\n", s1);
+	this->_s2 = Sed::replaceString("\n", "\\n", s2);
 	input.open(filename);
 	if (!input.is_open())
 	{
 		std::cout << "Unable to open input file" << std::endl;
-		this->errorOccured = true;
+		this->_errorOccured = true;
 		return;
 	}
 	while (getline(input, line))
 		whole_file += line + "\\n";
 	input.close();
-	this->wholeFile = whole_file;
+	this->_wholeFile = whole_file;
 }
 
 bool	Sed::getErrorStatus(void)
 {
-	return this->errorOccured;
+	return this->_errorOccured;
+}
+
+std::string	Sed::getStr1(void)
+{
+	return this->_s1;
+}
+
+std::string	Sed::getStr2(void)
+{
+	return this->_s2;
+}
+
+std::string	Sed::getWholeFile(void)
+{
+	return this->_wholeFile;
 }

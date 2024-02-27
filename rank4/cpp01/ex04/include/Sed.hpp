@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 23:55:22 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/27 13:38:50 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/27 22:44:28 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,25 @@
 
 class Sed
 {
+	private:
+		bool		_errorOccured;
+		std::string	_wholeFile;
+		std::string	_s1;
+		std::string	_s2;
+		std::string	_output;
+		
 	public:
-		bool		errorOccured;
-		std::string	wholeFile;
-		std::string	output;
-	
 		Sed();
 		~Sed() {};
 
-		void	replaceString(std::string s1, std::string s2, std::string str);
-		void	writeOutput(std::string filename);
-		void	readFile(std::string filename);
-		bool	getErrorStatus(void);
+		std::string	replaceString(std::string s1, std::string s2, std::string str);
+		std::string	getStr1(void);
+		std::string	getStr2(void);
+		std::string	getWholeFile(void);
+
+		void		writeOutput(std::string filename);
+		void		parseInput(std::string filename, std::string s1, std::string s2);
+		bool		getErrorStatus(void);
 };
 
 #endif
