@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/13 13:27:51 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/13 13:40:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/27 14:51:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int main(void)
 	std::cout << "Value stringPTR: " << *stringPTR << std::endl;
 	std::cout << "Value stringREF: " << stringREF << std::endl;
 
-	return (0);
+	return 0;
 
 }

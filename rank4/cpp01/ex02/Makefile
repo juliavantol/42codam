@@ -10,7 +10,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(OBJ_DIR)/%.o: %.cpp
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) -c -o $@ $< $(CFLAGS)
 
