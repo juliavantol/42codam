@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/26 00:05:32 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/27 13:39:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/27 13:54:41 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int main(int argc, char **argv)
 {
 	Sed				sed;
 	
-	if (argc != 4)
+	if (argc != 4 || std::string(argv[1]).empty() || std::string(argv[2]).empty())
 	{
 		std::cout << "Invalid input" << std::endl;
-		return 0;
+		return 1;
 	}
 	sed.readFile(argv[1]);
 	if (sed.getErrorStatus() == true)

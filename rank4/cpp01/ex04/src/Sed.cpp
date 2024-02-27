@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 23:55:26 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/27 13:48:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/02/27 14:13:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	Sed::replaceString(std::string s1, std::string s2, std::string str)
 	std::string		output = str;
 	size_t			found = str.find(s1);
 
-	if (s1.empty())
-		return;
 	while (found != std::string::npos)
 	{
 		output.erase(found, s1.length());
@@ -40,7 +38,6 @@ void	Sed::replaceString(std::string s1, std::string s2, std::string str)
 void	Sed::writeOutput(std::string filename)
 {
 	std::ofstream	output;
-	std::string str	= this->output;
 
 	output.open(filename.c_str());
 	if (!output.is_open())
