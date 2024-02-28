@@ -1,21 +1,23 @@
 NAME = fixed
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address
+INCLUDES = -I include
 CC = c++
-SRC = main.cpp Fixed.cpp
+SRC = src/main.cpp src/Fixed.cpp
 OBJ_DIR = obj
-OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+SRC_DIR = src
+OBJ = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(SRC)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.cpp
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(INCLUDES) -c -o $@ $< $(CFLAGS)
 
 clean:
-	@rm -r $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@rm -rf $(NAME)
