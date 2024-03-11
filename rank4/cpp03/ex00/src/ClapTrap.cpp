@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/16 13:27:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/16 15:09:56 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/03/11 16:49:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ ClapTrap & ClapTrap::operator=(const ClapTrap & rhs)
 {
 	if (this != &rhs)
 	{
-		_name = rhs._name;
-        _hitPoints = rhs._hitPoints;
-        _energyPoints = rhs._energyPoints;
-        _attackDamage = rhs._attackDamage;
+		this->_name = rhs._name;
+		this->_hitPoints = rhs._hitPoints;
+		this->_energyPoints = rhs._energyPoints;
+		this->_attackDamage = rhs._attackDamage;
 	}
 	return *this;
 }
@@ -48,7 +48,8 @@ void	ClapTrap::attack(const std::string & target)
 		std::cout << this->_name << " has no energy left for attacking." << std::endl;
 		return;
 	}
-	std::cout << this->_name << " attacks " << target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
+	std::cout	<< this->_name << " attacks " << target << ", causing "
+				<< this->_attackDamage << " points of damage!" << std::endl;
 	this->_energyPoints--;
 }
 
@@ -68,7 +69,7 @@ void	ClapTrap::beRepaired(unsigned int amount)
 {
 	if (this->_energyPoints <= 0 || this->_hitPoints <= 0)
 	{
-		std::cout << this->_name << " is dead." << std::endl;
+		std::cout << this->_name << " is out of energy and can't be repaired." << std::endl;
 		return;
 	}
 	if ((this->_hitPoints + amount) >= 10)
@@ -78,7 +79,7 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	}
 	else
 	{
-		std::cout << this->_name << " repairs themselves with " << amount << " points." << std::endl;
+		std::cout << this->_name << " has been repaired with " << amount << " points." << std::endl;
 		this->_hitPoints += amount;
 	}
 	this->_energyPoints --;

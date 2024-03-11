@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/14 01:31:21 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/16 14:54:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/03/11 16:50:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int main(void)
 	bob.takeDamage(3);
 	std::cout << std::endl;
 	
-	bob.beRepaired(9);
+	bob.beRepaired(3);
+	bob.beRepaired(3);
+	bob.beRepaired(3);
 	std::cout << std::endl;
 
 	jim.attack("Bob");
@@ -35,7 +37,9 @@ int main(void)
 
 	jim.attack("Bob");
 	bob.takeDamage(7);
-
 	std::cout << std::endl;
+
+	bob.beRepaired(10);
+
 	return 0;
 }
