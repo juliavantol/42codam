@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/15 15:09:03 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/28 13:37:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/03/11 14:07:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ class Fixed
 {
 	private:
 		int					_value;
-		static const int	_bits = 8;
+		static const int	_fractionalBits = 8;
 
 	public:
 		Fixed();

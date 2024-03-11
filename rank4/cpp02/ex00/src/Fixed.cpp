@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/15 15:09:05 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/15 19:50:46 by Julia         ########   odam.nl         */
+/*   Updated: 2024/03/06 01:35:59 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ Fixed::Fixed()
 	std::cout << "Default constructor called" << std::endl;
 }
 
-// Deconstructor
 Fixed::~Fixed()
 {
 	std::cout << "Destructor called" << std::endl;

@@ -6,28 +6,27 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/15 15:09:05 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/15 23:30:27 by Julia         ########   odam.nl         */
+/*   Updated: 2024/03/11 14:05:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
+// Default constructor
 Fixed::Fixed()
 {
 	this->_value = 0;
 	std::cout << "Default constructor called" << std::endl;
 }
 
-// shifts the integer value left by _bits positions to represent the 
-// fractional part of the fixed-point number.
+// Int constructor
 Fixed::Fixed(const int value)
 {
 	std::cout << "Int constructor called" << std::endl;
 	this->_value = value << _fractionalBits;
 }
 
-//  multiplies the float value by 1 << _bits to shift the fractional part 
-// to the integer part and then rounds it to the nearest integer
+// Float constructor
 Fixed::Fixed(const float value)
 {
 	std::cout << "Float constructor called" << std::endl;

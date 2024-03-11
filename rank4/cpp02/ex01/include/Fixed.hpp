@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/15 15:09:03 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/15 23:30:46 by Julia         ########   odam.nl         */
+/*   Updated: 2024/03/11 14:04:54 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ class Fixed
 
 	public:
 		Fixed();
+		~Fixed();
 		Fixed(const Fixed& src);
 		Fixed(const int	value);
 		Fixed(const float value);
 		Fixed & operator=(Fixed const& src);
-		~Fixed();
 
 		int		getRawBits(void) const;
-		int		toInt(void) const;
 		void	setRawBits(int const raw);
+		int		toInt(void) const;
 		float	toFloat(void) const;
 };
 

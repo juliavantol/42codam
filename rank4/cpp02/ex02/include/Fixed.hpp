@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/15 15:09:03 by Julia         #+#    #+#                 */
-/*   Updated: 2024/02/15 23:30:58 by Julia         ########   odam.nl         */
+/*   Updated: 2024/03/11 13:34:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,29 @@ class Fixed
 
 	public:
 		Fixed();
+		~Fixed();
 		Fixed(const Fixed& src);
 		Fixed(const int	value);
 		Fixed(const float value);
 		Fixed & operator=(Fixed const& src);
-		~Fixed();
+		
 		int		getRawBits(void) const;
+		int		toInt(void) const;
 		void	setRawBits(int const raw);
 		float	toFloat(void) const;
-		int		toInt(void) const;
 
-		bool operator>(const Fixed &rhs) const;
-		bool operator<(const Fixed &rhs) const;
-		bool operator>=(const Fixed &rhs) const;
-		bool operator<=(const Fixed &rhs) const;
-		bool operator==(const Fixed &rhs) const;
-		bool operator!=(const Fixed &rhs) const;
+		bool operator>(const Fixed &other) const;
+		bool operator<(const Fixed &other) const;
+		bool operator>=(const Fixed &other) const;
+		bool operator<=(const Fixed &other) const;
+		bool operator==(const Fixed &other) const;
+		bool operator!=(const Fixed &other) const;
 
-		Fixed operator+(const Fixed &rhs) const;
-		Fixed operator-(const Fixed &rhs) const;
-		Fixed operator*(const Fixed &rhs) const;
-		Fixed operator/(const Fixed &rhs) const;
+		Fixed operator+(const Fixed &other) const;
+		Fixed operator-(const Fixed &other) const;
+		Fixed operator*(const Fixed &other) const;
+		Fixed operator/(const Fixed &other) const;
 
-		// Increment and decrement operators
 		Fixed &operator++();
 		Fixed operator++(int);
 		Fixed &operator--();
