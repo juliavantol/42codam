@@ -2,27 +2,48 @@
 #include <stdlib.h>
 #include <string.h>
 
+// cc -Wall -Wextra -Werror -fsanitize=address add.c -o main && ./main
+
 #define MAX_SIZE 1000 // Maximum size of the array to store digits
 
 // Function to add two numbers represented as strings
-char* add(char *num1, char *num2) {
+char* add(char *num1, char *num2)
+{
     int len1 = strlen(num1);
     int len2 = strlen(num2);
     int maxSize = len1 > len2 ? len1 + 2 : len2 + 2; // Extra space for possible carry and null terminator
     int result[MAX_SIZE];
     int carry = 0;
     int i = len1 - 1, j = len2 - 1, k = 0;
+    int digit1;
+    int digit2;
+    int sum;
 
-    while (i >= 0 || j >= 0 || carry) {
-        int digit1 = i >= 0 ? num1[i--] - '0' : 0;
-        int digit2 = j >= 0 ? num2[j--] - '0' : 0;
-        int sum = digit1 + digit2 + carry;
+    while (i >= 0 || j >= 0 || carry)
+    {
+        if (i >= 0)
+        {
+            digit1 = num1[i] - '0';
+            i--;
+        }
+        else
+            digit1 = 0;
+        if (j >= 0)
+        {
+            digit2 = num2[j] - '0';
+            j--;
+        }
+        else
+            digit2 = 0;
+    
+        sum = digit1 + digit2 + carry;
         result[k++] = sum % 10;
         carry = sum / 10;
     }
 
-    char *output = (char*)malloc(k + 1); // +1 for null terminator
-    if (output == NULL) {
+    char *output = (char*)malloc(k + 1);
+    if (output == NULL)
+    {
         printf("Memory allocation failed.");
         exit(1);
     }
@@ -34,7 +55,8 @@ char* add(char *num1, char *num2) {
     return output;
 }
 
-int main(){
+int main()
+{
     char num1[MAX_SIZE], num2[MAX_SIZE];
 
     printf("Enter the first number: ");
