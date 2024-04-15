@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/19 00:36:50 by Julia         #+#    #+#                 */
-/*   Updated: 2024/03/13 17:58:59 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/03/14 12:54:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,21 @@
 
 int main(void)
 {
-	Animal* meta = new Animal();
-	Animal* j = new Dog();
-	Animal* i = new Cat();
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	i->makeSound(); //will output the cat sound!
-	j->makeSound();
-	meta->makeSound();
+	std::cout << "------- Constructors -------" << std::endl;
+	const Animal* animal = new Animal();
+	const Animal* dog = new Dog();
+	const Animal* cat = new Cat();
+	std::cout << "----------------------------" << std::endl;
 
-	delete meta;
-	delete j;
-	delete i;
+	std::cout << dog->getType() << " " << std::endl;
+	std::cout << cat->getType() << " " << std::endl;
+	dog->makeSound();
+	cat->makeSound();
+	animal->makeSound();
+
+	std::cout << "------- Destructors --------" << std::endl;
+	delete animal;
+	delete dog;
+	delete cat;
 	return (0);
 }

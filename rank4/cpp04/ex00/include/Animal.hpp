@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/19 13:12:10 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/19 16:55:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/03/14 12:46:19 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class	Animal
 		Animal & operator=(const Animal &rhs);
 		virtual ~Animal();
 	
-		std::string		getType(void);
+		std::string		getType(void) const;
 		virtual void	makeSound(void) const;
 		
 };

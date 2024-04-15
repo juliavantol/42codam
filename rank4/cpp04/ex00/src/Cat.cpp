@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/19 14:07:10 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/02/20 13:01:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/03/14 12:35:22 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,12 @@
 Cat::Cat(void)
 {
 	this->type = "Cat";
-	std::cout << "Cat constructor has been called." << std::endl;
+	std::cout << "[Cat] constructed." << std::endl;
 }
 
 Cat::~Cat(void)
 {
-	std::cout << "Cat destructor has been called." << std::endl;
-}
-
-Cat::Cat(const Cat &rhs)
-{
-	*this = rhs;
-	std::cout << "Cat copy constructor has been called." << std::endl;
-}
-
-Cat & Cat::operator=(const Cat & rhs)
-{
-	if (this != &rhs)
-		type = rhs.type;
-	std::cout << "Cat copy assignment operator has been called." << std::endl;
-	return *this;
+	std::cout << "[Cat] destructed." << std::endl;
 }
 
 void	Cat::makeSound(void) const

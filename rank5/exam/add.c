@@ -34,7 +34,7 @@ char* add(char *num1, char *num2) {
     return output;
 }
 
-int main() {
+int main(){
     char num1[MAX_SIZE], num2[MAX_SIZE];
 
     printf("Enter the first number: ");
