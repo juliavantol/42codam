@@ -6,12 +6,14 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:48:22 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/04/18 17:48:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/04/18 23:28:24 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+
+// cc -Wall -Wextra -Werror infin_multi.c -o main
 
 int		ft_strlen(char *s)
 {

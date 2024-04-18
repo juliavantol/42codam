@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:48:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/04/18 17:49:13 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/04/19 01:07:30 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,4 +166,114 @@ int	main(int argc, char **argv)
 		write(1, result, ft_strlen(result));
 		write(1, "\n", 1);
 	}
+}
+
+char *prac_add(char *s1, char *s2)
+{
+	int len1;
+	int len2;
+	int carry;
+	int tmp;
+	int lenres;
+	char *res;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	lenres = (len1 > len2) ? len1 + 1 : len2 + 1;
+	res = malloc(lenres + 1);
+	res[lenres] = 0;
+	carry = 0;
+	len1--;
+	len2--;
+	
+	while(len1 >= 0 || len2 >= 0)
+	{
+		tmp = carry;
+		if (len1 >= 0)
+			tmp += s1[len1] - '0';
+		if (len2 >= 0)
+			tmp += s2[len2] - '0';	
+		if (tmp >= 10)
+			carry = 1;
+		else
+			carry = 0;
+		res[--lenres] = tmp % 10 + '0';
+		len1--;
+		len2--;
+	}
+	if (carry)
+		res[--lenres] = carry + '0';
+	return (&res[lenres]);
+}
+
+char *prac_sub(char *s1, char *s2)
+{
+	int len1;
+	int len2;
+	int carry;
+	int tmp;
+	int lenres;
+	int neg = 0;
+	char *res;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	if (len2 > len1)
+		neg = 1;
+	else if (len2 == len1)
+	{
+		if (ft_strcmp(len1, len2) > 0)
+			neg = 1;
+	}
+	if (neg)
+	{
+		res = s1;
+		s1 = s2;
+		s2 = res;
+		
+		lenres = len1;
+		len1 = len2;
+		len2 = lenres;
+	}
+	lenres = (len1 > len2) ? len1 + 1 : len2 + 1;
+	res = malloc(lenres + 1);
+	res[lenres] = 0;
+	carry = 0;
+	len1--;
+	len2--;
+	
+	while (len1 >= 0 || len2 >= 0)
+	{
+		tmp = carry;
+		if (len1 >= 0)
+			tmp += s1[len1] - '0';
+		if (len2 >= 0)
+			tmp -= s2[len2] - '0';	
+		if (tmp < 0)
+		{
+			carry = -1;
+			tmp += 10;
+		}
+		else
+			carry = 0;
+		res[--lenres] = tmp % 10 + '0';
+		len1--;
+		len2--;
+	}
+	// skip zeroes
+	while(res[lenres] == '0')
+		lenres++;
+	if (neg)
+		res[--lenres] = '-';
+	return (&res[lenres]);
+}
+
+int ft_strcmp2(char *s2, char *s1)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		*s1++;
+		*s2++;
+	}
+	return (*s2 - *s1);
 }

@@ -55,18 +55,6 @@ char	*multiply(char *s1, char *s2)
 	return (output);
 }
 
-void test(void)
-{
-	for (int i = len1 - 1; i >= 0; i++)
-	{
-		for (int j = len2 - 1; j >= 0; j++)
-		{
-			multi = (s1[i] - '0' * s2[j] - '0') + (output[i + j + 1] - '0');
-			output[i + j + 1] = (multi % 10) + '0';
-			output[i + j] += multi / 10;
-		}
-	}
-}
 
 int main(int argc, char **argv) {
 	char *output;
