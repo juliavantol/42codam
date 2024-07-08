@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 12:45:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/08 12:52:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,16 @@ Bureaucrat::~Bureaucrat(void) {
 // 1 (highest possible grade) so for incrementing subtract 1
 void	Bureaucrat::incrementGade(void)
 {
+	if (this->getGrade() - 1 < 1)
+		throw Bureaucrat::GradeTooHighException();
 	this->_grade--;
 }
 
 // 150 (lowest possible grade) so for decrementing add 1
 void	Bureaucrat::decrementGade(void)
 {
+	if (this->getGrade() + 1 > 150)
+		throw Bureaucrat::GradeTooLowException();
 	this->_grade++;
 }
 

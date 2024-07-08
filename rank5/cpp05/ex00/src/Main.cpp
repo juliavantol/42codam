@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 12:50:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/08 12:54:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main(void)
 	std::cout << "Constructing bureaucrat with 100 --> ";
 	try
 	{
-		Bureaucrat	bob("Bob", 100);
+		Bureaucrat	bob("Bob", 150);
 		
 		std::cout << bob << std::endl;
 
@@ -48,7 +48,11 @@ int main(void)
 
 		std::cout << "Decrementing Bob's grade" << std::endl;
 		bob.decrementGade();
-		std::cout << bob << std::endl;
+		std::cout << bob << std::endl << std::endl;
+
+		std::cout << "Decrementing Bob's grade" << std::endl;
+		bob.decrementGade();
+		std::cout << bob << std::endl << std::endl;
 		std::cout << "----" << std::endl;
 	}
 	catch(const std::exception& e)
