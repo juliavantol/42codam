@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 14:13:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/08 14:29:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int main(void)
 {
 	try
 	{
-		Form	form("Bob", 5);
+		Form	form("Bob", 5, 10);
 		
 		std::cout << form << std::endl;
 	}

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/08 12:57:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 14:10:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/08 14:28:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class Form
 		int	const			_executeGrade;
 
 	public:
-		Form(const std::string &name, int gradeToSign);
+		Form(const std::string &name, int signGrade, int executeGrade);
 		~Form();
 
 		// Getters

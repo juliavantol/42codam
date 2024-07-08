@@ -6,13 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/08 12:57:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 14:15:51 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/08 14:28:48 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
 
-Form::Form(const std::string &name, int signGrade) : _name(name), _signed(false), _signGrade(signGrade), _executeGrade(0)
+Form::Form(const std::string &name, int signGrade, int executeGrade) : _name(name), _signed(false), _signGrade(signGrade), _executeGrade(executeGrade)
 {
 	
 }
