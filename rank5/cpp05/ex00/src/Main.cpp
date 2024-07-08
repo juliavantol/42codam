@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 12:04:00 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/08 12:50:04 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int main(void)
 {
-	std::cout << "Constructing bureaucrat with 1 --> ";
+	std::cout << "Constructing bureaucrat with 0 --> ";
 	try
 	{
 		Bureaucrat	high("A", 0);
-		std::cout << high.getName() << ": " << high.getGrade() << std::endl;
+		std::cout << high << std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -28,18 +28,28 @@ int main(void)
 	try
 	{
 		Bureaucrat	low("B", 151);
-		std::cout << low.getName() << ": " << low.getGrade() << std::endl;
+		std::cout << low << std::endl;
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << "Caught error: " << e.what() << std::endl;
 	}
+	std::cout << "----" << std::endl;
 	std::cout << "Constructing bureaucrat with 100 --> ";
 	try
 	{
 		Bureaucrat	bob("Bob", 100);
 		
-		std::cout << bob.getName() << ": " << bob.getGrade() << std::endl;
+		std::cout << bob << std::endl;
+
+		std::cout << "Incrementing Bob's grade" << std::endl;
+		bob.incrementGade();
+		std::cout << bob << std::endl << std::endl;
+
+		std::cout << "Decrementing Bob's grade" << std::endl;
+		bob.decrementGade();
+		std::cout << bob << std::endl;
+		std::cout << "----" << std::endl;
 	}
 	catch(const std::exception& e)
 	{

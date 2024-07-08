@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:38 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/03/30 16:24:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/08 12:33:52 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,21 @@ class Bureaucrat
 		std::string	getName(void) const;
 		int			getGrade(void) const;
 
+		void		incrementGade(void);
+		void		decrementGade(void);
+
 		class GradeTooHighException: public std::exception
 		{
 			public:
-				virtual const char *what() const throw() { return "Grade too high"; }
+				virtual const char *what() const throw();
 		};
 		class GradeTooLowException: public std::exception
 		{
 			public:
-				virtual const char *what() const throw() { return "Grade too low"; }
+				virtual const char *what() const throw();
 		};
 };
+
+std::ostream&   operator<<(std::ostream &o, const Bureaucrat &rhs);
 
 #endif

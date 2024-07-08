@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/03/30 16:24:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/08 12:45:23 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name), _grade(grade)
 }
 
 // Copy constructor
-Bureaucrat::Bureaucrat(Bureaucrat const &other)
-{
-	*this = other;
+Bureaucrat::Bureaucrat(const Bureaucrat &other) : _name(other._name), _grade(other._grade) {	
 }
 
 // Copy assignment operator
@@ -37,14 +35,25 @@ Bureaucrat & Bureaucrat::operator=(Bureaucrat const &other)
 {
 	if (this != &other)
 	{
-		this->_grade = other._grade;
+		this->_grade = other.getGrade();
 	}
 	return *this;
 }
 
-Bureaucrat::~Bureaucrat(void)
+// Destructor
+Bureaucrat::~Bureaucrat(void) {
+}
+
+// 1 (highest possible grade) so for incrementing subtract 1
+void	Bureaucrat::incrementGade(void)
 {
-	return;
+	this->_grade--;
+}
+
+// 150 (lowest possible grade) so for decrementing add 1
+void	Bureaucrat::decrementGade(void)
+{
+	this->_grade++;
 }
 
 std::string	Bureaucrat::getName(void) const
@@ -55,4 +64,21 @@ std::string	Bureaucrat::getName(void) const
 int	Bureaucrat::getGrade(void) const
 {
 	return this->_grade;
+}
+
+// Overload of the insertion operator
+std::ostream& operator<<(std::ostream &o, const Bureaucrat &rhs)
+{
+    o << rhs.getName() << ", bureaucrat grade " << rhs.getGrade();
+    return o;
+}
+
+const char *Bureaucrat::GradeTooHighException::what() const throw()
+{
+	return "Grade too high";
+}
+
+const char *Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return "Grade too low";
 }
