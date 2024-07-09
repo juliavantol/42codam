@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:38 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/09 17:18:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 17:27:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ class Bureaucrat
 
 		void		incrementGrade(void);
 		void		decrementGrade(void);
-		void		signForm(Form &form);
+		void		signForm(Form &form, bool status);
 
 		class GradeTooHighException: public std::exception
 		{

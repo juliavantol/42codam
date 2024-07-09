@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/09 17:20:06 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 17:33:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int main(void)
 	try
 	{
 		// Grade too low
-		Bureaucrat b1("B1", 20);
-		Form f1("Test1", 10, 10);
-		std::cout << b1 << std::endl << std::endl;
-		std::cout << f1 << std::endl << std::endl;
+		Bureaucrat b2("B2", 20);
+		Form f2("Test2", 10, 10);
+		std::cout << b2 << std::endl << std::endl;
+		std::cout << f2 << std::endl << std::endl;
 
-		f1.beSigned(b1);
+		f2.beSigned(b2);
 		std::cout << std::endl;
-		std::cout << f1 << std::endl;
+		std::cout << f2 << std::endl;
 
 	}
 	catch(const std::exception& e)

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/09 15:41:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 17:32:42 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,13 @@ int	Bureaucrat::getGrade(void) const
 	return this->_grade;
 }
 
-void	Bureaucrat::signForm(Form &form)
+void	Bureaucrat::signForm(Form &form, bool status)
 {
-	std::cout << this->getName() << " signed " << form.getName() << std::endl; 
+	if (status == true)
+		std::cout << GREEN << this->getName() << " signed " << form.getName() << RESET << std::endl;
+	else
+		std::cout << this->getName() << " couldn't sign " << form.getName()
+					<< " because: ";
 }
 
 // Overload of the insertion operator

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/08 12:57:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/09 17:25:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 17:29:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,12 @@ void	Form::beSigned(Bureaucrat &bureaucrat)
 	if (bureaucrat.getGrade() <= this->getSignGrade())
 	{
 		this->_signed = true;
-		bureaucrat.signForm(*this);
+		bureaucrat.signForm(*this, true);
 	}
 	else
 	{
 		this->_signed = false;
+		bureaucrat.signForm(*this, false);
 		throw Form::GradeTooLowException();
 	}
 }
