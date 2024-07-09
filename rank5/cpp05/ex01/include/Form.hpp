@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/08 12:57:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/09 15:39:32 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 17:00:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <iostream>
 #include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class Form
 {

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:38 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/09 15:41:08 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 17:18:11 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,14 @@
 #include <iostream>
 #include "Form.hpp"
 
-#define LOWEST_GRADE 150
-#define HIGHEST_GRADE 1
+#define LOWEST_GRADE 	150
+#define HIGHEST_GRADE 	1
+#define GREEN			"\033[32m"
+#define BOLD			"\033[1m"
+#define RESET			"\033[0m"
+#define RED				"\033[31m"
+
+class Form;
 
 class Bureaucrat
 {

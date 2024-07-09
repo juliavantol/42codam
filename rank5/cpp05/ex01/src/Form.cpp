@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/08 12:57:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/09 15:40:03 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 17:21:43 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	Form::beSigned(Bureaucrat &bureaucrat)
 	if (bureaucrat.getGrade() <= this->getSignGrade())
 	{
 		this->_signed = true;
-		// signForm(bureaucrat.getName());
+		bureaucrat.signForm(*this);
 	}
 	else
 	{
@@ -92,7 +92,7 @@ const char*	Form::GradeTooLowException::what() const throw()
 // Overloading of the insertion operator
 std::ostream& operator<<(std::ostream &o, const Form &rhs)
 {
-	o << "Name: " << rhs.getName() << std::endl << "Sign status: " << rhs.getSignStatus() <<
-	std::endl << "Sign grade: " << rhs.getSignGrade() << std::endl << "Execute grade: " << rhs.getExecuteGrade();
+	o << "Form name:	" << rhs.getName() << std::endl << "Sign status:	" << rhs.getSignStatus() <<
+	std::endl << "Sign grade:	" << rhs.getSignGrade() << std::endl << "Execute grade:	" << rhs.getExecuteGrade();
 	return o;
 }
