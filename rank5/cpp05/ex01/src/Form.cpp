@@ -6,20 +6,40 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/08 12:57:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 14:28:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 15:40:03 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
 
-Form::Form(const std::string &name, int signGrade, int executeGrade) : _name(name), _signed(false), _signGrade(signGrade), _executeGrade(executeGrade)
+Form::Form(const std::string &name, int signGrade, int executeGrade) : _name(name), _signed(false)
+									, _signGrade(signGrade), _executeGrade(executeGrade)
 {
-	
+	if (signGrade < HIGHEST_GRADE || executeGrade < HIGHEST_GRADE)
+		throw Form::GradeTooHighException();
+	else if (signGrade > LOWEST_GRADE || executeGrade > LOWEST_GRADE)
+		throw Form::GradeTooLowException();
 }
 
 Form::~Form(void)
 {
 	
+}
+
+// Copy constructor
+Form::Form(const Form &other) : _name(other._name), _signed(other._signed)
+							, _signGrade(other._signGrade), _executeGrade(other._executeGrade) {
+}
+
+// Copy assignment operator
+Form & Form::operator=(const Form &other)
+{
+	if (this != &other)
+	{
+		// Only non-const members can be assigned
+		this->_signed = other.getSignStatus();
+	}
+	return *this;
 }
 
 // Getters
@@ -41,6 +61,21 @@ int		Form::getSignGrade(void) const
 int		Form::getExecuteGrade(void) const
 {
 	return _executeGrade;
+}
+
+// Sets the form status to signed if the bureaucrat’s grade is high enough
+void	Form::beSigned(Bureaucrat &bureaucrat)
+{
+	if (bureaucrat.getGrade() <= this->getSignGrade())
+	{
+		this->_signed = true;
+		// signForm(bureaucrat.getName());
+	}
+	else
+	{
+		this->_signed = false;
+		throw Form::GradeTooLowException();
+	}
 }
 
 // Exceptions

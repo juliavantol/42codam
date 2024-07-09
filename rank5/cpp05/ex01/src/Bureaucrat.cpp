@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 12:52:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 15:41:25 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ Bureaucrat::Bureaucrat(void) : _name("Random"), _grade(150)
 
 Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name), _grade(grade) 
 {
-	if (grade < 1)
+	if (grade < HIGHEST_GRADE)
 		throw Bureaucrat::GradeTooHighException();
-	else if (grade > 150)
+	else if (grade > LOWEST_GRADE)
 		throw Bureaucrat::GradeTooLowException();
 	return;
 }
@@ -35,6 +35,7 @@ Bureaucrat & Bureaucrat::operator=(Bureaucrat const &other)
 {
 	if (this != &other)
 	{
+		// Only non-const members can be assigned
 		this->_grade = other.getGrade();
 	}
 	return *this;
@@ -45,17 +46,17 @@ Bureaucrat::~Bureaucrat(void) {
 }
 
 // 1 (highest possible grade) so for incrementing subtract 1
-void	Bureaucrat::incrementGade(void)
+void	Bureaucrat::incrementGrade(void)
 {
-	if (this->getGrade() - 1 < 1)
+	if (this->getGrade() - 1 < HIGHEST_GRADE)
 		throw Bureaucrat::GradeTooHighException();
 	this->_grade--;
 }
 
 // 150 (lowest possible grade) so for decrementing add 1
-void	Bureaucrat::decrementGade(void)
+void	Bureaucrat::decrementGrade(void)
 {
-	if (this->getGrade() + 1 > 150)
+	if (this->getGrade() + 1 > LOWEST_GRADE)
 		throw Bureaucrat::GradeTooLowException();
 	this->_grade++;
 }
@@ -68,6 +69,11 @@ std::string	Bureaucrat::getName(void) const
 int	Bureaucrat::getGrade(void) const
 {
 	return this->_grade;
+}
+
+void	Bureaucrat::signForm(Form &form)
+{
+	std::cout << this->getName() << " signed " << form.getName() << std::endl; 
 }
 
 // Overload of the insertion operator
