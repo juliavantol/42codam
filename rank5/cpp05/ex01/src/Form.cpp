@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/08 12:57:16 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/09 17:21:43 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/09 17:25:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ const char*	Form::GradeTooLowException::what() const throw()
 // Overloading of the insertion operator
 std::ostream& operator<<(std::ostream &o, const Form &rhs)
 {
-	o << "Form name:	" << rhs.getName() << std::endl << "Sign status:	" << rhs.getSignStatus() <<
-	std::endl << "Sign grade:	" << rhs.getSignGrade() << std::endl << "Execute grade:	" << rhs.getExecuteGrade();
+	o << "Form name:		" << rhs.getName() << std::endl
+		<< "Sign status:		" << rhs.getSignStatus()
+		<< std::endl << "Grade to sign:		" << rhs.getSignGrade()
+		<< std::endl << "Grade to execute:	" << rhs.getExecuteGrade();
 	return o;
 }
