@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/10 13:23:54 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 13:35:44 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 13:56:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 
 #include "AForm.hpp"
 
-class ShrubberyCreationForm
+class ShrubberyCreationForm : public AForm
 {
+	private:
+		std::string	_target;
+		
 	public:
-		ShrubberyCreationForm();
+		ShrubberyCreationForm(std::string target);
+		ShrubberyCreationForm(const ShrubberyCreationForm &other);
+		ShrubberyCreationForm & operator=(const ShrubberyCreationForm &other);
 		~ShrubberyCreationForm();
 };
 

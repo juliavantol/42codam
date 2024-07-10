@@ -27,6 +27,7 @@ class AForm
 		int	const			_executeGrade;
 
 	public:
+		AForm();
 		AForm(const std::string &name, int signGrade, int executeGrade);
 		~AForm();
 		AForm(AForm const &other);

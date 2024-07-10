@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/10 13:23:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 13:37:22 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 14:09:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 
 #include "AForm.hpp"
 
-class RobotomyRequestForm
+class RobotomyRequestForm : public AForm
 {
+	private:
+		std::string	_target;
+		
 	public:
-		RobotomyRequestForm();
+		RobotomyRequestForm(std::string target);
+		RobotomyRequestForm(const RobotomyRequestForm &other);
+		RobotomyRequestForm & operator=(const RobotomyRequestForm &other);
 		~RobotomyRequestForm();
 };
 

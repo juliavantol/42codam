@@ -21,9 +21,13 @@ AForm::AForm(const std::string &name, int signGrade, int executeGrade) : _name(n
 		throw AForm::GradeTooLowException();
 }
 
+AForm::AForm(void) : _name("Default"), _signed(false), _signGrade(60), _executeGrade(60)
+{
+	return;
+}
+
 AForm::~AForm(void)
 {
-	
 }
 
 // Copy constructor
