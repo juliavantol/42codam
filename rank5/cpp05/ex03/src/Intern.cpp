@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/10 16:20:22 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 17:19:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 17:32:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,17 @@ const char* Intern::Exception::what() const throw()
 
 AForm *Intern::makeForm(std::string name, std::string target)
 {
-	std::string formNames[] =
-	{
+	std::string formNames[] = {
 		"robotomy request",
 		"presidential pardon",
 		"shrubbery creation"
     };
-	AForm		*forms[] =
-	{
+	AForm		*forms[] = {
 		new RobotomyRequestForm(target),
 		new PresidentialPardonForm(target),
 		new ShrubberyCreationForm(target)
     };
 	AForm	*form = nullptr;
-
 	int i = 0;
 	for (i = 0; i < 3; i++)
 	{
