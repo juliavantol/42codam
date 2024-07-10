@@ -6,22 +6,22 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 12:52:04 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 17:39:07 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(void) : _name("Random"), _grade(150) 
+Bureaucrat::Bureaucrat(void) : _name("Default"), _grade(LOWEST_GRADE) 
 {
 	return;
 }
 
 Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name), _grade(grade) 
 {
-	if (grade < 1)
+	if (grade < HIGHEST_GRADE)
 		throw Bureaucrat::GradeTooHighException();
-	else if (grade > 150)
+	else if (grade > LOWEST_GRADE)
 		throw Bureaucrat::GradeTooLowException();
 	return;
 }
@@ -45,17 +45,17 @@ Bureaucrat::~Bureaucrat(void) {
 }
 
 // 1 (highest possible grade) so for incrementing subtract 1
-void	Bureaucrat::incrementGade(void)
+void	Bureaucrat::incrementGrade(void)
 {
-	if (this->getGrade() - 1 < 1)
+	if (this->getGrade() - 1 < HIGHEST_GRADE)
 		throw Bureaucrat::GradeTooHighException();
 	this->_grade--;
 }
 
-// 150 (lowest possible grade) so for decrementing add 1
-void	Bureaucrat::decrementGade(void)
+// LOWEST_GRADE (lowest possible grade) so for decrementing add 1
+void	Bureaucrat::decrementGrade(void)
 {
-	if (this->getGrade() + 1 > 150)
+	if (this->getGrade() + 1 > LOWEST_GRADE)
 		throw Bureaucrat::GradeTooLowException();
 	this->_grade++;
 }

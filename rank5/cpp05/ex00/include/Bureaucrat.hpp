@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:38 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/08 12:33:52 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 17:39:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define BUREAUCRAT_HPP
 
 #include <iostream>
+
+#define LOWEST_GRADE	150
+#define HIGHEST_GRADE	1
 
 class Bureaucrat
 {
@@ -30,8 +33,8 @@ class Bureaucrat
 		std::string	getName(void) const;
 		int			getGrade(void) const;
 
-		void		incrementGade(void);
-		void		decrementGade(void);
+		void		incrementGrade(void);
+		void		decrementGrade(void);
 
 		class GradeTooHighException: public std::exception
 		{
