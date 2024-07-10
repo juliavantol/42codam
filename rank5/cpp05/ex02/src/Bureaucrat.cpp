@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 13:08:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 14:40:47 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ void	Bureaucrat::signForm(AForm &form, bool status)
 	else
 		std::cout << this->getName() << " couldn't sign " << form.getName()
 					<< " because: ";
+}
+
+void	Bureaucrat::executeForm(const AForm &AForm) const
+{
+	AForm.execute(*this);
 }
 
 // Overload of the insertion operator

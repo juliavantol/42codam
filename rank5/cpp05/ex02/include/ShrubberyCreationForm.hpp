@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/10 13:23:54 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 13:56:58 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 14:43:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define SHRUBBERYCREATIONFORM_HPP
 
 #include "AForm.hpp"
+#include <fstream>
 
 class ShrubberyCreationForm : public AForm
 {
@@ -25,6 +26,8 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm(const ShrubberyCreationForm &other);
 		ShrubberyCreationForm & operator=(const ShrubberyCreationForm &other);
 		~ShrubberyCreationForm();
+
+		void execute(const Bureaucrat &executor) const;
 };
 
 

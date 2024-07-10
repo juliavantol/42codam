@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/10 13:23:50 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 14:09:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 14:29:33 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ class PresidentialPardonForm : public AForm
 		PresidentialPardonForm(const PresidentialPardonForm &other);
 		PresidentialPardonForm & operator=(const PresidentialPardonForm &other);
 		~PresidentialPardonForm();
+
+		void execute(const Bureaucrat &executor) const;
 };
 
 #endif

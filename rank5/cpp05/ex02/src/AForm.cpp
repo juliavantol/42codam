@@ -94,6 +94,11 @@ const char*	AForm::GradeTooLowException::what() const throw()
 	return "Grade too low";
 }
 
+const char*	AForm::NotSignedException::what() const throw()
+{
+	return "Form is not signed";
+}
+
 // Overloading of the insertion operator
 std::ostream& operator<<(std::ostream &o, const AForm &rhs)
 {
