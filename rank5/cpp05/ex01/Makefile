@@ -1,5 +1,5 @@
 NAME = main
-CFLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address
+CPPFLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address
 INC = -I include
 CC = c++
 SRC = src/Main.cpp src/Bureaucrat.cpp src/Form.cpp
@@ -15,13 +15,13 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "---------$(BOLD)Linking...$(END)---------"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CPPFLAGS) $(OBJ) -o $(NAME)
 	@echo "$(GREEN)$(BOLD)["$(NAME)"]$(END)" "ready for execution!"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 	@mkdir -p $(dir $@)
 	@echo "$(BOLD)Compiling$(END) $(GREEN)$< $(END)"
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@$(CC) $(CPPFLAGS) $(INC) -c $< -o $@
 
 clean:
 	@if [ -d "$(OBJ_DIR)" ]; then \
