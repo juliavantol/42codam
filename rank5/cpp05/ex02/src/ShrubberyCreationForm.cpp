@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/10 13:34:20 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 15:31:11 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 15:57:38 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,15 @@ ShrubberyCreationForm & ShrubberyCreationForm::operator=(const ShrubberyCreation
 void	ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 {
 	if (this->getSignStatus() == false)
+	{
+		std::cout << "Couldn't execute form: ";
 		throw AForm::NotSignedException();
-
-    if (executor.getGrade() > this->getExecuteGrade())
+	}
+    else if (executor.getGrade() > this->getExecuteGrade())
+	{
+		std::cout << "Couldn't execute form: ";
 		throw AForm::GradeTooLowException();
+	}
 
 	std::ofstream outputFile(this->_target + "_shrubbery");
 	if (!outputFile.is_open())

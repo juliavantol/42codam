@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 15:49:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 15:55:01 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,20 @@ int main(void)
 		b3.executeForm(robotForm);
 		b3.executeForm(robotForm);
 		b3.executeForm(robotForm);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << RED << e.what() << RESET << std::endl;
+	}
+	std::cout << std::endl << GREEN << BOLD << "----------------- TEST 4 ----------------" << RESET << std::endl;
+	try
+	{
+		Bureaucrat				b4("B4", 1);
+		PresidentialPardonForm	presidentForm("P1");
+
+		presidentForm.beSigned(b4);
+		std::cout << std::endl;
+		b4.executeForm(presidentForm);
 	}
 	catch(const std::exception& e)
 	{
