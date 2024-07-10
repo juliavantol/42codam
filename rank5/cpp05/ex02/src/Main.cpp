@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 15:55:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 16:13:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,19 @@ int main(void)
 
 		robotForm.beSigned(b3);
 		std::cout << std::endl;
+	
 		b3.executeForm(robotForm);
+		std::cout << std::endl;
+		
 		b3.executeForm(robotForm);
+		std::cout << std::endl;
+
 		b3.executeForm(robotForm);
+		std::cout << std::endl;
+
 		b3.executeForm(robotForm);
+		std::cout << std::endl;
+
 		b3.executeForm(robotForm);
 	}
 	catch(const std::exception& e)

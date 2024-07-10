@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/10 13:34:25 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 15:58:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 16:12:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,9 @@ void	RobotomyRequestForm::execute(const Bureaucrat &executor) const
 	int	result = std::rand() % 2;
 
 	if (this->getSignStatus() == false)
-	{
-		std::cout << "Couldn't execute form: ";
 		throw AForm::NotSignedException();
-	}
     else if (executor.getGrade() > this->getExecuteGrade())
-	{
-		std::cout << "Couldn't execute form: ";
 		throw AForm::GradeTooLowException();
-	}
 	
 	if (result == 0)
 		std::cout << "*Bzzzzzzzz* " << this->_target << " has been robotomized!" << std::endl;
