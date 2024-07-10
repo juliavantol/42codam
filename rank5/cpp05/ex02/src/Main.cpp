@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:43 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 13:07:33 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 13:20:24 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(void)
 	std::cout << GREEN << BOLD << "----------------- TEST 1 -----------------" << RESET << std::endl;
 	try
 	{
-		
+		Bureaucrat b1("b1", 60);
 
 	}
 	catch(const std::exception& e)

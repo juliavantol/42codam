@@ -33,12 +33,12 @@ class AForm
 		AForm &operator=(const AForm &other);
 
 		// Getters
-		std::string	getName(void) const;
-		bool		getSignStatus(void) const;
-		int			getSignGrade(void) const;
-		int			getExecuteGrade(void) const;
+		std::string		getName(void) const;
+		bool			getSignStatus(void) const;
+		int				getSignGrade(void) const;
+		int				getExecuteGrade(void) const;
 
-		void		beSigned(Bureaucrat &bureaucrat);
+		virtual void	beSigned(Bureaucrat &bureaucrat) = 0;
 		
 
 		// Exceptions

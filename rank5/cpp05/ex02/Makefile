@@ -2,7 +2,8 @@ NAME = main
 CFLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address
 INC = -I include
 CC = c++
-SRC = src/Main.cpp src/Bureaucrat.cpp src/AForm.cpp
+SRC = src/Main.cpp src/Bureaucrat.cpp src/AForm.cpp src/PresidentialPardonForm.cpp \
+		src/RobotomyRequestForm.cpp src/ShrubberyCreationForm.cpp
 OBJ_DIR = obj/
 SRC_DIR = src/
 OBJ = $(SRC:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
