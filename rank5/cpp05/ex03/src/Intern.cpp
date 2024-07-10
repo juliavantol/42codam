@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/10 16:20:22 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 17:13:48 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 17:19:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ Intern & Intern::operator=(const Intern &other)
 {
 	(void) other;
 	return *this;
+}
+
+const char* Intern::Exception::what() const throw()
+{
+	return "Form not found";
 }
 
 AForm *Intern::makeForm(std::string name, std::string target)
@@ -62,9 +67,7 @@ AForm *Intern::makeForm(std::string name, std::string target)
 		if (i != j)
 			delete forms[j];
 	}
-	if (form)
-		return form;
-	else
-		std::cout << "Intern not able to create " << name << std::endl;
+	if (form == nullptr)
+		throw Intern::Exception();
 	return form;
 }

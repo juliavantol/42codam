@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 14:08:40 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 14:40:47 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 17:28:13 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,23 @@ void	Bureaucrat::signForm(AForm &form, bool status)
 
 void	Bureaucrat::executeForm(const AForm &AForm) const
 {
-	AForm.execute(*this);
+	try
+	{
+		AForm.execute(*this);
+		std::cout << GREEN << this->_name << " succesfully executed " << AForm.getName() << RESET << std::endl;
+	}
+	catch (const AForm::NotSignedException &e)
+    {
+        std::cout << RED << this->_name << " couldn't execute " << AForm.getName() << ": " << RESET << e.what() << std::endl;
+    }
+    catch (const AForm::GradeTooLowException &e)
+    {
+        std::cout << RED << this->_name << " couldn't execute " << AForm.getName() << ": " << RESET << e.what() << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << RED << this->_name << " couldn't execute " << AForm.getName() << RESET << ": Unknown error" << std::endl;
+    }
 }
 
 // Overload of the insertion operator

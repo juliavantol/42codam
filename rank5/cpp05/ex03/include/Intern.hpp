@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/10 16:20:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/10 16:53:02 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/10 17:16:36 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ class Intern
 		~Intern();
 
 		AForm	*makeForm(std::string name, std::string target);
+
+		class Exception: public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
 };
 
 #endif
