@@ -6,21 +6,15 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:17 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/12 01:00:33 by Julia         ########   odam.nl         */
+/*   Updated: 2024/07/12 01:01:54 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 
-ScalarConverter::ScalarConverter(void)
-{
-	
-}
+ScalarConverter::ScalarConverter(void) {}
 
-ScalarConverter::~ScalarConverter(void)
-{
-	
-}
+ScalarConverter::~ScalarConverter(void) {}
 
 ScalarConverter::ScalarConverter(const ScalarConverter &other)
 {
