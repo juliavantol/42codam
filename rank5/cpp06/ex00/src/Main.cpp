@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:08:31 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/11 12:51:28 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/11 17:00:49 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@ int main(int argc, char **argv)
 	}
 	std::string	input = std::string(argv[1]);
 	ScalarConverter::convert(input);
-	
 }

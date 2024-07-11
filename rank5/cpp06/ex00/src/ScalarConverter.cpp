@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:17 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/11 14:24:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/12 01:00:33 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,30 +59,46 @@ static bool isChar(const std::string &literal)
 
 static bool isFloat(const std::string &literal)
 {
-	int	i = 0;
-	
+	int i = 0, j = 0, x = 0;
+	int len = literal.length();
+	int	decimalIndex = literal.find(".");
+
+	if (decimalIndex == -1 || literal[len - 1] != 'f' || !isdigit(literal[decimalIndex + 1]))
+		return false;
 	if (literal[0] == '-')
 		i++;
-	while (literal[i])
+	for (j = i; j < decimalIndex; j++)
 	{
-		if (isdigit(literal[i]) == false)
+		if (isdigit(literal[j]) == false)
 			return false;
-		i++;
+	}
+	for (x = decimalIndex + 1; x < len - 1; x++)
+	{
+		if (isdigit(literal[x]) == false)
+			return false;
 	}
 	return true;
 }
 
 static bool isDouble(const std::string &literal)
 {
-	int	i = 0;
-	
+	int i = 0, j = 0, x = 0;
+	int len = literal.length();
+	int	decimalIndex = literal.find(".");
+
+	if (decimalIndex == -1 || !isdigit(literal[decimalIndex + 1]))
+		return false;
 	if (literal[0] == '-')
 		i++;
-	while (literal[i])
+	for (j = i; j < decimalIndex; j++)
 	{
-		if (isdigit(literal[i]) == false)
+		if (isdigit(literal[j]) == false)
 			return false;
-		i++;
+	}
+	for (x = decimalIndex + 1; x < len; x++)
+	{
+		if (isdigit(literal[x]) == false)
+			return false;
 	}
 	return true;
 }
