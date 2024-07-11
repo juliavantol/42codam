@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ScalarConverter.hpp                                :+:    :+:            */
+/*   Defines.hpp                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/07/11 12:09:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/11 13:47:18 by juvan-to      ########   odam.nl         */
+/*   Created: 2024/07/11 13:35:45 by juvan-to      #+#    #+#                 */
+/*   Updated: 2024/07/11 13:36:12 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCALARCONVERTER_HPP
-#define SCALARCONVERTER_HPP
+#ifndef DEFINES_HPP
+#define DEFINES_HPP
 
-# include <iostream>
-# include <string>
-# include "Defines.hpp"
-# include <cctype>
+# define GREEN	"\033[32m"
+# define BOLD	"\033[1m"
+# define RESET	"\033[0m"
+# define RED	"\033[31m"
 
-class ScalarConverter
-{
-	private:
-		ScalarConverter();
-		
-	public:
-		~ScalarConverter();
-		ScalarConverter(const ScalarConverter &other);
-		ScalarConverter & operator=(const ScalarConverter &other);
-
-		static void convert(const std::string &literal);
-
-};
+# define LITERAL_ERROR	0
+# define LITERAL_CHAR	1
+# define LITERAL_INT	2
+# define LITERAL_FLOAT	3
+# define LITERAL_DOUBLE	4
 
 #endif

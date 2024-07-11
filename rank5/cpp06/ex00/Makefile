@@ -1,4 +1,4 @@
-NAME = main
+NAME = convert
 CPPFLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address
 INC = -I include
 CC = c++
@@ -36,8 +36,5 @@ fclean: clean
 	@rm -rf $(NAME)
 
 re: fclean all
-
-make run: all
-	@./$(NAME)
 
 .PHONY: all clean fclean re
