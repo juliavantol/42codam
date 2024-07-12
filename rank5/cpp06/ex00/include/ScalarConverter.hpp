@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/11 13:47:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2024/07/12 15:59:04 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <string>
 # include "Defines.hpp"
 # include <cctype>
+# include <typeinfo>
+# include <iomanip>
 
 class ScalarConverter
 {
