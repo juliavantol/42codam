@@ -2,7 +2,7 @@ NAME = convert
 CPPFLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address
 INC = -I include
 CC = c++
-SRC = src/Main.cpp src/ScalarConverter.cpp
+SRC = src/Main.cpp src/ScalarConverter.cpp src/Helpers.cpp
 OBJ_DIR = obj/
 SRC_DIR = src/
 OBJ = $(SRC:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)

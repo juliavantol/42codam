@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:17 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/13 17:22:29 by Julia         ########   odam.nl         */
+/*   Updated: 2024/07/13 18:03:53 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,82 +29,41 @@ ScalarConverter & ScalarConverter::operator=(const ScalarConverter &other)
 	return *this;
 }
 
-static bool isChar(const std::string &literal)
+static int getType(const std::string &literal)
 {
-	if (literal.length() != 1)
-		return false;
-	if (isprint(literal[0]))
-		return true;
-	return false;
+	if (isInt(literal))
+		return LITERAL_INT;
+	else if (isChar(literal))
+		return LITERAL_CHAR;
+	else if (isFloat(literal))
+		return LITERAL_FLOAT;
+	else if (isDouble(literal))
+		return LITERAL_DOUBLE;
+	return LITERAL_ERROR;
 }
 
-static bool isInt(const std::string &literal)
+static int getInt(const std::string &literal)
 {
-	int	i = 0;
+	int	i;
 	
-	if (literal[0] == '-')
-		i++;
-	while (literal[i])
+	try
 	{
-		if (isdigit(literal[i]) == false)
-			return false;
-		i++;
+		i = std::stoi(literal);
 	}
-	if (isdigit(literal[i]) == false && literal[i] != '\0')
-		return false;
-	return true;
-}
-
-static bool isFloat(const std::string &literal)
-{
-	int i = 0, j = 0, x = 0;
-	int len = literal.length();
-	int	decimalIndex = literal.find(".");
-
-	if (decimalIndex == -1 || literal[len - 1] != 'f' || !isdigit(literal[decimalIndex + 1]))
-		return false;
-	if (literal[0] == '-')
-		i++;
-	for (j = i; j < decimalIndex; j++)
+	catch (const std::out_of_range &error)
 	{
-		if (isdigit(literal[j]) == false)
-			return false;
+		if (literal[0] == '-')
+			i = std::numeric_limits<int>::min();
+		else
+			i = std::numeric_limits<int>::max();
 	}
-	for (x = decimalIndex + 1; x < len - 1; x++)
-	{
-		if (isdigit(literal[x]) == false)
-			return false;
-	}
-	return true;
-}
-
-static bool isDouble(const std::string &literal)
-{
-	int i = 0, j = 0, x = 0;
-	int len = literal.length();
-	int	decimalIndex = literal.find(".");
-
-	if (decimalIndex == -1 || !isdigit(literal[decimalIndex + 1]))
-		return false;
-	if (literal[0] == '-')
-		i++;
-	for (j = i; j < decimalIndex; j++)
-	{
-		if (isdigit(literal[j]) == false)
-			return false;
-	}
-	for (x = decimalIndex + 1; x < len; x++)
-	{
-		if (isdigit(literal[x]) == false)
-			return false;
-	}
-	return true;
+	return i;
 }
 
 static void	printOutput(char c, int i, float f, double d, int literalType)
 {
 	if (isprint(c))
-		std::cout << "char: " << c << std::endl;
+		std::cout << "char: '" << c << "'" << std::endl;
 	else
 		std::cout << "char: Non displayable" << std::endl;
 	std::cout << "int: " << i << std::endl;
@@ -120,24 +79,11 @@ static void	printOutput(char c, int i, float f, double d, int literalType)
 	}
 }
 
-static int getType(const std::string &literal)
-{
-	if (isInt(literal))
-		return LITERAL_INT;
-	else if (isChar(literal))
-		return LITERAL_CHAR;
-	else if (isFloat(literal))
-		return LITERAL_FLOAT;
-	else if (isDouble(literal))
-		return LITERAL_DOUBLE;
-	return LITERAL_ERROR;
-}
-
 void	ScalarConverter::convert(const std::string &literal)
 {
 	int		type = getType(literal);
+	int		i;
 	char	c;
-	int 	i;
 	float	f;
 	double	d;
 
@@ -148,7 +94,7 @@ void	ScalarConverter::convert(const std::string &literal)
 			printOutput(c, static_cast<int>(c), static_cast<float>(c), static_cast<double>(c), LITERAL_CHAR);
 			break;
 		case LITERAL_INT:
-			i = std::stoi(literal);
+			i = getInt(literal);
 			printOutput(static_cast<char>(i), i, static_cast<float>(i), static_cast<double>(i), LITERAL_INT);
 			break;
 		case LITERAL_FLOAT:
