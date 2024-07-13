@@ -6,11 +6,13 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:17 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/12 18:51:52 by Julia         ########   odam.nl         */
+/*   Updated: 2024/07/13 17:15:11 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
+
+// 2147483647
 
 ScalarConverter::ScalarConverter(void) {}
 
@@ -99,65 +101,12 @@ static bool isDouble(const std::string &literal)
 	return true;
 }
 
-static void	convertChar(const std::string &literal)
+static void	printOutput(char c, int i, float f, double d)
 {
-	char	c = literal[0];
-	
 	std::cout << "char: " << c << std::endl;
-	std::cout << "int: " << static_cast<int>(c) << std::endl;
-	std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
-	std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
-}
-
-static void	convertInt(const std::string &literal)
-{
-	try
-	{
-		int	i = std::stoi(literal);
-		
-		std::cout << "char: " << static_cast<char>(i) << std::endl;
-		std::cout << "int: " << i << std::endl;
-		std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
-		std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
-	}
-	catch(std::exception &err)
-	{
-		std::cerr << RED << "Conversion failed" << RESET << std::endl;
-	}
-}
-
-static void	convertFloat(const std::string &literal)
-{
-	try
-	{
-		float	f = std::stof(literal);
-
-		std::cout << "char: " << static_cast<char>(f) << std::endl;
-		std::cout << "int: " << static_cast<int>(f) << std::endl;
-		std::cout << "float: " << f << "f" << std::endl;
-		std::cout << "double: " << static_cast<double>(f) << std::endl;
-	}
-	catch(std::exception &err)
-	{
-		std::cerr << RED << "Conversion failed" << RESET << std::endl;
-	}
-}
-
-static void	convertDouble(const std::string &literal)
-{
-	try
-	{
-		double	d = std::stod(literal);
-
-		std::cout << "char: " << static_cast<char>(d) << std::endl;
-		std::cout << "int: " << static_cast<int>(d) << std::endl;
-		std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
-		std::cout << "double: " << d << std::endl;
-	}
-	catch(std::exception &err)
-	{
-		std::cerr << RED << "Conversion failed" << RESET << std::endl;
-	}
+	std::cout << "int: " << i << std::endl;
+	std::cout << "float: " << f << ".0f" << std::endl;
+	std::cout << "double: " << d << ".0" << std::endl;
 }
 
 static int getType(const std::string &literal)
@@ -175,21 +124,29 @@ static int getType(const std::string &literal)
 
 void	ScalarConverter::convert(const std::string &literal)
 {
-	int	type = getType(literal);
+	int		type = getType(literal);
+	char	c;
+	int 	i;
+	float	f;
+	double	d;
 
 	switch (type)
 	{
 		case LITERAL_CHAR:
-			convertChar(literal);
+			c = literal[0];
+			printOutput(c, static_cast<int>(c), static_cast<float>(c), static_cast<double>(c));
 			break;
 		case LITERAL_INT:
-			convertInt(literal);
+			i = std::stoi(literal);
+			printOutput(static_cast<char>(i), i, static_cast<float>(i), static_cast<double>(i));
 			break;
 		case LITERAL_FLOAT:
-			convertFloat(literal);
+			f = std::stof(literal);
+			printOutput(static_cast<char>(f), static_cast<int>(f), f, static_cast<double>(f));
 			break;
 		case LITERAL_DOUBLE:
-			convertDouble(literal);
+			d = std::stod(literal);
+			printOutput(static_cast<char>(d), static_cast<int>(d), static_cast<float>(d), d);
 			break;
 		default:
 			std::cout << "Error" << std::endl;
