@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:17 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/13 17:15:11 by Julia         ########   odam.nl         */
+/*   Updated: 2024/07/13 17:22:29 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,23 @@ static bool isDouble(const std::string &literal)
 	return true;
 }
 
-static void	printOutput(char c, int i, float f, double d)
+static void	printOutput(char c, int i, float f, double d, int literalType)
 {
-	std::cout << "char: " << c << std::endl;
+	if (isprint(c))
+		std::cout << "char: " << c << std::endl;
+	else
+		std::cout << "char: Non displayable" << std::endl;
 	std::cout << "int: " << i << std::endl;
-	std::cout << "float: " << f << ".0f" << std::endl;
-	std::cout << "double: " << d << ".0" << std::endl;
+	if (literalType == LITERAL_FLOAT || literalType == LITERAL_DOUBLE)
+	{
+		std::cout << "float: " << f << "f" << std::endl;
+		std::cout << "double: " << d << std::endl;
+	}
+	else
+	{
+		std::cout << "float: " << f << ".0f" << std::endl;
+		std::cout << "double: " << d << ".0" << std::endl;
+	}
 }
 
 static int getType(const std::string &literal)
@@ -134,19 +145,19 @@ void	ScalarConverter::convert(const std::string &literal)
 	{
 		case LITERAL_CHAR:
 			c = literal[0];
-			printOutput(c, static_cast<int>(c), static_cast<float>(c), static_cast<double>(c));
+			printOutput(c, static_cast<int>(c), static_cast<float>(c), static_cast<double>(c), LITERAL_CHAR);
 			break;
 		case LITERAL_INT:
 			i = std::stoi(literal);
-			printOutput(static_cast<char>(i), i, static_cast<float>(i), static_cast<double>(i));
+			printOutput(static_cast<char>(i), i, static_cast<float>(i), static_cast<double>(i), LITERAL_INT);
 			break;
 		case LITERAL_FLOAT:
 			f = std::stof(literal);
-			printOutput(static_cast<char>(f), static_cast<int>(f), f, static_cast<double>(f));
+			printOutput(static_cast<char>(f), static_cast<int>(f), f, static_cast<double>(f), LITERAL_FLOAT);
 			break;
 		case LITERAL_DOUBLE:
 			d = std::stod(literal);
-			printOutput(static_cast<char>(d), static_cast<int>(d), static_cast<float>(d), d);
+			printOutput(static_cast<char>(d), static_cast<int>(d), static_cast<float>(d), d, LITERAL_DOUBLE);
 			break;
 		default:
 			std::cout << "Error" << std::endl;
