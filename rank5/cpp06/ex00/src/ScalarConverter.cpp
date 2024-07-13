@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:17 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/13 18:03:53 by Julia         ########   odam.nl         */
+/*   Updated: 2024/07/13 18:28:28 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int getType(const std::string &literal)
 		return LITERAL_FLOAT;
 	else if (isDouble(literal))
 		return LITERAL_DOUBLE;
+	else if (literal == "nan" || literal == "+inf" || literal == "+inff" || "-inf" || literal == "-inff")
+		return LITERAL_PSEUDO;
 	return LITERAL_ERROR;
 }
 
@@ -58,6 +60,27 @@ static int getInt(const std::string &literal)
 			i = std::numeric_limits<int>::max();
 	}
 	return i;
+}
+
+static void	printPseudoLiteral(const std::string &literal)
+{
+	std::cout << "char: impossible" << std::endl;
+	std::cout << "int: impossible" << std::endl;
+	if (literal == "+inf" || literal == "+inff")
+	{
+		std::cout << "float: +inff" << std::endl;
+		std::cout << "double: +inf" << std::endl;
+	}
+	else if (literal == "-inf" || literal == "-inff")
+	{
+		std::cout << "float: -inff" << std::endl;
+		std::cout << "double: -inf" << std::endl;
+	}
+	else if (literal == "nan")
+	{
+		std::cout << "float: nanf" << std::endl;
+		std::cout << "double: nan"<< std::endl;
+	}
 }
 
 static void	printOutput(char c, int i, float f, double d, int literalType)
@@ -105,7 +128,10 @@ void	ScalarConverter::convert(const std::string &literal)
 			d = std::stod(literal);
 			printOutput(static_cast<char>(d), static_cast<int>(d), static_cast<float>(d), d, LITERAL_DOUBLE);
 			break;
+		case LITERAL_PSEUDO:
+			printPseudoLiteral(literal);
+			break;
 		default:
-			std::cout << "Error" << std::endl;
+			std::cout << RED << "Unrecognised literal" << RESET << std::endl;
 	}
 }
