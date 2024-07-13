@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:17 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/13 18:28:28 by Julia         ########   odam.nl         */
+/*   Updated: 2024/07/13 19:47:59 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,25 +81,38 @@ static void	printPseudoLiteral(const std::string &literal)
 		std::cout << "float: nanf" << std::endl;
 		std::cout << "double: nan"<< std::endl;
 	}
+	else
+	{
+		std::cout << "float: impossible" << std::endl;
+		std::cout << "double: impossible"<< std::endl;
+	}
 }
 
 static void	printOutput(char c, int i, float f, double d, int literalType)
-{
+{	
 	if (isprint(c))
 		std::cout << "char: '" << c << "'" << std::endl;
 	else
 		std::cout << "char: Non displayable" << std::endl;
 	std::cout << "int: " << i << std::endl;
-	if (literalType == LITERAL_FLOAT || literalType == LITERAL_DOUBLE)
+	if (f >= -FLT_MIN && f <= FLT_MAX)
 	{
-		std::cout << "float: " << f << "f" << std::endl;
-		std::cout << "double: " << d << std::endl;
+		if (literalType == LITERAL_FLOAT || literalType == LITERAL_DOUBLE)
+			std::cout << "float: " << f << "f" << std::endl;
+		else
+			std::cout << "float: " << f << ".0f" << std::endl;
 	}
 	else
+		std::cout << "float: impossible" << std::endl;
+	if (d >= -DBL_MIN && d <= DBL_MAX)
 	{
-		std::cout << "float: " << f << ".0f" << std::endl;
-		std::cout << "double: " << d << ".0" << std::endl;
+		if (literalType == LITERAL_FLOAT || literalType == LITERAL_DOUBLE)
+			std::cout << "double: " << d << std::endl;
+		else
+			std::cout << "double: " << d << ".0" << std::endl;
 	}
+	else
+		std::cout << "double: impossible" << std::endl;
 }
 
 void	ScalarConverter::convert(const std::string &literal)

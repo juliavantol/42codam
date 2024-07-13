@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/13 18:02:47 by Julia         ########   odam.nl         */
+/*   Updated: 2024/07/13 19:15:53 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # include <cctype>
 # include <typeinfo>
 # include <iomanip>
+# include <math.h>
+# include <cmath>
+# include <climits>
+# include <cfloat>
 
 class ScalarConverter
 {
