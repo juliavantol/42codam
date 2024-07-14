@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 12:09:17 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/13 19:47:59 by Julia         ########   odam.nl         */
+/*   Updated: 2024/07/14 17:08:16 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ static int getType(const std::string &literal)
 		return LITERAL_FLOAT;
 	else if (isDouble(literal))
 		return LITERAL_DOUBLE;
-	else if (literal == "nan" || literal == "+inf" || literal == "+inff" || "-inf" || literal == "-inff")
-		return LITERAL_PSEUDO;
+	else if (literal == "+inff" || literal == "-inff")
+		return PSEUDO_FLOAT;
+	else if (literal == "+inf" || literal == "-inf" || literal == "nan")
+		return PSEUDO_DOUBLE;
 	return LITERAL_ERROR;
 }
 
@@ -62,29 +64,20 @@ static int getInt(const std::string &literal)
 	return i;
 }
 
-static void	printPseudoLiteral(const std::string &literal)
+static void	printPseudoLiteral(const std::string &literal, int literalType)
 {
 	std::cout << "char: impossible" << std::endl;
 	std::cout << "int: impossible" << std::endl;
-	if (literal == "+inf" || literal == "+inff")
+
+	if (literalType == PSEUDO_DOUBLE)
 	{
-		std::cout << "float: +inff" << std::endl;
-		std::cout << "double: +inf" << std::endl;
+		std::cout << "float: " << literal << "f" << std::endl;
+		std::cout << "double: " << literal << std::endl;
 	}
-	else if (literal == "-inf" || literal == "-inff")
+	else if (literalType == PSEUDO_FLOAT)
 	{
-		std::cout << "float: -inff" << std::endl;
-		std::cout << "double: -inf" << std::endl;
-	}
-	else if (literal == "nan")
-	{
-		std::cout << "float: nanf" << std::endl;
-		std::cout << "double: nan"<< std::endl;
-	}
-	else
-	{
-		std::cout << "float: impossible" << std::endl;
-		std::cout << "double: impossible"<< std::endl;
+		std::cout << "float: " << literal << std::endl;
+		std::cout << "double: " << literal.substr(0, literal.length() - 1) << std::endl;
 	}
 }
 
@@ -97,7 +90,7 @@ static void	printOutput(char c, int i, float f, double d, int literalType)
 	std::cout << "int: " << i << std::endl;
 	if (f >= -FLT_MIN && f <= FLT_MAX)
 	{
-		if (literalType == LITERAL_FLOAT || literalType == LITERAL_DOUBLE)
+		if ((literalType == LITERAL_FLOAT || literalType == LITERAL_DOUBLE) && std::floor(f) != f)
 			std::cout << "float: " << f << "f" << std::endl;
 		else
 			std::cout << "float: " << f << ".0f" << std::endl;
@@ -106,7 +99,7 @@ static void	printOutput(char c, int i, float f, double d, int literalType)
 		std::cout << "float: impossible" << std::endl;
 	if (d >= -DBL_MIN && d <= DBL_MAX)
 	{
-		if (literalType == LITERAL_FLOAT || literalType == LITERAL_DOUBLE)
+		if ((literalType == LITERAL_FLOAT || literalType == LITERAL_DOUBLE) && std::floor(d) != d)
 			std::cout << "double: " << d << std::endl;
 		else
 			std::cout << "double: " << d << ".0" << std::endl;
@@ -118,33 +111,29 @@ static void	printOutput(char c, int i, float f, double d, int literalType)
 void	ScalarConverter::convert(const std::string &literal)
 {
 	int		type = getType(literal);
-	int		i;
-	char	c;
-	float	f;
-	double	d;
-
-	switch (type)
+	
+	if (type == LITERAL_CHAR)
 	{
-		case LITERAL_CHAR:
-			c = literal[0];
-			printOutput(c, static_cast<int>(c), static_cast<float>(c), static_cast<double>(c), LITERAL_CHAR);
-			break;
-		case LITERAL_INT:
-			i = getInt(literal);
-			printOutput(static_cast<char>(i), i, static_cast<float>(i), static_cast<double>(i), LITERAL_INT);
-			break;
-		case LITERAL_FLOAT:
-			f = std::stof(literal);
-			printOutput(static_cast<char>(f), static_cast<int>(f), f, static_cast<double>(f), LITERAL_FLOAT);
-			break;
-		case LITERAL_DOUBLE:
-			d = std::stod(literal);
-			printOutput(static_cast<char>(d), static_cast<int>(d), static_cast<float>(d), d, LITERAL_DOUBLE);
-			break;
-		case LITERAL_PSEUDO:
-			printPseudoLiteral(literal);
-			break;
-		default:
-			std::cout << RED << "Unrecognised literal" << RESET << std::endl;
+		char c = literal[0];
+		printOutput(c, static_cast<int>(c), static_cast<float>(c), static_cast<double>(c), LITERAL_CHAR);
 	}
+	else if (type == LITERAL_INT)
+	{
+		int i = getInt(literal);
+		printOutput(static_cast<char>(i), i, static_cast<float>(i), static_cast<double>(i), LITERAL_INT);
+	}
+	else if (type == LITERAL_FLOAT)
+	{
+		float f = std::stof(literal);
+		printOutput(static_cast<char>(f), static_cast<int>(f), f, static_cast<double>(f), LITERAL_FLOAT);
+	}
+	else if (type == LITERAL_DOUBLE)
+	{
+		double d = std::stod(literal);
+		printOutput(static_cast<char>(d), static_cast<int>(d), static_cast<float>(d), d, LITERAL_DOUBLE);
+	}
+	else if (type == PSEUDO_DOUBLE || type == PSEUDO_FLOAT)
+		printPseudoLiteral(literal, type);
+	else
+		std::cout << RED << "Invalid literal" << RESET << std::endl;
 }
