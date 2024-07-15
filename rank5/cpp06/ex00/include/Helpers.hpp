@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 13:35:45 by juvan-to      #+#    #+#                 */
-/*   Updated: 2024/07/14 15:15:25 by Julia         ########   odam.nl         */
+/*   Updated: 2024/07/16 00:15:08 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@
 # define LITERAL_INT	2
 # define LITERAL_FLOAT	3
 # define LITERAL_DOUBLE	4
-# define LITERAL_NAN	5
-# define PSEUDO_FLOAT	6
-# define PSEUDO_DOUBLE	7
-# define LITERAL_PSEUDO	8	
+# define PSEUDO_FLOAT	5
+# define PSEUDO_DOUBLE	6
 
 bool isChar(const std::string &literal);
 bool isInt(const std::string &literal);
