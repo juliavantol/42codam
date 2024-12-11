@@ -5,7 +5,6 @@ This repository contains the projects I completed during my studies at Codam, pa
 | Rank | Project Name      | Description                                                         | Language(s) Used         |
 |------|-------------------|---------------------------------------------------------------------|--------------------------|
 | 0    | **libft**          | Create a library of basic C functions.                              | C                        |
-|
 | 1    | **born2beroot**    | Create a virtual machine to host a Debian server.                   | C                        |
 | 1    | **ft_printf**      | Recode the standard C library function, printf.                     | C                        |
 | 1    | **get_next_line**  | Read a single line from a file descriptor, can be used in a loop.    | C                        |
